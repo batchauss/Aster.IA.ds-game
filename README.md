@@ -3,7 +3,7 @@
 </div>
 
 <p align="center">
-	Jeu-vidéo - Interface graphique - IA - Rendu 2D / 3D
+	Jeu-vidéo - Interface graphique - IA - Rendu 3D
 </p>
 
 Basé sur le jeu des années 80 [Asteroids](https://fr.wikipedia.org/wiki/Asteroids),
