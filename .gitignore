@@ -1,3 +1,4 @@
 project:pro.user.*
-build
-obj
+Projet/build
+Projet/obj
+.vscode
