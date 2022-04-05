@@ -5,8 +5,8 @@ BUILD_FLAGS= -Wall
 LINK_FLAGS= -lm -lGL -lGLU -lglut
 
 Executable=ASTERIADS
-Sources= $(wildcard src/*.c)
-Object= $(patsubst src/%.c,obj/%.o,$(Sources))
+Sources= $(wildcard src/*.cpp)
+Object= $(patsubst src/%.cpp,obj/%.o,$(Sources))
 
 all: setup_directories build/$(Executable)
 
@@ -15,10 +15,10 @@ setup_directories:
 
 # rules	
 build/$(Executable): $(Object)
-	gcc -o $@ $(Object) $(LINK_FLAGS)
+	g++ -o $@ $(Object) $(LINK_FLAGS)
 	
-obj/%.o: src/%.c
-	gcc -c -o $@ $< $(BUILD_FLAGS)
+obj/%.o: src/%.cpp
+	g++ -c -o $@ $< $(BUILD_FLAGS)
 
 # clean
 clean:
