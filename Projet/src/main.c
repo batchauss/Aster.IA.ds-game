@@ -5,6 +5,8 @@ GLvoid Modelisation()
 {
   VM_init();
   
+ glutSolidCone(1,10,100,1);
+
   glutSwapBuffers();
 }
 
