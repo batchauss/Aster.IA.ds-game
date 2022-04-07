@@ -11,7 +11,6 @@ void Vaisseau::modelisation(){
     glPushMatrix();
         glTranslatef(posx(), posy(), posz());
         glRotatef(180 + this->angle, 0, 1, 0);
-        glRotatef(-20, 1, 0, 0);
         glutSolidCone(1, 5, 30, 30);
     glPopMatrix();
 }

@@ -42,9 +42,7 @@ int notre_init(int argc, char** argv, void (*Modelisation)()){
   	 r[i][1] = (-50) + (float)((float)rand() * (50-(-50)+1) / (RAND_MAX-1));
   	 r[i][2] = (-50) + (float)((float)rand() * (50-(-50)+1) / (RAND_MAX-1));
 	 angle[i] = (float)((float)rand() * (360+1) / (RAND_MAX-1));
-	 
-  		   
-	}
+}
 
 	glutMainLoop();
 	return 1;

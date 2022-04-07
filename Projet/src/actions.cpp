@@ -20,16 +20,14 @@ void touche(unsigned char key, int x, int y)
       calculRotationTranslatex = -0.4 * sin(vaisseau->getAngle() * 3.14 / 180);
       calculRotationTranslatez =  -0.4 * cos(vaisseau->getAngle() * 3.14 / 180);
       vaisseau->move(calculRotationTranslatex, 0, calculRotationTranslatez);
-      xcam += -calculRotationTranslatex;
-      zcam += -calculRotationTranslatez;
+      xcam += calculRotationTranslatex;
+      zcam += calculRotationTranslatez;
       break;
     case TOUCHE_MIN_Q :
       vaisseau->setAngle(vaisseau->getAngle() + 5);
-      //xrot -= 5;
       break;
     case TOUCHE_MIN_D :
       vaisseau->setAngle(vaisseau->getAngle() - 5);
-      //xrot += 5;
       break;
   }
 }
