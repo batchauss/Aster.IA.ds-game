@@ -9,10 +9,10 @@ GLvoid Modelisation()
   glPushMatrix();
     glFrontFace(GL_CW);
     //glScalef(100, 100, 100);
-    build_cube();
+    //build_cube();
   glPopMatrix();
   
- glutSolidCone(1,10,100,1);
+ //glutSolidCone(1,10,100,1);
 
   glutSwapBuffers();
 }
