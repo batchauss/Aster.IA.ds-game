@@ -2,7 +2,6 @@
 #include "actions.h"
 #include "asteroide.h"
 
-extern GLvoid spawn_asteroid();
 
 int window = 0;
 
@@ -42,8 +41,7 @@ int notre_init(int argc, char** argv, void (*Modelisation)()){
   	 	r[i][0] = (-50) + (float)((float)rand() * (50-(-50)+1) / (RAND_MAX-1));
   	 	r[i][1] = (-50) + (float)((float)rand() * (50-(-50)+1) / (RAND_MAX-1));
   	 	r[i][2] = (-50) + (float)((float)rand() * (50-(-50)+1) / (RAND_MAX-1));
-	 	angle_ast[i] = (float)((float)rand() * (360+1) / (RAND_MAX-1));
-	 
+	 	angle_ast[i] = (float)((float)rand() * (360+1) / (RAND_MAX-1)); 
   		   
 	}
 	
@@ -56,6 +54,7 @@ GLvoid spawn_asteroid(){ // première apparition des astéroides
  for(int i=0;i<50;++i){
   
        Asteroide  *a = new Asteroide(i,1,10,10);
+	  // déplacement unique en fonction de l'angle aléatoire 
       r[i][0]+= 0.2  * sin(a->getAng() *3.14 /180);
       r[i][1]+= 0.2  * cos(a->getAng() *3.14 /180);
       r[i][2]+= -0.2  * cos(a->getAng() *3.14 /180);

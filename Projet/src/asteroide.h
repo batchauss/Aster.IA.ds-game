@@ -11,18 +11,22 @@ class Asteroide {
         ~Asteroide();
         GLvoid renduAsteroide();
 
+    //Accesseur sur l'id de l'astéroide
         GLfloat getId(){return this->_id;}
 
+    //Accesseurs sur x,y et z
         GLfloat posX(){ return this->_x;}
         GLfloat posY(){ return this->_y;}
         GLfloat posZ(){ return this->_z;}
 
+    //Accesseur sur l'angle
         GLfloat getAng(){return this->_angle;}
 
+    //modifie l'id de l'asteroide
         void setId( int i){ this->_id=i;}
 
-        
-        void setX(GLfloat x){    this->_x = x;}
+    //modifie les coordonnées x,y,z de l'asteroide    
+        void setX(GLfloat x){    this->_x = x;}  
         void setY(GLfloat y){    this->_y = y;}
         void setZ(GLfloat z){    this->_z = z;}
        
@@ -35,9 +39,9 @@ class Asteroide {
         
     private:
 
-        int _id;
+        int _id; //id de l'asteroide 
 
-        GLfloat _x;
+        GLfloat _x;  //coordonnées x,y,z de l'astéroide
         GLfloat _y;
         GLfloat _z;
 
@@ -46,8 +50,8 @@ class Asteroide {
         GLfloat _slide;
         GLfloat _stack;
 
-        GLfloat _angle; 
-        //GLfloat random_coord[3]; // tableau de coordonnées aléatoires pour les astéroides
+        GLfloat _angle; // angle de l'astéroide (qui va servir à determiner la direction unique )
+        
 
         
 
