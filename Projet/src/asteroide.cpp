@@ -1,14 +1,18 @@
 #include"asteroide.h"
-extern float vitesse_reelle;
+//extern float vitesse_reelle;
 
-Asteroide::Asteroide(GLfloat x, GLfloat y, GLfloat z, GLfloat rad, GLfloat sli, GLfloat sta){
-    this->_x=x;
-    this->_y=y;
-    this->_z=z;
+Asteroide::Asteroide( int i ,GLfloat rad, GLfloat sli, GLfloat sta){
+    this->_id=i; 
+    
+    this->_x=r[i][0];;
+    this->_y=r[i][1];;
+    this->_z=r[i][2];;
     this->_radius=rad;
     this->_slide=sli;
     this->_stack=sta;
-    this->_angle = (float)((float)rand() * (360+1) / (RAND_MAX-1));
+    this->_angle = angle[i];
+
+   
 }
 
 GLvoid Asteroide::renduAsteroide(){
