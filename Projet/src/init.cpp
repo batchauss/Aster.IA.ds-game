@@ -7,7 +7,7 @@ extern GLvoid spawn_asteroid();
 int window = 0;
 
 GLfloat r[50][3]; // tableau de coordonnées aléatoires pour les astéroides
-GLfloat angle[50]; // tableau d'angle aléatoires qui vont permettre de créer une direction d'un asteroide
+GLfloat angle_ast[50]; // tableau d'angle aléatoires qui vont permettre de créer une direction d'un asteroide
 
 
 GLvoid Redimensionne(GLsizei width, GLsizei height){
@@ -39,12 +39,14 @@ int notre_init(int argc, char** argv, void (*Modelisation)()){
 
      for(int i=0;i<50;++i){ // remplissage du tableau r pour les coordonnées aléatoires des astéroides
 		
-  	 r[i][0] = (-50) + (float)((float)rand() * (50-(-50)+1) / (RAND_MAX-1));
-  	 r[i][1] = (-50) + (float)((float)rand() * (50-(-50)+1) / (RAND_MAX-1));
-  	 r[i][2] = (-50) + (float)((float)rand() * (50-(-50)+1) / (RAND_MAX-1));
-	 angle[i] = (float)((float)rand() * (360+1) / (RAND_MAX-1));
-}
-
+  	 	r[i][0] = (-50) + (float)((float)rand() * (50-(-50)+1) / (RAND_MAX-1));
+  	 	r[i][1] = (-50) + (float)((float)rand() * (50-(-50)+1) / (RAND_MAX-1));
+  	 	r[i][2] = (-50) + (float)((float)rand() * (50-(-50)+1) / (RAND_MAX-1));
+	 	angle_ast[i] = (float)((float)rand() * (360+1) / (RAND_MAX-1));
+	 
+  		   
+	}
+	
 	glutMainLoop();
 	return 1;
 }
