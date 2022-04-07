@@ -3,7 +3,7 @@
 
 GLfloat xcam = 0;
 GLfloat ycam = 0;
-GLfloat zcam = -30.0;
+GLfloat zcam = -50.0;
 GLfloat xrot = 0.0;
 GLfloat yrot = 0.0;
 

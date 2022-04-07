@@ -3,9 +3,10 @@
 
 int window = 0;
 
-GLuint texture[2];
-GLfloat diff_et_spec[4] = { 0.5, 0.5, 0.5, 1};
-GLfloat ambiente[4] = {0.7, 0.7, 0.7, 1};
+GLfloat r[50][3]; // tableau de coordonnées aléatoires pour les astéroides
+GLfloat angle[50]; // tableau d'angle aléatoires qui vont permettre de créer une direction d'un asteroide
+
+
 
 GLvoid Redimensionne(GLsizei width, GLsizei height){
 	glViewport(0, 0, width, height);
@@ -20,7 +21,7 @@ int notre_init(int argc, char** argv, void (*Modelisation)()){
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
 	glutInitWindowSize(1000, 1000);
 	glutInitWindowPosition(0, 0);
-	window = glutCreateWindow("OpenGL");
+	window = glutCreateWindow("Aster.AI.ds");
 	glutDisplayFunc(Modelisation);
 	glutIdleFunc(Modelisation);
 	glutReshapeFunc(&Redimensionne);
@@ -31,13 +32,19 @@ int notre_init(int argc, char** argv, void (*Modelisation)()){
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 
-    glEnable(GL_LIGHTING);
-    glEnable(GL_COLOR_MATERIAL);
-    glEnable(GL_LIGHT0);
-    glLightfv(GL_LIGHT0, GL_DIFFUSE, diff_et_spec);
-    glLightfv(GL_LIGHT0, GL_SPECULAR, diff_et_spec);
 
-    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambiente);
+
+	
+
+ for(int i=0;i<50;++i){ // remplissage du tableau r pour les coordonnées aléatoires des astéroides
+		
+  	 r[i][0] = (-50) + (float)((float)rand() * (50-(-50)+1) / (RAND_MAX-1));
+  	 r[i][1] = (-50) + (float)((float)rand() * (50-(-50)+1) / (RAND_MAX-1));
+  	 r[i][2] = (-50) + (float)((float)rand() * (50-(-50)+1) / (RAND_MAX-1));
+	 angle[i] = (float)((float)rand() * (360+1) / (RAND_MAX-1));
+	 
+  		   
+	}
 
 	glutMainLoop();
 	return 1;
