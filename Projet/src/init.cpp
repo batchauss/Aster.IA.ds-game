@@ -39,6 +39,7 @@ int notre_init(int argc, char** argv, void (*Modelisation)()){
 
      for(int i=0;i<50;++i){ // remplissage du tableau r pour les coordonnées aléatoires des astéroides
 		
+<<<<<<< HEAD
   	 	r[i][0] = (-50) + (float)((float)rand() * (50-(-50)+1) / (RAND_MAX-1));
   	 	r[i][1] = (-50) + (float)((float)rand() * (50-(-50)+1) / (RAND_MAX-1));
   	 	r[i][2] = (-50) + (float)((float)rand() * (50-(-50)+1) / (RAND_MAX-1));
@@ -47,6 +48,14 @@ int notre_init(int argc, char** argv, void (*Modelisation)()){
   		   
 	}
 	
+=======
+  	 r[i][0] = (-50) + (float)((float)rand() * (50-(-50)+1) / (RAND_MAX-1));
+  	 r[i][1] = (-50) + (float)((float)rand() * (50-(-50)+1) / (RAND_MAX-1));
+  	 r[i][2] = (-50) + (float)((float)rand() * (50-(-50)+1) / (RAND_MAX-1));
+	 angle[i] = (float)((float)rand() * (360+1) / (RAND_MAX-1));
+}
+
+>>>>>>> f58ccc98387181ced4eca3349a11ca6884a3cbae
 	glutMainLoop();
 	return 1;
 }
@@ -57,8 +66,13 @@ GLvoid spawn_asteroid(){ // première apparition des astéroides
   
        Asteroide  *a = new Asteroide(i,1,10,10);
       r[i][0]+= 0.2  * sin(a->getAng() *3.14 /180);
+<<<<<<< HEAD
       r[i][1]+= 0.2  * cos(a->getAng() *3.14 /180);
       r[i][2]+= -0.2  *cos(a->getAng() *3.14 /180);
+=======
+      r[i][1]+= 0.2  * sin(a->getAng() *3.14 /180);
+      r[i][2]+= -0.2  * sin(a->getAng() *3.14 /180);
+>>>>>>> f58ccc98387181ced4eca3349a11ca6884a3cbae
 
 
     // si la frontiere est franchie, l'asteroide réapparait à l'opposé de la map
