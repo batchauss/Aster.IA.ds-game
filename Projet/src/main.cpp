@@ -1,12 +1,13 @@
 #include "init.h"
 #include "asteroide.h"
+#include "vaisseau.h"
 
+extern GLvoid VM_init();
 
-extern void build_cube();
-extern GLvoid VM_init();  ///machin 
+extern GLfloat r[50][3]; // tableau de coordonnées aléatoires des astéroides
+extern GLfloat angle[50];  // tableau d'angle pour la rotation aléatoire des astéroides avant déplacement
 
- extern GLfloat r[50][3]; // tableau de coordonnées aléatoires des astéroides
- extern GLfloat angle[50];  // tableau d'angle pour la rotation aléatoire des astéroides avant déplacement
+Vaisseau * vaisseau = new Vaisseau();
 
 //variables pour les déplacements des astéroides
 int temps;
@@ -15,8 +16,6 @@ int temps_depuis_prec_calcul =0;
 int frequence_de_calcul_fps=100;
 
 float vitesse_reelle=0.0;
-
-
 
 
 GLvoid spawn_asteroid(){ // première apparition des astéroides
@@ -44,7 +43,6 @@ GLvoid spawn_asteroid(){ // première apparition des astéroides
  }
 }
 
-
 GLvoid Modelisation()
 {
   
@@ -55,13 +53,6 @@ GLvoid Modelisation()
   temps_suivant = glutGet(GLUT_ELAPSED_TIME);
   int temps_entre_2 = temps_suivant-temps;
   temps_depuis_prec_calcul+=temps_entre_2;
-  glPushMatrix();
-    glFrontFace(GL_CW);
-    //glScalef(100, 100, 100);
-    //build_cube();
-  glPopMatrix();
-  
- glutSolidCone(1,10,100,1);
 
   if(temps_depuis_prec_calcul>=frequence_de_calcul_fps){
       temps_depuis_prec_calcul=0;
@@ -78,7 +69,8 @@ GLvoid Modelisation()
   spawn_asteroid();
   glScalef(1, 1, 1);
     
-  build_cube(); 
+  vaisseau->modelisation();
+  
   glutSwapBuffers();
 }
 
