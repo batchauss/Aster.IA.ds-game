@@ -1,19 +1,16 @@
 #include "init.h"
-extern void build_cube();
+#include "cube.h"
+#include "vaisseau.h"
 extern GLvoid VM_init();
+
+Vaisseau * vaisseau = new Vaisseau();
 
 GLvoid Modelisation()
 {
   VM_init();
 
-  glPushMatrix();
-    glFrontFace(GL_CW);
-    //glScalef(100, 100, 100);
-    //build_cube();
-  glPopMatrix();
+    vaisseau->modelisation();
   
- glutSolidCone(1,10,100,1);
-
   glutSwapBuffers();
 }
 
