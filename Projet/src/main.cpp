@@ -12,7 +12,7 @@ GLvoid Modelisation()
     //build_cube();
   glPopMatrix();
   
- //glutSolidCone(1,10,100,1);
+ glutSolidCone(1,10,100,1);
 
   glutSwapBuffers();
 }
