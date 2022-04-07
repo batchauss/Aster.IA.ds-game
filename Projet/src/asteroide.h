@@ -1,7 +1,7 @@
 #include "init.h"
 #include "math.h"
 extern GLfloat r[50][3]; // tableau de coordonnées aléatoires pour les astéroides
-extern GLfloat angle[50]; // tableau d'angle aléatoires qui vont permettre de créer une direction d'un asteroide
+extern GLfloat angle_ast[50]; // tableau d'angle aléatoires qui vont permettre de créer une direction d'un asteroide
 
 
 class Asteroide {
