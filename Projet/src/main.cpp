@@ -55,6 +55,13 @@ GLvoid Modelisation()
   temps_suivant = glutGet(GLUT_ELAPSED_TIME);
   int temps_entre_2 = temps_suivant-temps;
   temps_depuis_prec_calcul+=temps_entre_2;
+  glPushMatrix();
+    glFrontFace(GL_CW);
+    //glScalef(100, 100, 100);
+    //build_cube();
+  glPopMatrix();
+  
+ glutSolidCone(1,10,100,1);
 
   if(temps_depuis_prec_calcul>=frequence_de_calcul_fps){
       temps_depuis_prec_calcul=0;
