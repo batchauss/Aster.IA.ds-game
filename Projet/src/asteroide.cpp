@@ -21,7 +21,9 @@ GLvoid Asteroide::renduAsteroide(){
     glTranslatef(_x,_y,-_z);
     
     
+    
     glutSolidSphere(_radius,_slide,_stack);
+    glColor3f(1, 1, 1);
    }
    glPopMatrix();
 }

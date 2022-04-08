@@ -1,5 +1,6 @@
 #include"init.h"
 #include "vaisseau.h"
+#include "camera.h"
 #include"frames.h"
 
 extern GLvoid VM_init();
@@ -10,9 +11,9 @@ Vaisseau * vaisseau = new Vaisseau();
 GLvoid Modelisation()
 {  
   VM_init();
-  spawn_asteroid();      
-   
-  vaisseau->modelisation(); 
+  spawn_asteroid();
+  vaisseau->modelisation();
+  
   glutSwapBuffers();
 }
 

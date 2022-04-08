@@ -1,21 +1,25 @@
 #include <GL/glut.h>
 #include <GL/gl.h>
 #include "vaisseau.h"
-
-GLfloat xcam = 0;
-GLfloat ycam = 0;
-GLfloat zcam = 30.0;
-GLfloat xrot = 0.0;
-GLfloat yrot = 0.0;
+#include "camera.h"
 
 extern Vaisseau * vaisseau;
+extern Camera * camera;
+
+GLfloat xCamRot = 0.0;
+GLfloat zCamRot = 0.0;
+GLfloat xCamPos;
+GLfloat yCamPos;
+GLfloat zCamPos;
 
 GLvoid VM_init() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
 	/*		Caméra		*/
-	GLfloat VaisseauPos[3] = {vaisseau->posx(), vaisseau->posy(), vaisseau->posz()};
+	xCamPos = vaisseau->posx() + xCamRot;
+	yCamPos = vaisseau->posy() + 10;
+	zCamPos = vaisseau->posz() + 30 + zCamRot;
 
-	gluLookAt(VaisseauPos[0], VaisseauPos[1] + 10, VaisseauPos[2] + 30, VaisseauPos[0], VaisseauPos[1], VaisseauPos[2], 0, 1, 0);
+	gluLookAt(xCamPos, yCamPos, zCamPos, vaisseau->posx(), vaisseau->posy(), vaisseau->posz(), 0, 1, 0);
 }
