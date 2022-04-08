@@ -1,7 +1,8 @@
-#include "init.h"
+#include"init.h"
+#include "texture.h"
 #include "actions.h"
-#include "asteroide.h"
 
+GLuint texture[5];
 
 int window = 0;
 
@@ -35,8 +36,8 @@ int notre_init(int argc, char** argv, void (*Modelisation)()){
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 
-
-     for(int i=0;i<50;++i){ // remplissage du tableau r pour les coordonnées aléatoires des astéroides
+   // remplissage du tableau r pour les coordonnées aléatoires des astéroides
+     for(int i=0;i<50;++i){ 
 		
   	 	r[i][0] = (-50) + (float)((float)rand() * (50-(-50)+1) / (RAND_MAX-1));
   	 	r[i][1] = (-50) + (float)((float)rand() * (50-(-50)+1) / (RAND_MAX-1));
@@ -45,6 +46,11 @@ int notre_init(int argc, char** argv, void (*Modelisation)()){
   		   
 	}
 	
+	//implementation des fichiers de textures
+	TEXTURE_STRUCT * galaxy = readPpm((char *)"./pic/galaxy.ppm");
+   Parametres_texture(0,galaxy);
+
+
 	glutMainLoop();
 	return 1;
 }
@@ -71,7 +77,6 @@ GLvoid spawn_asteroid(){ // première apparition des astéroides
 
        a->renduAsteroide();
        delete  a;
-
        
  }
 }

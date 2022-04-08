@@ -1,4 +1,4 @@
-#include"init.h"
+#include"frames.h"
 
 
 int temps;
@@ -7,6 +7,8 @@ int temps_depuis_prec_calcul =0;
 int frequence_de_calcul_fps=100;
 
 float vitesse_reelle=0.0;
+
+
 
 void frequence(){
 

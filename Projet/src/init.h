@@ -8,6 +8,14 @@
 #include <stdio.h> 
 #include <stdlib.h> 
 
+#include "asteroide.h"
+#include "ppm.h"
+
+
+
+
+
+
 
 
 

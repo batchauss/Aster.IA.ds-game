@@ -1,6 +1,6 @@
 #include "init.h"
 #include "vaisseau.h"
-#include "frames.h"
+
 #include "frontiere.h"
 
 extern GLvoid VM_init();

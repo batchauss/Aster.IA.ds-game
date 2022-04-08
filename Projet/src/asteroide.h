@@ -1,3 +1,6 @@
+#ifndef ASTEROIDE_H
+#define ASTEROIDE_H
+
 #include "init.h"
 #include "math.h"
 extern GLfloat r[50][3]; // tableau de coordonnées aléatoires pour les astéroides
@@ -59,3 +62,6 @@ class Asteroide {
         
 
 };
+
+
+#endif
