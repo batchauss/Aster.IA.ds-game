@@ -2,11 +2,11 @@
 #define CAMERA_H
 
 #include "init.h"
-#include "init.h"
+#include "vaisseau.h"
 
 class Camera {
   public : 
-    Camera();
+    Camera(Vaisseau * v);
     ~Camera();
 
     GLfloat posx(){ return pos[0]; }
@@ -14,10 +14,13 @@ class Camera {
     GLfloat posz(){ return pos[2]; }
 
     void setPos(GLfloat x, GLfloat y, GLfloat z) { pos[0] = x; pos[1] = y; pos[2] = z; }
-    void lookAt(GLfloat xVaisseau, GLfloat yVaisseau, GLfloat zVaisseau);
+    void move(GLfloat x, GLfloat y, GLfloat z);
+    void rotation(GLfloat angle);
+    void lookAt();
 
   private :
     GLfloat pos[3];
+    Vaisseau * vaisseau;
 };
 
 #endif

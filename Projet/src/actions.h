@@ -6,6 +6,7 @@
 #include <GL/glut.h>
 #include "touches.h"
 #include "math.h"
+#include "camera.h"
 #include "vaisseau.h"
 #include <iostream>
 

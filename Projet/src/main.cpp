@@ -7,6 +7,7 @@
 extern GLvoid VM_init();
 
 Vaisseau * vaisseau = new Vaisseau();
+Camera * camera = new Camera(vaisseau);
 
 
 GLvoid Modelisation()
