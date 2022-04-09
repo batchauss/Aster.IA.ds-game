@@ -32,6 +32,6 @@ void Camera::rotation(GLfloat angle){
     setPos(
         xCam * cos(angle * 3.14 / 180) + zCam * sin(angle * 3.14 / 180) + vaisseau->posx(), 
         posy(),
-        xCam * sin(angle * 3.14 / 180) + zCam * cos(angle * 3.14 / 180) + vaisseau->posz()
+        - xCam * sin(angle * 3.14 / 180) + zCam * cos(angle * 3.14 / 180) + vaisseau->posz()
     );
 }

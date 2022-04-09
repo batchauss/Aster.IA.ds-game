@@ -27,6 +27,7 @@ void touche(unsigned char key, int x, int y)
 
     case TOUCHE_MIN_D :
       vaisseau->setAngle(vaisseau->getAngle() - 5);
+      camera->rotation(-5);
       break;
   }
 }
