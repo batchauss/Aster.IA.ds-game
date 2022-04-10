@@ -3,9 +3,6 @@
 extern Camera * camera;
 extern Vaisseau * vaisseau;
 
-GLfloat calculRotationTranslatex;
-GLfloat calculRotationTranslatez;
-
 void touche(unsigned char key, int x, int y) 
 {
   switch(key){
@@ -14,20 +11,15 @@ void touche(unsigned char key, int x, int y)
       break;
     
     case TOUCHE_MIN_Z :
-      calculRotationTranslatex = -0.5 * sin(vaisseau->getAngle() * 3.14 / 180);
-      calculRotationTranslatez =  -0.5 * cos(vaisseau->getAngle() * 3.14 / 180);
-      vaisseau->move(calculRotationTranslatex, 0, calculRotationTranslatez);
-      camera->move(calculRotationTranslatex, 0, calculRotationTranslatez);
+      vaisseau->moveForward();
       break;
       
     case TOUCHE_MIN_Q :
-      vaisseau->setAngle(vaisseau->getAngle() + 5);
-      camera->rotation(5);
+      vaisseau->setAngle(5);
       break;
 
     case TOUCHE_MIN_D :
-      vaisseau->setAngle(vaisseau->getAngle() - 5);
-      camera->rotation(-5);
+      vaisseau->setAngle(-5);
       break;
   }
 }

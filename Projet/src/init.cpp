@@ -14,7 +14,7 @@ GLvoid Redimensionne(GLsizei width, GLsizei height){
 	glViewport(0, 0, width, height);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(45.0, (GLfloat)width / (GLfloat)height, 0.1, 100.0);
+	gluPerspective(45.0, (GLfloat)width / (GLfloat)height, 0.1, 1000.0);
 	glMatrixMode(GL_MODELVIEW);
 }
 
@@ -30,8 +30,6 @@ int notre_init(int argc, char** argv, void (*Modelisation)()){
 	glutKeyboardFunc(&touche);
 	glutSpecialFunc(&touche_speciale);
 	glClearColor(0.0 , 0.0 , 0.0 , 0.0);
-
-	
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
