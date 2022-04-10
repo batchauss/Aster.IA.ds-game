@@ -1,5 +1,5 @@
 #include"init.h"
-#include "texture.h"
+#include "fonctions/texture.h"
 #include "actions.h"
 
 GLuint texture[5];
@@ -55,7 +55,7 @@ int notre_init(int argc, char** argv, void (*Modelisation)()){
 	return 1;
 }
 
-GLvoid spawn_asteroid(){ // première apparition des astéroides
+GLvoid spawn_asteroid(){
 
  for(int i=0;i<50;++i){
   

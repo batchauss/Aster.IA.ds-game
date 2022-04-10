@@ -6,8 +6,8 @@
 #include <GL/glut.h>
 #include "touches.h"
 #include "math.h"
-#include "camera.h"
-#include "vaisseau.h"
+#include "objets/camera.h"
+#include "objets/vaisseau.h"
 #include <iostream>
 
 void touche(unsigned char key, int x, int y);
