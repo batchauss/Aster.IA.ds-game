@@ -10,6 +10,7 @@
 #include "objets/vaisseau.h"
 
 void touche(unsigned char key, int x, int y);
+void releaseTouche(unsigned char key, int x, int y);
 void touche_speciale(int key, int x, int y);
 
 #endif

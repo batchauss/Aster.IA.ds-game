@@ -25,6 +25,8 @@ public :
     
     void calculmoveForward();
     void moveForward();
+    void decreaseSpeed();
+    void setSpeed(GLfloat v){ vitesse = v; }
 
     Camera * camera;
 

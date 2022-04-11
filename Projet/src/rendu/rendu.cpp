@@ -7,7 +7,6 @@ void renduAsteroide(Asteroide * a){
     glColor3f(0.5,0.5,0.5);
     glTranslatef(a->posX(),a->posY(),-a->posZ());    
     glutSolidSphere(a->getRad(),a->getSli(),a->getSta());
-    
    }
    glPopMatrix();
 }

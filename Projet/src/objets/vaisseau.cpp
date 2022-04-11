@@ -6,7 +6,7 @@ Vaisseau::Vaisseau(){
     this->pos[2] = 0;
     this->angle = 0;
     camera = new Camera(posx(), posy() + 10, posz() + 30);
-    vitesse = 0.05;
+    vitesse = 0;
 }
 Vaisseau::~Vaisseau(){}
 
@@ -49,9 +49,12 @@ void Vaisseau::setAngle(GLfloat angle){
 }
 
 void Vaisseau::moveForward(){
-      if(vitesse < 2) vitesse *= 1.4;
-      GLfloat calculRotationTranslatex = -vitesse * sin(getAngle() * 3.14 / 180);
-      GLfloat calculRotationTranslatez =  -vitesse * cos(getAngle() * 3.14 / 180);
-      this->move(calculRotationTranslatex, 0, calculRotationTranslatez);
-      camera->move(calculRotationTranslatex, 0, calculRotationTranslatez);
+    GLfloat calculRotationTranslatex = -vitesse * sin(getAngle() * 3.14 / 180);
+    GLfloat calculRotationTranslatez =  -vitesse * cos(getAngle() * 3.14 / 180);
+    this->move(calculRotationTranslatex, 0, calculRotationTranslatez);
+    camera->move(calculRotationTranslatex, 0, calculRotationTranslatez);
+}
+
+void Vaisseau::decreaseSpeed(){
+    if(vitesse > 0) vitesse *= 0.96;
 }
