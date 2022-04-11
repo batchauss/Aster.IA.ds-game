@@ -11,7 +11,6 @@ GLvoid frontieres(){ //  un grand cube qui va représenter l'univers fermé du j
 
     */
 
-   
    //glColor3f(0.0,1.0,0.0);
    glEnable(GL_TEXTURE_2D);
    glBindTexture(GL_TEXTURE_2D, texture[0]);
@@ -56,10 +55,6 @@ GLvoid frontieres(){ //  un grand cube qui va représenter l'univers fermé du j
          glTexCoord2f(0, 10);    
          glVertex3f(-200, 200, -200);
         glEnd();
-    
   
-
-  
-
     glDisable(GL_TEXTURE_2D);
 }
