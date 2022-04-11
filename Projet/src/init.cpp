@@ -3,6 +3,8 @@
 #include "actions.h"
 #include "rendu/rendu.h"
 
+#include<iostream>
+
 
 GLuint texture[5];
 Asteroide* tabAsteroides[50];
@@ -64,6 +66,7 @@ GLvoid spawn_asteroid(){
       r[i][0]+= 0.2  * sin(a->getAng() *3.14 /180);
       r[i][1]+= 0.2  * cos(a->getAng() *3.14 /180);
       r[i][2]+= -0.2  * cos(a->getAng() *3.14 /180);
+
 
 
     // si la frontiere est franchie, l'asteroide réapparait à l'opposé de la map

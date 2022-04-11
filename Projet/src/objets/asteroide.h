@@ -10,7 +10,7 @@ extern GLfloat angle_ast[50]; // tableau d'angle aléatoires qui vont permettre 
 class Asteroide {
     
      public :
-        Asteroide(int i , GLfloat rad, GLfloat sli, GLfloat sta);
+        Asteroide(int i ,GLfloat rad, GLfloat sli, GLfloat sta);
         ~Asteroide();
 
     //Accesseur sur l'id de l'astéroide
