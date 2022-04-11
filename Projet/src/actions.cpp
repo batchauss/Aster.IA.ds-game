@@ -2,6 +2,10 @@
 
 extern Vaisseau * vaisseau;
 
+bool zPressed = false;
+bool qPressed = false;
+bool dPressed = false;
+
 void touche(unsigned char key, int x, int y) 
 {
   switch(key){
@@ -10,15 +14,32 @@ void touche(unsigned char key, int x, int y)
       break;
     
     case TOUCHE_MIN_Z :
-      vaisseau->moveForward();
+      zPressed = true;
+      vaisseau->setSpeed(1);
       break;
-      
+
     case TOUCHE_MIN_Q :
-      vaisseau->setAngle(5);
+      qPressed = true;
       break;
 
     case TOUCHE_MIN_D :
-      vaisseau->setAngle(-5);
+      dPressed = true;
+      break;
+  }
+}
+
+void releaseTouche(unsigned char key, int x, int y){
+  switch(key){
+    case TOUCHE_MIN_Z :
+      zPressed = false;
+      break;
+
+    case TOUCHE_MIN_Q :
+      qPressed = false;
+      break;
+
+    case TOUCHE_MIN_D :
+      dPressed = false;
       break;
   }
 }

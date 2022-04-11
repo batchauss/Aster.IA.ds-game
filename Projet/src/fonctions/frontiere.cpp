@@ -4,17 +4,9 @@ extern GLuint texture[];
 
 GLvoid frontieres(){ //  un grand cube qui va représenter l'univers fermé du jeu
 
-/*
-    glFrontFace(GL_CW);
-    glColor3f(1.0,1.0,1.0);
-    glutSolidCube(100);
-
-    */
-
-   //glColor3f(0.0,1.0,0.0);
    glEnable(GL_TEXTURE_2D);
    glBindTexture(GL_TEXTURE_2D, texture[0]);
-
+   GLfloat r = 50;
    glPushMatrix();
    {
     //textures sur les 4 cotés de l'univers
@@ -22,16 +14,16 @@ GLvoid frontieres(){ //  un grand cube qui va représenter l'univers fermé du j
        glRotatef(90,0.0,1.0,0.0);
         glBegin(GL_QUADS);
          glTexCoord2f(0, 0);
-         glVertex3f(-200, -200, -200);
+         glVertex3f(-r,-r,-r);
 
          glTexCoord2f(10, 0);
-         glVertex3f(200,-200,-200);
+         glVertex3f(r,-r,-r);
 
          glTexCoord2f(10, 10);
-         glVertex3f(200,200,-200);
+         glVertex3f(r,r,-r);
 
          glTexCoord2f(0, 10);    
-         glVertex3f(-200, 200, -200);
+         glVertex3f(-r, r,-r);
         glEnd();
      }
     }
@@ -44,16 +36,16 @@ GLvoid frontieres(){ //  un grand cube qui va représenter l'univers fermé du j
        glRotatef(-90.0,1.0,0.0,0.0);
         glBegin(GL_QUADS);
          glTexCoord2f(0, 0);
-         glVertex3f(-200, -200, -200);
+         glVertex3f(-r, -r, -r);
 
          glTexCoord2f(10, 0);
-         glVertex3f(200,-200,-200);
+         glVertex3f(r,-r,-r);
 
          glTexCoord2f(10, 10);
-         glVertex3f(200,200,-200);
+         glVertex3f(r,r,-r);
 
          glTexCoord2f(0, 10);    
-         glVertex3f(-200, 200, -200);
+         glVertex3f(-r, r, -r);
         glEnd();
   
     glDisable(GL_TEXTURE_2D);

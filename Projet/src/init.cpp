@@ -30,6 +30,7 @@ int notre_init(int argc, char** argv, void (*Modelisation)()){
 	glutIdleFunc(Modelisation);
 	glutReshapeFunc(&Redimensionne);
 	glutKeyboardFunc(&touche);
+	glutKeyboardUpFunc(&releaseTouche);
 	glutSpecialFunc(&touche_speciale);
 	glClearColor(0.0 , 0.0 , 0.0 , 0.0);
 
