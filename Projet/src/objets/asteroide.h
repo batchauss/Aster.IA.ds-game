@@ -12,7 +12,6 @@ class Asteroide {
      public :
         Asteroide(int i , GLfloat rad, GLfloat sli, GLfloat sta);
         ~Asteroide();
-        GLvoid renduAsteroide();
 
     //Accesseur sur l'id de l'astéroide
         GLfloat getId(){return this->_id;}
@@ -24,6 +23,11 @@ class Asteroide {
 
     //Accesseur sur l'angle
         GLfloat getAng(){return this->_angle;}
+
+    //Acesseurs sur les informations de l'aspect sphere de l'asteroide
+        GLfloat getRad(){return this->_radius;}
+        GLfloat getSli(){return this->_slide;}
+        GLfloat getSta(){return this->_stack;}
 
     //modifie l'id de l'asteroide
         void setId( int i){ this->_id=i;}

@@ -10,4 +10,5 @@ GLvoid VM_init() {
 
 	renduCamera(vaisseau);
 	renduVaisseau(vaisseau);
+	
 }

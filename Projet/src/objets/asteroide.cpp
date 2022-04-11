@@ -14,18 +14,4 @@ Asteroide::Asteroide( int i ,GLfloat rad, GLfloat sli, GLfloat sta){
    
 }
 
-GLvoid Asteroide::renduAsteroide(){
-   glPushMatrix();
-   {
-    glColor3f(0.5,0.5,0.5);
-    glTranslatef(_x,_y,-_z);
-    
-    
-    
-    glutSolidSphere(_radius,_slide,_stack);
-    glColor3f(1, 1, 1);
-   }
-   glPopMatrix();
-}
-
  Asteroide::~Asteroide(){ }

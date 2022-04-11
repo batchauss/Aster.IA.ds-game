@@ -18,21 +18,46 @@ GLvoid frontieres(){ //  un grand cube qui va représenter l'univers fermé du j
 
    glPushMatrix();
    {
-     glBegin(GL_QUADS);
-      glTexCoord2f(0, 0);
-      glVertex3f(-50, -50, -50);
+    //textures sur les 4 cotés de l'univers
+     for (int i=0;i<4;++i){
+       glRotatef(90,0.0,1.0,0.0);
+        glBegin(GL_QUADS);
+         glTexCoord2f(0, 0);
+         glVertex3f(-200, -200, -200);
 
-      glTexCoord2f(10, 0);
-      glVertex3f(50,-50,-50);
+         glTexCoord2f(10, 0);
+         glVertex3f(200,-200,-200);
 
-      glTexCoord2f(10, 10);
-      glVertex3f(50,50,-50);
+         glTexCoord2f(10, 10);
+         glVertex3f(200,200,-200);
 
-      glTexCoord2f(0, 10);    
-      glVertex3f(-50, 50, -50);
-     glEnd();
-  }
-  glPopMatrix();
+         glTexCoord2f(0, 10);    
+         glVertex3f(-200, 200, -200);
+        glEnd();
+     }
+    }
+  glPopMatrix(); 
+
+
+
+     //textures sur le haut  de l'univers
+     
+       glRotatef(-90.0,1.0,0.0,0.0);
+        glBegin(GL_QUADS);
+         glTexCoord2f(0, 0);
+         glVertex3f(-200, -200, -200);
+
+         glTexCoord2f(10, 0);
+         glVertex3f(200,-200,-200);
+
+         glTexCoord2f(10, 10);
+         glVertex3f(200,200,-200);
+
+         glTexCoord2f(0, 10);    
+         glVertex3f(-200, 200, -200);
+        glEnd();
+    
+  
 
   
 

@@ -1,9 +1,11 @@
 #include"init.h"
 #include "fonctions/texture.h"
 #include "actions.h"
+#include "rendu/rendu.h"
+
 
 GLuint texture[5];
-
+Asteroide* tabAsteroides[50];
 int window = 0;
 
 GLfloat r[50][3]; // tableau de coordonnées aléatoires pour les astéroides
@@ -42,10 +44,10 @@ int notre_init(int argc, char** argv, void (*Modelisation)()){
   	 	r[i][2] = (-50) + (float)((float)rand() * (50-(-50)+1) / (RAND_MAX-1));
 	 	angle_ast[i] = (float)((float)rand() * (360+1) / (RAND_MAX-1)); 
   		   
-	}
+	} 
 	
 	//implementation des fichiers de textures
-	TEXTURE_STRUCT * galaxy = readPpm((char *)"./pic/galaxy.ppm");
+	TEXTURE_STRUCT * galaxy = readPpm((char *)"./pic/night.ppm");
    Parametres_texture(0,galaxy);
 
 
@@ -73,8 +75,9 @@ GLvoid spawn_asteroid(){
        else if (r[i][1] <=-50) r[i][1] += 100;
        else if (r[i][2] <=-50) r[i][2] += 100;  
 
-       a->renduAsteroide();
-       delete  a;
+       renduAsteroide(a);
+	   tabAsteroides[i]=a;
+       delete a;
        
  }
 }

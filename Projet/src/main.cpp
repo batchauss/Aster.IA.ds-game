@@ -8,8 +8,7 @@ GLvoid Modelisation()
 {  
   VM_init();
   spawn_asteroid();
-  frontieres();
-  
+  frontieres();  
   glutSwapBuffers();
 }
 
