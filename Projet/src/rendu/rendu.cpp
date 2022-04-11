@@ -1,5 +1,4 @@
 #include "rendu.h"
-#include "iostream"
 
 void renduVaisseau(Vaisseau * vaisseau){
     glPushMatrix();

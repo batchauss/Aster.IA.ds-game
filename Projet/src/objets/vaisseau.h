@@ -22,7 +22,8 @@ public :
         this->pos[2] = z;
     }
     void setAngle(GLfloat angle);                           // Modifie angle
-
+    
+    void calculmoveForward();
     void moveForward();
 
     Camera * camera;
@@ -30,6 +31,7 @@ public :
 private :
     GLfloat pos[3]; //position x y z du vaisseau
     GLfloat angle;  //angle du vaisseau
+    GLfloat vitesse;
 };
 
 #endif 

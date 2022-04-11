@@ -8,7 +8,6 @@
 #include "math.h"
 #include "objets/camera.h"
 #include "objets/vaisseau.h"
-#include <iostream>
 
 void touche(unsigned char key, int x, int y);
 void touche_speciale(int key, int x, int y);

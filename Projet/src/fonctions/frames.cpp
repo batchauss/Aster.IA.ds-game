@@ -2,29 +2,23 @@
 
 
 int temps;
-int frames=0,fps=0,temps_suivant=0;
-int temps_depuis_prec_calcul =0;
-int frequence_de_calcul_fps=100;
+int temps_depuis_le_precedent_calcul = 0;
 
-float vitesse_reelle=0.0;
+GLfloat acceleration = 0;
+GLfloat vitesse_reelle = 0;
+int frames = 0, fps = 0;
 
-
-
-void frequence(){
-
-    /////// test déplacement des astéroides //////////
-  frames+=1;
-  temps_suivant = glutGet(GLUT_ELAPSED_TIME);
-  int temps_entre_2 = temps_suivant-temps;
-  temps_depuis_prec_calcul+=temps_entre_2;
-
-  if(temps_depuis_prec_calcul>=frequence_de_calcul_fps){
-      temps_depuis_prec_calcul=0;
-      fps=frames*100/frequence_de_calcul_fps;
-      frames=0;
-      vitesse_reelle=10/((float)fps);
+GLfloat temps_acceleration_reelle(GLfloat vitesse){
+  frames += 1;
+  temps_depuis_le_precedent_calcul += glutGet(GLUT_ELAPSED_TIME) - temps;
+  if(temps_depuis_le_precedent_calcul >= 50){
+    temps_depuis_le_precedent_calcul = 0;
+    fps = frames * 10;
+    frames = 0;
+    vitesse_reelle = vitesse / ((GLfloat) fps);
   }
-  temps=temps_suivant;
-  //////////////////////////////////////////////////
+  temps = glutGet(GLUT_ELAPSED_TIME);
+  acceleration += vitesse_reelle;
+  return acceleration;
 }
 

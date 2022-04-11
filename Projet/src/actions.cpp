@@ -1,6 +1,5 @@
 #include "actions.h"
 
-extern Camera * camera;
 extern Vaisseau * vaisseau;
 
 void touche(unsigned char key, int x, int y) 

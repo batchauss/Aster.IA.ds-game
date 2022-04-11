@@ -22,13 +22,13 @@ GLvoid frontieres(){ //  un grand cube qui va représenter l'univers fermé du j
       glTexCoord2f(0, 0);
       glVertex3f(-50, -50, -50);
 
-      glTexCoord2f(1, 0);
+      glTexCoord2f(10, 0);
       glVertex3f(50,-50,-50);
 
-      glTexCoord2f(1, 1);
+      glTexCoord2f(10, 10);
       glVertex3f(50,50,-50);
 
-      glTexCoord2f(0, 1);    
+      glTexCoord2f(0, 10);    
       glVertex3f(-50, 50, -50);
      glEnd();
   }
