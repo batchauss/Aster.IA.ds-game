@@ -2,6 +2,8 @@
 
 extern Vaisseau * vaisseau;
 
+ 
+
 bool zPressed = false;
 bool qPressed = false;
 bool dPressed = false;
@@ -11,6 +13,10 @@ void touche(unsigned char key, int x, int y)
   switch(key){
     case ESCAPE :
       exit(1);
+      break;
+    
+    case ESPACE:
+      vaisseau->tirs->setSpeed(2);
       break;
     
     case TOUCHE_MIN_Z :
@@ -25,6 +31,7 @@ void touche(unsigned char key, int x, int y)
     case TOUCHE_MIN_D :
       dPressed = true;
       break;
+
   }
 }
 
@@ -41,6 +48,7 @@ void releaseTouche(unsigned char key, int x, int y){
     case TOUCHE_MIN_D :
       dPressed = false;
       break;
+
   }
 }
 
