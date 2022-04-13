@@ -12,6 +12,7 @@ void Tir::move(GLfloat x, GLfloat y, GLfloat z){ // fait avancer le tir
     this->pos[1] += y;
     this->pos[2] += z;
 
+
     //gestion de la frontiere de l'univers
     if (this->pos[0] > 50) this->pos[0] -=100;
     else if (this->pos[0] < -50) this->pos[0] +=100;

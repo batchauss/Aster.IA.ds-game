@@ -9,10 +9,8 @@ Vaisseau::Vaisseau(){
     this->angle = 0;
     camera = new Camera(posx(), posy() + 10, posz() + 30);
     tirs = new Tir(posx(), posy() , posz() );
+    tirActif = false;
     vitesse = 0;
-
-    
-    
 }
 Vaisseau::~Vaisseau(){}
 
@@ -20,8 +18,7 @@ void Vaisseau::move(GLfloat x, GLfloat y, GLfloat z){
     this->pos[0] += x;
     this->pos[1] += y;
     this->pos[2] += z;
-
-    
+  
 
     /*  Si le vaisseau dépasse les limites, il réaparrait de l'autre côté et la caméra aussi*/
 
@@ -41,9 +38,6 @@ void Vaisseau::move(GLfloat x, GLfloat y, GLfloat z){
         this->pos[2] += 100;
         camera->setPos(camera->posx(), camera->posy(), camera->posz() + 100);
     }
-
-
-    
 }
 
 void Vaisseau::setAngle(GLfloat angle){ 
@@ -57,8 +51,7 @@ void Vaisseau::setAngle(GLfloat angle){
         camera->posy(),
         -xCam * sin(angle * 3.14 / 180) + zCam * cos(angle * 3.14 / 180) + posz()
     );
-
-    tirs->setAngle(tirs->getAngle() + angle);
+    if(!tirActif) tirs->setAngle(tirs->getAngle() + angle);
 }
 
 void Vaisseau::moveForward(){
@@ -66,23 +59,27 @@ void Vaisseau::moveForward(){
     GLfloat calculRotationTranslatez =  -vitesse * cos(getAngle() * 3.14 / 180);
     this->move(calculRotationTranslatex, 0, calculRotationTranslatez);
     camera->move(calculRotationTranslatex, 0, calculRotationTranslatez);
-    tirs->move(calculRotationTranslatex, 0, calculRotationTranslatez);
+    if(!tirActif) tirs->move(calculRotationTranslatex, 0, calculRotationTranslatez);
 }
 
 void Vaisseau::decreaseSpeed(){
     if(vitesse > 0) vitesse *= 0.96;
 }
 
+GLvoid Vaisseau::tirer(){ // tire une balle 
+     GLfloat longueur = sqrt( (tirs->posX()-posx())*(tirs->posX()-posx()) 
+                             +(tirs->posY()-posy())*(tirs->posY()-posy())
+                             +(tirs->posZ()-posz())*(tirs->posZ()-posz())  );
 
-GLvoid Vaisseau::tirer(){ // tire une balle quand on appuie sur ESPACE (non terminé)
+     GLfloat calculRotationTranslatexTir = -tirs->getSpeed() * sin(tirs->getAngle() * 3.14 / 180);
+     GLfloat calculRotationTranslatezTir =  -tirs->getSpeed() * cos(tirs->getAngle() * 3.14 / 180);
+     tirs->move(calculRotationTranslatexTir, 0, calculRotationTranslatezTir);
 
-     GLfloat calculRotationTranslatex = -tirs->getSpeed() * sin(getAngle() * 3.14 / 180);
-     GLfloat calculRotationTranslatez =  -tirs->getSpeed() * cos(getAngle() * 3.14 / 180);
-     tirs->move(calculRotationTranslatex, 0, calculRotationTranslatez);
-     std::cout<<tirs->posZ() << " ";
-
-    if ( (tirs->posZ()- this->posz()) <  -20 ){
-        tirs->setSpeed(0);
+    //on remet la balle a sa place si il atteint la portée
+    if ( longueur > 20 ){
+        tirs->setSpeed(0);   
         tirs->setPos(this->posx(),this->posy(),this->posz());
-    } 
+        tirActif = false;
+        tirs->setAngle(getAngle());
+    }
 } 

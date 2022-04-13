@@ -30,6 +30,7 @@ public :
     void decreaseSpeed();
     void setSpeed(GLfloat v){ vitesse = v; }
     GLvoid tirer();
+    void setTirActif(bool b) { tirActif = b;}
 
     Camera * camera;
     Tir * tirs ;
@@ -39,6 +40,7 @@ private :
     GLfloat pos[3]; //position x y z du vaisseau
     GLfloat angle;  //angle du vaisseau
     GLfloat vitesse;
+    bool tirActif;
      // tableau de munitions du vaisseau
 };
 

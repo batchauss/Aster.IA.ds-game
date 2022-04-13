@@ -30,7 +30,7 @@ void renduTir( Tir * t){
      glPushMatrix();
        {  
         glColor3f(1, 1, 0);
-        glTranslatef(t->posX(), t->posY(), t->posZ());
+        glTranslatef(t->posX(), t->posY(), t->posZ() );
         glRotatef(t->getAngle(),0.0,1.0,0.0);
         glScalef(0.1,0.1,1);
         glutSolidCube(1);    

@@ -2,8 +2,6 @@
 
 extern Vaisseau * vaisseau;
 
- 
-
 bool zPressed = false;
 bool qPressed = false;
 bool dPressed = false;
@@ -16,7 +14,8 @@ void touche(unsigned char key, int x, int y)
       break;
     
     case ESPACE:
-      vaisseau->tirs->setSpeed(2);
+      vaisseau->tirs->setSpeed(1.5);
+      vaisseau->setTirActif(true);
       break;
     
     case TOUCHE_MIN_Z :
