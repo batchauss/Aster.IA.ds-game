@@ -2,8 +2,9 @@
 #include "fonctions/texture.h"
 #include "actions.h"
 #include "rendu/rendu.h"
+#include "fonctions/obj.h"
 
-
+std::vector<cube> cubes;
 GLuint texture[5];
 Asteroide* tabAsteroides[50];
 int window = 0;

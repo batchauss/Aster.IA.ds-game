@@ -1,14 +1,17 @@
 #include "init.h"
 #include "fonctions/frontiere.h"
 #include "fonctions/frames.h"
+#include "fonctions/obj.h"
 
 extern GLvoid VM_init();
 
 GLvoid Modelisation()
 {  
   VM_init();
+
   spawn_asteroid();
-  frontieres();  
+  frontieres();
+
   glutSwapBuffers();
 }
 

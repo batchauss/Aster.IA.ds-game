@@ -12,7 +12,7 @@ void touche(unsigned char key, int x, int y)
     case ESCAPE :
       exit(1);
       break;
-    
+
     case TOUCHE_MIN_Z :
       zPressed = true;
       vaisseau->setSpeed(1);

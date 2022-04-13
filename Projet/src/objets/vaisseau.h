@@ -29,11 +29,11 @@ public :
     void setSpeed(GLfloat v){ vitesse = v; }
 
     Camera * camera;
-
+    
 private :
     GLfloat pos[3]; //position x y z du vaisseau
     GLfloat angle;  //angle du vaisseau
     GLfloat vitesse;
 };
 
-#endif 
+#endif
