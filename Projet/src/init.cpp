@@ -68,6 +68,7 @@ GLvoid spawn_asteroid(){
       r[i][2]+= -0.2  * cos(a->getAng() *3.14 /180);
 
 
+
     // si la frontiere est franchie, l'asteroide réapparait à l'opposé de la map
        if (r[i][0] >=50) r[i][0] -= 100;
        else if (r[i][1] >=50) r[i][1] -= 100;

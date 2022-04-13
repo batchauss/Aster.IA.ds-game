@@ -2,6 +2,8 @@
 
 extern GLuint texture[];
 
+
+
 GLvoid frontieres(){ //  un grand cube qui va représenter l'univers fermé du jeu
 
    glEnable(GL_TEXTURE_2D);
