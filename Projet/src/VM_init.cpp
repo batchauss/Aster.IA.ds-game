@@ -13,9 +13,11 @@ GLvoid VM_init() {
 	glLoadIdentity();
 
 	vaisseau->moveForward();
+	vaisseau->tirer();
 	if(!zPressed) vaisseau->decreaseSpeed();
 	if(qPressed) vaisseau->setAngle(2);
 	if(dPressed) vaisseau->setAngle(-2);
 	renduCamera(vaisseau);
 	renduVaisseau(vaisseau);
+	renduTir(vaisseau->tirs);
 }

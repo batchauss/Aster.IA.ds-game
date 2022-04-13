@@ -12,7 +12,12 @@ void touche(unsigned char key, int x, int y)
     case ESCAPE :
       exit(1);
       break;
-
+    
+    case ESPACE:
+      vaisseau->tirs->setSpeed(1.5);
+      vaisseau->setTirActif(true);
+      break;
+    
     case TOUCHE_MIN_Z :
       zPressed = true;
       vaisseau->setSpeed(1);
@@ -25,6 +30,7 @@ void touche(unsigned char key, int x, int y)
     case TOUCHE_MIN_D :
       dPressed = true;
       break;
+
   }
 }
 
@@ -41,6 +47,7 @@ void releaseTouche(unsigned char key, int x, int y){
     case TOUCHE_MIN_D :
       dPressed = false;
       break;
+
   }
 }
 
