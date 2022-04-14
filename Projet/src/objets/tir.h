@@ -14,8 +14,8 @@ class Tir {
         GLfloat posZ(){ return this->pos[2];}
         
         GLfloat getAngle(){ return this->angleTir;}
-
         GLfloat getSpeed(){return this->vitesse_tir;}
+        GLfloat getTirActif(){return this->tirActif;}
 
         //modificateurs de position 
         GLvoid setPos(GLfloat x ,GLfloat y,GLfloat z){
@@ -29,12 +29,15 @@ class Tir {
         //modifie la vitesse du tir
         GLvoid setSpeed(GLfloat v){ this->vitesse_tir=v;}
 
+        GLvoid setTirActif(bool b) { tirActif = b;}
+
         void move(GLfloat x, GLfloat y, GLfloat z);
 
     private:
         GLfloat pos[3];
         GLfloat angleTir;
         GLfloat vitesse_tir;
+         bool tirActif ;
 };
 
 #endif

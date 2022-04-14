@@ -5,6 +5,7 @@ Tir::Tir(GLfloat x, GLfloat y , GLfloat z){
     this->pos[1]=y;
     this->pos[2]=z;
     this->vitesse_tir=0;
+    this->tirActif = false;
 }
 
 void Tir::move(GLfloat x, GLfloat y, GLfloat z){ // fait avancer le tir

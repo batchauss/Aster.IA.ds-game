@@ -4,6 +4,7 @@
 #include "../init.h"
 #include "camera.h"
 #include "tir.h"
+#include<vector>
 
 class Vaisseau {
 
@@ -16,7 +17,7 @@ public :
     GLfloat posx(){ return this->pos[0]; }                  // Accesseur sur pos[0] (posx)
     GLfloat posy(){ return this->pos[1]; }                  // Accesseur sur pos[1] (posy)
     GLfloat posz(){ return this->pos[2]; }                  // Accesseur sur pos[2] (posz)
-    GLfloat getAngle(){ return this->angle; }               // Accesseur sur angle
+    GLfloat getAngle(){ return this->angle; }               // Accesseur sur angle           
     
     void setPos(GLfloat x, GLfloat y, GLfloat z){           // Modifie pos
         this->pos[0] = x;
@@ -30,19 +31,14 @@ public :
     void decreaseSpeed();
     void setSpeed(GLfloat v){ vitesse = v; }
     GLvoid tirer();
-    void setTirActif(bool b) { tirActif = b;}
 
     Camera * camera;
-    
-    Tir * tirs ;
-   // GLvoid tirer();
+    Tir * tirs[5]; // tableau de munitions
 
 private :
     GLfloat pos[3]; //position x y z du vaisseau
     GLfloat angle;  //angle du vaisseau
     GLfloat vitesse;
-    bool tirActif;
-     // tableau de munitions du vaisseau
 };
 
 #endif

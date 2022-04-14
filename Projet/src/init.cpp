@@ -26,7 +26,7 @@ int notre_init(int argc, char** argv, void (*Modelisation)()){
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
 	glutInitWindowSize(1000, 1000);
 	glutInitWindowPosition(0, 0);
-	window = glutCreateWindow("Aster.AI.ds");
+	window = glutCreateWindow("Aster.IA.ds");
 	glutDisplayFunc(Modelisation);
 	glutIdleFunc(Modelisation);
 	glutReshapeFunc(&Redimensionne);

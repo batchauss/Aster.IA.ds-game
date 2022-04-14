@@ -19,5 +19,8 @@ GLvoid VM_init() {
 	if(dPressed) vaisseau->setAngle(-2);
 	renduCamera(vaisseau);
 	renduVaisseau(vaisseau);
-	renduTir(vaisseau->tirs);
+	for(int i=0; i<5;++i){
+		 renduTir(vaisseau->tirs[i]);
+	}
+	
 }
