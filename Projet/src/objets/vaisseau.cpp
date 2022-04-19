@@ -26,21 +26,21 @@ void Vaisseau::move(GLfloat x, GLfloat y, GLfloat z){
 
     /*  Si le vaisseau dépasse les limites, il réaparrait de l'autre côté et la caméra aussi*/
 
-    if(posx() > 50){
-        this->pos[0] += -100;
-        camera->setPos(camera->posx() - 100, camera->posy(), camera->posz());
+    if(posx() > 100){
+        this->pos[0] += -200;
+        camera->setPos(camera->posx() - 200, camera->posy(), camera->posz());
     }
-    else if(posx() < -50){
-        this->pos[0] += 100;
-        camera->setPos(camera->posx() + 100, camera->posy(), camera->posz());
+    else if(posx() < -100){
+        this->pos[0] += 200;
+        camera->setPos(camera->posx() + 200, camera->posy(), camera->posz());
     }
-    if(posz() > 50){
-        this->pos[2] += -100;
-        camera->setPos(camera->posx(), camera->posy(), camera->posz() - 100);
+    if(posz() > 100){
+        this->pos[2] += -200;
+        camera->setPos(camera->posx(), camera->posy(), camera->posz() - 200);
     }
-    else if(posz() < -50){
-        this->pos[2] += 100;
-        camera->setPos(camera->posx(), camera->posy(), camera->posz() + 100);
+    else if(posz() < -100){
+        this->pos[2] += 200;
+        camera->setPos(camera->posx(), camera->posy(), camera->posz() + 200);
     }
 }
 
