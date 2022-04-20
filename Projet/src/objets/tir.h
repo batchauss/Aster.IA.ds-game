@@ -8,6 +8,8 @@ class Tir {
         Tir(GLfloat x, GLfloat y , GLfloat z);
         ~Tir();
 
+        GLfloat longueur;
+
         //accesseurs sur la position du tir
         GLfloat posX(){ return this->pos[0];}
         GLfloat posY(){ return this->pos[1];}
@@ -37,7 +39,7 @@ class Tir {
         GLfloat pos[3];
         GLfloat angleTir;
         GLfloat vitesse_tir;
-         bool tirActif ;
+        bool tirActif ;
 };
 
 #endif

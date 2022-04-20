@@ -78,16 +78,17 @@ void Vaisseau::decreaseSpeed(){
 
 GLvoid Vaisseau::tirer(){ // tire une balle 
   for (int i = 0; i< 5;++i){
-        GLfloat longueur = sqrt( (tirs[i]->posX()-posx())*(tirs[i]->posX()-posx()) 
+        tirs[i]->longueur = sqrt( (tirs[i]->posX()-posx())*(tirs[i]->posX()-posx()) 
                              +(tirs[i]->posY()-posy())*(tirs[i]->posY()-posy())
                              +(tirs[i]->posZ()-posz())*(tirs[i]->posZ()-posz())  );
     
         GLfloat calculRotationTranslatexTir = -tirs[i]->getSpeed() * sin(tirs[i]->getAngle() * 3.14 / 180);
         GLfloat calculRotationTranslatezTir = -tirs[i]->getSpeed() * cos(tirs[i]->getAngle() * 3.14 / 180);
         tirs[i]->move(calculRotationTranslatexTir, 0, calculRotationTranslatezTir);
+        
 
     //on remet la balle a sa place si il atteint la portée grace au calcul de la longueur
-    if ( longueur > 20 ){        
+    if ( tirs[i]->longueur > 40 ){        
         tirs[i]->setSpeed(0);   
         tirs[i]->setPos(this->posx(),this->posy(),this->posz());
         tirs[i]->setTirActif(false);
