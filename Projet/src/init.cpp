@@ -17,7 +17,7 @@ GLvoid Redimensionne(GLsizei width, GLsizei height){
 	glViewport(0, 0, width, height);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(45.0, (GLfloat)width / (GLfloat)height, 0.1, 1000.0);
+	gluPerspective(45.0, (GLfloat)width / (GLfloat)height, 0.1, 3000.0);
 	glMatrixMode(GL_MODELVIEW);
 }
 
@@ -73,13 +73,13 @@ GLvoid spawn_asteroid(){
 
 
     // si la frontiere est franchie, l'asteroide réapparait à l'opposé de la map
-       if (r[i][0] >=50) r[i][0] -= 100;
-       else if (r[i][1] >=50) r[i][1] -= 100;
-       else if (r[i][2] >=50) r[i][2] -= 100;
+       if (r[i][0] >=100) r[i][0] -= 200;
+       else if (r[i][1] >=100) r[i][1] -= 200;
+       else if (r[i][2] >=100) r[i][2] -= 200;
 
-       else if (r[i][0] <=-50) r[i][0] += 100;
-       else if (r[i][1] <=-50) r[i][1] += 100;
-       else if (r[i][2] <=-50) r[i][2] += 100;  
+       else if (r[i][0] <=-100) r[i][0] += 200;
+       else if (r[i][1] <=-100) r[i][1] += 200;
+       else if (r[i][2] <=-100) r[i][2] += 200;  
 
        renduAsteroide(a);
 	   tabAsteroides[i]=a;

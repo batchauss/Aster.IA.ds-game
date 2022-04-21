@@ -19,11 +19,13 @@ GLvoid VM_init() {
 	vaisseau->moveForward();
 	vaisseau->tirer();
 	if(!zPressed) vaisseau->decreaseSpeed();
-	if(qPressed) vaisseau->setAngle(0, 2, 0);
-	if(dPressed) vaisseau->setAngle(0, -2, 0);
-	if(keyUpPressed) vaisseau->setAngle(-2, 0, 0);
-	if(keyDownPressed) vaisseau->setAngle(2, 0, 0);
+	if(qPressed) vaisseau->setAngle(2);
+	if(dPressed) vaisseau->setAngle(-2);
+	//if(keyUpPressed) vaisseau->setAngle(-2, 0, 0);
+	//if(keyDownPressed) vaisseau->setAngle(2, 0, 0);
 	renduCamera(vaisseau);
-	renduTir(vaisseau->tirs);
+	for(int i=0; i<5;++i){
+		 renduTir(vaisseau->tirs[i]);
+	}
 	renduObjVaisseau(v, vaisseau);
 }

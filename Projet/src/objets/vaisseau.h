@@ -4,6 +4,7 @@
 #include "../init.h"
 #include "camera.h"
 #include "tir.h"
+#include<vector>
 
 class Vaisseau {
 
@@ -31,17 +32,14 @@ public :
     void setSpeed(GLfloat v){ vitesse = v; }
     
     GLvoid tirer();
-    void setTirActif(bool b) { tirActif = b;}
 
     Camera * camera;
-    Tir * tirs ;
+    Tir * tirs[5]; // tableau de munitions
 
 private :
     GLfloat pos[3]; //position x y z du vaisseau
     GLfloat angle;
     GLfloat vitesse;
-    bool tirActif;
-     // tableau de munitions du vaisseau
 };
 
 #endif
