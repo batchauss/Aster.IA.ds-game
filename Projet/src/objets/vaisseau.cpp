@@ -68,7 +68,7 @@ void Vaisseau::setAngle(GLfloat a){
 
 
      for (unsigned int i = 0; i< tirs.size();++i){ // les munitions se déplacent avec le vaisseau (angle)
-        if(!tirs.at(i)->getTirActif()) tirs.at(i)->setAngle(tirs.at(i)->getAngle() + angle);
+        if(!tirs.at(i)->getTirActif()) tirs.at(i)->setAngle(this->angle);
      }
 }
 
