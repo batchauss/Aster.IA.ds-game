@@ -17,15 +17,13 @@ void touche(unsigned char key, int x, int y)
     
     case ESPACE:
         
-        vaisseau->tirs[4]->setSpeed(1.5); 
-        vaisseau->tirs[4]->setTirActif(true); 
+        vaisseau->tirs.back()->setSpeed(1.5); 
+        vaisseau->tirs.back()->setTirActif(true); 
+        std::cout<<vaisseau->tirs.size() << " ";
         
-        //on decale tous les elements de tirs[] vers la droite ( le vaisseau tire le tirs[4] a chaque fois)           
-        t=vaisseau->tirs[4];
-        for( int i = 4; i>=0;--i){
-          if (i !=0) vaisseau->tirs[i]=vaisseau->tirs[i-1];
-          else vaisseau->tirs[i] =t;
-        }
+        t=vaisseau->tirs.at(vaisseau->tirs.size()-1);
+        vaisseau->tirs.insert(vaisseau->tirs.begin(),t);
+        vaisseau->tirs.pop_back();
 
       break;
     
