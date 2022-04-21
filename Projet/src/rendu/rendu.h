@@ -2,10 +2,10 @@
 #include "../objets/camera.h"
 #include "../objets/asteroide.h"
 #include "../objets/tir.h"
+#include "../fonctions/obj.h"
 
 
 void renduAsteroide(Asteroide * a);
-void renduVaisseau(Vaisseau * v);
 void renduCamera(Vaisseau * v);
-
 void renduTir(Tir *t);
+void renduObjVaisseau(struct obj o, Vaisseau *v);

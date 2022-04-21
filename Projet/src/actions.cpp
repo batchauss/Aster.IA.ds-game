@@ -7,6 +7,8 @@ bool qPressed = false;
 bool dPressed = false;
 
 Tir * t ;
+bool keyUpPressed = false;
+bool keyDownPressed = false;
 
 void touche(unsigned char key, int x, int y) 
 {
@@ -41,7 +43,6 @@ void touche(unsigned char key, int x, int y)
     case TOUCHE_MIN_D :
       dPressed = true;
       break;
-
   }
 }
 
@@ -62,26 +63,31 @@ void releaseTouche(unsigned char key, int x, int y){
   }
 }
 
-void touche_speciale(int key, int x, int y) 
+void toucheSpeciale(int key, int x, int y) 
 {
-  /*switch(key){
+  switch(key){
 
     case GLUT_KEY_UP :
-        xrot -= 10.0;
+      keyUpPressed = true;
       break;
-    
+
     case GLUT_KEY_DOWN :
-    
-      xrot += 10.0;
+      keyDownPressed = true;
+      break;
+  }
+}
+
+void releaseToucheSpeciale(int key, int x, int y) 
+{
+  switch(key){
+
+    case GLUT_KEY_UP :
+      keyUpPressed = false;
       break;
 
-    case GLUT_KEY_LEFT :
-      yrot -= 10.0;
+    case GLUT_KEY_DOWN :
+      keyDownPressed = false;
       break;
-
-    case GLUT_KEY_RIGHT :
-      yrot += 10.0;
-      break;
-  }*/
+  }
 }
 

@@ -6,7 +6,9 @@ Vaisseau::Vaisseau(){
     this->pos[0] = 0;
     this->pos[1] = 0;
     this->pos[2] = 0;
-    this->angle = 0;
+    this->angleX = 0;
+    this->angleY = 0;
+    this->angleZ = 0;
     camera = new Camera(posx(), posy() + 10, posz() + 30);
     
     for (int i =0 ; i<5;++i){
@@ -44,25 +46,41 @@ void Vaisseau::move(GLfloat x, GLfloat y, GLfloat z){
     }
 }
 
-void Vaisseau::setAngle(GLfloat angle){ 
-    this->angle += angle;    // Modification de l'angle du vaisseau
+void Vaisseau::setAngle(GLfloat aX, GLfloat aY, GLfloat aZ){ 
+    this->angleX += aX;
+    this->angleY += aY;
+    this->angleZ += aZ;
+
+    aX *= 3.14 / 180;
+    aY *= 3.14 / 180;
+    aZ *= 3.14 / 180;
 
     // Rotation de la caméra
     GLfloat xCam = camera->posx() - posx();
+    //GLfloat yCam = camera->posy() - posy();
     GLfloat zCam = camera->posz() - posz();
+
     camera->setPos(
-        xCam * cos(angle * 3.14 / 180) + zCam * sin(angle * 3.14 / 180) + posx(), 
+        xCam * cos(aY) + zCam * sin(aY) + posx(), 
         camera->posy(),
-        -xCam * sin(angle * 3.14 / 180) + zCam * cos(angle * 3.14 / 180) + posz()
+        -xCam * sin(aY) + zCam * cos(aY) + posz()
     );
-     for (int i = 0; i< 5;++i){ // les munitions se déplacent avec le vaisseau (angle)
-        if(!tirs[i]->getTirActif()) tirs[i]->setAngle(tirs[i]->getAngle() + angle);
-     }
+
+    /*camera->setPos(
+        xCam * (cos(angleX)*cos(a) - cos(a)*sin(a)*sin(a)) + yCam * (- cos(a)*sin(a) - cos(a)*cos(a)*sin(a)) + zCam * sin(a)*sin(a) + posx(),
+        xCam * (sin(a)*cos(a) + cos(a)*sin(a)*cos(a)) + yCam * (-sin(a)*sin(a) + cos(a)*cos(a)*cos(a)) + zCam * -cos(a)*sin(a) + posy(),
+        xCam * sin(a)*sin(a) + yCam * (sin(a)*cos(a)) + zCam * cos(a) + posz()
+    );*/
+
+    for (int i = 0; i< 5;++i){ // les munitions se déplacent avec le vaisseau (angle)
+        if(!tirs[i]->getTirActif()) tirs[i]->setAngle(tirs[i]->getAngle() + angleY);
+    }
 }
 
 void Vaisseau::moveForward(){
-    GLfloat calculRotationTranslatex = -vitesse * sin(getAngle() * 3.14 / 180);
-    GLfloat calculRotationTranslatez =  -vitesse * cos(getAngle() * 3.14 / 180);
+    GLfloat calculRotationTranslatex = -vitesse * sin(getAngleY() * 3.14 / 180);
+    //GLfloat calculRotationTranslatey = vitesse * sin(getAngleX() * 3.14 / 180);
+    GLfloat calculRotationTranslatez =  -vitesse * cos(getAngleY() * 3.14 / 180);
     this->move(calculRotationTranslatex, 0, calculRotationTranslatez);
     camera->move(calculRotationTranslatex, 0, calculRotationTranslatez);
   
@@ -92,7 +110,7 @@ GLvoid Vaisseau::tirer(){ // tire une balle
         tirs[i]->setSpeed(0);   
         tirs[i]->setPos(this->posx(),this->posy(),this->posz());
         tirs[i]->setTirActif(false);
-        tirs[i]->setAngle(getAngle());       
+        tirs[i]->setAngle(getAngleY());       
     }
   }
 

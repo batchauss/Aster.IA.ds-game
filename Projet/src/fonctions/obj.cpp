@@ -1,76 +1,46 @@
 #include "obj.h"
 
-std::vector<cube> loadObj(std::string const & path){
-
-    std::vector<cube> cubes;
+struct obj loadObj(std::string const & path){
 
     FILE * f = fopen(path.c_str(), "r");
     if(f == NULL){
         std::cout << "Le parser n'a pas réussi à ouvrir le fichier obj " + path << std::endl;
-        return cubes;
+        return {};
     }
+
+    std::vector<std::vector<GLfloat>> v;
+    std::vector<std::vector<GLfloat>> vt;
+    std::vector<std::vector<GLfloat>> vn;
+    std::vector<std::vector<std::vector<int>>> faces;
+
+    std::string ligne;
+    std::vector<std::string> ligneSplit;
 
     char * l = new char();
-
-    fgets(l, 80, f);
-    std::string ligne = l;
-    std::vector<std::string> ligneSplit = split(ligne);
-
-
-    while(ligneSplit.at(0) != "o"){
-        fgets(l, 80, f);
+    while(fgets(l, 80, f) != NULL ){
         ligne = l;
         ligneSplit = split(ligne);
+
+        if(ligneSplit.at(0) == "v"){
+            v.push_back({std::stof(ligneSplit.at(1)), std::stof(ligneSplit.at(2)), std::stof(ligneSplit.at(3))});
+        }
+        else if(ligneSplit.at(0) == "vt"){
+            vt.push_back({std::stof(ligneSplit.at(1)), std::stof(ligneSplit.at(2))});
+        }
+        else if(ligneSplit.at(0) == "vn"){
+            vn.push_back({std::stof(ligneSplit.at(1)), std::stof(ligneSplit.at(2)), std::stof(ligneSplit.at(3))});
+        }
+        else if(ligneSplit.at(0) == "f"){
+            if(ligneSplit.size() == 5) faces.push_back({splitDelimit(ligneSplit.at(1), "/"), splitDelimit(ligneSplit.at(2), "/"), splitDelimit(ligneSplit.at(3), "/"), splitDelimit(ligneSplit.at(4), "/")});
+            else if(ligneSplit.size() == 4) faces.push_back({splitDelimit(ligneSplit.at(1), "/"), splitDelimit(ligneSplit.at(2), "/"), splitDelimit(ligneSplit.at(3), "/")});
+        }
     }
 
-    while(ligneSplit.at(0) == "o"){
+    struct obj o = {v, vt, vn, faces};
 
-        std::vector<std::vector<GLfloat>> v;
-        std::vector<std::vector<GLfloat>> vt;
-        std::vector<std::vector<GLfloat>> vn;
-        std::vector<std::vector<std::vector<int>>> faces;
-
-        fgets(l, 80, f);
-        ligne = l;
-        ligneSplit = split(ligne);
-
-        while(ligneSplit.at(0) == "v" || ligneSplit.at(0) == "vt" || ligneSplit.at(0) == "vn"){
-
-            if(ligneSplit.at(0) == "v"){
-                std::vector<GLfloat> vTemp {std::stof(ligneSplit.at(1)), std::stof(ligneSplit.at(2)), std::stof(ligneSplit.at(3))}; 
-                v.push_back(vTemp);
-            }
-            else if(ligneSplit.at(0) == "vt"){
-                std::vector<GLfloat> vtTemp {std::stof(ligneSplit.at(1)), std::stof(ligneSplit.at(2))}; 
-                vt.push_back(vtTemp);
-            }
-            else if(ligneSplit.at(0) == "vn"){
-                std::vector<GLfloat> vnTemp {std::stof(ligneSplit.at(1)), std::stof(ligneSplit.at(2)), std::stof(ligneSplit.at(3))}; 
-                vn.push_back(vnTemp);
-            }
-        fgets(l, 80, f);
-        ligne = l;
-        ligneSplit = split(ligne);
-        }
-
-        fgets(l, 80, f);
-        fgets(l, 80, f);
-        ligne = l;
-        ligneSplit = split(ligne);
-
-        while(ligneSplit.at(0) == "f"){
-            std::vector<std::vector<int>> faceTemp {splitDelimit(ligneSplit.at(1), "/"), splitDelimit(ligneSplit.at(1), "/"), splitDelimit(ligneSplit.at(1), "/"), splitDelimit(ligneSplit.at(1), "/")};
-            faces.push_back(faceTemp);
-
-            if(fgets(l, 80, f) == NULL) break;
-            ligne = l;
-            ligneSplit = split(ligne);
-        }
-
-        struct cube c = {v, vt, vn, faces};
-        cubes.push_back(c);
-    }
-    return cubes;
+    std::cout << "Obj chargé : " +path << std::endl;
+    std::cout << o.v.size() << " v, " <<  o.vt.size() << " vt, " <<  o.vn.size() << " vn, " <<  o.faces.size() << " faces." << std::endl;
+    return o;
 }
 
 std::vector<std::string> split(const std::string& s)
