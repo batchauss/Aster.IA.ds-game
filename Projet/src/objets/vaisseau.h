@@ -16,16 +16,14 @@ public :
     GLfloat posx(){ return this->pos[0]; }                  // Accesseur sur pos[0] (posx)
     GLfloat posy(){ return this->pos[1]; }                  // Accesseur sur pos[1] (posy)
     GLfloat posz(){ return this->pos[2]; }                  // Accesseur sur pos[2] (posz)
-    GLfloat getAngleX(){ return this->angleX; }
-    GLfloat getAngleY(){ return this->angleY; }
-    GLfloat getAngleZ(){ return this->angleZ; }
+    GLfloat getAngle(){ return this->angle; }
 
     void setPos(GLfloat x, GLfloat y, GLfloat z){           // Modifie pos
         this->pos[0] = x;
         this->pos[1] = y;
         this->pos[2] = z;
     }
-    void setAngle(GLfloat aX, GLfloat aY, GLfloat aZ);
+    void setAngle(GLfloat a);
     
     void calculmoveForward();
     void moveForward();
@@ -40,9 +38,7 @@ public :
 
 private :
     GLfloat pos[3]; //position x y z du vaisseau
-    GLfloat angleX;
-    GLfloat angleY;
-    GLfloat angleZ;
+    GLfloat angle;
     GLfloat vitesse;
     bool tirActif;
      // tableau de munitions du vaisseau

@@ -6,9 +6,7 @@ Vaisseau::Vaisseau(){
     this->pos[0] = 0;
     this->pos[1] = 0;
     this->pos[2] = 0;
-    this->angleX = 0;
-    this->angleY = 0;
-    this->angleZ = 0;
+    this->angle = 0;
     camera = new Camera(posx(), posy() + 10, posz() + 30);
     tirs = new Tir(posx(), posy() , posz() );
     tirActif = false;
@@ -42,14 +40,10 @@ void Vaisseau::move(GLfloat x, GLfloat y, GLfloat z){
     }
 }
 
-void Vaisseau::setAngle(GLfloat aX, GLfloat aY, GLfloat aZ){ 
-    this->angleX += aX;
-    this->angleY += aY;
-    this->angleZ += aZ;
+void Vaisseau::setAngle(GLfloat a){
+    this->angle += a;
 
-    aX *= 3.14 / 180;
-    aY *= 3.14 / 180;
-    aZ *= 3.14 / 180;
+    a *= 3.14 / 180;
 
     // Rotation de la caméra
     GLfloat xCam = camera->posx() - posx();
@@ -57,9 +51,9 @@ void Vaisseau::setAngle(GLfloat aX, GLfloat aY, GLfloat aZ){
     GLfloat zCam = camera->posz() - posz();
 
     camera->setPos(
-        xCam * cos(aY) + zCam * sin(aY) + posx(), 
+        xCam * cos(a) + zCam * sin(a) + posx(), 
         camera->posy(),
-        -xCam * sin(aY) + zCam * cos(aY) + posz()
+        -xCam * sin(a) + zCam * cos(a) + posz()
     );
 
     /*camera->setPos(
@@ -68,13 +62,13 @@ void Vaisseau::setAngle(GLfloat aX, GLfloat aY, GLfloat aZ){
         xCam * sin(a)*sin(a) + yCam * (sin(a)*cos(a)) + zCam * cos(a) + posz()
     );*/
 
-    if(!tirActif) tirs->setAngle(angleY);
+    if(!tirActif) tirs->setAngle(angle);
 }
 
 void Vaisseau::moveForward(){
-    GLfloat calculRotationTranslatex = -vitesse * sin(getAngleY() * 3.14 / 180);
-    //GLfloat calculRotationTranslatey = vitesse * sin(getAngleX() * 3.14 / 180);
-    GLfloat calculRotationTranslatez =  -vitesse * cos(getAngleY() * 3.14 / 180);
+    GLfloat calculRotationTranslatex = -vitesse * sin(getAngle() * 3.14 / 180);
+    //GLfloat calculRotationTranslatey = vitesse * sin(getAngle() * 3.14 / 180);
+    GLfloat calculRotationTranslatez =  -vitesse * cos(getAngle() * 3.14 / 180);
     this->move(calculRotationTranslatex, 0, calculRotationTranslatez);
     camera->move(calculRotationTranslatex, 0, calculRotationTranslatez);
     if(!tirActif) tirs->move(calculRotationTranslatex, 0, calculRotationTranslatez);
@@ -98,6 +92,6 @@ GLvoid Vaisseau::tirer(){ // tire une balle
         tirs->setSpeed(0);   
         tirs->setPos(this->posx(),this->posy(),this->posz());
         tirActif = false;
-        //tirs->setAngle(getAngleH());
+        //tirs->setAngle(getAngle());
     }
 } 
