@@ -2,8 +2,6 @@
 #include "../rendu/rendu.h"
 #include <iostream>
 
-
-
 Vaisseau::Vaisseau(){
     this->pos[0] = 0;
     this->pos[1] = 0;
@@ -11,7 +9,7 @@ Vaisseau::Vaisseau(){
     this->angle = 0;
     camera = new Camera(posx(), posy() + 10, posz() + 30);
     
-    for (int i =0 ; i<6;++i){
+    for (int i =0 ; i<5;++i){
        Tir *t = new Tir(posx(), posy() , posz() );
        t->setTirActif(false);
        tirs.push_back(t); 
