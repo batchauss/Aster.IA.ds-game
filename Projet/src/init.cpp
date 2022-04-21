@@ -2,9 +2,7 @@
 #include "fonctions/texture.h"
 #include "actions.h"
 #include "rendu/rendu.h"
-#include "fonctions/obj.h"
 
-std::vector<cube> cubes;
 GLuint texture[5];
 Asteroide* tabAsteroides[50];
 int window = 0;
@@ -12,6 +10,8 @@ int window = 0;
 GLfloat r[50][3]; // tableau de coordonnées aléatoires pour les astéroides
 GLfloat angle_ast[50]; // tableau d'angle aléatoires qui vont permettre de créer une direction d'un asteroide
 
+
+struct obj v;
 
 GLvoid Redimensionne(GLsizei width, GLsizei height){
 	glViewport(0, 0, width, height);
@@ -26,17 +26,20 @@ int notre_init(int argc, char** argv, void (*Modelisation)()){
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
 	glutInitWindowSize(1000, 1000);
 	glutInitWindowPosition(0, 0);
-	window = glutCreateWindow("Aster.AI.ds");
+	window = glutCreateWindow("Aster.IA.ds");
 	glutDisplayFunc(Modelisation);
 	glutIdleFunc(Modelisation);
 	glutReshapeFunc(&Redimensionne);
 	glutKeyboardFunc(&touche);
 	glutKeyboardUpFunc(&releaseTouche);
-	glutSpecialFunc(&touche_speciale);
+	glutSpecialFunc(&toucheSpeciale);
+	glutSpecialUpFunc(&releaseToucheSpeciale);
 	glClearColor(0.0 , 0.0 , 0.0 , 0.0);
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
+
+	v = loadObj("models/vaisseau.obj");
 
    // remplissage du tableau r pour les coordonnées aléatoires des astéroides
      for(int i=0;i<50;++i){ 
