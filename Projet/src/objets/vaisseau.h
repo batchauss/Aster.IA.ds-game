@@ -34,7 +34,7 @@ public :
     GLvoid tirer();
 
     Camera * camera;
-    Tir * tirs[5]; // tableau de munitions
+    std::vector <Tir *> tirs; // tableau de munitions
 
 private :
     GLfloat pos[3]; //position x y z du vaisseau
