@@ -52,9 +52,11 @@ int notre_init(int argc, char** argv, void (*Modelisation)()){
 	} 
 	
 	//implementation des fichiers de textures
-	TEXTURE_STRUCT * galaxy = readPpm((char *)"./pic/night.ppm");
-   Parametres_texture(0,galaxy);
+	TEXTURE_STRUCT * night = readPpm((char *)"./pic/night.ppm");
+    Parametres_texture(0,night);
 
+	TEXTURE_STRUCT * damier = readPpm((char *)"./pic/Damier.ppm"); //test
+    Parametres_texture(1,damier);
 
 	glutMainLoop();
 	return 1;

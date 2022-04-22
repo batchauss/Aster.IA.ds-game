@@ -21,8 +21,7 @@ void touche(unsigned char key, int x, int y)
         
         vaisseau->tirs.back()->setSpeed(1.5); 
         vaisseau->tirs.back()->setTirActif(true); 
-        std::cout<<vaisseau->tirs.size() << " ";
-        
+
         t=vaisseau->tirs.at(vaisseau->tirs.size()-1);
         vaisseau->tirs.insert(vaisseau->tirs.begin(),t);
         vaisseau->tirs.pop_back();

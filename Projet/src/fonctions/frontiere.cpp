@@ -8,7 +8,7 @@ GLvoid cube_frontiere(){  //un cube entouré de textures
  glEnable(GL_TEXTURE_2D);
   
    GLfloat d = 2000;      //dimensions de la texture 
-   GLfloat nb_text =15;  //nombre de fois ou la texture est répétée dans l'affichage d'un coté
+   GLfloat nb_text =10;  //nombre de fois ou la texture est répétée dans l'affichage d'un coté
    glPushMatrix();
    {
     //textures sur les 4 cotés du cube
