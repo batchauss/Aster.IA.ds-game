@@ -1,10 +1,12 @@
 # ===================================================================
 # Makefile for ASTER.IA.DS
 # ===================================================================
+
 BUILD_FLAGS= -Wall
 LINK_FLAGS= -lm -lGL -lGLU -lglut
 
 Executable=ASTERIADS
+
 Sources= $(wildcard src/*.cpp) $(wildcard src/*/*.cpp)
 Object= $(patsubst src/%.cpp, obj/%.o,$(Sources))
 

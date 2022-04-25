@@ -11,6 +11,19 @@ struct obj {
     std::vector<std::vector<std::vector<int>>> faces;
 };
 
-struct obj loadObj(std::string const & file);
+struct mtl {
+    std::string nom;
+    GLfloat Ns, Ni, d;
+    std::vector<GLfloat> Ka, Kd, Ks, Ke;
+};
+using mtls = std::vector<mtl>;
+
+struct objmtl {
+    struct obj obj;
+    mtls materiaux;
+};
+
+struct objmtl loadObj(std::string const & file);
+mtls loadMtl(std::string const & file);
 std::vector<std::string> split(const std::string & s);
 std::vector<int> splitDelimit(const std::string& s, std::string d);

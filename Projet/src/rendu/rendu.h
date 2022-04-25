@@ -8,4 +8,4 @@
 void renduAsteroide(Asteroide * a);
 void renduCamera(Vaisseau * v);
 void renduTir(Tir *t);
-void renduObjVaisseau(struct obj o, Vaisseau *v);
+void renduObjVaisseau(struct objmtl u, Vaisseau *v);

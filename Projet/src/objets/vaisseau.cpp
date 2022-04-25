@@ -7,7 +7,7 @@ Vaisseau::Vaisseau(){
     this->pos[1] = 0;
     this->pos[2] = 0;
     this->angle = 0;
-    camera = new Camera(posx(), posy() + 10, posz() + 30);
+    camera = new Camera(posx(), posy() + 10, posz() + 20);
     
     for (int i =0 ; i<5;++i){
        Tir *t = new Tir(posx(), posy() , posz() );
