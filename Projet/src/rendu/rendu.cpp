@@ -32,7 +32,7 @@ void renduObjVaisseau(struct objmtl v, Vaisseau * vaisseau){
         glTranslatef(vaisseau->posx(), vaisseau->posy(), vaisseau->posz());
         glRotatef(180 + vaisseau->getAngle(), 0, 1, 0);     // rotation pour déplacement gauche/droite 
         glRotatef(- vaisseau->getAngle2(), 1, 0, 0);  // rotation pour deplacement haut/bas 
-        glScalef(0.3, 0.3, 0.3);
+        glScalef(0.5, 0.5, 0.5);
         for(const auto& face : v.obj.faces){
             glBegin(GL_POLYGON);
 
