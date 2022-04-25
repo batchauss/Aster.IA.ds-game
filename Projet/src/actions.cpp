@@ -18,9 +18,15 @@ void touche(unsigned char key, int x, int y)
       break;
     
     case ESPACE:
+
+        
         
         vaisseau->tirs.back()->setSpeed(1.5); 
-        vaisseau->tirs.back()->setTirActif(true); 
+        vaisseau->tirs.back()->setTirActif(true);
+
+        vaisseau->tirs.back()->setposXmomentTir(vaisseau->posx());
+        vaisseau->tirs.back()->setposYmomentTir(vaisseau->posy());
+        vaisseau->tirs.back()->setposZmomentTir(vaisseau->posz()); 
 
         t=vaisseau->tirs.at(vaisseau->tirs.size()-1);
         vaisseau->tirs.insert(vaisseau->tirs.begin(),t);
