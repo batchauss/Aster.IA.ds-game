@@ -2,6 +2,8 @@
 #include "../rendu/rendu.h"
 #include <iostream>
 
+GLfloat longueurTot[5] ={0,0,0,0,0};
+
 Vaisseau::Vaisseau(){
     this->pos[0] = 0;
     this->pos[1] = 0;
@@ -62,13 +64,13 @@ void Vaisseau::setAngle(GLfloat a){  //angle x z
     //GLfloat yCam = camera->posy() - posy();
     GLfloat zCam = camera->posz() - posz();
 
-    /*camera->setPos(
+    camera->setPos(
         xCam * cos(a) + zCam * sin(a) + posx(), 
         camera->posy(),
         -xCam * sin(a) + zCam * cos(a) + posz()
     );
 
-    /*camera->setPos(
+    camera->setPos(
         xCam * (cos(a)*cos(a) - cos(a)*sin(a)*sin(a)) + yCam * (- cos(a)*sin(a) - cos(a)*cos(a)*sin(a)) + zCam * sin(a)*sin(a) + posx(),
         xCam * (sin(a)*cos(a) + cos(a)*sin(a)*cos(a)) + yCam * (-sin(a)*sin(a) + cos(a)*cos(a)*cos(a)) + zCam * -cos(a)*sin(a) + posy(),
         xCam * sin(a)*sin(a) + yCam * (sin(a)*cos(a)) + zCam * cos(a) + posz()
@@ -91,13 +93,13 @@ void Vaisseau::setAngle2(GLfloat a){  //angle y z
     GLfloat yCam = camera->posy() - posy();
     GLfloat zCam = camera->posz() - posz();
 
-   /* camera->setPos(
+    camera->setPos(
         camera->posx(),  
         yCam * cos(a) + zCam * sin(a) + posy(),
         -yCam * sin(a) + zCam * cos(a) + posz()
-    );*/
+    );
 
-    /*camera->setPos(
+    camera->setPos(
         xCam * (cos(a)*cos(a) - cos(a)*sin(a)*sin(a)) + yCam * (- cos(a)*sin(a) - cos(a)*cos(a)*sin(a)) + zCam * sin(a)*sin(a) + posx(),
         xCam * (sin(a)*cos(a) + cos(a)*sin(a)*cos(a)) + yCam * (-sin(a)*sin(a) + cos(a)*cos(a)*cos(a)) + zCam * -cos(a)*sin(a) + posy(),
         xCam * sin(a)*sin(a) + yCam * (sin(a)*cos(a)) + zCam * cos(a) + posz()
@@ -146,7 +148,8 @@ void Vaisseau::decreaseSpeed(){
 
 GLvoid Vaisseau::tirer(){ // tire une balle 
   for (unsigned int i = 0; i< tirs.size();++i){
-        GLfloat longueur = sqrt( (tirs.at(i)->posX()-tirs.at(i)->posXmomentTir())*(tirs.at(i)->posX()-tirs.at(i)->posXmomentTir()) 
+    
+        GLfloat longueur = longueurTot[i]+ sqrt( (tirs.at(i)->posX()-tirs.at(i)->posXmomentTir())*(tirs.at(i)->posX()-tirs.at(i)->posXmomentTir()) 
                                 +(tirs.at(i)->posY()-tirs.at(i)->posYmomentTir())*(tirs.at(i)->posY()-tirs.at(i)->posYmomentTir())
                                 +(tirs.at(i)->posZ()-tirs.at(i)->posZmomentTir())*(tirs.at(i)->posZ()-tirs.at(i)->posZmomentTir())  );
     
@@ -154,38 +157,46 @@ GLvoid Vaisseau::tirer(){ // tire une balle
         GLfloat calculRotationTranslatezTir = -tirs.at(i)->getSpeed() * cos(tirs.at(i)->getAngle() * 3.14 / 180);
         tirs.at(i)->move(calculRotationTranslatexTir, 0, calculRotationTranslatezTir);
 
+
     //gestion du franchissage de frontière du tir
     if (tirs.at(i)->posX() > 100){ 
+        longueurTot[i]=longueur;
         tirs.at(i)->setPos(tirs.at(i)->posX()-200,tirs.at(i)->posY(),tirs.at(i)->posZ());
         tirs.at(i)->setposmomentTir(tirs.at(i)->posX(),tirs.at(i)->posY(),tirs.at(i)->posZ());
     }
     
     else if (tirs.at(i)->posX() < -100){
+        longueurTot[i]=longueur;
          tirs.at(i)->setPos(tirs.at(i)->posX()+200,tirs.at(i)->posY(),tirs.at(i)->posZ());
          tirs.at(i)->setposmomentTir(tirs.at(i)->posX(),tirs.at(i)->posY(),tirs.at(i)->posZ());
     }
 
     if (tirs.at(i)->posY() > 100){
+        longueurTot[i]=longueur;
          tirs.at(i)->setPos(tirs.at(i)->posX(),tirs.at(i)->posY()-200,tirs.at(i)->posZ());
          tirs.at(i)->setposmomentTir(tirs.at(i)->posX(),tirs.at(i)->posY(),tirs.at(i)->posZ());    
     }
     else if (tirs.at(i)->posY() < -100){
+        longueurTot[i]=longueur;
          tirs.at(i)->setPos(tirs.at(i)->posX(),tirs.at(i)->posY()+200,tirs.at(i)->posZ());
          tirs.at(i)->setposmomentTir(tirs.at(i)->posX(),tirs.at(i)->posY(),tirs.at(i)->posZ());
     }
 
     if (tirs.at(i)->posZ() > 100){
+        longueurTot[i]=longueur;
          tirs.at(i)->setPos(tirs.at(i)->posX(),tirs.at(i)->posY(),tirs.at(i)->posZ()-200);
          tirs.at(i)->setposmomentTir(tirs.at(i)->posX(),tirs.at(i)->posY(),tirs.at(i)->posZ());
     }
 
     else if (tirs.at(i)->posZ() < -100){
+        longueurTot[i]=longueur;
          tirs.at(i)->setPos(tirs.at(i)->posX(),tirs.at(i)->posY(),tirs.at(i)->posZ()+200);
          tirs.at(i)->setposmomentTir(tirs.at(i)->posX(),tirs.at(i)->posY(),tirs.at(i)->posZ());
     }
     
     //on remet la balle a sa place si il atteint la portée grace au calcul de la longueur
-    if ( longueur > 40 || longueur < -40 ){        
+    if ( longueur > 40 || longueur < -40 ){ 
+        longueurTot[i]=0;       
         tirs.at(i)->setSpeed(0);   
         tirs.at(i)->setPos(this->posx(),this->posy(),this->posz());
         tirs.at(i)->setposmomentTir(this->posx(),this->posy(),this->posz());

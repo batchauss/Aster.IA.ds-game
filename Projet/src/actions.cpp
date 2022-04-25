@@ -21,7 +21,7 @@ void touche(unsigned char key, int x, int y)
 
         
         
-        vaisseau->tirs.back()->setSpeed(1.5); 
+        vaisseau->tirs.back()->setSpeed(1.6); 
         vaisseau->tirs.back()->setTirActif(true);
 
         vaisseau->tirs.back()->setposXmomentTir(vaisseau->posx());
