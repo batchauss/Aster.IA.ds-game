@@ -10,7 +10,7 @@ extern bool keyDownPressed;
 
 Vaisseau * vaisseau = new Vaisseau();
 
-extern struct obj v;
+extern struct objmtl v;
 
 GLvoid VM_init() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
