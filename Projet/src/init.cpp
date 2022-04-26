@@ -12,6 +12,7 @@ GLfloat angle_ast[50]; // tableau d'angle aléatoires qui vont permettre de cré
 
 
 struct obj v;
+struct obj ast;
 
 GLvoid Redimensionne(GLsizei width, GLsizei height){
 	glViewport(0, 0, width, height);
