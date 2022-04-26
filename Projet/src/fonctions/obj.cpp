@@ -101,7 +101,9 @@ mtls loadMtl(std::string const & path){
         }
     }
     std::cout << "Mtl chargé : " << path << std::endl;
-    std::cout << materiaux.size() << " " << materiaux.at(0).nom << " " << materiaux.at(1).nom << std::endl;
+    for(auto &a : materiaux){
+        std::cout << a.nom << " ";
+    }std::cout << std::endl;
     return materiaux;
 }
 
@@ -118,8 +120,12 @@ std::vector<int> splitDelimit(const std::string& s, std::string d)
     std::vector<int> num;
     size_t pos;
     std::string sub = s;
+    std::string sub2;
+
     while((pos = sub.find(d)) != std::string::npos){
-        num.push_back(stoi(sub.substr(0, pos)));
+        sub2 = sub.substr(0, pos);
+        if(sub2 != "") num.push_back(stoi(sub2));
+        else num.push_back(0);
         sub = sub.substr(pos+1);
     }
     num.push_back(stoi(sub));
