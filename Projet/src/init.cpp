@@ -4,15 +4,14 @@
 #include "rendu/rendu.h"
 
 GLuint texture[5];
-Asteroide* tabAsteroides[50];
 int window = 0;
+GLfloat ambiente[4] = {0.7, 0.7, 0.7, 1};
 
+Asteroide* tabAsteroides[50];
 GLfloat r[50][3]; // tableau de coordonnées aléatoires pour les astéroides
 GLfloat angle_ast[50]; // tableau d'angle aléatoires qui vont permettre de créer une direction d'un asteroide
 
-
-struct obj v;
-struct obj ast;
+struct objmtl v;
 
 GLvoid Redimensionne(GLsizei width, GLsizei height){
 	glViewport(0, 0, width, height);
@@ -37,10 +36,16 @@ int notre_init(int argc, char** argv, void (*Modelisation)()){
 	glutSpecialUpFunc(&releaseToucheSpeciale);
 	glClearColor(0.0 , 0.0 , 0.0 , 0.0);
 
+	glEnable(GL_LIGHTING);
+    glEnable(GL_COLOR_MATERIAL);
+
+	glEnable(GL_LIGHT0);
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambiente);
+
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 
-	v = loadObj("models/vaisseau.obj");
+	v = loadObj("models/vaisseau");
 
    // remplissage du tableau r pour les coordonnées aléatoires des astéroides
      for(int i=0;i<50;++i){ 
@@ -48,7 +53,7 @@ int notre_init(int argc, char** argv, void (*Modelisation)()){
   	 	r[i][0] = (-50) + (float)((float)rand() * (50-(-50)+1) / (RAND_MAX-1));
   	 	r[i][1] = (-50) + (float)((float)rand() * (50-(-50)+1) / (RAND_MAX-1));
   	 	r[i][2] = (-50) + (float)((float)rand() * (50-(-50)+1) / (RAND_MAX-1));
-	 	angle_ast[i] = (float)((float)rand() * (360+1) / (RAND_MAX-1)); 
+	 	angle_ast[i] = (float)((float)rand() * (360+1) / (RAND_MAX-1));
   		   
 	} 
 	
