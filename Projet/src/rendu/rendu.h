@@ -6,7 +6,7 @@
 
 void constrObj(struct objmtl o);
 
-void renduAsteroide(Asteroide * a);
+void renduAsteroide(struct objmtl as,const Asteroide &  a);
 void renduCamera(Vaisseau * v);
 void renduTir(Tir *t);
 void renduVaisseau(struct objmtl u, Vaisseau *v);

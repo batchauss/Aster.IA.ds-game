@@ -17,8 +17,10 @@ public :
     GLfloat posx(){ return this->pos[0]; }                  // Accesseur sur pos[0] (posx)
     GLfloat posy(){ return this->pos[1]; }                  // Accesseur sur pos[1] (posy)
     GLfloat posz(){ return this->pos[2]; }                  // Accesseur sur pos[2] (posz)
-    GLfloat getAngle(){ return this->angle; }
-    GLfloat getAngle2(){ return this->angle2; }
+    
+    GLfloat getAngle(){ return this->angle[0]; }
+    GLfloat getAngle2(){ return this->angle[1]; }
+    GLfloat getAngle3(){ return this->angle[2]; }
 
     GLfloat getSpeed(){return this->vitesse;}
 
@@ -29,6 +31,7 @@ public :
     }
     void setAngle(GLfloat a);
     void setAngle2(GLfloat a);
+    void setAngle3(GLfloat a);
     
     void calculmoveForward();
     void moveForward();
@@ -42,8 +45,7 @@ public :
 
 private :
     GLfloat pos[3]; //position x y z du vaisseau
-    GLfloat angle; // angle rotation gauche/droite
-    GLfloat angle2; // angle rotation haut/bas
+    GLfloat angle[3]; // angle rotations
     GLfloat vitesse;
 };
 

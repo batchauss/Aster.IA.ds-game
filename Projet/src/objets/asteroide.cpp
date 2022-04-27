@@ -1,16 +1,35 @@
 #include"asteroide.h"
-//extern float vitesse_reelle;
 
-Asteroide::Asteroide( int i ,GLfloat rad, GLfloat sli, GLfloat sta){
+Asteroide::Asteroide( int i){
     this->_id=i; 
     this->_x=r[i][0];
     this->_y=r[i][1];
     this->_z=r[i][2];
-    this->_radius=rad;
-    this->_slide=sli;
-    this->_stack=sta;
-    this->_angle = angle_ast[i];
-   
+    this->_angle = angle_ast[i];  
+    this->vitesse = 0.1; 
 }
 
- Asteroide::~Asteroide(){ }
+
+void Asteroide::move(GLfloat x, GLfloat y, GLfloat z){
+    this->_x +=x;
+    this->_y +=y;
+    this->_z +=z;
+
+    if (_x >=100) _x -= 200;
+    else if (_y >=100) _y -= 200;
+    else if (_z >=100) _z -= 200;
+
+    else if (_x <=-100) _x += 200;
+    else if (_y <=-100) _y += 200;
+    else if (_z <=-100) _z += 200;
+}
+
+void Asteroide::moveForward(){
+    GLfloat deplacementAstX = vitesse  * sin(getAngle() *3.14 /180);
+    GLfloat deplacementAstY = vitesse  * cos(getAngle() *3.14 /180);
+    GLfloat deplacementAstZ = vitesse  * cos(getAngle() *3.14 /180);
+
+    this->move(deplacementAstX,deplacementAstY,deplacementAstZ);
+}
+
+Asteroide::~Asteroide(){ }

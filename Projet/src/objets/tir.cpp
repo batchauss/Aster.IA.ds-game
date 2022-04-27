@@ -6,6 +6,9 @@ Tir::Tir(GLfloat x, GLfloat y , GLfloat z){
     this->pos[2]=z;
     this->vitesse_tir=0;
     this->tirActif = false;
+    this->posMomentTir[0]=this->pos[0];
+    this->posMomentTir[1]=this->pos[1];
+    this->posMomentTir[2]=this->pos[2];
     
 }
 
@@ -14,30 +17,6 @@ void Tir::move(GLfloat x, GLfloat y, GLfloat z){ // fait avancer le tir
     this->pos[1] += y;
     this->pos[2] += z;
 
-
-    //gestion de la frontiere de l'univers
-    if (this->pos[0] > 100){ 
-        this->pos[0] -=100;
-    }
-    else if (this->pos[0] < -100){
-         this->pos[0] +=100;
-    }
-
-    if (this->pos[1] > 100){
-         this->pos[1] -=100;
-    
-    }
-    else if (this->pos[1] < -100){
-         this->pos[1] +=100;
-    }
-
-    if (this->pos[2] > 100){
-         this->pos[2] -=100;
-    }
-
-    else if (this->pos[2] < -100){
-         this->pos[2] +=100;
-    }
 }
 
 Tir::~Tir(){}

@@ -9,6 +9,8 @@ bool dPressed = false;
 Tir * t ;
 bool keyUpPressed = false;
 bool keyDownPressed = false;
+bool keyLeftPressed = false;
+bool keyRightPressed = false;
 
 void touche(unsigned char key, int x, int y) 
 {
@@ -19,8 +21,12 @@ void touche(unsigned char key, int x, int y)
     
     case ESPACE:
         
-        vaisseau->tirs.back()->setSpeed(1.5); 
-        vaisseau->tirs.back()->setTirActif(true); 
+        vaisseau->tirs.back()->setSpeed(1.6); 
+        vaisseau->tirs.back()->setTirActif(true);
+
+        vaisseau->tirs.back()->setposXmomentTir(vaisseau->posx());
+        vaisseau->tirs.back()->setposYmomentTir(vaisseau->posy());
+        vaisseau->tirs.back()->setposZmomentTir(vaisseau->posz()); 
 
         t=vaisseau->tirs.at(vaisseau->tirs.size()-1);
         vaisseau->tirs.insert(vaisseau->tirs.begin(),t);
@@ -71,6 +77,14 @@ void toucheSpeciale(int key, int x, int y)
     case GLUT_KEY_DOWN :
       keyDownPressed = true;
       break;
+
+    case GLUT_KEY_LEFT :
+      keyLeftPressed = true;
+      break;
+
+    case GLUT_KEY_RIGHT :
+      keyRightPressed = true;
+      break; 
   }
 }
 
@@ -85,6 +99,14 @@ void releaseToucheSpeciale(int key, int x, int y)
     case GLUT_KEY_DOWN :
       keyDownPressed = false;
       break;
+
+    case GLUT_KEY_LEFT :
+      keyLeftPressed = false;
+      break;
+
+    case GLUT_KEY_RIGHT :
+      keyRightPressed = false;
+      break;      
   }
 }
 

@@ -7,14 +7,14 @@ GLuint texture[5];
 int window = 0;
 GLfloat ambiente[4] = {0.7, 0.7, 0.7, 1};
 
-Asteroide* tabAsteroides[50];
 GLfloat r[50][3]; // tableau de coordonnées aléatoires pour les astéroides
 GLfloat angle_ast[50]; // tableau d'angle aléatoires qui vont permettre de créer une direction d'un asteroide
+std::vector<Asteroide> asteroides;
 
 struct objmtl v;
-struct objmtl u;
-
+struct objmtl ast;
 extern Vaisseau * vaisseau;
+
 
 GLvoid Redimensionne(GLsizei width, GLsizei height){
 	glViewport(0, 0, width, height);
@@ -51,16 +51,28 @@ int notre_init(int argc, char** argv, void (*Modelisation)()){
 
 	v = loadObj("models/vaisseau");
 	renduVaisseau(v, vaisseau);
+	
+	ast = loadObj("models/test2");
 
    // remplissage du tableau r pour les coordonnées aléatoires des astéroides
      for(int i=0;i<50;++i){ 
 		
-  	 	r[i][0] = (-50) + (float)((float)rand() * (50-(-50)+1) / (RAND_MAX-1));
-  	 	r[i][1] = (-50) + (float)((float)rand() * (50-(-50)+1) / (RAND_MAX-1));
-  	 	r[i][2] = (-50) + (float)((float)rand() * (50-(-50)+1) / (RAND_MAX-1));
+  	 	r[i][0] = (-200) + (float)((float)rand() * (200-(-200)+1) / (RAND_MAX-1));
+  	 	r[i][1] = (-200) + (float)((float)rand() * (200-(-200)+1) / (RAND_MAX-1));
+  	 	r[i][2] = (-200) + (float)((float)rand() * (200-(-200)+1) / (RAND_MAX-1));
 	 	angle_ast[i] = (float)((float)rand() * (360+1) / (RAND_MAX-1));
   		   
 	} 
+
+	//creation du tableau d'asteroides
+	for(int i=0;i<30;++i){
+       Asteroide  a =  Asteroide(i);
+	   a.setX(r[i][0]);
+	   a.setY(r[i][1]);
+	   a.setZ(r[i][2]);
+	   a.setAngle(angle_ast[i]);
+	   asteroides.push_back(a) ;	   
+	}
 	
 	//implementation des fichiers de textures
 	TEXTURE_STRUCT * night = readPpm((char *)"./pic/night.ppm");
@@ -71,29 +83,4 @@ int notre_init(int argc, char** argv, void (*Modelisation)()){
 
 	glutMainLoop();
 	return 1;
-}
-
-GLvoid spawn_asteroid(){
-
- for(int i=0;i<50;++i){
-  
-       Asteroide  *a = new Asteroide(i,1,10,10);
-	  // déplacement unique en fonction de l'angle aléatoire 
-      r[i][0]+= 0.2  * sin(a->getAng() *3.14 /180);
-      r[i][1]+= 0.2  * cos(a->getAng() *3.14 /180);
-      r[i][2]+= -0.2  * cos(a->getAng() *3.14 /180);
-
-    // si la frontiere est franchie, l'asteroide réapparait à l'opposé de la map
-       if (r[i][0] >=100) r[i][0] -= 200;
-       else if (r[i][1] >=100) r[i][1] -= 200;
-       else if (r[i][2] >=100) r[i][2] -= 200;
-
-       else if (r[i][0] <=-100) r[i][0] += 200;
-       else if (r[i][1] <=-100) r[i][1] += 200;
-       else if (r[i][2] <=-100) r[i][2] += 200;  
-
-       renduAsteroide(a);
-	   tabAsteroides[i]=a;
-       delete a;
- }
 }
