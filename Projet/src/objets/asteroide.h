@@ -10,24 +10,19 @@ extern GLfloat angle_ast[50]; // tableau d'angle aléatoires qui vont permettre 
 class Asteroide {
     
      public :
-        Asteroide(int i ,GLfloat rad, GLfloat sli, GLfloat sta);
+        Asteroide(int i);
         ~Asteroide();
 
     //Accesseur sur l'id de l'astéroide
         GLfloat getId(){return this->_id;}
 
     //Accesseurs sur x,y et z
-        GLfloat posX(){ return this->_x;}
-        GLfloat posY(){ return this->_y;}
-        GLfloat posZ(){ return this->_z;}
+        GLfloat  posX() const{ return this->_x;}
+        GLfloat posY() const{ return this->_y;}
+        GLfloat posZ() const{ return this->_z;}
 
     //Accesseur sur l'angle
-        GLfloat getAng(){return this->_angle;}
-
-    //Acesseurs sur les informations de l'aspect sphere de l'asteroide
-        GLfloat getRad(){return this->_radius;}
-        GLfloat getSli(){return this->_slide;}
-        GLfloat getSta(){return this->_stack;}
+        GLfloat getAngle() const{return this->_angle;}
 
     //modifie l'id de l'asteroide
         void setId( int i){ this->_id=i;}
@@ -38,12 +33,13 @@ class Asteroide {
         void setZ(GLfloat z){    this->_z = z;}
        
 
-        void setAng(GLfloat angle){
+        void setAngle(GLfloat angle){
             this->_angle=angle;
         }
-        
 
-        
+        void move(GLfloat x, GLfloat y, GLfloat z);
+        void moveForward();
+                
     private:
 
         int _id; //id de l'asteroide 
@@ -52,12 +48,8 @@ class Asteroide {
         GLfloat _y;
         GLfloat _z;
 
-        
-        GLfloat _radius;
-        GLfloat _slide;
-        GLfloat _stack;
-
         GLfloat _angle; // angle de l'astéroide (qui va servir à determiner la direction unique )
+        GLfloat vitesse;
         
 
         

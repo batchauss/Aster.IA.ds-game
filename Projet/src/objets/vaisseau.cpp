@@ -2,7 +2,7 @@
 #include "../rendu/rendu.h"
 #include <iostream>
 
-GLfloat longueurTot[5] ={0,0,0,0,0};
+GLfloat longueurTot[5] ={0,0,0,0,0}; //tableau annexe pour le calcul de la longueur du tir
 
 Vaisseau::Vaisseau(){
     this->pos[0] = 0;
@@ -90,7 +90,7 @@ void Vaisseau::setAngle2(GLfloat a){  //angle y z
     a *= 3.14 / 180;
 
      for (unsigned int i = 0; i< tirs.size();++i){ // les munitions se déplacent avec le vaisseau (angle)
-        if(!tirs.at(i)->getTirActif()) tirs.at(i)->setAngle(this->angle[0]);
+        if(!tirs.at(i)->getTirActif()) tirs.at(i)->setAngle2(this->angle[1]);
      }
 }
 
@@ -99,14 +99,14 @@ void Vaisseau::setAngle3(GLfloat a){  //angle x z
     a *= 3.14 / 180;
 
      for (unsigned int i = 0; i< tirs.size();++i){ // les munitions se déplacent avec le vaisseau (angle)
-        if(!tirs.at(i)->getTirActif()) tirs.at(i)->setAngle(this->angle[0]);
+        if(!tirs.at(i)->getTirActif()) tirs.at(i)->setAngle3(this->angle[1]);
      }
 }
 
 
 
 void Vaisseau::moveForward(){
-    GLfloat calculRotationTranslatex = -vitesse * sin(getAngle() * 3.14 / 180);
+    GLfloat calculRotationTranslatex = -vitesse * sin(getAngle ()* 3.14 / 180);
     GLfloat calculRotationTranslatey = vitesse * sin(getAngle2() * 3.14 / 180);
     GLfloat calculRotationTranslatez =  -vitesse * cos((getAngle()-getAngle2()) * 3.14 / 180);
  

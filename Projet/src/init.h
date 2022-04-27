@@ -13,6 +13,5 @@
 
 int notre_init(int argc, char** argv, void (*Modelisation)());
 GLvoid Redimensionne(GLsizei width, GLsizei height);
-GLvoid spawn_asteroid();
 
 #endif

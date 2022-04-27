@@ -18,10 +18,12 @@ class Tir {
         //accesseurs sur la position du tir au moment ou espace est pressé
         GLfloat posXmomentTir(){ return this->posMomentTir[0];}
         GLfloat posYmomentTir(){ return this->posMomentTir[1];}
-        GLfloat posZmomentTir(){ return this->posMomentTir[2];}
+        GLfloat posZmomentTir(){ return this->posMomentTir[2];}    
         
-        
-        GLfloat getAngle(){ return this->angleTir;}
+        GLfloat getAngle(){ return this->angleTir[0];}
+        GLfloat getAngle2(){ return this->angleTir[1];}
+        GLfloat getAngle3(){ return this->angleTir[2];}
+
         GLfloat getSpeed(){return this->vitesse_tir;}
         GLfloat getTirActif(){return this->tirActif;}
 
@@ -43,7 +45,9 @@ class Tir {
             this->posMomentTir[2]=z;
         }
 
-        GLvoid setAngle(GLfloat a){ this->angleTir=a;}
+        GLvoid setAngle(GLfloat a){ this->angleTir[0]=a;}
+        GLvoid setAngle2(GLfloat a){ this->angleTir[1]=a;}
+        GLvoid setAngle3(GLfloat a){ this->angleTir[2]=a;}
 
         //modifie la vitesse du tir
         GLvoid setSpeed(GLfloat v){ this->vitesse_tir=v;}
@@ -55,7 +59,7 @@ class Tir {
     private:
         GLfloat pos[3];
         GLfloat posMomentTir[3]; // position au moment du tir
-        GLfloat angleTir;
+        GLfloat angleTir[3];
         GLfloat vitesse_tir;
         bool tirActif ;
 };

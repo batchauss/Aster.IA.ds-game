@@ -11,12 +11,16 @@ extern bool keyRightPressed;
 extern bool keyLeftPressed;
 
 Vaisseau * vaisseau = new Vaisseau();
+extern std::vector< Asteroide > asteroides;
 
 extern struct objmtl v;
+extern struct objmtl ast;
 
 GLvoid VM_init() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
+
+	
 
 	vaisseau->moveForward();
 	vaisseau->tirer();
@@ -33,4 +37,12 @@ GLvoid VM_init() {
 		 renduTir(vaisseau->tirs.at(i));
 	}
 	renduObjVaisseau(v, vaisseau);
+
+	for(int i=0;i<
+	30;++i){
+	   renduAsteroide(ast,asteroides.at(i));
+	   asteroides.at(i).moveForward();
+	}
+	
+
 }

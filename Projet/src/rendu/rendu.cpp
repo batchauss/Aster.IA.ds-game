@@ -1,11 +1,25 @@
 #include "rendu.h"
 
-void renduAsteroide(Asteroide * a){
+void renduAsteroide(struct objmtl as, const Asteroide &  a){
      glPushMatrix();
    {
     glColor3f(0.5,0.5,0.5);
-    glTranslatef(a->posX(),a->posY(),-a->posZ());    
-    glutSolidSphere(a->getRad(),a->getSli(),a->getSta());
+    glTranslatef(a.posX(),a.posY(),a.posZ());
+    glRotatef(a.getAngle(),1,1,1);
+    for(const auto& face : as.obj.faces){
+            glBegin(GL_POLYGON);
+
+            int indexMat = face.at(face.size() - 1).at(0);
+            GLfloat shin = as.materiaux.at(indexMat-1).Ns;
+            glMaterialfv(GL_FRONT, GL_SHININESS, &shin);
+
+            glNormal3f(as.obj.vn.at(face.at(0).at(2)-1).at(0), as.obj.vn.at(face.at(0).at(2)-1).at(1), as.obj.vn.at(face.at(0).at(2)-1).at(2));
+            glColor3f(as.materiaux.at(indexMat-1).Kd.at(0), as.materiaux.at(indexMat-1).Kd.at(1), as.materiaux.at(indexMat-1).Kd.at(2));
+            for(const auto& vertex : face) {
+                glVertex3f(as.obj.v.at(vertex.at(0) - 1).at(0), as.obj.v.at(vertex.at(0) - 1).at(1), as.obj.v.at(vertex.at(0) - 1).at(2));
+            }
+            glEnd(); 
+        }      
    }
    glPopMatrix();
 }
@@ -32,6 +46,7 @@ void renduObjVaisseau(struct objmtl v, Vaisseau * vaisseau){
         glTranslatef(vaisseau->posx(), vaisseau->posy(), vaisseau->posz());
         glRotatef(180 + vaisseau->getAngle(), 0, 1, 0);     // rotation pour déplacement gauche/droite 
         glRotatef(- vaisseau->getAngle2(), 1, 0, 0);  // rotation pour deplacement haut/bas 
+        glRotatef(- vaisseau->getAngle3(), 0, 0, 1);
         glScalef(0.5, 0.5, 0.5);
         for(const auto& face : v.obj.faces){
             glBegin(GL_POLYGON);
