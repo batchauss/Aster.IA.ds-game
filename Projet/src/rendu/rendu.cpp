@@ -1,8 +1,8 @@
 #include "rendu.h"
 
-void renduAsteroide(struct objmtl as, const Asteroide &  a){
-     glPushMatrix();
-   {
+void renduAsteroide(struct objmtl as, const Asteroide & a){
+    glPushMatrix();
+    {
     glColor3f(0.5,0.5,0.5);
     glTranslatef(a.posX(),a.posY(),a.posZ());
     glRotatef(a.getAngle(),1,1,1);

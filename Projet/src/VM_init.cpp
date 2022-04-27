@@ -32,10 +32,13 @@ GLvoid VM_init() {
 	if(keyDownPressed) vaisseau->setAngle2(2);
 	if(keyRightPressed) vaisseau->setAngle3(-2);
 	if(keyLeftPressed) vaisseau->setAngle3(2);
+
 	renduCamera(vaisseau);
+
 	for(int i=0; i<5;++i){
 		 renduTir(vaisseau->tirs.at(i));
 	}
+
 	glPushMatrix();
 		glTranslatef(vaisseau->posx(), vaisseau->posy(), vaisseau->posz());
 		glRotatef(180 + vaisseau->getAngle(), 0, 1, 0);
@@ -44,8 +47,10 @@ GLvoid VM_init() {
 		glFlush();
 	glPopMatrix();
 
-	for(int i=0;i<30;++i){
-	   renduAsteroide(ast,asteroides.at(i));
-	   asteroides.at(i).moveForward();
-	}
+	glPushMatrix();
+		for(int i=0;i<30;++i){
+	   		renduAsteroide(ast,asteroides.at(i));
+	   		asteroides.at(i).moveForward();
+		}
+	glPopMatrix();
 }

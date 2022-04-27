@@ -13,6 +13,7 @@ std::vector<Asteroide> asteroides;
 
 struct objmtl v;
 struct objmtl ast;
+
 extern Vaisseau * vaisseau;
 
 
@@ -56,22 +57,21 @@ int notre_init(int argc, char** argv, void (*Modelisation)()){
 
    // remplissage du tableau r pour les coordonnées aléatoires des astéroides
      for(int i=0;i<50;++i){ 
-		
   	 	r[i][0] = (-200) + (float)((float)rand() * (200-(-200)+1) / (RAND_MAX-1));
   	 	r[i][1] = (-200) + (float)((float)rand() * (200-(-200)+1) / (RAND_MAX-1));
   	 	r[i][2] = (-200) + (float)((float)rand() * (200-(-200)+1) / (RAND_MAX-1));
 	 	angle_ast[i] = (float)((float)rand() * (360+1) / (RAND_MAX-1));
-  		   
 	} 
 
 	//creation du tableau d'asteroides
 	for(int i=0;i<30;++i){
-       Asteroide  a =  Asteroide(i);
+       Asteroide a = Asteroide(i);
 	   a.setX(r[i][0]);
 	   a.setY(r[i][1]);
 	   a.setZ(r[i][2]);
 	   a.setAngle(angle_ast[i]);
-	   asteroides.push_back(a) ;	   
+	   asteroides.push_back(a) ;
+	   renduAsteroide(ast, a);  
 	}
 	
 	//implementation des fichiers de textures
