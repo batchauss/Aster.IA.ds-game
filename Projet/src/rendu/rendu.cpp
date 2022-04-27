@@ -1,12 +1,10 @@
 #include "rendu.h"
 
 void renduAsteroide(Asteroide * a){
-     glPushMatrix();
-   {
+    glPushMatrix();
     glColor3f(0.5,0.5,0.5);
     glTranslatef(a->posX(),a->posY(),-a->posZ());    
-    glutSolidSphere(a->getRad(),a->getSli(),a->getSta());
-   }
+    glutSolidSphere(1, 10, 10);
    glPopMatrix();
 }
 
@@ -26,12 +24,10 @@ void renduTir(Tir * t){
     glPopMatrix();
 }
 
-void renduObjVaisseau(struct objmtl v, Vaisseau * vaisseau){
+void renduVaisseau(struct objmtl v, Vaisseau * vaisseau){
+    glNewList(1, GL_COMPILE_AND_EXECUTE);
     glPushMatrix();
     {
-        glTranslatef(vaisseau->posx(), vaisseau->posy(), vaisseau->posz());
-        glRotatef(180 + vaisseau->getAngle(), 0, 1, 0);     // rotation pour déplacement gauche/droite 
-        glRotatef(- vaisseau->getAngle2(), 1, 0, 0);  // rotation pour deplacement haut/bas 
         glScalef(0.5, 0.5, 0.5);
         for(const auto& face : v.obj.faces){
             glBegin(GL_POLYGON);
@@ -49,6 +45,11 @@ void renduObjVaisseau(struct objmtl v, Vaisseau * vaisseau){
         }
     }
     glPopMatrix();
+    glEndList();
+}
+
+void constrObj(struct objmtl o){
+
 }
 
 

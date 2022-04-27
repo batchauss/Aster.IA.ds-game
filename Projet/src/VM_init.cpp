@@ -10,8 +10,6 @@ extern bool keyDownPressed;
 
 Vaisseau * vaisseau = new Vaisseau();
 
-extern struct objmtl v;
-
 GLvoid VM_init() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
@@ -27,5 +25,11 @@ GLvoid VM_init() {
 	for(int i=0; i<5;++i){
 		 renduTir(vaisseau->tirs[i]);
 	}
-	renduObjVaisseau(v, vaisseau);
+	glPushMatrix();
+		glTranslatef(vaisseau->posx(), vaisseau->posy(), vaisseau->posz());
+		glRotatef(180 + vaisseau->getAngle(), 0, 1, 0);
+		glRotatef(- vaisseau->getAngle2(), 1, 0, 0);
+		glCallList(1);
+		glFlush();
+	glPopMatrix();
 }

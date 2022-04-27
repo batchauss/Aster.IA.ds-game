@@ -12,6 +12,9 @@ GLfloat r[50][3]; // tableau de coordonnées aléatoires pour les astéroides
 GLfloat angle_ast[50]; // tableau d'angle aléatoires qui vont permettre de créer une direction d'un asteroide
 
 struct objmtl v;
+struct objmtl u;
+
+extern Vaisseau * vaisseau;
 
 GLvoid Redimensionne(GLsizei width, GLsizei height){
 	glViewport(0, 0, width, height);
@@ -38,14 +41,16 @@ int notre_init(int argc, char** argv, void (*Modelisation)()){
 
 	glEnable(GL_LIGHTING);
     glEnable(GL_COLOR_MATERIAL);
-
 	glEnable(GL_LIGHT0);
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambiente);
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 
+	/**************************/
+
 	v = loadObj("models/vaisseau");
+	renduVaisseau(v, vaisseau);
 
    // remplissage du tableau r pour les coordonnées aléatoires des astéroides
      for(int i=0;i<50;++i){ 
@@ -78,8 +83,6 @@ GLvoid spawn_asteroid(){
       r[i][1]+= 0.2  * cos(a->getAng() *3.14 /180);
       r[i][2]+= -0.2  * cos(a->getAng() *3.14 /180);
 
-
-
     // si la frontiere est franchie, l'asteroide réapparait à l'opposé de la map
        if (r[i][0] >=100) r[i][0] -= 200;
        else if (r[i][1] >=100) r[i][1] -= 200;
@@ -92,6 +95,5 @@ GLvoid spawn_asteroid(){
        renduAsteroide(a);
 	   tabAsteroides[i]=a;
        delete a;
-       
  }
 }

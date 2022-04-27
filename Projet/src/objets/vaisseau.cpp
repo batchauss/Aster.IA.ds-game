@@ -62,7 +62,7 @@ void Vaisseau::setAngle(GLfloat a){  //angle x z
     //GLfloat yCam = camera->posy() - posy();
     GLfloat zCam = camera->posz() - posz();
 
-    /*camera->setPos(
+    camera->setPos(
         xCam * cos(a) + zCam * sin(a) + posx(), 
         camera->posy(),
         -xCam * sin(a) + zCam * cos(a) + posz()

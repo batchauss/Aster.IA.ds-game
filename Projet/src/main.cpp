@@ -8,9 +8,6 @@ extern GLvoid VM_init();
 GLvoid Modelisation()
 {  
   VM_init();
-
-  
-
   spawn_asteroid();
   frontieres();
   glutSwapBuffers();
