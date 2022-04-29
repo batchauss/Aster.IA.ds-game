@@ -11,7 +11,7 @@ extern bool keyRightPressed;
 extern bool keyLeftPressed;
 
 Vaisseau * vaisseau = new Vaisseau();
-extern std::vector< Asteroide > asteroides;
+extern std::vector< Asteroide *> asteroides;
 
 extern struct objmtl v;
 extern struct objmtl ast;
@@ -33,7 +33,10 @@ GLvoid VM_init() {
 	if(keyRightPressed) vaisseau->setAngle3(-2);
 	if(keyLeftPressed) vaisseau->setAngle3(2);
 
+
 	renduCamera(vaisseau);
+	
+
 
 	for(int i=0; i<5;++i){
 		 renduTir(vaisseau->tirs.at(i));
@@ -47,10 +50,34 @@ GLvoid VM_init() {
 		glFlush();
 	glPopMatrix();
 
-	glPushMatrix();
-		for(int i=0;i<30;++i){
-	   		renduAsteroide(ast,asteroides.at(i));
-	   		asteroides.at(i).moveForward();
-		}
-	glPopMatrix();
+
+	for(int i=0;i<10;++i){
+		glPushMatrix();
+			glTranslatef(asteroides.at(i)->posX(),asteroides.at(i)->posY(),asteroides.at(i)->posZ());
+            glRotatef(asteroides.at(i)->getAngle(),1,1,1);
+			asteroides.at(i)->moveForward();
+			glCallList(2);   		
+			glFlush();
+		glPopMatrix();		
+	}	
+
+	for(int i=10;i<20;++i){
+		glPushMatrix();
+			glTranslatef(asteroides.at(i)->posX(),asteroides.at(i)->posY(),asteroides.at(i)->posZ());
+            glRotatef(asteroides.at(i)->getAngle(),1,1,1);
+			asteroides.at(i)->moveForward();
+			glCallList(4);   		
+			glFlush();
+		glPopMatrix();		
+	}	
+
+	for(int i=20;i<30;++i){
+		glPushMatrix();
+			glTranslatef(asteroides.at(i)->posX(),asteroides.at(i)->posY(),asteroides.at(i)->posZ());
+            glRotatef(asteroides.at(i)->getAngle(),1,1,1);
+			asteroides.at(i)->moveForward();
+			glCallList(5);   		
+			glFlush();
+		glPopMatrix();		
+	}	
 }

@@ -4,6 +4,7 @@
 
 GLfloat longueurTot[5] ={0,0,0,0,0}; //tableau annexe pour le calcul de la longueur du tir
 
+
 Vaisseau::Vaisseau(){
     this->pos[0] = 0;
     this->pos[1] = 0;
@@ -11,7 +12,7 @@ Vaisseau::Vaisseau(){
     this->angle[0] = 0;
     this->angle[1] = 0;
     this->angle[2] = 0;
-    camera = new Camera(posx(), posy() + 10, posz() + 30);
+    camera = new Camera(posx(), posy() + 10, posz() + 300);
     
     for (int i =0 ; i<5;++i){
        Tir *t = new Tir(posx(), posy() , posz() );
@@ -60,13 +61,13 @@ void Vaisseau::setAngle(GLfloat a){  //angle x z
     this->angle[0] += a;
     a *= 3.14 / 180;
 
-    // Rotation de la caméra
-    /*GLfloat xCam = camera->posx() - posx();
-    //GLfloat yCam = camera->posy() - posy();
+    //Rotation de la caméra
+    GLfloat xCam = camera->posx() - posx();
+   // GLfloat yCam = camera->posy() - posy();
     GLfloat zCam = camera->posz() - posz();
 
-    camera->setPos(
-        xCam * cos(a) + zCam * sin(a) + posx(), 
+    /*camera->setPos(
+        xCam * cos(a) + zCam * sin(a) + posx(),  ////faire avec setangle et setangle2 ???
         camera->posy(),
         -xCam * sin(a) + zCam * cos(a) + posz()
     );
@@ -89,12 +90,27 @@ void Vaisseau::setAngle2(GLfloat a){  //angle y z
     this->angle[1] += a;
     a *= 3.14 / 180;
 
+    GLfloat xCam = camera->posx() - posx();
+    GLfloat yCam = camera->posy() - posy();
+    GLfloat zCam = camera->posz() - posz();
+
+   /* camera->setPos(
+        camera->posx(),
+        -zCam * sin(a) + yCam * cos(a) + posy(),  
+        zCam *  cos(a) + yCam * sin(a) + posz()    
+    );*/
+    
+
+    //PB A REGLER : camera se retourne quand cos change de signe
+    //std::cout<<zCam *  cos(a)<<" ";
+    
+
      for (unsigned int i = 0; i< tirs.size();++i){ // les munitions se déplacent avec le vaisseau (angle)
         if(!tirs.at(i)->getTirActif()) tirs.at(i)->setAngle2(this->angle[1]);
      }
 }
 
-void Vaisseau::setAngle3(GLfloat a){  //angle x z
+void Vaisseau::setAngle3(GLfloat a){  //angle x y
     this->angle[2] += a;
     a *= 3.14 / 180;
 
@@ -108,7 +124,7 @@ void Vaisseau::setAngle3(GLfloat a){  //angle x z
 void Vaisseau::moveForward(){
     GLfloat calculRotationTranslatex = -vitesse * sin(getAngle ()* 3.14 / 180);
     GLfloat calculRotationTranslatey = vitesse * sin(getAngle2() * 3.14 / 180);
-    GLfloat calculRotationTranslatez =  -vitesse * cos((getAngle()-getAngle2()) * 3.14 / 180);
+    GLfloat calculRotationTranslatez =  -vitesse * cos((getAngle() - getAngle2()) * 3.14 / 180);
  
     if (cos((getAngle2()) * 3.14 / 180) >=0){
         this->move(calculRotationTranslatex, calculRotationTranslatey, calculRotationTranslatez);    

@@ -3,9 +3,6 @@
 
 #include "../init.h"
 #include "math.h"
-extern GLfloat r[50][3]; // tableau de coordonnées aléatoires pour les astéroides
-extern GLfloat angle_ast[50]; // tableau d'angle aléatoires qui vont permettre de créer une direction d'un asteroide
-
 
 class Asteroide {
     
@@ -17,12 +14,12 @@ class Asteroide {
         GLfloat getId(){return this->_id;}
 
     //Accesseurs sur x,y et z
-        GLfloat  posX() const{ return this->_x;}
-        GLfloat posY() const{ return this->_y;}
-        GLfloat posZ() const{ return this->_z;}
+        GLfloat  posX() { return this->_x;}
+        GLfloat posY() { return this->_y;}
+        GLfloat posZ() { return this->_z;}
 
     //Accesseur sur l'angle
-        GLfloat getAngle() const{return this->_angle;}
+        GLfloat getAngle() {return this->_angle;}
 
     //modifie l'id de l'asteroide
         void setId( int i){ this->_id=i;}
@@ -40,7 +37,7 @@ class Asteroide {
         void move(GLfloat x, GLfloat y, GLfloat z);
         void moveForward();
                 
-    private:
+    protected:
 
         int _id; //id de l'asteroide 
 
@@ -50,14 +47,8 @@ class Asteroide {
 
         GLfloat _angle; // angle de l'astéroide (qui va servir à determiner la direction unique )
         GLfloat vitesse;
+        GLfloat taille;
         
-
-        
-
-
-        
-
 };
-
 
 #endif

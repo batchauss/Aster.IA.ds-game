@@ -9,7 +9,7 @@ GLfloat ambiente[4] = {0.7, 0.7, 0.7, 1};
 
 GLfloat r[50][3]; // tableau de coordonnées aléatoires pour les astéroides
 GLfloat angle_ast[50]; // tableau d'angle aléatoires qui vont permettre de créer une direction d'un asteroide
-std::vector<Asteroide> asteroides;
+std::vector<Asteroide *> asteroides;
 
 struct objmtl v;
 struct objmtl ast;
@@ -23,6 +23,13 @@ GLvoid Redimensionne(GLsizei width, GLsizei height){
 	glLoadIdentity();
 	gluPerspective(45.0, (GLfloat)width / (GLfloat)height, 0.1, 3000.0);
 	glMatrixMode(GL_MODELVIEW);
+}
+
+int Rand( int a, int b) // fonction rand
+{
+       int nRand ;
+       nRand= a + (int)((float)rand() * (b-a+1) / (RAND_MAX-1)) ;
+       return nRand;
 }
 
 int notre_init(int argc, char** argv, void (*Modelisation)()){
@@ -53,26 +60,47 @@ int notre_init(int argc, char** argv, void (*Modelisation)()){
 	v = loadObj("models/vaisseau");
 	renduVaisseau(v, vaisseau);
 	
-	ast = loadObj("models/test2");
+	ast = loadObj("models/asteroide1");
+	
 
    // remplissage du tableau r pour les coordonnées aléatoires des astéroides
-     for(int i=0;i<50;++i){ 
-  	 	r[i][0] = (-200) + (float)((float)rand() * (200-(-200)+1) / (RAND_MAX-1));
-  	 	r[i][1] = (-200) + (float)((float)rand() * (200-(-200)+1) / (RAND_MAX-1));
-  	 	r[i][2] = (-200) + (float)((float)rand() * (200-(-200)+1) / (RAND_MAX-1));
-	 	angle_ast[i] = (float)((float)rand() * (360+1) / (RAND_MAX-1));
+     for(int i=0;i<30;++i){ 
+  	 	r[i][0] = Rand(-199,199);
+  	 	r[i][1] = Rand(-199,199);
+  	 	r[i][2] = Rand(-199,199);
+	 	angle_ast[i] = Rand(0,360);;
 	} 
 
 	//creation du tableau d'asteroides
-	for(int i=0;i<30;++i){
-       Asteroide a = Asteroide(i);
-	   a.setX(r[i][0]);
-	   a.setY(r[i][1]);
-	   a.setZ(r[i][2]);
-	   a.setAngle(angle_ast[i]);
-	   asteroides.push_back(a) ;
-	   renduAsteroide(ast, a);  
+	for(int i=0;i<10;++i){
+       Asteroide * a =new  AsteroidePetit(i);
+	   a->setX(r[i][0]);
+	   a->setY(r[i][1]);
+	   a->setZ(r[i][2]);
+	   a->setAngle(angle_ast[i]); 
+	   asteroides.push_back(a) ;		   
 	}
+
+	for(int i=10;i<20;++i){
+       Asteroide * a =new  AsteroideMoyen(i);
+	   a->setX(r[i][0]);
+	   a->setY(r[i][1]);
+	   a->setZ(r[i][2]);
+	   a->setAngle(angle_ast[i]); 
+	   asteroides.push_back(a) ;		   
+	}
+
+	for(int i=20;i<30;++i){
+       Asteroide * a =new  AsteroideGrand(i);
+	   a->setX(r[i][0]);
+	   a->setY(r[i][1]);
+	   a->setZ(r[i][2]);
+	   a->setAngle(angle_ast[i]); 
+	   asteroides.push_back(a) ;		   
+	}
+	renduAsteroide(1,ast);
+	renduAsteroide(2,ast);
+	renduAsteroide(3,ast);
 	
 	//implementation des fichiers de textures
 	TEXTURE_STRUCT * night = readPpm((char *)"./pic/night.ppm");
@@ -84,3 +112,4 @@ int notre_init(int argc, char** argv, void (*Modelisation)()){
 	glutMainLoop();
 	return 1;
 }
+

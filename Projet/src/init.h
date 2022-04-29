@@ -7,11 +7,13 @@
 #include <unistd.h>
 #include <stdio.h> 
 #include <stdlib.h> 
+#include <time.h>
 
-#include "objets/asteroide.h"
 #include "fonctions/ppm.h"
 
 int notre_init(int argc, char** argv, void (*Modelisation)());
 GLvoid Redimensionne(GLsizei width, GLsizei height);
+
+
 
 #endif
