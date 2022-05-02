@@ -71,8 +71,8 @@ int notre_init(int argc, char** argv, void (*Modelisation)()){
 	 	angle_ast[i] = Rand(0,360);;
 	} 
 
-	//creation du tableau d'asteroides
-	for(int i=0;i<10;++i){
+	//creation des asteroides de petites tailles
+	/*for(int i=0;i<10;++i){
        Asteroide * a =new  AsteroidePetit(i);
 	   a->setX(r[i][0]);
 	   a->setY(r[i][1]);
@@ -80,7 +80,7 @@ int notre_init(int argc, char** argv, void (*Modelisation)()){
 	   a->setAngle(angle_ast[i]); 
 	   asteroides.push_back(a) ;		   
 	}
-
+    //creation des asteroides de moyenne tailles
 	for(int i=10;i<20;++i){
        Asteroide * a =new  AsteroideMoyen(i);
 	   a->setX(r[i][0]);
@@ -89,14 +89,16 @@ int notre_init(int argc, char** argv, void (*Modelisation)()){
 	   a->setAngle(angle_ast[i]); 
 	   asteroides.push_back(a) ;		   
 	}
-
-	for(int i=20;i<30;++i){
+*/
+    //creation des asteroides de grande tailles ( le jeu commence avec 4 grands )
+	for(unsigned int i=0;i<4;++i){
        Asteroide * a =new  AsteroideGrand(i);
 	   a->setX(r[i][0]);
 	   a->setY(r[i][1]);
 	   a->setZ(r[i][2]);
 	   a->setAngle(angle_ast[i]); 
-	   asteroides.push_back(a) ;		   
+	   asteroides.push_back(a) ;
+	   		   
 	}
 	renduAsteroide(1,ast);
 	renduAsteroide(2,ast);

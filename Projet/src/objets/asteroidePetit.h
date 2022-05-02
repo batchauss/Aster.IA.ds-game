@@ -8,4 +8,5 @@ class AsteroidePetit : public Asteroide {
         AsteroidePetit(int i);
         ~AsteroidePetit();
 
+        void split() override;
 };

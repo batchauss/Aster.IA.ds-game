@@ -4,6 +4,7 @@
 #include "../init.h"
 #include "math.h"
 
+
 class Asteroide {
     
      public :
@@ -21,6 +22,9 @@ class Asteroide {
     //Accesseur sur l'angle
         GLfloat getAngle() {return this->_angle;}
 
+    //Accesseur sur ma taille de l'astéroide
+        GLfloat getTaille(){return this->taille;}
+
     //modifie l'id de l'asteroide
         void setId( int i){ this->_id=i;}
 
@@ -36,6 +40,8 @@ class Asteroide {
 
         void move(GLfloat x, GLfloat y, GLfloat z);
         void moveForward();
+
+        virtual void split() = 0;
                 
     protected:
 

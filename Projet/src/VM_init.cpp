@@ -51,12 +51,12 @@ GLvoid VM_init() {
 	glPopMatrix();
 
 
-	for(int i=0;i<10;++i){
+	/*for(int i=0;i<10;++i){
 		glPushMatrix();
 			glTranslatef(asteroides.at(i)->posX(),asteroides.at(i)->posY(),asteroides.at(i)->posZ());
             glRotatef(asteroides.at(i)->getAngle(),1,1,1);
 			asteroides.at(i)->moveForward();
-			glCallList(2);   		
+			glCallList(1);   		
 			glFlush();
 		glPopMatrix();		
 	}	
@@ -66,18 +66,29 @@ GLvoid VM_init() {
 			glTranslatef(asteroides.at(i)->posX(),asteroides.at(i)->posY(),asteroides.at(i)->posZ());
             glRotatef(asteroides.at(i)->getAngle(),1,1,1);
 			asteroides.at(i)->moveForward();
-			glCallList(4);   		
+			glCallList(3);   		
 			glFlush();
 		glPopMatrix();		
 	}	
-
-	for(int i=20;i<30;++i){
+*/
+	for(unsigned int i=0;i<asteroides.size();++i){
 		glPushMatrix();
 			glTranslatef(asteroides.at(i)->posX(),asteroides.at(i)->posY(),asteroides.at(i)->posZ());
             glRotatef(asteroides.at(i)->getAngle(),1,1,1);
 			asteroides.at(i)->moveForward();
-			glCallList(5);   		
-			glFlush();
+			
+			if(asteroides.at(i)->getTaille()==1){
+				glCallList(2);   		
+			    glFlush();
+			}
+			else if(asteroides.at(i)->getTaille()==2){
+				glCallList(3);   		
+			    glFlush();
+			}
+			else if(asteroides.at(i)->getTaille()==3){
+				glCallList(4);   		
+			    glFlush();
+			}
 		glPopMatrix();		
 	}	
 }

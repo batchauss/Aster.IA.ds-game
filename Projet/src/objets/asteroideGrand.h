@@ -6,4 +6,6 @@ class AsteroideGrand : public Asteroide {
         AsteroideGrand(int i);
         ~AsteroideGrand();
 
+        void split() override;
+
 };
