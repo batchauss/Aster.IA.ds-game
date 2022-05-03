@@ -1,6 +1,9 @@
 #include <GL/glut.h>
 #include <GL/gl.h>
+
 #include "rendu/rendu.h"
+
+#include "fonctions/frontiere.h"
 
 extern bool zPressed;
 extern bool qPressed;
@@ -10,11 +13,10 @@ extern bool keyDownPressed;
 extern bool keyRightPressed;
 extern bool keyLeftPressed;
 
-Vaisseau * vaisseau = new Vaisseau();
-extern std::vector< Asteroide *> asteroides;
+extern std::vector<Asteroide *> asteroides;
+extern Vaisseau * vaisseau;
 
-extern struct objmtl v;
-extern struct objmtl ast;
+extern GLuint texture[5];
 
 GLvoid VM_init() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -31,10 +33,7 @@ GLvoid VM_init() {
 	if(keyRightPressed) vaisseau->setAngle3(-2);
 	if(keyLeftPressed) vaisseau->setAngle3(2);
 
-
 	renduCamera(vaisseau);
-	
-
 
 	for(int i=0; i<5;++i){
 		 renduTir(vaisseau->tirs.at(i));
@@ -45,36 +44,14 @@ GLvoid VM_init() {
 		glRotatef(180 + vaisseau->getAngle(), 0, 1, 0);
 		glRotatef(- vaisseau->getAngle2(), 1, 0, 0);
 		glCallList(1);
-		glFlush();
 	glPopMatrix();
 
-
-	/*for(int i=0;i<10;++i){
-		glPushMatrix();
-			glTranslatef(asteroides.at(i)->posX(),asteroides.at(i)->posY(),asteroides.at(i)->posZ());
-            glRotatef(asteroides.at(i)->getAngle(),1,1,1);
-			asteroides.at(i)->moveForward();
-			glCallList(1);   		
-			glFlush();
-		glPopMatrix();		
-	}	
-
-	for(int i=10;i<20;++i){
-		glPushMatrix();
-			glTranslatef(asteroides.at(i)->posX(),asteroides.at(i)->posY(),asteroides.at(i)->posZ());
-            glRotatef(asteroides.at(i)->getAngle(),1,1,1);
-			asteroides.at(i)->moveForward();
-			glCallList(3);   		
-			glFlush();
-		glPopMatrix();		
-	}	
-*/
 	for(unsigned int i=0;i<asteroides.size();++i){
 		glPushMatrix();
 			glTranslatef(asteroides.at(i)->posX(),asteroides.at(i)->posY(),asteroides.at(i)->posZ());
             glRotatef(asteroides.at(i)->getAngle(),1,1,1);
 			asteroides.at(i)->moveForward();
-			asteroides.at(i)->asteroideTouche();
+			//asteroides.at(i)->asteroideTouche();
 			
 			if(asteroides.at(i)->getTaille()==1){
 				glCallList(2);   		
@@ -89,5 +66,7 @@ GLvoid VM_init() {
 			    glFlush();
 			}
 		glPopMatrix();		
-	}	
+	}
+
+	frontieres(texture[0]);
 }

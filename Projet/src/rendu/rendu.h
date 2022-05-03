@@ -6,9 +6,7 @@
 #include "../objets/tir.h"
 #include "../fonctions/obj.h"
 
-void constrObj(struct objmtl o);
-
-void renduAsteroide(int taille,struct objmtl as);
+void renduAsteroide( int taille,struct objmtl as);
 void renduCamera(Vaisseau * v);
 void renduTir(Tir *t);
-void renduVaisseau(struct objmtl u, Vaisseau *v);
+void renduVaisseau(struct objmtl v);

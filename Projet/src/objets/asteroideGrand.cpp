@@ -40,19 +40,18 @@ AsteroideGrand::AsteroideGrand( int i) :Asteroide(i){
 
   }
 
-  bool AsteroideGrand::asteroideTouche(){
-   for (unsigned int i = 0; i< vaisseau->tirs.size();++i){ 
-        GLfloat longueur = sqrt( (vaisseau->tirs.at(i)->posX()-this->posX())*(vaisseau->tirs.at(i)->posX()-this->posX()) 
-                                +(vaisseau->tirs.at(i)->posY()-this->posY())*(vaisseau->tirs.at(i)->posY()-this->posY())
-                                +(vaisseau->tirs.at(i)->posZ()-this->posZ())*(vaisseau->tirs.at(i)->posZ()-this->posZ()) );
+bool AsteroideGrand::asteroideTouche(){
+  for (unsigned int i = 0; i< vaisseau->tirs.size();++i){ 
+    GLfloat longueur = sqrt( (vaisseau->tirs.at(i)->posX()-this->posX())*(vaisseau->tirs.at(i)->posX()-this->posX()) 
+                            +(vaisseau->tirs.at(i)->posY()-this->posY())*(vaisseau->tirs.at(i)->posY()-this->posY())
+                            +(vaisseau->tirs.at(i)->posZ()-this->posZ())*(vaisseau->tirs.at(i)->posZ()-this->posZ()));
     
     if(longueur <= this->rayon_hitbox and vaisseau->tirs.at(i)->getTirActif()){
-      vaisseau->tirs.at(i)->release(vaisseau->posx(),vaisseau->posy(),vaisseau->posz())
-;      this->split();
+      vaisseau->tirs.at(i)->release(vaisseau->posx(),vaisseau->posy(),vaisseau->posz());
+      this->split();
       return false ;
     }
-   
-   }
   }
+}
 
 AsteroideGrand::~AsteroideGrand(){ }
