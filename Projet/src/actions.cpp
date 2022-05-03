@@ -1,5 +1,8 @@
 #include "actions.h"
 #include<iostream>
+
+extern std::vector<Asteroide *> asteroides;
+
 extern Vaisseau * vaisseau;
 
 bool zPressed = false;
@@ -21,7 +24,7 @@ void touche(unsigned char key, int x, int y)
     
     case ESPACE:
         
-        vaisseau->tirs.back()->setSpeed(1.6); 
+        vaisseau->tirs.back()->setSpeed(1.4); 
         vaisseau->tirs.back()->setTirActif(true);
 
         vaisseau->tirs.back()->setposXmomentTir(vaisseau->posx());
@@ -31,6 +34,10 @@ void touche(unsigned char key, int x, int y)
         t=vaisseau->tirs.at(vaisseau->tirs.size()-1);
         vaisseau->tirs.insert(vaisseau->tirs.begin(),t);
         vaisseau->tirs.pop_back();
+
+      /* if  (asteroides.size() !=0)
+          asteroides.at(0)->split();
+        std::cout<<asteroides.size()<<" "; */
 
       break;
     

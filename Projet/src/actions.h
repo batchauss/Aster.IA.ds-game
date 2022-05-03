@@ -8,6 +8,7 @@
 #include "math.h"
 #include "objets/camera.h"
 #include "objets/vaisseau.h"
+#include "objets/asteroide.h"
 #include "objets/tir.h"
 
 void touche(unsigned char key, int x, int y);

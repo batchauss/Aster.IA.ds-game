@@ -3,6 +3,7 @@
 
 #include "../init.h"
 
+
 class Tir {
     public:
         Tir(GLfloat x, GLfloat y , GLfloat z);
@@ -55,6 +56,8 @@ class Tir {
         GLvoid setTirActif(bool b) { tirActif = b;}
 
         void move(GLfloat x, GLfloat y, GLfloat z);
+
+        void release(GLfloat x, GLfloat y, GLfloat z); //remets le tir a sa place initiale(dans le vaisseau)
 
     private:
         GLfloat pos[3];
