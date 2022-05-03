@@ -9,4 +9,5 @@ class AsteroideMoyen: public Asteroide {
         ~AsteroideMoyen();
 
         void split() override;
+        bool asteroideTouche() override;
 };

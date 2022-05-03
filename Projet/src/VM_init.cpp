@@ -76,6 +76,7 @@ GLvoid VM_init() {
 			glTranslatef(asteroides.at(i)->posX(),asteroides.at(i)->posY(),asteroides.at(i)->posZ());
             glRotatef(asteroides.at(i)->getAngle(),1,1,1);
 			asteroides.at(i)->moveForward();
+			asteroides.at(i)->asteroideTouche();
 			
 			if(asteroides.at(i)->getTaille()==1){
 				glCallList(2);   		

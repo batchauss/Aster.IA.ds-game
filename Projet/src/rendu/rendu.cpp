@@ -49,7 +49,7 @@ void renduTir(Tir * t){
         glColor3f(1, 1, 0);
         glTranslatef(t->posX(), t->posY(), t->posZ() );
         glRotatef(t->getAngle(),0.0,1.0,0.0);
-        glScalef(0.1,0.1,1);
+        glScalef(0.1,0.1,0.1);
         glutSolidCube(1);    
        }
     glPopMatrix();

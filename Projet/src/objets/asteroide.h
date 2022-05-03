@@ -41,7 +41,9 @@ class Asteroide {
         void move(GLfloat x, GLfloat y, GLfloat z);
         void moveForward();
 
-        virtual void split() = 0;
+        virtual void split() = 0; //fonction de séparation des astéroides
+        virtual bool asteroideTouche() = 0;
+
                 
     protected:
 
@@ -54,6 +56,7 @@ class Asteroide {
         GLfloat _angle; // angle de l'astéroide (qui va servir à determiner la direction unique )
         GLfloat vitesse;
         GLfloat taille;
+        GLfloat rayon_hitbox;
         
 };
 

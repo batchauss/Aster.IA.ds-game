@@ -12,7 +12,7 @@ Vaisseau::Vaisseau(){
     this->angle[0] = 0;
     this->angle[1] = 0;
     this->angle[2] = 0;
-    camera = new Camera(posx(), posy() + 10, posz() + 300);
+    camera = new Camera(posx(), posy() + 10, posz() + 30);
     
     for (int i =0 ; i<5;++i){
        Tir *t = new Tir(posx(), posy() , posz() );
@@ -66,12 +66,12 @@ void Vaisseau::setAngle(GLfloat a){  //angle x z
    // GLfloat yCam = camera->posy() - posy();
     GLfloat zCam = camera->posz() - posz();
 
-    /*camera->setPos(
+    camera->setPos(
         xCam * cos(a) + zCam * sin(a) + posx(),  ////faire avec setangle et setangle2 ???
         camera->posy(),
         -xCam * sin(a) + zCam * cos(a) + posz()
     );
-
+/*
     camera->setPos(
         xCam * (cos(a)*cos(a) - cos(a)*sin(a)*sin(a)) + yCam * (- cos(a)*sin(a) - cos(a)*cos(a)*sin(a)) + zCam * sin(a)*sin(a) + posx(),
         xCam * (sin(a)*cos(a) + cos(a)*sin(a)*cos(a)) + yCam * (-sin(a)*sin(a) + cos(a)*cos(a)*cos(a)) + zCam * -cos(a)*sin(a) + posy(),
@@ -208,11 +208,7 @@ GLvoid Vaisseau::tirer(){ // tire une balle
     //on remet la balle a sa place si il atteint la portée grace au calcul de la longueur
     if ( longueur > 40 || longueur < -40 ){ 
         longueurTot[i]=0;       
-        tirs.at(i)->setSpeed(0);   
-        tirs.at(i)->setPos(this->posx(),this->posy(),this->posz());
-        tirs.at(i)->setposmomentTir(this->posx(),this->posy(),this->posz());
-        tirs.at(i)->setTirActif(false);
-        tirs.at(i)->setAngle(getAngle());    
-    }
+        tirs.at(i)->release(this->posx(),this->posy(),this->posz());
+  }
   }
 }

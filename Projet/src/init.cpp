@@ -92,7 +92,7 @@ int notre_init(int argc, char** argv, void (*Modelisation)()){
 */
     //creation des asteroides de grande tailles ( le jeu commence avec 4 grands )
 	for(unsigned int i=0;i<4;++i){
-       Asteroide * a =new  AsteroideGrand(i);
+       Asteroide * a =new  AsteroideGrand(asteroides.size());
 	   a->setX(r[i][0]);
 	   a->setY(r[i][1]);
 	   a->setZ(r[i][2]);

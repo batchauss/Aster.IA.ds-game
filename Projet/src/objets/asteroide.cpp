@@ -9,6 +9,7 @@ Asteroide::Asteroide( int i){
     this->_angle = 0;  
     this->vitesse=0;
     this->taille=0;
+    this->rayon_hitbox=0;
 }
 
 

@@ -7,5 +7,6 @@ class AsteroideGrand : public Asteroide {
         ~AsteroideGrand();
 
         void split() override;
+        bool asteroideTouche() override;
 
 };
