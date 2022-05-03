@@ -1,10 +1,8 @@
 #include "frontiere.h"
 
-extern GLuint texture[]; // tableau contenant les differentes textures
+GLvoid cube_frontiere(GLuint texture){  //un cube entouré de textures 
 
-GLvoid cube_frontiere(){  //un cube entouré de textures 
-
- glBindTexture(GL_TEXTURE_2D, texture[0]);
+ glBindTexture(GL_TEXTURE_2D, texture);
  glEnable(GL_TEXTURE_2D);
   
    GLfloat d = 2000;      //dimensions de la texture 
@@ -66,14 +64,14 @@ GLvoid cube_frontiere(){  //un cube entouré de textures
 }
 
 
-GLvoid frontieres(){  // 3 cubes de sens differents pour ne pas voir les coins
+GLvoid frontieres(GLuint texture){  // 3 cubes de sens differents pour ne pas voir les coins
 
-  cube_frontiere();
+  cube_frontiere(texture);
   glPushMatrix();
   {
    glRotatef(45,1.0,0.0,0.0);
    glRotatef(45,0.0,1.0,0.0);
-   cube_frontiere();   
+   cube_frontiere(texture);   
   }
   glPopMatrix();
 
@@ -81,7 +79,7 @@ GLvoid frontieres(){  // 3 cubes de sens differents pour ne pas voir les coins
   {
    glRotatef(-45,1.0,0.0,0.0);
    glRotatef(-45,0.0,1.0,0.0);
-   cube_frontiere();
+   cube_frontiere(texture);
   }
   glPopMatrix();
 }

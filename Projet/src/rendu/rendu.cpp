@@ -48,12 +48,12 @@ void renduVaisseau(struct objmtl v, Vaisseau * vaisseau){
         for(const auto& face : v.obj.faces){
             glBegin(GL_POLYGON);
 
-            int indexMat = face.at(face.size() - 1).at(0);
+            /*int indexMat = face.at(face.size() - 1).at(0);
             GLfloat shin = v.materiaux.at(indexMat-1).Ns;
-            glMaterialfv(GL_FRONT, GL_SHININESS, &shin);
+            glMaterialfv(GL_FRONT, GL_SHININESS, &shin);*/
 
             glNormal3f(v.obj.vn.at(face.at(0).at(2)-1).at(0), v.obj.vn.at(face.at(0).at(2)-1).at(1), v.obj.vn.at(face.at(0).at(2)-1).at(2));
-            glColor3f(v.materiaux.at(indexMat-1).Kd.at(0), v.materiaux.at(indexMat-1).Kd.at(1), v.materiaux.at(indexMat-1).Kd.at(2));
+            //glColor3f(v.materiaux.at(indexMat-1).Kd.at(0), v.materiaux.at(indexMat-1).Kd.at(1), v.materiaux.at(indexMat-1).Kd.at(2));
             for(const auto& vertex : face) {
                 glVertex3f(v.obj.v.at(vertex.at(0) - 1).at(0), v.obj.v.at(vertex.at(0) - 1).at(1), v.obj.v.at(vertex.at(0) - 1).at(2));
             }

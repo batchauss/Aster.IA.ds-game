@@ -4,11 +4,14 @@
 #include "fonctions/obj.h"
 
 extern GLvoid VM_init();
+extern GLuint texture[5];
 
 GLvoid Modelisation()
 {  
   VM_init();
-  frontieres();
+
+  frontieres(texture[0]);
+
   glutSwapBuffers();
 }
 

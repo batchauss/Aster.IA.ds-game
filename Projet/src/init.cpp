@@ -76,10 +76,10 @@ int notre_init(int argc, char** argv, void (*Modelisation)()){
 	
 	//implementation des fichiers de textures
 	TEXTURE_STRUCT * night = readPpm((char *)"./pic/night.ppm");
-    Parametres_texture(0,night);
+    Parametres_texture(0, night, texture[0]);
 
 	TEXTURE_STRUCT * damier = readPpm((char *)"./pic/Damier.ppm"); //test
-    Parametres_texture(1,damier);
+    Parametres_texture(1,damier, texture[1]);
 
 	glutMainLoop();
 	return 1;

@@ -5,7 +5,7 @@
 #include "../init.h"
 
 
-GLvoid frontieres();
+GLvoid frontieres(GLuint texture);
 
 
 #endif
