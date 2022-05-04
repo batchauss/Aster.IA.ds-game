@@ -11,42 +11,55 @@ GLvoid Modelisation()
 mainwindow::mainwindow(int argc, char**argv)
     : QMainWindow()
 {
-  this->setMinimumSize(800, 800);
-  QVBoxLayout * layout = new QVBoxLayout();
-  layout->setAlignment(Qt::AlignCenter);
-  layout->setSpacing(20);
+  this->showFullScreen();
 
-  /*      Bouton Jouer      */
+  /*      Menu principal      */
+
+  QWidget * menuPWidget = new QWidget;
+
+  //  Bouton Jouer
 
   QPushButton * jouer = new QPushButton("Jouer");
-  jouer->setFixedSize(260, 80);
+  jouer->setFixedSize(400, 100);
   QObject::connect(jouer, &QPushButton::clicked,
   [=](){
     this->close();
     return notre_init(argc, argv, &Modelisation);
   });
 
-  /*      Bouton Options      */
+  //  Bouton Options
 
   QPushButton * options = new QPushButton("Options");
-  options->setFixedSize(260, 80);
+  options->setFixedSize(190, 50);
+  QObject::connect(options, &QPushButton::clicked,
+  [=](){
+    
+  });
 
-  /*      Bouton Quitter      */
+  //  Bouton Quitter
   
   QPushButton * quitter = new QPushButton("Quitter");
-  quitter->setFixedSize(260, 80);
+  quitter->setFixedSize(190, 50);
   QObject::connect(quitter, &QPushButton::clicked,
   [=](){
     this->close();
   });
 
-  QWidget * cWidget = new QWidget;
-  cWidget->setLayout(layout);
-  this->setCentralWidget(cWidget);
+  //  Layout
 
-  layout->addWidget(jouer);
-  layout->addWidget(options);
-  layout->addWidget(quitter);
+  QGridLayout * layout = new QGridLayout();
+  layout->setAlignment(Qt::AlignCenter);
+  layout->setHorizontalSpacing(20);
+ 
+  layout->addWidget(jouer, 0, 0, 2, 4);
+  layout->addWidget(options, 2, 0, 1, 1);
+  layout->addWidget(quitter, 2, 1, 1, 1);
+
+  menuPWidget->setLayout(layout);
+
+  /*      Central Widget      */
+
+  this->setCentralWidget(menuPWidget);
 }
 
 mainwindow::~mainwindow(){}

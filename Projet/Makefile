@@ -35,7 +35,11 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = Aster.IA.ds1.0.0
+<<<<<<< HEAD
 DISTDIR = /home/etud/Bureau/asteraids/Aster.ia.ds/Projet/build/obj/Aster.IA.ds1.0.0
+=======
+DISTDIR = /home/etud/Git\ Repo/Aster.ia.ds/Projet/build/obj/Aster.IA.ds1.0.0
+>>>>>>> 3777762d88bccdcc325d1937278d87007f5ef4ba
 LINK          = g++
 LFLAGS        = -Wl,-O1
 LIBS          = $(SUBLIBS) -lglut -lGLU -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
@@ -451,7 +455,11 @@ build/moc/moc_mainwindow.cpp: src/init.h \
 		src/mainwindow.h \
 		build/moc/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
+<<<<<<< HEAD
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/etud/Bureau/asteraids/Aster.ia.ds/Projet/build/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/etud/Bureau/asteraids/Aster.ia.ds/Projet -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include src/mainwindow.h -o build/moc/moc_mainwindow.cpp
+=======
+	/usr/lib/qt5/bin/moc $(DEFINES) --include '/home/etud/Git Repo/Aster.ia.ds/Projet/build/moc/moc_predefs.h' -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I'/home/etud/Git Repo/Aster.ia.ds/Projet' -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include src/mainwindow.h -o build/moc/moc_mainwindow.cpp
+>>>>>>> 3777762d88bccdcc325d1937278d87007f5ef4ba
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
