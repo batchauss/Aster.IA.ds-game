@@ -1,3 +1,4 @@
+
 #include"asteroideMoyen.h"
 #include"asteroidePetit.h"
 #include"vaisseau.h"
@@ -44,7 +45,7 @@ void AsteroideMoyen::split(){
                                 +(vaisseau->tirs.at(i)->posZ()-this->posZ())*(vaisseau->tirs.at(i)->posZ()-this->posZ()) );
     
     if(longueur<=this->rayon_hitbox){
-      vaisseau->tirs.at(i)->release(vaisseau->posx(),vaisseau->posy(),vaisseau->posz())
+      vaisseau->tirs.at(i)->release(vaisseau->posx(),vaisseau->posy(),vaisseau->posz(),vaisseau->getAngle());
 ;      this->split();
       return false ;
     }
