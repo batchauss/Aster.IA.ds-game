@@ -208,7 +208,7 @@ GLvoid Vaisseau::tirer(){ // tire une balle
     //on remet la balle a sa place si il atteint la portée grace au calcul de la longueur
     if ( longueur > 40 || longueur < -40 ){ 
         longueurTot[i]=0;       
-        tirs.at(i)->release(this->posx(),this->posy(),this->posz());
+        tirs.at(i)->release(this->posx(),this->posy(),this->posz(),this->getAngle());
   }
   }
 }

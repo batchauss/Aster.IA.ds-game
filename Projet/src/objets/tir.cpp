@@ -18,12 +18,12 @@ void Tir::move(GLfloat x, GLfloat y, GLfloat z){ // fait avancer le tir
     this->pos[2] += z;
 }
 
-void Tir::release(GLfloat x, GLfloat y, GLfloat z){
+void Tir::release(GLfloat x, GLfloat y, GLfloat z,GLfloat a){
     this->setSpeed(0);   
     this->setPos(x,y,z);
     this->setposmomentTir(x,y,z);
     this->setTirActif(false);
-    this->setAngle(getAngle());
+    this->setAngle(a);
 }
 
 Tir::~Tir(){}
