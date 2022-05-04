@@ -165,8 +165,9 @@ GLvoid Vaisseau::tirer(){ // tire une balle
                                 +(tirs.at(i)->posZ()-tirs.at(i)->posZmomentTir())*(tirs.at(i)->posZ()-tirs.at(i)->posZmomentTir())  );
     
         GLfloat calculRotationTranslatexTir = -tirs.at(i)->getSpeed() * sin(tirs.at(i)->getAngle() * 3.14 / 180);
+        GLfloat calculRotationTranslateyTir = tirs.at(i)->getSpeed() * sin(tirs.at(i)->getAngle2() * 3.14 / 180);
         GLfloat calculRotationTranslatezTir = -tirs.at(i)->getSpeed() * cos(tirs.at(i)->getAngle() * 3.14 / 180);
-        tirs.at(i)->move(calculRotationTranslatexTir, 0, calculRotationTranslatezTir);
+        tirs.at(i)->move(calculRotationTranslatexTir, calculRotationTranslateyTir, calculRotationTranslatezTir);
 
 
     //gestion du franchissage de frontière du tir

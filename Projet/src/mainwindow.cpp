@@ -3,7 +3,7 @@
 extern GLvoid VM_init();
 
 GLvoid Modelisation()
-{  
+{
   VM_init();
   glutSwapBuffers();
 }
