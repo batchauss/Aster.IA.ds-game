@@ -84,9 +84,9 @@ int Rand( int a, int b) // fonction rand
 
 void remplissageTableauR(){
 	for(int i=0;i<30;++i){ 
-  	 	r[i][0] = Rand(-199,199);
-  	 	r[i][1] = Rand(-199,199);
-  	 	r[i][2] = Rand(-199,199);
+  	 	r[i][0] = Rand(-399,399);
+  	 	r[i][1] = Rand(-399,399);
+  	 	r[i][2] = Rand(-399,399);
 	 	angle_ast[i] = Rand(0,360);;
 	} 
 }
@@ -94,7 +94,7 @@ void remplissageTableauR(){
 void creationAsteroides(){
 	//creation des asteroides de grande tailles ( le jeu commence avec 4 grands )
 	for(unsigned int i=0;i<4;++i){
-       Asteroide * a = new AsteroideGrand(asteroides.size());
+       Asteroide * a = new AsteroideGrand(i);
 	   a->setX(r[i][0]);
 	   a->setY(r[i][1]);
 	   a->setZ(r[i][2]);

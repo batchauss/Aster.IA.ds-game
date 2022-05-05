@@ -82,4 +82,53 @@ GLvoid frontieres(GLuint texture){  // 3 cubes de sens differents pour ne pas vo
    cube_frontiere(texture);
   }
   glPopMatrix();
+
+
+ /// quadrillage de frontière
+  glPushMatrix();
+    {
+      glLineWidth(1.2);
+      glColor3f(1.0 ,0.5 ,0.0 );
+      GLfloat size = 200;
+
+      for (int i = 0; i<=10;++i){
+        glBegin(GL_LINE_LOOP);
+        {
+            glVertex3f(-size,-size+(40 *i),size);//1
+            glVertex3f(size,-size+(40 *i),size);//2
+
+            glVertex3f(size,-size+(40 *i),-size);//3
+            glVertex3f(-size,-size+(40 *i),-size);//4
+        }
+        glEnd();
+      }
+
+      glRotatef(90,0,0,1);
+      for (int i = 0; i<=10;++i){
+        glBegin(GL_LINE_LOOP);
+        {
+            glVertex3f(-size,-size+(40 *i),size);//1
+            glVertex3f(size,-size+(40 *i),size);//2
+
+            glVertex3f(size,-size+(40 *i),-size);//3
+            glVertex3f(-size,-size+(40 *i),-size);//4
+        }
+        glEnd();
+      }
+
+      glRotatef(90,1,0,0);
+      for (int i = 0; i<=10;++i){
+        glBegin(GL_LINE_LOOP);
+        {
+            glVertex3f(-size,-size+(40 *i),size);//1
+            glVertex3f(size,-size+(40 *i),size);//2
+
+            glVertex3f(size,-size+(40 *i),-size);//3
+            glVertex3f(-size,-size+(40 *i),-size);//4
+        }
+        glEnd();
+      }
+    
+    }
+    glPopMatrix();
 }

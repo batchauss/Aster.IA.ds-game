@@ -8,6 +8,7 @@
 #include <stdio.h> 
 #include <stdlib.h>
 
+
 GLvoid Redimensionne(GLsizei width, GLsizei height);
 int notre_init(int argc, char** argv, void (*Modelisation)());
 

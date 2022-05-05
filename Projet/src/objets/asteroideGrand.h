@@ -4,9 +4,9 @@ class AsteroideGrand : public Asteroide {
     
      public :
         AsteroideGrand(int i);
-        ~AsteroideGrand();
+        ~AsteroideGrand() ;
 
         void split() override;
-        bool asteroideTouche() override;
+        GLvoid asteroideTouche() override;
 
 };

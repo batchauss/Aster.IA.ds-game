@@ -31,29 +31,29 @@ void Vaisseau::move(GLfloat x, GLfloat y, GLfloat z){
 
     /*  Si le vaisseau dépasse les limites, il réaparrait de l'autre côté et la caméra aussi*/
 
-    if(posx() > 100){
-        this->pos[0] += -200;
-        camera->setPos(camera->posx() - 200, camera->posy(), camera->posz());
+    if(posx() > 200){
+        this->pos[0] += -400;
+        camera->setPos(camera->posx() - 400, camera->posy(), camera->posz());
     }
-    else if(posx() < -100){
-        this->pos[0] += 200;
-        camera->setPos(camera->posx() + 200, camera->posy(), camera->posz());
+    else if(posx() < -200){
+        this->pos[0] += 400;
+        camera->setPos(camera->posx() + 400, camera->posy(), camera->posz());
     }
-    if(posy() > 100){
-        this->pos[1] += -200;
-        camera->setPos(camera->posx(), camera->posy()-200, camera->posz());
+    if(posy() > 200){
+        this->pos[1] += -400;
+        camera->setPos(camera->posx(), camera->posy()-400, camera->posz());
     }
-    else if(posy() < -100){
-        this->pos[1] += 200;
-        camera->setPos(camera->posx(), camera->posy()+200, camera->posz());
+    else if(posy() < -200){
+        this->pos[1] += 400;
+        camera->setPos(camera->posx(), camera->posy()+400, camera->posz());
     }
-    if(posz() > 100){
-        this->pos[2] += -200;
-        camera->setPos(camera->posx(), camera->posy(), camera->posz() - 200);
+    if(posz() > 200){
+        this->pos[2] += -400;
+        camera->setPos(camera->posx(), camera->posy(), camera->posz() - 400);
     }
-    else if(posz() < -100){
-        this->pos[2] += 200;
-        camera->setPos(camera->posx(), camera->posy(), camera->posz() + 200);
+    else if(posz() < -200){
+        this->pos[2] += 400;
+        camera->setPos(camera->posx(), camera->posy(), camera->posz() + 400);
     }
 }
 
@@ -170,38 +170,38 @@ GLvoid Vaisseau::tirer(){ // tire une balle
 
 
     //gestion du franchissage de frontière du tir
-    if (tirs.at(i)->posX() > 100){ 
+    if (tirs.at(i)->posX() > 200){ 
         longueurTot[i]=longueur;
-        tirs.at(i)->setPos(tirs.at(i)->posX()-200,tirs.at(i)->posY(),tirs.at(i)->posZ());
+        tirs.at(i)->setPos(tirs.at(i)->posX()-400,tirs.at(i)->posY(),tirs.at(i)->posZ());
         tirs.at(i)->setposmomentTir(tirs.at(i)->posX(),tirs.at(i)->posY(),tirs.at(i)->posZ());
     }
     
-    else if (tirs.at(i)->posX() < -100){
+    else if (tirs.at(i)->posX() < -200){
         longueurTot[i]=longueur;
-         tirs.at(i)->setPos(tirs.at(i)->posX()+200,tirs.at(i)->posY(),tirs.at(i)->posZ());
+         tirs.at(i)->setPos(tirs.at(i)->posX()+400,tirs.at(i)->posY(),tirs.at(i)->posZ());
          tirs.at(i)->setposmomentTir(tirs.at(i)->posX(),tirs.at(i)->posY(),tirs.at(i)->posZ());
     }
 
-    if (tirs.at(i)->posY() > 100){
+    if (tirs.at(i)->posY() > 200){
         longueurTot[i]=longueur;
-         tirs.at(i)->setPos(tirs.at(i)->posX(),tirs.at(i)->posY()-200,tirs.at(i)->posZ());
+         tirs.at(i)->setPos(tirs.at(i)->posX(),tirs.at(i)->posY()-400,tirs.at(i)->posZ());
          tirs.at(i)->setposmomentTir(tirs.at(i)->posX(),tirs.at(i)->posY(),tirs.at(i)->posZ());    
     }
-    else if (tirs.at(i)->posY() < -100){
+    else if (tirs.at(i)->posY() < -200){
         longueurTot[i]=longueur;
-         tirs.at(i)->setPos(tirs.at(i)->posX(),tirs.at(i)->posY()+200,tirs.at(i)->posZ());
+         tirs.at(i)->setPos(tirs.at(i)->posX(),tirs.at(i)->posY()+400,tirs.at(i)->posZ());
          tirs.at(i)->setposmomentTir(tirs.at(i)->posX(),tirs.at(i)->posY(),tirs.at(i)->posZ());
     }
 
-    if (tirs.at(i)->posZ() > 100){
+    if (tirs.at(i)->posZ() > 200){
         longueurTot[i]=longueur;
-         tirs.at(i)->setPos(tirs.at(i)->posX(),tirs.at(i)->posY(),tirs.at(i)->posZ()-200);
+         tirs.at(i)->setPos(tirs.at(i)->posX(),tirs.at(i)->posY(),tirs.at(i)->posZ()-400);
          tirs.at(i)->setposmomentTir(tirs.at(i)->posX(),tirs.at(i)->posY(),tirs.at(i)->posZ());
     }
 
-    else if (tirs.at(i)->posZ() < -100){
+    else if (tirs.at(i)->posZ() < -200){
         longueurTot[i]=longueur;
-         tirs.at(i)->setPos(tirs.at(i)->posX(),tirs.at(i)->posY(),tirs.at(i)->posZ()+200);
+         tirs.at(i)->setPos(tirs.at(i)->posX(),tirs.at(i)->posY(),tirs.at(i)->posZ()+400);
          tirs.at(i)->setposmomentTir(tirs.at(i)->posX(),tirs.at(i)->posY(),tirs.at(i)->posZ());
     }
     

@@ -3,13 +3,14 @@
 
 #include "../init.h"
 #include "math.h"
+#include<vector>
 
 
 class Asteroide {
     
      public :
         Asteroide(int i);
-        ~Asteroide();
+         ~Asteroide();
 
     //Accesseur sur l'id de l'astéroide
         GLfloat getId(){return this->_id;}
@@ -26,7 +27,7 @@ class Asteroide {
         GLfloat getTaille(){return this->taille;}
 
     //modifie l'id de l'asteroide
-        void setId( int i){ this->_id=i;}
+        void setId( unsigned int i){ this->_id=i;}
 
     //modifie les coordonnées x,y,z de l'asteroide    
         void setX(GLfloat x){    this->_x = x;}  
@@ -42,12 +43,14 @@ class Asteroide {
         void moveForward();
 
         virtual void split() = 0; //fonction de séparation des astéroides
-        virtual bool asteroideTouche() = 0;
+        virtual GLvoid asteroideTouche() = 0;
+
+        GLvoid contactEntreAsteroide();
 
                 
     protected:
 
-        int _id; //id de l'asteroide 
+        unsigned int _id; //id de l'asteroide 
 
         GLfloat _x;  //coordonnées x,y,z de l'astéroide
         GLfloat _y;
