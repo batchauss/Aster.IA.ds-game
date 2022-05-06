@@ -13,7 +13,7 @@ AsteroideMoyen::AsteroideMoyen( int i) :Asteroide(i){
     this->_y=0;
     this->_z=0;
     this->_angle = 0;  
-    this->vitesse =0.05;
+    this->vitesse =1.2;
     this->taille=2;
     this->rayon_hitbox=5;
 }
@@ -49,7 +49,7 @@ void AsteroideMoyen::split(){
                                 +(vaisseau->tirs.at(i)->posZ()-this->posZ())*(vaisseau->tirs.at(i)->posZ()-this->posZ()) );
     
     if(longueur<=this->rayon_hitbox and vaisseau->tirs.at(i)->getTirActif()){
-      vaisseau->tirs.at(i)->release(vaisseau->posx(),vaisseau->posy(),vaisseau->posz(),vaisseau->getAngle());
+      vaisseau->tirs.at(i)->release(vaisseau->posx(),vaisseau->posy(),vaisseau->posz(),vaisseau->getAngle(),vaisseau->getAngle2());
       this->touche =true;
       break;
     }

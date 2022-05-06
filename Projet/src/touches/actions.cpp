@@ -22,7 +22,7 @@ void touche(unsigned char key, int x, int y)
     
     case ESPACE:
         
-        vaisseau->tirs.back()->setSpeed(1.6); 
+        vaisseau->tirs.back()->setSpeed(2.6); 
         vaisseau->tirs.back()->setTirActif(true);
 
         vaisseau->tirs.back()->setposXmomentTir(vaisseau->posx());
@@ -37,7 +37,7 @@ void touche(unsigned char key, int x, int y)
     
     case TOUCHE_MIN_Z :
       zPressed = true;
-      vaisseau->setSpeed(1);
+      vaisseau->setSpeed(2);
       break;
 
     case TOUCHE_MIN_Q :
