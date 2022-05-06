@@ -13,9 +13,10 @@ mainwindow::mainwindow(int argc, char**argv)
 {
   this->showFullScreen();
 
-  /*      Menu principal      */
+  QWidget * menuPrincipal = new QWidget();
+  QWidget * menuOption = new QWidget();
 
-  QWidget * menuPWidget = new QWidget;
+  /*      Menu principal      */
 
   //  Bouton Jouer
 
@@ -33,7 +34,7 @@ mainwindow::mainwindow(int argc, char**argv)
   options->setFixedSize(190, 50);
   QObject::connect(options, &QPushButton::clicked,
   [=](){
-    
+    this->setCentralWidget(menuOption);
   });
 
   //  Bouton Quitter
@@ -55,11 +56,40 @@ mainwindow::mainwindow(int argc, char**argv)
   layout->addWidget(options, 2, 0, 1, 1);
   layout->addWidget(quitter, 2, 1, 1, 1);
 
-  menuPWidget->setLayout(layout);
+  menuPrincipal->setLayout(layout);
+
+  /*      Menu options      */
+
+  //  Options
+
+  QComboBox * languageCB = new QComboBox();
+  languageCB->addItem("Français");
+  languageCB->addItem("English");
+
+  QComboBox * tailleFenetreCB = new QComboBox();
+  tailleFenetreCB->addItem("1280x960");
+  tailleFenetreCB->addItem("1920x1080");
+
+  //  Layout
+
+  QGridLayout * layoutOption = new QGridLayout();
+  layoutOption->setAlignment(Qt::AlignCenter);
+  layoutOption->setHorizontalSpacing(20);
+
+  layoutOption->addWidget(new QLabel("Langue : "), 0, 0);
+  layoutOption->addWidget(languageCB, 0 , 1);
+  layoutOption->addWidget(new QLabel("Taille de la fenêtre : "), 1, 0);
+  layoutOption->addWidget(tailleFenetreCB, 1, 1);
+
+  layoutOption->addWidget(new QPushButton("Quitter (Sans sauvegarder)"), 2, 0);
+  layoutOption->addWidget(new QPushButton("Confirmer"), 2, 1);
+
+
+  menuOption->setLayout(layoutOption);
 
   /*      Central Widget      */
 
-  this->setCentralWidget(menuPWidget);
+  this->setCentralWidget(menuPrincipal);
 }
 
 mainwindow::~mainwindow(){}

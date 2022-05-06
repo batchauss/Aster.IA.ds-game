@@ -47,7 +47,7 @@ bool AsteroideGrand::asteroideTouche(){
                             +(vaisseau->tirs.at(i)->posZ()-this->posZ())*(vaisseau->tirs.at(i)->posZ()-this->posZ()));
     
     if(longueur <= this->rayon_hitbox and vaisseau->tirs.at(i)->getTirActif()){
-      vaisseau->tirs.at(i)->release(vaisseau->posx(),vaisseau->posy(),vaisseau->posz(),vaisseau->getAngle());
+      vaisseau->tirs.at(i)->release(vaisseau->posx(),vaisseau->posy(),vaisseau->posz(),vaisseau->getAngle(), vaisseau->getAngle2());
       this->split();
       return false ;
     }
