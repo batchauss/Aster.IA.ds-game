@@ -152,7 +152,7 @@ void Vaisseau::moveForward(){
 }
 
 void Vaisseau::decreaseSpeed(){
-    if(vitesse > 0) vitesse *= 0.96;
+    if(vitesse > 0) vitesse *= 0.98;
     
 }
 

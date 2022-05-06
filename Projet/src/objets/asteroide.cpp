@@ -12,6 +12,7 @@ Asteroide::Asteroide( int i){
     this->vitesse=0;
     this->taille=0;
     this->rayon_hitbox=0;
+    this->touche = false;
 }
 
 
@@ -47,8 +48,11 @@ GLvoid Asteroide::contactEntreAsteroide(){
                               +(asteroides.at(i)->posZ()-this->posZ())*(asteroides.at(i)->posZ()-this->posZ()));
     
         if(longueur-this->rayon_hitbox <= this->rayon_hitbox ){
-             this->setAngle(this->getAngle()+10);
-             asteroides.at(i)->setAngle(asteroides.at(i)->getAngle()+10);
+             this->setAngle(this->getAngle()+90);
+             this->setX(posX()+0.1); this->setY(posY()+0.1); this->setZ(posZ()+0.1);
+              
+             asteroides.at(i)->setAngle(asteroides.at(i)->getAngle()+90);
+             asteroides.at(i)->setX(posX()+0.1); asteroides.at(i)->setY(posY()+0.1); asteroides.at(i)->setZ(posZ()+0.1);
              break;  
         }
    }

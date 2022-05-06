@@ -48,10 +48,11 @@ GLvoid VM_init() {
 
 	for(unsigned int i=0;i<asteroides.size();++i){
 		glPushMatrix();
+			
 			glTranslatef(asteroides.at(i)->posX(),asteroides.at(i)->posY(),asteroides.at(i)->posZ());
             glRotatef(asteroides.at(i)->getAngle(),1,1,1);
 			asteroides.at(i)->moveForward();
-			asteroides.at(i)->asteroideTouche();
+
 			asteroides.at(i)->contactEntreAsteroide();
 			
 			if(asteroides.at(i)->getTaille()==1){
@@ -65,6 +66,12 @@ GLvoid VM_init() {
 			else if(asteroides.at(i)->getTaille()==3){
 				glCallList(4);   		
 			    glFlush();
+			}
+			asteroides.at(i)->asteroideTouche();
+			if(asteroides.at(i)->getTouche() == true){ 
+				asteroides.at(i)->setTouche(false);
+				asteroides.at(i)->split();
+				i = i-1;
 			}
 		glPopMatrix();		
 	}

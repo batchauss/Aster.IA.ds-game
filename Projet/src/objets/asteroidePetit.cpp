@@ -17,12 +17,9 @@ AsteroidePetit::AsteroidePetit( int i) :Asteroide(i){
 }
 
 void AsteroidePetit::split(){
-    std::cout<<"petit cassé: "<<this->_id<<" taille avant casse :"<<asteroides.size();
-    std::cout<<" emplacement: "<<asteroides.at(this->_id)->getId()<<" "<<std::endl;
-    asteroides.erase(asteroides.begin()+this->_id);
-
+    asteroides.erase(asteroides.begin()+this->_id); // suppression du petit asteroide
     
-    for(unsigned int i = 0; i<asteroides.size();++i){
+    for(unsigned int i = 0; i<asteroides.size();++i){ // on reassigne l'id des asteroides
         asteroides.at(i)->setId(i);
       }
 }
@@ -35,7 +32,7 @@ void AsteroidePetit::split(){
     
     if(longueur<=this->rayon_hitbox and vaisseau->tirs.at(i)->getTirActif()){
        vaisseau->tirs.at(i)->release(vaisseau->posx(),vaisseau->posy(),vaisseau->posz(),vaisseau->getAngle());
-      this->split();
+      this->touche =true;
       break;
     }
     

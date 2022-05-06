@@ -16,6 +16,8 @@ GLfloat angle_ast[50]; // tableau d'angle aléatoires qui vont permettre de cré
 
 struct objmtl vaisseauObj;
 struct objmtl asteroideObj;
+struct objmtl asteroide2Obj;
+struct objmtl asteroide3Obj;
 
 Vaisseau * vaisseau = new Vaisseau();
 std::vector<Asteroide *> asteroides;
@@ -55,8 +57,8 @@ int notre_init(int argc, char** argv, void (*Modelisation)()){
 	renduVaisseau(vaisseauObj);
 
 	renduAsteroide(1, asteroideObj);
-	renduAsteroide(2, asteroideObj);
-	renduAsteroide(3, asteroideObj);
+	renduAsteroide(2, asteroide2Obj);
+	renduAsteroide(3, asteroide3Obj);
 		
 	//implementation des fichiers de textures
 	TEXTURE_STRUCT * night = readPpm((char *)"./pic/night.ppm");
@@ -69,7 +71,9 @@ int notre_init(int argc, char** argv, void (*Modelisation)()){
 void initialise(){
 
 	vaisseauObj = loadObj("models/vaisseau");
-	asteroideObj = loadObj("models/test2");
+	asteroideObj = loadObj("models/asteroides1");
+	asteroide2Obj = loadObj("models/asteroides2");
+	asteroide3Obj = loadObj("models/asteroides2");
 
 	remplissageTableauR();
 	creationAsteroides();

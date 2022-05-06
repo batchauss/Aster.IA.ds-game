@@ -33,10 +33,15 @@ class Asteroide {
         void setX(GLfloat x){    this->_x = x;}  
         void setY(GLfloat y){    this->_y = y;}
         void setZ(GLfloat z){    this->_z = z;}
+  
+        bool getTouche(){ return this->touche;}        
        
 
         void setAngle(GLfloat angle){
             this->_angle=angle;
+        }
+        void setTouche(bool t){
+            this->touche=t;
         }
 
         void move(GLfloat x, GLfloat y, GLfloat z);
@@ -60,6 +65,7 @@ class Asteroide {
         GLfloat vitesse;
         GLfloat taille;
         GLfloat rayon_hitbox;
+        bool touche ;
         
 };
 

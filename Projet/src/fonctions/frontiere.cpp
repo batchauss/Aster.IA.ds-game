@@ -88,7 +88,7 @@ GLvoid frontieres(GLuint texture){  // 3 cubes de sens differents pour ne pas vo
   glPushMatrix();
     {
       glLineWidth(1.2);
-      glColor3f(1.0 ,0.5 ,0.0 );
+      glColor3f(1.0 ,0.0 ,1.0 );
       GLfloat size = 200;
 
       for (int i = 0; i<=10;++i){
