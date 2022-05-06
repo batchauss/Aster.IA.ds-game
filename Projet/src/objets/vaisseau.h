@@ -20,7 +20,6 @@ public :
     
     GLfloat getAngle(){ return this->angle[0]; }
     GLfloat getAngle2(){ return this->angle[1]; }
-    GLfloat getAngle3(){ return this->angle[2]; }
 
     GLfloat getSpeed(){return this->vitesse;}
 
@@ -31,7 +30,6 @@ public :
     }
     void setAngle(GLfloat a);
     void setAngle2(GLfloat a);
-    void setAngle3(GLfloat a);
     
     void calculmoveForward();
     void moveForward();
@@ -45,7 +43,7 @@ public :
 
 private :
     GLfloat pos[3]; //position x y z du vaisseau
-    GLfloat angle[3]; // angle rotations
+    GLfloat angle[2]; // angle rotations
     GLfloat vitesse;
 };
 

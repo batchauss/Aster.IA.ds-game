@@ -57,7 +57,7 @@ class Tir {
 
         void move(GLfloat x, GLfloat y, GLfloat z);
 
-        void release(GLfloat x, GLfloat y, GLfloat z,GLfloat a); //remets le tir a sa place initiale(dans le vaisseau)
+        void release(GLfloat x, GLfloat y, GLfloat z,GLfloat a, GLfloat a2); //remets le tir a sa place initiale(dans le vaisseau)
 
     private:
         GLfloat pos[3];

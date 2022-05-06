@@ -30,8 +30,6 @@ GLvoid VM_init() {
 
 	if(keyUpPressed) vaisseau->setAngle2(-2);
 	if(keyDownPressed) vaisseau->setAngle2(2);
-	if(keyRightPressed) vaisseau->setAngle3(-2);
-	if(keyLeftPressed) vaisseau->setAngle3(2);
 
 	renduCamera(vaisseau);
 
