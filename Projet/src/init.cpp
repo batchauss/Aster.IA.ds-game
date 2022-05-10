@@ -22,11 +22,13 @@ struct objmtl asteroide3Obj;
 Vaisseau * vaisseau = new Vaisseau();
 std::vector<Asteroide *> asteroides;
 
+GLfloat score =0;
+
 GLvoid Redimensionne(GLsizei width, GLsizei height){
 	glViewport(0, 0, width, height);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(45.0, (GLfloat)width / (GLfloat)height, 0.1, 3000.0);
+	gluPerspective(90.0, (GLfloat)width / (GLfloat)height, 0.1, 3000.0);
 	glMatrixMode(GL_MODELVIEW);
 }
 
@@ -73,7 +75,7 @@ void initialise(){
 	vaisseauObj = loadObj("models/vaisseau");
 	asteroideObj = loadObj("models/asteroides1");
 	asteroide2Obj = loadObj("models/asteroides2");
-	asteroide3Obj = loadObj("models/asteroides2");
+	asteroide3Obj = loadObj("models/asteroides3");
 
 	remplissageTableauR();
 	creationAsteroides();

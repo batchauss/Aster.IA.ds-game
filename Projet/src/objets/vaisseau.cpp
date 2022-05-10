@@ -3,7 +3,7 @@
 #include <iostream>
 
 GLfloat longueurTot[5] ={0,0,0,0,0}; //tableau annexe pour le calcul de la longueur du tir
-
+extern std::vector<Asteroide *> asteroides;
 
 Vaisseau::Vaisseau(){
     this->pos[0] = 0;
@@ -11,15 +11,20 @@ Vaisseau::Vaisseau(){
     this->pos[2] = 0;
     this->angle[0] = 0;
     this->angle[1] = 0;
-    this->angle[2] = 0;
-    camera = new Camera(posx(), posy() + 10, posz() + 30);
+    this->vitesse = 0;
+    this->longueur=3;  // longueur largeur hauteur pour la hitbox
+    this->largeur=3;
+    this->hauteur=3;
+    this->vie=100;
+
+    camera = new Camera(posx(), posy() + 10, posz() + 20);
     
     for (int i =0 ; i<5;++i){
        Tir *t = new Tir(posx(), posy() , posz() );
        t->setTirActif(false);
        tirs.push_back(t); 
     }       
-    vitesse = 0;
+
 }
 Vaisseau::~Vaisseau(){}
 
@@ -71,12 +76,6 @@ void Vaisseau::setAngle(GLfloat a){  //angle x z
         camera->posy(),
         -xCam * sin(a) + zCam * cos(a) + posz()
     );
-/*
-    camera->setPos(
-        xCam * (cos(a)*cos(a) - cos(a)*sin(a)*sin(a)) + yCam * (- cos(a)*sin(a) - cos(a)*cos(a)*sin(a)) + zCam * sin(a)*sin(a) + posx(),
-        xCam * (sin(a)*cos(a) + cos(a)*sin(a)*cos(a)) + yCam * (-sin(a)*sin(a) + cos(a)*cos(a)*cos(a)) + zCam * -cos(a)*sin(a) + posy(),
-        xCam * sin(a)*sin(a) + yCam * (sin(a)*cos(a)) + zCam * cos(a) + posz()
-    );*/
 
 
      for (unsigned int i = 0; i< tirs.size();++i){ // les munitions se déplacent avec le vaisseau (angle)
@@ -91,9 +90,9 @@ void Vaisseau::setAngle2(GLfloat a){  //angle y z
     this->angle[1] += a;
     a *= 3.14 / 180;
 
-    GLfloat xCam = camera->posx() - posx();
-    GLfloat yCam = camera->posy() - posy();
-    GLfloat zCam = camera->posz() - posz();
+    //GLfloat xCam = camera->posx() - posx();
+    //GLfloat yCam = camera->posy() - posy();
+    //GLfloat zCam = camera->posz() - posz();
 
    /* camera->setPos(
         camera->posx(),
@@ -101,9 +100,6 @@ void Vaisseau::setAngle2(GLfloat a){  //angle y z
         zCam *  cos(a) + yCam * sin(a) + posz()    
     );*/
     
-
-    //PB A REGLER : camera se retourne quand cos change de signe
-    //std::cout<<zCam *  cos(a)<<" ";
     
 
      for (unsigned int i = 0; i< tirs.size();++i){ // les munitions se déplacent avec le vaisseau (angle)
@@ -143,7 +139,8 @@ void Vaisseau::moveForward(){
 }
 
 void Vaisseau::decreaseSpeed(){
-    if(vitesse > 0) vitesse *= 0.98;
+    if(vitesse > 0) vitesse *= 0.96;
+    else if(vitesse < 0) vitesse *= 0.90;
     
 }
 
@@ -202,4 +199,30 @@ GLvoid Vaisseau::tirer(){ // tire une balle
         tirs.at(i)->release(this->posx(),this->posy(),this->posz(),this->getAngle(), this->getAngle2());
   }
   }
+}
+
+
+bool Vaisseau::collisionVaisseauAsteroide(Asteroide * a){
+        float sphereXDistance = abs(a->posX() - this->posx());
+        float sphereYDistance = abs(a->posY() - this->posy());
+        float sphereZDistance = abs(a->posZ() - this->posz());
+
+        if (sphereXDistance >= (this->largeur + a->getRayon())) { return false; }
+        if (sphereYDistance >= (this->longueur + a->getRayon())) { return false; }
+        if (sphereZDistance >= (this->hauteur + a->getRayon())) { return false; }
+
+        if (sphereXDistance < (this->largeur)) { this->vie-=10; return true; } 
+        if (sphereYDistance < (this->longueur)) { this->vie-=10; return true; }
+        if (sphereZDistance < (this->hauteur)) { this->vie-=10; return true; }
+
+        float cornerDistance_sq = ((sphereXDistance - this->largeur) * (sphereXDistance - this->largeur)) +
+                                  ((sphereYDistance - this->longueur) * (sphereYDistance - this->longueur) +
+                                  ((sphereYDistance - this->hauteur) * (sphereYDistance - this->hauteur)));
+
+        if (cornerDistance_sq < (a->getRayon() * a->getRayon())){
+            this->vie-=10;
+            return true;
+        }
+        else return false;
+
 }

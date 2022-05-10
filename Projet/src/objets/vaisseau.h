@@ -4,6 +4,7 @@
 #include "../init.h"
 #include "camera.h"
 #include "tir.h"
+#include "asteroide.h"
 #include<vector>
 
 class Vaisseau {
@@ -22,6 +23,7 @@ public :
     GLfloat getAngle2(){ return this->angle[1]; }
 
     GLfloat getSpeed(){return this->vitesse;}
+    GLfloat getVie(){return this->vie;}
 
     void setPos(GLfloat x, GLfloat y, GLfloat z){           // Modifie pos
         this->pos[0] = x;
@@ -30,13 +32,19 @@ public :
     }
     void setAngle(GLfloat a);
     void setAngle2(GLfloat a);
+
+    void setVie(GLfloat v){this->vie =v;}
     
     void calculmoveForward();
     void moveForward();
     void decreaseSpeed();
-    void setSpeed(GLfloat v){ vitesse = v; }
+     void setSpeed(GLfloat v){ 
+        this->vitesse=v;
+     }
     
     GLvoid tirer();
+
+    bool collisionVaisseauAsteroide( Asteroide * a);
 
     Camera * camera;
     std::vector <Tir *> tirs; // tableau de munitions
@@ -45,6 +53,10 @@ private :
     GLfloat pos[3]; //position x y z du vaisseau
     GLfloat angle[2]; // angle rotations
     GLfloat vitesse;
+    GLfloat longueur;
+    GLfloat largeur;
+    GLfloat hauteur;
+    GLfloat vie;
 };
 
 #endif

@@ -52,7 +52,7 @@ GLvoid Asteroide::contactEntreAsteroide(){
              this->setX(posX()+0.1); this->setY(posY()+0.1); this->setZ(posZ()+0.1);
               
              asteroides.at(i)->setAngle(asteroides.at(i)->getAngle()+90);
-             asteroides.at(i)->setX(posX()+0.1); asteroides.at(i)->setY(posY()+0.1); asteroides.at(i)->setZ(posZ()+0.1);
+             asteroides.at(i)->setX(posX()); asteroides.at(i)->setY(posY()); asteroides.at(i)->setZ(posZ());
              break;  
         }
    }

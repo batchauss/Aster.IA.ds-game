@@ -83,12 +83,13 @@ GLvoid frontieres(GLuint texture){  // 3 cubes de sens differents pour ne pas vo
   }
   glPopMatrix();
 
+}
 
- /// quadrillage de frontière
+GLvoid grille(GLfloat r, GLfloat g, GLfloat b){/// quadrillage de frontière
   glPushMatrix();
     {
       glLineWidth(1.2);
-      glColor3f(1.0 ,0.0 ,1.0 );
+      glColor3f(r,g,b);
       GLfloat size = 200;
 
       for (int i = 0; i<=10;++i){

@@ -2,7 +2,7 @@
 #include <GL/gl.h>
 
 #include "rendu/rendu.h"
-
+#include "interface_ingame/hud.h"
 #include "fonctions/frontiere.h"
 
 extern bool zPressed;
@@ -37,21 +37,30 @@ GLvoid VM_init() {
 		 renduTir(vaisseau->tirs.at(i));
 	}
 
+	
+
 	glPushMatrix();
+		barreVie(vaisseau->getVie());
 		glTranslatef(vaisseau->posx(), vaisseau->posy(), vaisseau->posz());
 		glRotatef(180 + vaisseau->getAngle(), 0, 1, 0);
 		glRotatef(- vaisseau->getAngle2(), 1, 0, 0);
 		glCallList(1);
+			
 	glPopMatrix();
 
 	for(unsigned int i=0;i<asteroides.size();++i){
-		glPushMatrix();
-			
+		glPushMatrix();			
 			glTranslatef(asteroides.at(i)->posX(),asteroides.at(i)->posY(),asteroides.at(i)->posZ());
             glRotatef(asteroides.at(i)->getAngle(),1,1,1);
 			asteroides.at(i)->moveForward();
+			//asteroides.at(i)->contactEntreAsteroide();
+			if(vaisseau->collisionVaisseauAsteroide(asteroides.at(i))){
+				std::cout<<"vaisseau touché, vie :"<<vaisseau->getVie()<<std::endl;
+				vaisseau->setSpeed(-1.5);
+				vaisseau->decreaseSpeed();
+	   		}
 
-			asteroides.at(i)->contactEntreAsteroide();
+			//if(vaisseau->getVie()==0) exit(1);
 			
 			if(asteroides.at(i)->getTaille()==1){
 				glCallList(2);   		
@@ -71,8 +80,13 @@ GLvoid VM_init() {
 				asteroides.at(i)->split();
 				i = i-1;
 			}
-		glPopMatrix();		
-	}
+		glPopMatrix();	
 
+			
+	}
 	frontieres(texture[0]);
+	if(vaisseau->getVie()<=30) grille(1.0 ,0.0 ,0.0); // la couleur de la grille deviens rouge si la vie du vaisseau est basse
+	else  grille(1.0 ,0.0 ,1.0);
+
+	
 }

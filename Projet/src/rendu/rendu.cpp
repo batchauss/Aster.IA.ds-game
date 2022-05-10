@@ -8,15 +8,16 @@ extern GLfloat rayon_y;
 void renduAsteroide( int taille,struct objmtl as){
     if(taille==1) {
         glNewList(2, GL_COMPILE_AND_EXECUTE);
-        glScalef(2,2,2);
+        glScalef(5,5,5);
     }
     else if(taille==2) {
         glNewList(3, GL_COMPILE_AND_EXECUTE);
-        glScalef(5,5,5);
+        glScalef(12,12,12);
     }
     else if(taille==3) {
         glNewList(4, GL_COMPILE_AND_EXECUTE);
-        glScalef(10,10,10);
+        glScalef(25,25,25);
+
     }
     glPushMatrix();
     {

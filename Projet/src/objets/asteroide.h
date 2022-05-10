@@ -6,6 +6,7 @@
 #include<vector>
 
 
+
 class Asteroide {
     
      public :
@@ -26,6 +27,9 @@ class Asteroide {
     //Accesseur sur ma taille de l'astéroide
         GLfloat getTaille(){return this->taille;}
 
+        bool getTouche(){ return this->touche;}  
+        GLfloat getRayon(){ return this->rayon_hitbox;} 
+
     //modifie l'id de l'asteroide
         void setId( unsigned int i){ this->_id=i;}
 
@@ -33,10 +37,7 @@ class Asteroide {
         void setX(GLfloat x){    this->_x = x;}  
         void setY(GLfloat y){    this->_y = y;}
         void setZ(GLfloat z){    this->_z = z;}
-  
-        bool getTouche(){ return this->touche;}        
-       
-
+ 
         void setAngle(GLfloat angle){
             this->_angle=angle;
         }

@@ -18,7 +18,7 @@ struct objmtl loadObj(std::string const & path){
     std::string ligne;
     std::vector<std::string> ligneSplit;
 
-    int comptMatActuel;
+    int comptMatActuel = 0;
 
     while(std::getline(f, ligne)){
         ligneSplit = split(ligne);

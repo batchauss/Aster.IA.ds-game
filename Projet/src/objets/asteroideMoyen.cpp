@@ -6,6 +6,7 @@
 
 extern std::vector<Asteroide *> asteroides;
 extern Vaisseau * vaisseau;
+extern  GLfloat score ;
 
 AsteroideMoyen::AsteroideMoyen( int i) :Asteroide(i){
     this->_id=i; 
@@ -13,9 +14,9 @@ AsteroideMoyen::AsteroideMoyen( int i) :Asteroide(i){
     this->_y=0;
     this->_z=0;
     this->_angle = 0;  
-    this->vitesse =1.2;
+    this->vitesse =0.6;
     this->taille=2;
-    this->rayon_hitbox=5;
+    this->rayon_hitbox=12;
 }
 
 void AsteroideMoyen::split(){
@@ -51,6 +52,8 @@ void AsteroideMoyen::split(){
     if(longueur<=this->rayon_hitbox and vaisseau->tirs.at(i)->getTirActif()){
       vaisseau->tirs.at(i)->release(vaisseau->posx(),vaisseau->posy(),vaisseau->posz(),vaisseau->getAngle(),vaisseau->getAngle2());
       this->touche =true;
+      score +=50;
+      std::cout<<score <<" points "<<std::endl;
       break;
     }
    

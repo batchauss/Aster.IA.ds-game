@@ -35,7 +35,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = Aster.IA.ds1.0.0
-DISTDIR = /home/etud/Git\ Repo/Aster.ia.ds/Projet/build/obj/Aster.IA.ds1.0.0
+DISTDIR = /home/etud/Bureau/asteraids/Aster.ia.ds/Projet/build/obj/Aster.IA.ds1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1
 LIBS          = $(SUBLIBS) -lglut -lGLU -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
@@ -61,6 +61,7 @@ SOURCES       = src/fonctions/frontiere.cpp \
 		src/objets/camera.cpp \
 		src/objets/tir.cpp \
 		src/objets/vaisseau.cpp \
+		src/interface_ingame/hud.cpp \
 		src/rendu/rendu.cpp \
 		src/touches/actions.cpp \
 		src/init.cpp \
@@ -78,6 +79,7 @@ OBJECTS       = build/obj/frontiere.o \
 		build/obj/camera.o \
 		build/obj/tir.o \
 		build/obj/vaisseau.o \
+		build/obj/hud.o \
 		build/obj/rendu.o \
 		build/obj/actions.o \
 		build/obj/init.o \
@@ -119,6 +121,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_input_support_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_kms_support_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_linuxaccessibility_support_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_multimedia.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_multimediawidgets.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_network.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_network_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_opengl_private.pri \
@@ -127,6 +131,11 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_platformcompositor_support_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_qml.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_qmltest.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_quick.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_quickcontrols2.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_quickwidgets.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_service_support_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql_private.pri \
@@ -175,6 +184,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		src/objets/camera.h \
 		src/objets/tir.h \
 		src/objets/vaisseau.h \
+		src/interface_ingame/hud.h \
 		src/rendu/rendu.h \
 		src/touches/actions.h \
 		src/touches/touches.h \
@@ -190,6 +200,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		src/objets/camera.cpp \
 		src/objets/tir.cpp \
 		src/objets/vaisseau.cpp \
+		src/interface_ingame/hud.cpp \
 		src/rendu/rendu.cpp \
 		src/touches/actions.cpp \
 		src/init.cpp \
@@ -241,6 +252,8 @@ Makefile: qmakef.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf 
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_input_support_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_kms_support_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_linuxaccessibility_support_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_multimedia.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_multimediawidgets.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_network.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_network_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_opengl_private.pri \
@@ -249,6 +262,11 @@ Makefile: qmakef.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf 
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_platformcompositor_support_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_qml.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_qmltest.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_quick.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_quickcontrols2.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_quickwidgets.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_service_support_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql_private.pri \
@@ -325,6 +343,8 @@ Makefile: qmakef.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf 
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_input_support_private.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_kms_support_private.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_linuxaccessibility_support_private.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_multimedia.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_multimediawidgets.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_network.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_network_private.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_opengl_private.pri:
@@ -333,6 +353,11 @@ Makefile: qmakef.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf 
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_platformcompositor_support_private.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport_private.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_qml.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_qmltest.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_quick.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_quickcontrols2.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_quickwidgets.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_service_support_private.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql_private.pri:
@@ -389,8 +414,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents src/fonctions/frontiere.h src/fonctions/obj.h src/fonctions/ppm.h src/fonctions/texture.h src/objets/asteroide.h src/objets/asteroideGrand.h src/objets/asteroideMoyen.h src/objets/asteroidePetit.h src/objets/camera.h src/objets/tir.h src/objets/vaisseau.h src/rendu/rendu.h src/touches/actions.h src/touches/touches.h src/init.h src/mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents src/fonctions/frontiere.cpp src/fonctions/obj.cpp src/fonctions/ppm.cpp src/fonctions/texture.cpp src/objets/asteroide.cpp src/objets/asteroideGrand.cpp src/objets/asteroideMoyen.cpp src/objets/asteroidePetit.cpp src/objets/camera.cpp src/objets/tir.cpp src/objets/vaisseau.cpp src/rendu/rendu.cpp src/touches/actions.cpp src/init.cpp src/main.cpp src/mainwindow.cpp src/VM_init.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents src/fonctions/frontiere.h src/fonctions/obj.h src/fonctions/ppm.h src/fonctions/texture.h src/objets/asteroide.h src/objets/asteroideGrand.h src/objets/asteroideMoyen.h src/objets/asteroidePetit.h src/objets/camera.h src/objets/tir.h src/objets/vaisseau.h src/interface_ingame/hud.h src/rendu/rendu.h src/touches/actions.h src/touches/touches.h src/init.h src/mainwindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents src/fonctions/frontiere.cpp src/fonctions/obj.cpp src/fonctions/ppm.cpp src/fonctions/texture.cpp src/objets/asteroide.cpp src/objets/asteroideGrand.cpp src/objets/asteroideMoyen.cpp src/objets/asteroidePetit.cpp src/objets/camera.cpp src/objets/tir.cpp src/objets/vaisseau.cpp src/interface_ingame/hud.cpp src/rendu/rendu.cpp src/touches/actions.cpp src/init.cpp src/main.cpp src/mainwindow.cpp src/VM_init.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -430,7 +455,7 @@ build/moc/moc_mainwindow.cpp: src/init.h \
 		src/mainwindow.h \
 		build/moc/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include '/home/etud/Git Repo/Aster.ia.ds/Projet/build/moc/moc_predefs.h' -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I'/home/etud/Git Repo/Aster.ia.ds/Projet' -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include src/mainwindow.h -o build/moc/moc_mainwindow.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/etud/Bureau/asteraids/Aster.ia.ds/Projet/build/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/etud/Bureau/asteraids/Aster.ia.ds/Projet -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include src/mainwindow.h -o build/moc/moc_mainwindow.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -506,21 +531,25 @@ build/obj/vaisseau.o: src/objets/vaisseau.cpp src/objets/vaisseau.h \
 		src/init.h \
 		src/objets/camera.h \
 		src/objets/tir.h \
+		src/objets/asteroide.h \
 		src/rendu/rendu.h \
 		src/objets/asteroidePetit.h \
-		src/objets/asteroide.h \
 		src/objets/asteroideMoyen.h \
 		src/objets/asteroideGrand.h \
 		src/fonctions/obj.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/vaisseau.o src/objets/vaisseau.cpp
+
+build/obj/hud.o: src/interface_ingame/hud.cpp src/interface_ingame/hud.h \
+		src/init.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/hud.o src/interface_ingame/hud.cpp
 
 build/obj/rendu.o: src/rendu/rendu.cpp src/rendu/rendu.h \
 		src/objets/vaisseau.h \
 		src/init.h \
 		src/objets/camera.h \
 		src/objets/tir.h \
-		src/objets/asteroidePetit.h \
 		src/objets/asteroide.h \
+		src/objets/asteroidePetit.h \
 		src/objets/asteroideMoyen.h \
 		src/objets/asteroideGrand.h \
 		src/fonctions/obj.h
@@ -531,7 +560,8 @@ build/obj/actions.o: src/touches/actions.cpp src/touches/actions.h \
 		src/objets/camera.h \
 		src/init.h \
 		src/objets/vaisseau.h \
-		src/objets/tir.h
+		src/objets/tir.h \
+		src/objets/asteroide.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/actions.o src/touches/actions.cpp
 
 build/obj/init.o: src/init.cpp src/init.h \
@@ -540,11 +570,11 @@ build/obj/init.o: src/init.cpp src/init.h \
 		src/objets/camera.h \
 		src/objets/vaisseau.h \
 		src/objets/tir.h \
+		src/objets/asteroide.h \
 		src/fonctions/texture.h \
 		src/fonctions/ppm.h \
 		src/rendu/rendu.h \
 		src/objets/asteroidePetit.h \
-		src/objets/asteroide.h \
 		src/objets/asteroideMoyen.h \
 		src/objets/asteroideGrand.h \
 		src/fonctions/obj.h
@@ -565,11 +595,12 @@ build/obj/VM_init.o: src/VM_init.cpp src/rendu/rendu.h \
 		src/init.h \
 		src/objets/camera.h \
 		src/objets/tir.h \
-		src/objets/asteroidePetit.h \
 		src/objets/asteroide.h \
+		src/objets/asteroidePetit.h \
 		src/objets/asteroideMoyen.h \
 		src/objets/asteroideGrand.h \
 		src/fonctions/obj.h \
+		src/interface_ingame/hud.h \
 		src/fonctions/frontiere.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/VM_init.o src/VM_init.cpp
 
