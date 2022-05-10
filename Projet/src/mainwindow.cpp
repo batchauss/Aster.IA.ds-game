@@ -1,12 +1,19 @@
 #include "mainwindow.h"
 
 extern GLvoid VM_init();
+extern GLfloat ambiente[4];
+extern bool pauseActivated;
 
 
 GLvoid Modelisation()
 {
-  VM_init();
-  glutSwapBuffers();
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glLoadIdentity();
+
+  if(!pauseActivated){
+    VM_init();
+    glutSwapBuffers();
+  }
 }
 
 mainwindow::mainwindow(int argc, char**argv)
@@ -14,8 +21,13 @@ mainwindow::mainwindow(int argc, char**argv)
 {
   this->showFullScreen();
 
+  QStackedWidget * widgets = new QStackedWidget();
+
   QWidget * menuPrincipal = new QWidget();
   QWidget * menuOption = new QWidget();
+
+  widgets->addWidget(menuPrincipal);
+  widgets->addWidget(menuOption);
 
   /*      Menu principal      */
 
@@ -35,7 +47,7 @@ mainwindow::mainwindow(int argc, char**argv)
   options->setFixedSize(190, 50);
   QObject::connect(options, &QPushButton::clicked,
   [=](){
-    this->setCentralWidget(menuOption);
+    widgets->setCurrentIndex(widgets->currentIndex()+1);
   });
 
   //  Bouton Quitter
@@ -70,6 +82,7 @@ mainwindow::mainwindow(int argc, char**argv)
   QComboBox * tailleFenetreCB = new QComboBox();
   tailleFenetreCB->addItem("1280x960");
   tailleFenetreCB->addItem("1920x1080");
+  tailleFenetreCB->addItem("Fullscreen");
 
   //  Layout
 
@@ -82,15 +95,25 @@ mainwindow::mainwindow(int argc, char**argv)
   layoutOption->addWidget(new QLabel("Taille de la fenêtre : "), 1, 0);
   layoutOption->addWidget(tailleFenetreCB, 1, 1);
 
-  layoutOption->addWidget(new QPushButton("Quitter (Sans sauvegarder)"), 2, 0);
-  layoutOption->addWidget(new QPushButton("Confirmer"), 2, 1);
+  QPushButton * quitterOptions = new QPushButton("Quitter (Sans sauvegarder)");
+  QObject::connect(quitterOptions, &QPushButton::clicked,
+  [=](){
+    widgets->setCurrentIndex(widgets->currentIndex()-1);
+  });
+  layoutOption->addWidget(quitterOptions, 2, 0);
 
+  QPushButton * confirmeOptions = new QPushButton("Confirmer");
+  QObject::connect(confirmeOptions, &QPushButton::clicked,
+  [=](){
+    widgets->setCurrentIndex(widgets->currentIndex()-1);
+  });
+  layoutOption->addWidget(confirmeOptions, 2, 1);
 
   menuOption->setLayout(layoutOption);
 
   /*      Central Widget      */
 
-  this->setCentralWidget(menuPrincipal);
+  this->setCentralWidget(widgets);
 }
 
 mainwindow::~mainwindow(){}

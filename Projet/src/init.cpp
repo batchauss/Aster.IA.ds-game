@@ -35,7 +35,7 @@ GLvoid Redimensionne(GLsizei width, GLsizei height){
 int notre_init(int argc, char** argv, void (*Modelisation)()){
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
-	glutInitWindowSize(1000, 1000);
+	glutInitWindowSize(1280, 960);
 	glutInitWindowPosition(0, 0);
 	window = glutCreateWindow("Aster.IA.ds");
 	glutFullScreen();

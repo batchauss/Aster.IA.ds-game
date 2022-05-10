@@ -125,7 +125,7 @@ void Vaisseau::moveForward(){
         }
     }
 
-    if (cos((getAngle2()) * 3.14 / 180) <0){
+    if (cos((getAngle2()) * 3.14 / 180) < 0){
         this->move(-calculRotationTranslatex, calculRotationTranslatey, calculRotationTranslatez);    
         camera->move(-calculRotationTranslatex,calculRotationTranslatey, calculRotationTranslatez);
 
@@ -197,7 +197,7 @@ GLvoid Vaisseau::tirer(){ // tire une balle
     if ( longueur > 100 || longueur < -100 ){ 
         longueurTot[i]=0;       
         tirs.at(i)->release(this->posx(),this->posy(),this->posz(),this->getAngle(), this->getAngle2());
-  }
+    }
   }
 }
 

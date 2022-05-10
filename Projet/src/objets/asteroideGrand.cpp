@@ -49,7 +49,7 @@ GLvoid AsteroideGrand::asteroideTouche(){
                             +(vaisseau->tirs.at(i)->posZ()-this->posZ())*(vaisseau->tirs.at(i)->posZ()-this->posZ()));
     
     if(longueur <= this->rayon_hitbox and vaisseau->tirs.at(i)->getTirActif()){
-      vaisseau->tirs.at(i)->release(vaisseau->posx(),vaisseau->posy(),vaisseau->posz(),vaisseau->getAngle(),vaisseau->getAngle2());
+      vaisseau->tirs.at(i)->release(vaisseau->posx(),vaisseau->posy(),vaisseau->posz(),vaisseau->getAngle(), vaisseau->getAngle2());
       this->touche =true;
       score +=20;
       std::cout<<score <<" points "<<std::endl;

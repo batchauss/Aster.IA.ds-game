@@ -7,6 +7,8 @@ bool zPressed = false;
 bool qPressed = false;
 bool dPressed = false;
 
+bool pauseActivated = false;
+
 Tir * t ;
 bool keyUpPressed = false;
 bool keyDownPressed = false;
@@ -17,7 +19,8 @@ void touche(unsigned char key, int x, int y)
 {
   switch(key){
     case ESCAPE :
-      exit(1);
+      if(pauseActivated) pauseActivated = false;
+      else pauseActivated = true;
       break;
     
     case ESPACE:
