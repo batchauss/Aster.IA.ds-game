@@ -1,4 +1,4 @@
-#include"hud.h"
+#include "hud.h"
 extern Vaisseau * vaisseau;
 
 GLvoid barreVie(GLfloat vie){
