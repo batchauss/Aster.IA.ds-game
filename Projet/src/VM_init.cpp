@@ -2,7 +2,7 @@
 #include <GL/gl.h>
 
 #include "rendu/rendu.h"
-#include "interface_ingame/hud.h"
+#include "rendu/hud.h"
 #include "fonctions/frontiere.h"
 
 extern bool zPressed;
@@ -57,7 +57,10 @@ GLvoid VM_init() {
 				vaisseau->decreaseSpeed();
 	   		}
 
-			//if(vaisseau->getVie()==0) exit(1);
+			if(vaisseau->getVie()==0) {
+				std::cout<<"vous avez perdu"<<std::endl;
+				exit(1);
+			}
 			
 			if(asteroides.at(i)->getTaille()==1){
 				glCallList(2);   		
