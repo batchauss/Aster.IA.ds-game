@@ -6,6 +6,7 @@
 
 #include "init.h"
 #include "fonctions/frontiere.h"
+#include "touches/actions.h"
 
 class mainwindow : public QMainWindow
 {

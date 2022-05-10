@@ -1,8 +1,9 @@
 #include "../init.h"
+#include <iostream>
 #include <fstream>
 #include <vector>
+#include <string>
 #include <sstream>
-#include <iostream>
 
 struct obj {
     std::vector<std::vector<GLfloat>> v;
@@ -25,5 +26,5 @@ struct objmtl {
 
 struct objmtl loadObj(std::string const & file);
 mtls loadMtl(std::string const & file);
-std::vector<std::string> split(const std::string & s);
+std::vector<std::string> split(const std::string& s);
 std::vector<int> splitDelimit(const std::string& s, std::string d);

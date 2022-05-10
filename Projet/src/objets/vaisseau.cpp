@@ -12,7 +12,7 @@ Vaisseau::Vaisseau(){
     this->angle[0] = 0;
     this->angle[1] = 0;
     this->angle[2] = 0;
-    camera = new Camera(posx(), posy() + 10, posz() + 30);
+    camera = new Camera(posx(), posy() + 10, posz() + 20);
     
     for (int i =0 ; i<5;++i){
        Tir *t = new Tir(posx(), posy() , posz() );
@@ -129,7 +129,7 @@ void Vaisseau::moveForward(){
         }
     }
 
-    if (cos((getAngle2()) * 3.14 / 180) <0){
+    if (cos((getAngle2()) * 3.14 / 180) < 0){
         this->move(-calculRotationTranslatex, calculRotationTranslatey, calculRotationTranslatez);    
         camera->move(-calculRotationTranslatex,calculRotationTranslatey, calculRotationTranslatez);
 
@@ -143,7 +143,7 @@ void Vaisseau::moveForward(){
 }
 
 void Vaisseau::decreaseSpeed(){
-    if(vitesse > 0) vitesse *= 0.98;
+    if(vitesse > 0) vitesse *= 0.985;
     
 }
 
@@ -197,9 +197,9 @@ GLvoid Vaisseau::tirer(){ // tire une balle
     }
     
     //on remet la balle a sa place si il atteint la portée grace au calcul de la longueur
-    if ( longueur > 40 || longueur < -40 ){ 
+    if ( longueur > 100 || longueur < -100 ){ 
         longueurTot[i]=0;       
         tirs.at(i)->release(this->posx(),this->posy(),this->posz(),this->getAngle(), this->getAngle2());
-  }
+    }
   }
 }
