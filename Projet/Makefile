@@ -61,7 +61,7 @@ SOURCES       = src/fonctions/frontiere.cpp \
 		src/objets/camera.cpp \
 		src/objets/tir.cpp \
 		src/objets/vaisseau.cpp \
-		src/interface_ingame/hud.cpp \
+		src/rendu/hud.cpp \
 		src/rendu/rendu.cpp \
 		src/touches/actions.cpp \
 		src/init.cpp \
@@ -177,7 +177,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		src/objets/camera.h \
 		src/objets/tir.h \
 		src/objets/vaisseau.h \
-		src/interface_ingame/hud.h \
+		src/rendu/hud.h \
 		src/rendu/rendu.h \
 		src/touches/actions.h \
 		src/touches/touches.h \
@@ -193,7 +193,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		src/objets/camera.cpp \
 		src/objets/tir.cpp \
 		src/objets/vaisseau.cpp \
-		src/interface_ingame/hud.cpp \
+		src/rendu/hud.cpp \
 		src/rendu/rendu.cpp \
 		src/touches/actions.cpp \
 		src/init.cpp \
@@ -393,8 +393,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents src/fonctions/frontiere.h src/fonctions/obj.h src/fonctions/ppm.h src/fonctions/texture.h src/objets/asteroide.h src/objets/asteroideGrand.h src/objets/asteroideMoyen.h src/objets/asteroidePetit.h src/objets/camera.h src/objets/tir.h src/objets/vaisseau.h src/interface_ingame/hud.h src/rendu/rendu.h src/touches/actions.h src/touches/touches.h src/init.h src/mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents src/fonctions/frontiere.cpp src/fonctions/obj.cpp src/fonctions/ppm.cpp src/fonctions/texture.cpp src/objets/asteroide.cpp src/objets/asteroideGrand.cpp src/objets/asteroideMoyen.cpp src/objets/asteroidePetit.cpp src/objets/camera.cpp src/objets/tir.cpp src/objets/vaisseau.cpp src/interface_ingame/hud.cpp src/rendu/rendu.cpp src/touches/actions.cpp src/init.cpp src/main.cpp src/mainwindow.cpp src/VM_init.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents src/fonctions/frontiere.h src/fonctions/obj.h src/fonctions/ppm.h src/fonctions/texture.h src/objets/asteroide.h src/objets/asteroideGrand.h src/objets/asteroideMoyen.h src/objets/asteroidePetit.h src/objets/camera.h src/objets/tir.h src/objets/vaisseau.h src/rendu/hud.h src/rendu/rendu.h src/touches/actions.h src/touches/touches.h src/init.h src/mainwindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents src/fonctions/frontiere.cpp src/fonctions/obj.cpp src/fonctions/ppm.cpp src/fonctions/texture.cpp src/objets/asteroide.cpp src/objets/asteroideGrand.cpp src/objets/asteroideMoyen.cpp src/objets/asteroidePetit.cpp src/objets/camera.cpp src/objets/tir.cpp src/objets/vaisseau.cpp src/rendu/hud.cpp src/rendu/rendu.cpp src/touches/actions.cpp src/init.cpp src/main.cpp src/mainwindow.cpp src/VM_init.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -524,13 +524,13 @@ build/obj/vaisseau.o: src/objets/vaisseau.cpp src/objets/vaisseau.h \
 		src/fonctions/obj.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/vaisseau.o src/objets/vaisseau.cpp
 
-build/obj/hud.o: src/interface_ingame/hud.cpp src/interface_ingame/hud.h \
+build/obj/hud.o: src/rendu/hud.cpp src/rendu/hud.h \
 		src/init.h \
 		src/objets/vaisseau.h \
 		src/objets/camera.h \
 		src/objets/tir.h \
 		src/objets/asteroide.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/hud.o src/interface_ingame/hud.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/hud.o src/rendu/hud.cpp
 
 build/obj/rendu.o: src/rendu/rendu.cpp src/rendu/rendu.h \
 		src/objets/vaisseau.h \
@@ -601,7 +601,7 @@ build/obj/VM_init.o: src/VM_init.cpp src/rendu/rendu.h \
 		src/objets/asteroideMoyen.h \
 		src/objets/asteroideGrand.h \
 		src/fonctions/obj.h \
-		src/interface_ingame/hud.h \
+		src/rendu/hud.h \
 		src/fonctions/frontiere.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/VM_init.o src/VM_init.cpp
 

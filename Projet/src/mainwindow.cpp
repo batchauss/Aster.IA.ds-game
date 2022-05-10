@@ -12,25 +12,6 @@ GLvoid Modelisation()
 
   if(!pauseActivated){
     VM_init();
-
-
-//Début 2D
-  glMatrixMode (GL_PROJECTION);
-    glPushMatrix();
-    glLoadIdentity();
-    glOrtho(-5, 5, -5, 5, -1.0f, 1.0f);
-  glMatrixMode(GL_MODELVIEW);
-    glPushMatrix();
-    glLoadIdentity();
-
-  glutSolidCube(1);
-
-//End 2D
-  glMatrixMode (GL_PROJECTION);
-    glPopMatrix ();
-  glMatrixMode (GL_MODELVIEW);
-    glPopMatrix ();
-
     glutSwapBuffers();
   }
 }
