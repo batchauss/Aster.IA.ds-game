@@ -5,7 +5,7 @@
 GLfloat longueurTot[5] ={0,0,0,0,0}; //tableau annexe pour le calcul de la longueur du tir
 extern std::vector<Asteroide *> asteroides;
 
-Vaisseau::Vaisseau(){
+Vaisseau::Vaisseau(int nbBalles){
     this->pos[0] = 0;
     this->pos[1] = 0;
     this->pos[2] = 0;
@@ -19,7 +19,7 @@ Vaisseau::Vaisseau(){
 
     camera = new Camera(posx(), posy() + 10, posz() + 20);
     
-    for (int i =0 ; i<5;++i){
+    for (int i =0 ; i<nbBalles;++i){
        Tir *t = new Tir(posx(), posy() , posz() );
        t->setTirActif(false);
        tirs.push_back(t); 
@@ -194,7 +194,7 @@ GLvoid Vaisseau::tirer(){ // tire une balle
     }
     
     //on remet la balle a sa place si il atteint la portée grace au calcul de la longueur
-    if ( longueur > 100 || longueur < -100 ){ 
+    if ( longueur > 200 || longueur < -200 ){ 
         longueurTot[i]=0;       
         tirs.at(i)->release(this->posx(),this->posy(),this->posz(),this->getAngle(), this->getAngle2());
     }

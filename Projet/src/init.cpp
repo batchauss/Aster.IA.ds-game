@@ -18,8 +18,10 @@ struct objmtl vaisseauObj;
 struct objmtl asteroideObj;
 struct objmtl asteroide2Obj;
 struct objmtl asteroide3Obj;
+struct objmtl ennemiobj;
 
-Vaisseau * vaisseau = new Vaisseau();
+Vaisseau * vaisseau = new Vaisseau(10);
+Vaisseau * ennemi = new Vaisseau(1);
 std::vector<Asteroide *> asteroides;
 
 GLfloat score =0;
@@ -61,6 +63,8 @@ int notre_init(int argc, char** argv, void (*Modelisation)()){
 	renduAsteroide(1, asteroideObj);
 	renduAsteroide(2, asteroide2Obj);
 	renduAsteroide(3, asteroide3Obj);
+
+	renduEnnemi(ennemiobj);
 		
 	//implementation des fichiers de textures
 	TEXTURE_STRUCT * night = readPpm((char *)"./pic/night.ppm");
@@ -76,6 +80,7 @@ void initialise(){
 	asteroideObj = loadObj("models/asteroides1");
 	asteroide2Obj = loadObj("models/asteroides2");
 	asteroide3Obj = loadObj("models/asteroides3");
+	ennemiobj = loadObj("models/ennemi2");
 
 	remplissageTableauR();
 	creationAsteroides();

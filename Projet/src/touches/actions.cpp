@@ -15,6 +15,20 @@ bool keyDownPressed = false;
 bool keyLeftPressed = false;
 bool keyRightPressed = false;
 
+
+void actionTir( Vaisseau *v, Tir *t){
+  v->tirs.back()->setSpeed(2.6); 
+        v->tirs.back()->setTirActif(true);
+
+        v->tirs.back()->setposXmomentTir(v->posx());
+        v->tirs.back()->setposYmomentTir(v->posy());
+        v->tirs.back()->setposZmomentTir(v->posz()); 
+
+        t=v->tirs.at(v->tirs.size()-1);
+        v->tirs.insert(v->tirs.begin(),t);
+        v->tirs.pop_back();
+}
+
 void touche(unsigned char key, int x, int y) 
 {
   switch(key){
@@ -25,16 +39,7 @@ void touche(unsigned char key, int x, int y)
     
     case ESPACE:
         
-        vaisseau->tirs.back()->setSpeed(2.6); 
-        vaisseau->tirs.back()->setTirActif(true);
-
-        vaisseau->tirs.back()->setposXmomentTir(vaisseau->posx());
-        vaisseau->tirs.back()->setposYmomentTir(vaisseau->posy());
-        vaisseau->tirs.back()->setposZmomentTir(vaisseau->posz()); 
-
-        t=vaisseau->tirs.at(vaisseau->tirs.size()-1);
-        vaisseau->tirs.insert(vaisseau->tirs.begin(),t);
-        vaisseau->tirs.pop_back();
+        actionTir(vaisseau,t);
 
       break;
     
@@ -113,4 +118,5 @@ void releaseToucheSpeciale(int key, int x, int y)
       break;      
   }
 }
+
 

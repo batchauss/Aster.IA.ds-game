@@ -4,6 +4,7 @@
 #include "rendu/rendu.h"
 #include "rendu/hud.h"
 #include "fonctions/frontiere.h"
+#include "fonctions/frames.h"
 
 extern bool zPressed;
 extern bool qPressed;
@@ -15,6 +16,10 @@ extern bool keyLeftPressed;
 
 extern std::vector<Asteroide *> asteroides;
 extern Vaisseau * vaisseau;
+extern Vaisseau * ennemi;
+Tir *tt;
+
+extern void actionTir(Vaisseau *v, Tir*t);
 
 extern GLuint texture[2];
 
@@ -29,8 +34,9 @@ GLvoid VM_init() {
 	if(keyDownPressed) vaisseau->setAngle2(2);
 
 	renduCamera(vaisseau);
+	
 
-	for(int i=0; i<5;++i){
+	for(unsigned int i=0; i<vaisseau->tirs.size();++i){
 		 renduTir(vaisseau->tirs.at(i));
 	}	
 
@@ -81,7 +87,30 @@ GLvoid VM_init() {
 			}
 		glPopMatrix();
 	}
+
+  // soucoupe de l'ennemi
+  if(temps_acceleration_reelle(1)>0){
+	glPushMatrix();
+		ennemi->moveForward();
+		
+		ennemi->tirer();
+		ennemi->setSpeed(1);
+		ennemi->setAngle2(2);
+		ennemi->setAngle(2);
+		glTranslatef(ennemi->posx(), ennemi->posy(), ennemi->posz());
+		glRotatef(180 + ennemi->getAngle(), 0, 1, 0);
+		glCallList(5);
+		if((int)temps_acceleration_reelle(1)%1==0) actionTir(ennemi,tt);
+		
+	glPopMatrix();
+  }
+  for(unsigned int i=0; i<ennemi->tirs.size();++i){
+		 renduTir(ennemi->tirs.at(i));
+	}
+
 	frontieres(texture[0]);
 	if(vaisseau->getVie()<=30) grille(1.0 ,0.0 ,0.0); // la couleur de la grille deviens rouge si la vie du vaisseau est basse
 	else  grille(1.0 ,0.0 ,1.0);
+
+	
 }
