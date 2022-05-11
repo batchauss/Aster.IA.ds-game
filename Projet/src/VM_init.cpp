@@ -32,9 +32,7 @@ GLvoid VM_init() {
 
 	for(int i=0; i<5;++i){
 		 renduTir(vaisseau->tirs.at(i));
-	}
-
-	
+	}	
 
 	glPushMatrix();
 		barreVie(vaisseau->getVie());
@@ -81,13 +79,9 @@ GLvoid VM_init() {
 				asteroides.at(i)->split();
 				i = i-1;
 			}
-		glPopMatrix();	
-
-			
+		glPopMatrix();
 	}
 	frontieres(texture[0]);
 	if(vaisseau->getVie()<=30) grille(1.0 ,0.0 ,0.0); // la couleur de la grille deviens rouge si la vie du vaisseau est basse
 	else  grille(1.0 ,0.0 ,1.0);
-
-	
 }
