@@ -16,7 +16,7 @@ extern bool keyLeftPressed;
 extern std::vector<Asteroide *> asteroides;
 extern Vaisseau * vaisseau;
 
-extern GLuint texture[5];
+extern GLuint texture[2];
 
 GLvoid VM_init() {
 	vaisseau->moveForward();
@@ -54,7 +54,8 @@ GLvoid VM_init() {
 			if(vaisseau->collisionVaisseauAsteroide(asteroides.at(i))){
 				std::cout<<"vaisseau touché, vie :"<<vaisseau->getVie()<<std::endl;
 				vaisseau->setSpeed(-1.5);
-				vaisseau->decreaseSpeed();
+				zPressed =false;
+
 	   		}
 
 			if(vaisseau->getVie()==0) {
