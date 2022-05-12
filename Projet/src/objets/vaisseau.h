@@ -25,6 +25,10 @@ public :
     GLfloat getSpeed(){return this->vitesse;}
     GLfloat getVie(){return this->vie;}
 
+    GLfloat getLongueur(){return this->longueur;}
+    GLfloat getLargeur(){return this->largeur;}
+    GLfloat getHauteur(){return this->hauteur;}
+
     void setPos(GLfloat x, GLfloat y, GLfloat z){           // Modifie pos
         this->pos[0] = x;
         this->pos[1] = y;
@@ -41,10 +45,19 @@ public :
      void setSpeed(GLfloat v){ 
         this->vitesse=v;
      }
+     void setHitbox( GLfloat lo, GLfloat la, GLfloat h){
+         this->longueur =lo;
+         this->largeur=la;
+         this->hauteur=h;
+     }
     
     GLvoid tirer();
 
     bool collisionVaisseauAsteroide( Asteroide * a);
+
+    bool collisionVaisseauVaisseau( Vaisseau *v);
+
+    bool invincible;
 
     Camera * camera;
     std::vector <Tir *> tirs; // tableau de munitions

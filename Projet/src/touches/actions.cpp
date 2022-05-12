@@ -16,7 +16,7 @@ bool keyLeftPressed = false;
 bool keyRightPressed = false;
 
 
-void actionTir( Vaisseau *v, Tir *t){
+void actionTir( Vaisseau *v){
   v->tirs.back()->setSpeed(2.6); 
         v->tirs.back()->setTirActif(true);
 
@@ -39,7 +39,7 @@ void touche(unsigned char key, int x, int y)
     
     case ESPACE:
         
-        actionTir(vaisseau,t);
+        actionTir(vaisseau);
 
       break;
     

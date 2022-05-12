@@ -9,5 +9,5 @@
 void renduAsteroide( int taille,struct objmtl as);
 void renduCamera(Vaisseau * v);
 void renduTir(Tir *t);
-void renduVaisseau(struct objmtl v);
+void renduVaisseau(int etatVaisseau ,struct objmtl v);
 void renduEnnemi(struct objmtl e);

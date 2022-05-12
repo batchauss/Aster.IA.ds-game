@@ -631,6 +631,8 @@ build/obj/VM_init.o: src/VM_init.cpp src/rendu/rendu.h \
 		src/objets/asteroideGrand.h \
 		src/fonctions/obj.h \
 		src/rendu/hud.h \
+		src/touches/actions.h \
+		src/touches/touches.h \
 		src/fonctions/frontiere.h \
 		src/fonctions/frames.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/VM_init.o src/VM_init.cpp

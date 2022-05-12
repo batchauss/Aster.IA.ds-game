@@ -16,6 +16,7 @@ Vaisseau::Vaisseau(int nbBalles){
     this->largeur=3;
     this->hauteur=3;
     this->vie=100;
+    this->invincible=false;
 
     camera = new Camera(posx(), posy() + 10, posz() + 20);
     
@@ -203,6 +204,8 @@ GLvoid Vaisseau::tirer(){ // tire une balle
 
 
 bool Vaisseau::collisionVaisseauAsteroide(Asteroide * a){
+    if(!this->invincible)
+    {
         float sphereXDistance = abs(a->posX() - this->posx());
         float sphereYDistance = abs(a->posY() - this->posy());
         float sphereZDistance = abs(a->posZ() - this->posz());
@@ -224,5 +227,26 @@ bool Vaisseau::collisionVaisseauAsteroide(Asteroide * a){
             return true;
         }
         else return false;
+    }
+}
+
+bool Vaisseau::collisionVaisseauVaisseau( Vaisseau *v){
+  if(!this->invincible)
+  {     
+    if(abs(this->posx() - v->posx()) < this->getLargeur() + v->getLargeur())
+    {
+      
+      if(abs(this->posy() - v->posy()) < this->getHauteur() + v->getHauteur())
+      {
+          
+          if(abs(this->posz() - v->posz()) < this->getLongueur() + v->getLongueur())
+          {
+             return true;
+          }
+      }
+    }
+   }
+
+   return false;
 
 }

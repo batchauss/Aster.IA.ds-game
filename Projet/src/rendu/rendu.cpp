@@ -5,6 +5,16 @@ extern GLfloat rayon_z ;
 extern GLfloat rayon_x_2 ;
 extern GLfloat rayon_y;
 
+/* INDICATION APPEL DE LISTE D'AFFICHAGE
+
+    1 : VAISSEAU
+    2 : PETIT ASTERODIDE
+    3 : MOYEN ASTEROIDE
+    4 : GRAND ASTEROIDE
+    5 : ENNEMI
+    6 : VAISSEAU TOUCHÉ ( INVINCIBLE )
+*/
+
 void renduAsteroide( int taille,struct objmtl as){
     if(taille==1) {
         glNewList(2, GL_COMPILE_AND_EXECUTE);
@@ -56,8 +66,10 @@ void renduTir(Tir * t){
     glPopMatrix();
 }
 
-void renduVaisseau(struct objmtl v){
-    glNewList(1, GL_COMPILE_AND_EXECUTE);
+void renduVaisseau( int etatVaisseau, struct objmtl v){
+    
+    if(etatVaisseau ==1) glNewList(1, GL_COMPILE_AND_EXECUTE);
+    else if(etatVaisseau ==2) glNewList(6, GL_COMPILE_AND_EXECUTE);
     glPushMatrix();
     {
         glScalef(0.5, 0.5, 0.5);
@@ -69,7 +81,8 @@ void renduVaisseau(struct objmtl v){
             glMaterialfv(GL_FRONT, GL_SHININESS, &shin);
             glNormal3f(v.obj.vn.at(face.at(0).at(2)-1).at(0), v.obj.vn.at(face.at(0).at(2)-1).at(1), v.obj.vn.at(face.at(0).at(2)-1).at(2));
             
-            glColor3f(v.materiaux.at(indexMat-1).Kd.at(0), v.materiaux.at(indexMat-1).Kd.at(1), v.materiaux.at(indexMat-1).Kd.at(2));
+            if(etatVaisseau ==1) glColor3f(v.materiaux.at(indexMat-1).Kd.at(0), v.materiaux.at(indexMat-1).Kd.at(1), v.materiaux.at(indexMat-1).Kd.at(2));
+            else if(etatVaisseau ==2) glColor4f(v.materiaux.at(indexMat-1).Kd.at(0), v.materiaux.at(indexMat-1).Kd.at(1), v.materiaux.at(indexMat-1).Kd.at(2),0.2);
             for(const auto& vertex : face) {
                 glVertex3f(v.obj.v.at(vertex.at(0) - 1).at(0), v.obj.v.at(vertex.at(0) - 1).at(1), v.obj.v.at(vertex.at(0) - 1).at(2));
             }

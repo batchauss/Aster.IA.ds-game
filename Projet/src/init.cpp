@@ -21,7 +21,7 @@ struct objmtl asteroide3Obj;
 struct objmtl ennemiobj;
 
 Vaisseau * vaisseau = new Vaisseau(10);
-Vaisseau * ennemi = new Vaisseau(1);
+Vaisseau * ennemi = new Vaisseau(5);
 std::vector<Asteroide *> asteroides;
 
 GLfloat score =0;
@@ -58,7 +58,11 @@ int notre_init(int argc, char** argv, void (*Modelisation)()){
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 
-	renduVaisseau(vaisseauObj);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	renduVaisseau(1,vaisseauObj);
+	renduVaisseau(2,vaisseauObj);
 
 	renduAsteroide(1, asteroideObj);
 	renduAsteroide(2, asteroide2Obj);
@@ -84,6 +88,9 @@ void initialise(){
 
 	remplissageTableauR();
 	creationAsteroides();
+
+	ennemi->setVie(30);
+	ennemi->setPos(Rand(-200,200),Rand(-200,200),Rand(-200,200));
 }
 
 int Rand( int a, int b) // fonction rand
@@ -103,8 +110,8 @@ void remplissageTableauR(){
 }
 
 void creationAsteroides(){
-	//creation des asteroides de grande tailles ( le jeu commence avec 4 grands )
-	for(unsigned int i=0;i<4;++i){
+	//creation des asteroides de grande tailles ( le jeu commence avec 4 grands 
+	for( int i=0;i<4;++i){
        Asteroide * a = new AsteroideGrand(i);
 	   a->setX(r[i][0]);
 	   a->setY(r[i][1]);
