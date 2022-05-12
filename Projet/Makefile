@@ -54,6 +54,8 @@ SOURCES       = src/fonctions/frontiere.cpp \
 		src/fonctions/obj.cpp \
 		src/fonctions/ppm.cpp \
 		src/fonctions/texture.cpp \
+		src/qt/mainwindow.cpp \
+		src/qt/pausewindow.cpp \
 		src/objets/asteroide.cpp \
 		src/objets/asteroideGrand.cpp \
 		src/objets/asteroideMoyen.cpp \
@@ -66,12 +68,14 @@ SOURCES       = src/fonctions/frontiere.cpp \
 		src/touches/actions.cpp \
 		src/init.cpp \
 		src/main.cpp \
-		src/mainwindow.cpp \
-		src/VM_init.cpp build/moc/moc_mainwindow.cpp
+		src/VM_init.cpp build/moc/moc_mainwindow.cpp \
+		build/moc/moc_pausewindow.cpp
 OBJECTS       = build/obj/frontiere.o \
 		build/obj/obj.o \
 		build/obj/ppm.o \
 		build/obj/texture.o \
+		build/obj/mainwindow.o \
+		build/obj/pausewindow.o \
 		build/obj/asteroide.o \
 		build/obj/asteroideGrand.o \
 		build/obj/asteroideMoyen.o \
@@ -84,9 +88,9 @@ OBJECTS       = build/obj/frontiere.o \
 		build/obj/actions.o \
 		build/obj/init.o \
 		build/obj/main.o \
-		build/obj/mainwindow.o \
 		build/obj/VM_init.o \
-		build/obj/moc_mainwindow.o
+		build/obj/moc_mainwindow.o \
+		build/obj/moc_pausewindow.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -170,6 +174,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		src/fonctions/obj.h \
 		src/fonctions/ppm.h \
 		src/fonctions/texture.h \
+		src/qt/mainwindow.h \
+		src/qt/pausewindow.h \
 		src/objets/asteroide.h \
 		src/objets/asteroideGrand.h \
 		src/objets/asteroideMoyen.h \
@@ -181,11 +187,12 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		src/rendu/rendu.h \
 		src/touches/actions.h \
 		src/touches/touches.h \
-		src/init.h \
-		src/mainwindow.h src/fonctions/frontiere.cpp \
+		src/init.h src/fonctions/frontiere.cpp \
 		src/fonctions/obj.cpp \
 		src/fonctions/ppm.cpp \
 		src/fonctions/texture.cpp \
+		src/qt/mainwindow.cpp \
+		src/qt/pausewindow.cpp \
 		src/objets/asteroide.cpp \
 		src/objets/asteroideGrand.cpp \
 		src/objets/asteroideMoyen.cpp \
@@ -198,7 +205,6 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		src/touches/actions.cpp \
 		src/init.cpp \
 		src/main.cpp \
-		src/mainwindow.cpp \
 		src/VM_init.cpp
 QMAKE_TARGET  = Aster.IA.ds
 DESTDIR       = 
@@ -393,8 +399,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents src/fonctions/frontiere.h src/fonctions/obj.h src/fonctions/ppm.h src/fonctions/texture.h src/objets/asteroide.h src/objets/asteroideGrand.h src/objets/asteroideMoyen.h src/objets/asteroidePetit.h src/objets/camera.h src/objets/tir.h src/objets/vaisseau.h src/rendu/hud.h src/rendu/rendu.h src/touches/actions.h src/touches/touches.h src/init.h src/mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents src/fonctions/frontiere.cpp src/fonctions/obj.cpp src/fonctions/ppm.cpp src/fonctions/texture.cpp src/objets/asteroide.cpp src/objets/asteroideGrand.cpp src/objets/asteroideMoyen.cpp src/objets/asteroidePetit.cpp src/objets/camera.cpp src/objets/tir.cpp src/objets/vaisseau.cpp src/rendu/hud.cpp src/rendu/rendu.cpp src/touches/actions.cpp src/init.cpp src/main.cpp src/mainwindow.cpp src/VM_init.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents src/fonctions/frontiere.h src/fonctions/obj.h src/fonctions/ppm.h src/fonctions/texture.h src/qt/mainwindow.h src/qt/pausewindow.h src/objets/asteroide.h src/objets/asteroideGrand.h src/objets/asteroideMoyen.h src/objets/asteroidePetit.h src/objets/camera.h src/objets/tir.h src/objets/vaisseau.h src/rendu/hud.h src/rendu/rendu.h src/touches/actions.h src/touches/touches.h src/init.h $(DISTDIR)/
+	$(COPY_FILE) --parents src/fonctions/frontiere.cpp src/fonctions/obj.cpp src/fonctions/ppm.cpp src/fonctions/texture.cpp src/qt/mainwindow.cpp src/qt/pausewindow.cpp src/objets/asteroide.cpp src/objets/asteroideGrand.cpp src/objets/asteroideMoyen.cpp src/objets/asteroidePetit.cpp src/objets/camera.cpp src/objets/tir.cpp src/objets/vaisseau.cpp src/rendu/hud.cpp src/rendu/rendu.cpp src/touches/actions.cpp src/init.cpp src/main.cpp src/VM_init.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -426,9 +432,9 @@ compiler_moc_predefs_clean:
 build/moc/moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -std=gnu++1z -Wall -W -dM -E -o build/moc/moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: build/moc/moc_mainwindow.cpp
+compiler_moc_header_make_all: build/moc/moc_mainwindow.cpp build/moc/moc_pausewindow.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) build/moc/moc_mainwindow.cpp
+	-$(DEL_FILE) build/moc/moc_mainwindow.cpp build/moc/moc_pausewindow.cpp
 build/moc/moc_mainwindow.cpp: src/init.h \
 		src/fonctions/frontiere.h \
 		src/touches/actions.h \
@@ -437,10 +443,16 @@ build/moc/moc_mainwindow.cpp: src/init.h \
 		src/objets/vaisseau.h \
 		src/objets/tir.h \
 		src/objets/asteroide.h \
-		src/mainwindow.h \
+		src/qt/mainwindow.h \
 		build/moc/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include '/home/etud/Git Repo/Aster.ia.ds/Projet/build/moc/moc_predefs.h' -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I'/home/etud/Git Repo/Aster.ia.ds/Projet' -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include src/mainwindow.h -o build/moc/moc_mainwindow.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include '/home/etud/Git Repo/Aster.ia.ds/Projet/build/moc/moc_predefs.h' -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I'/home/etud/Git Repo/Aster.ia.ds/Projet' -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include src/qt/mainwindow.h -o build/moc/moc_mainwindow.cpp
+
+build/moc/moc_pausewindow.cpp: src/init.h \
+		src/qt/pausewindow.h \
+		build/moc/moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include '/home/etud/Git Repo/Aster.ia.ds/Projet/build/moc/moc_predefs.h' -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I'/home/etud/Git Repo/Aster.ia.ds/Projet' -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include src/qt/pausewindow.h -o build/moc/moc_pausewindow.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -473,6 +485,21 @@ build/obj/texture.o: src/fonctions/texture.cpp src/fonctions/texture.h \
 		src/init.h \
 		src/fonctions/ppm.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/texture.o src/fonctions/texture.cpp
+
+build/obj/mainwindow.o: src/qt/mainwindow.cpp src/qt/mainwindow.h \
+		src/init.h \
+		src/fonctions/frontiere.h \
+		src/touches/actions.h \
+		src/touches/touches.h \
+		src/objets/camera.h \
+		src/objets/vaisseau.h \
+		src/objets/tir.h \
+		src/objets/asteroide.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/mainwindow.o src/qt/mainwindow.cpp
+
+build/obj/pausewindow.o: src/qt/pausewindow.cpp src/qt/pausewindow.h \
+		src/init.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/pausewindow.o src/qt/pausewindow.cpp
 
 build/obj/asteroide.o: src/objets/asteroide.cpp src/objets/asteroide.h \
 		src/init.h
@@ -525,11 +552,7 @@ build/obj/vaisseau.o: src/objets/vaisseau.cpp src/objets/vaisseau.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/vaisseau.o src/objets/vaisseau.cpp
 
 build/obj/hud.o: src/rendu/hud.cpp src/rendu/hud.h \
-		src/init.h \
-		src/objets/vaisseau.h \
-		src/objets/camera.h \
-		src/objets/tir.h \
-		src/objets/asteroide.h
+		src/init.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/hud.o src/rendu/hud.cpp
 
 build/obj/rendu.o: src/rendu/rendu.cpp src/rendu/rendu.h \
@@ -569,7 +592,7 @@ build/obj/init.o: src/init.cpp src/init.h \
 		src/fonctions/obj.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/init.o src/init.cpp
 
-build/obj/main.o: src/main.cpp src/mainwindow.h \
+build/obj/main.o: src/main.cpp src/qt/mainwindow.h \
 		src/init.h \
 		src/fonctions/frontiere.h \
 		src/touches/actions.h \
@@ -579,17 +602,6 @@ build/obj/main.o: src/main.cpp src/mainwindow.h \
 		src/objets/tir.h \
 		src/objets/asteroide.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/main.o src/main.cpp
-
-build/obj/mainwindow.o: src/mainwindow.cpp src/mainwindow.h \
-		src/init.h \
-		src/fonctions/frontiere.h \
-		src/touches/actions.h \
-		src/touches/touches.h \
-		src/objets/camera.h \
-		src/objets/vaisseau.h \
-		src/objets/tir.h \
-		src/objets/asteroide.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/mainwindow.o src/mainwindow.cpp
 
 build/obj/VM_init.o: src/VM_init.cpp src/rendu/rendu.h \
 		src/objets/vaisseau.h \
@@ -607,6 +619,9 @@ build/obj/VM_init.o: src/VM_init.cpp src/rendu/rendu.h \
 
 build/obj/moc_mainwindow.o: build/moc/moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/moc_mainwindow.o build/moc/moc_mainwindow.cpp
+
+build/obj/moc_pausewindow.o: build/moc/moc_pausewindow.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/moc_pausewindow.o build/moc/moc_pausewindow.cpp
 
 ####### Install
 

@@ -32,15 +32,14 @@ GLvoid VM_init() {
 
 	for(int i=0; i<5;++i){
 		 renduTir(vaisseau->tirs.at(i));
-	}	
+	}
 
 	glPushMatrix();
 		barreVie(vaisseau->getVie());
 		glTranslatef(vaisseau->posx(), vaisseau->posy(), vaisseau->posz());
 		glRotatef(180 + vaisseau->getAngle(), 0, 1, 0);
 		glRotatef(- vaisseau->getAngle2(), 1, 0, 0);
-		glCallList(1);
-			
+		glCallList(1);		
 	glPopMatrix();
 
 	for(unsigned int i=0;i<asteroides.size();++i){

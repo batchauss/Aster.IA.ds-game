@@ -1,8 +1,13 @@
 #include "mainwindow.h"
 
 extern GLvoid VM_init();
+extern GLvoid boutonPause();
 extern GLfloat ambiente[4];
 extern bool pauseActivated;
+
+bool doPauseOnce = false;
+
+#include <iostream>
 
 GLvoid Modelisation()
 {
@@ -10,25 +15,35 @@ GLvoid Modelisation()
 	glLoadIdentity();
 
   if(!pauseActivated){
+    for(unsigned int i=0; i<3; i++) ambiente[i] = 0.7;
+    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambiente);
     VM_init();
     glutSwapBuffers();
+    doPauseOnce = false;
+  }
+  else if(!doPauseOnce){
+    boutonPause();
+    for(unsigned int i=0; i<3; i++) ambiente[i] = 0.3;
+    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambiente);
+    VM_init();
+    glutSwapBuffers();
+    doPauseOnce = true;
   }
 }
 
-mainwindow::mainwindow(int argc, char**argv)
-    : QMainWindow()
-{
-  this->showFullScreen();
+void mainwindow::alignCenterWindow(){
+  QDesktopWidget * widget = QApplication::desktop();
+  int desktop_width = widget->width();
+  int desktop_height = widget->height();
+  int x = desktop_width / 2 - width() / 2;
+  int y = desktop_height / 2 - height() / 2;
+  this->move(QPoint(x, y));
+}
 
-  QStackedWidget * widgets = new QStackedWidget();
-
+/*      Menu principal      */
+void mainwindow::createWidgetMenuPrincipal(int argc, char**argv){
   QWidget * menuPrincipal = new QWidget();
-  QWidget * menuOption = new QWidget();
-
-  widgets->addWidget(menuPrincipal);
-  widgets->addWidget(menuOption);
-
-  /*      Menu principal      */
+  this->widgets->addWidget(menuPrincipal);
 
   //  Bouton Jouer
 
@@ -36,8 +51,8 @@ mainwindow::mainwindow(int argc, char**argv)
   jouer->setFixedSize(400, 100);
   QObject::connect(jouer, &QPushButton::clicked,
   [=](){
-    this->close();
-    return notre_init(argc, argv, &Modelisation);
+    this->hide();
+    notre_init(argc, argv, &Modelisation, this);
   });
 
   //  Bouton Options
@@ -46,7 +61,7 @@ mainwindow::mainwindow(int argc, char**argv)
   options->setFixedSize(190, 50);
   QObject::connect(options, &QPushButton::clicked,
   [=](){
-    widgets->setCurrentIndex(widgets->currentIndex()+1);
+    switchMenuOption();
   });
 
   //  Bouton Quitter
@@ -70,7 +85,12 @@ mainwindow::mainwindow(int argc, char**argv)
 
   menuPrincipal->setLayout(layout);
 
-  /*      Menu options      */
+}
+
+/*      Menu options      */
+void mainwindow::createWidgetMenuOption(){
+  QWidget * menuOption = new QWidget();
+  this->widgets->addWidget(menuOption);
 
   //  Options
 
@@ -97,20 +117,31 @@ mainwindow::mainwindow(int argc, char**argv)
   QPushButton * quitterOptions = new QPushButton("Quitter (Sans sauvegarder)");
   QObject::connect(quitterOptions, &QPushButton::clicked,
   [=](){
-    widgets->setCurrentIndex(widgets->currentIndex()-1);
+    switchMenuPrincipal();
   });
   layoutOption->addWidget(quitterOptions, 2, 0);
 
   QPushButton * confirmeOptions = new QPushButton("Confirmer");
   QObject::connect(confirmeOptions, &QPushButton::clicked,
   [=](){
-    widgets->setCurrentIndex(widgets->currentIndex()-1);
+    switchMenuPrincipal();
   });
   layoutOption->addWidget(confirmeOptions, 2, 1);
 
   menuOption->setLayout(layoutOption);
+}
+
+mainwindow::mainwindow(int argc, char**argv)
+    : QMainWindow()
+{
+  widgets = new QStackedWidget();
+
+  this->showFullScreen();
 
   /*      Central Widget      */
+
+  createWidgetMenuPrincipal(argc, argv);
+  createWidgetMenuOption();
 
   this->setCentralWidget(widgets);
 }
