@@ -52,3 +52,31 @@ GLvoid boutonPause(){
     glMatrixMode(GL_MODELVIEW);
     glPopMatrix();
 }
+
+GLvoid timer(){
+    glColor3d(0.2,0.6,0.2);
+    vBitmapOutput("TEXTE ECRIT EN VERT",GLUT_BITMAP_TIMES_ROMAN_24);
+}
+
+void vBitmapOutput(char * string, void *font)
+{
+        //Début 2D
+    glMatrixMode (GL_PROJECTION);
+    glPushMatrix();
+    glLoadIdentity();
+    glOrtho(-5, 5, -5, 5, -1.0f, 1.0f);
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glLoadIdentity();
+
+    glRasterPos2i(10, 10);
+	int len;
+	len = (int) strlen(string); // Calcule la longueur de la chaîne
+	for(int i = 0; i < len; i++) glutBitmapCharacter(font,string[i]); // Affiche chaque caractère de la chaîne
+    
+    //End 2D
+    glMatrixMode(GL_PROJECTION);
+    glPopMatrix();
+    glMatrixMode(GL_MODELVIEW);
+    glPopMatrix();
+}
