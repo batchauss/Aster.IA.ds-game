@@ -38,7 +38,9 @@ GLvoid VM_init() {
 	
 
 	for(unsigned int i=0; i<vaisseau->tirs.size();++i){
-		 renduTir(vaisseau->tirs.at(i));
+		if(vaisseau->invincible ==true) renduTir(2,vaisseau->tirs.at(i));
+		renduTir(1,vaisseau->tirs.at(i));
+		
 	}
 
 	glPushMatrix();
@@ -63,14 +65,16 @@ GLvoid VM_init() {
 				std::cout<<"vaisseau touché, vie :"<<vaisseau->getVie()<<std::endl;
 				vaisseau->invincible=true;
 				temps_invincible = (int)temps_acceleration_reelle(1) +3;
+				asteroides.at(i)->split();
 	   		}
-			//invincible pendant 3 seconde apres contact
-			if(temps_invincible == (int)temps_acceleration_reelle(1))  vaisseau->invincible=false;
-
-			   
 			
-			if(vaisseau->collisionVaisseauVaisseau(ennemi)){
-				vaisseau->setVie(vaisseau->getVie()-20);
+			//
+			if(vaisseau->invincible==false && vaisseau->collisionVaisseauVaisseau(ennemi)){
+				if(vaisseau->getVie()>=30 )vaisseau->setVie(vaisseau->getVie()-30);
+				else vaisseau->setVie(0);
+				std::cout<<"vaisseau touché, vie :"<<vaisseau->getVie()<<std::endl;
+				vaisseau->invincible=true;
+				temps_invincible = (int)temps_acceleration_reelle(1) +3;
 			}
 
 			if(vaisseau->getVie()==0) {
@@ -96,8 +100,13 @@ GLvoid VM_init() {
 				asteroides.at(i)->split();
 				i = i-1;
 			}
+
+				//vaisseau invincible pendant 3 seconde apres contact
+				if(temps_invincible == (int)temps_acceleration_reelle(1))  vaisseau->invincible=false;
 		glPopMatrix();
 	}
+
+
 
   // soucoupe de l'ennemi
   if(temps_acceleration_reelle(1)>5 && ennemi->getVie()!=0){
@@ -117,7 +126,7 @@ GLvoid VM_init() {
 			temps_precedent=(int)temps_acceleration_reelle(1);
 		}
 		for(unsigned int i=0; i<ennemi->tirs.size();++i){
-		 renduTir(ennemi->tirs.at(i));
+		 renduTir(1,ennemi->tirs.at(i));
 	}
 	glPopMatrix();
   }
