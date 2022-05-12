@@ -13,7 +13,8 @@ CONFIG += c++1z
 
 SOURCES += \
      \
-     $$files(src/fonctions/*.cpp,true) \
+     $$files(src/fonctions/*.cpp) \
+     $$files(src/qt/*.cpp) \
      $$files(src/objets/*.cpp) \
      $$files(src/rendu/*.cpp) \
      $$files(src/touches/*.cpp) \
@@ -22,6 +23,7 @@ SOURCES += \
 HEADERS += \
      \
      $$files(src/fonctions/*.h) \
+     $$files(src/qt/*.h) \
      $$files(src/objets/*.h) \
      $$files(src/rendu/*.h) \
      $$files(src/touches/*.h) \

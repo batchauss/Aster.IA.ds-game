@@ -8,10 +8,10 @@
 #include <stdio.h> 
 #include <stdlib.h>
 
-
+#include <QMainWindow>
 
 GLvoid Redimensionne(GLsizei width, GLsizei height);
-int notre_init(int argc, char** argv, void (*Modelisation)());
+int notre_init(int argc, char** argv, void (*Modelisation)(), QMainWindow * mw);
 
 void initialise();
 

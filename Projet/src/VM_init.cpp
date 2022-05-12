@@ -39,7 +39,7 @@ GLvoid VM_init() {
 
 	for(unsigned int i=0; i<vaisseau->tirs.size();++i){
 		 renduTir(vaisseau->tirs.at(i));
-	}	
+	}
 
 	glPushMatrix();
 		barreVie(vaisseau->getVie());

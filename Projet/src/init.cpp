@@ -34,7 +34,7 @@ GLvoid Redimensionne(GLsizei width, GLsizei height){
 	glMatrixMode(GL_MODELVIEW);
 }
 
-int notre_init(int argc, char** argv, void (*Modelisation)()){
+int notre_init(int argc, char** argv, void (*Modelisation)(), QMainWindow * mw){
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
 	glutInitWindowSize(1280, 960);

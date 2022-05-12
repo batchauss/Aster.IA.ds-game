@@ -1,8 +1,9 @@
 #include "hud.h"
-extern Vaisseau * vaisseau;
+
+extern bool pauseActivated;
 
 GLvoid barreVie(GLfloat vie){
-
+    if(!pauseActivated){
 //Début 2D
     glMatrixMode (GL_PROJECTION);
     glPushMatrix();
@@ -26,5 +27,28 @@ GLvoid barreVie(GLfloat vie){
     glPopMatrix();
     glMatrixMode(GL_MODELVIEW);
     glPopMatrix();
+    }
+}
+
+GLvoid boutonPause(){
+    //Début 2D
+    glMatrixMode (GL_PROJECTION);
     glPushMatrix();
+    glLoadIdentity();
+    glOrtho(-5, 5, -5, 5, -1.0f, 1.0f);
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glLoadIdentity();
+
+        glTranslatef(-4, 4, 0);
+	    glScalef(0.2, 1 , 1);
+        glutSolidCube(1);
+        glTranslatef(1.5, 0, 0);
+        glutSolidCube(1);
+        
+    //End 2D
+    glMatrixMode(GL_PROJECTION);
+    glPopMatrix();
+    glMatrixMode(GL_MODELVIEW);
+    glPopMatrix();
 }
