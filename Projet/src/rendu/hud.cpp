@@ -53,14 +53,15 @@ GLvoid boutonPause(){
     glPopMatrix();
 }
 
-GLvoid timer(int time){
-    glColor3d(0.2,0.6,0.2);
-    std::string tmp = intPadding(time);
-    vBitmapOutput(-165, 900, tmp, GLUT_STROKE_ROMAN);
-}
+GLvoid timer(int tempsRetenu){
+    int tempsMax = 60000;
 
-GLvoid afficheScore(){
-    
+    int tempsPasse = tempsMax - glutGet(GLUT_ELAPSED_TIME);
+    int tempsActuel = tempsPasse + tempsRetenu;
+
+    glColor3d(0.2,0.6,0.2);
+    std::string tmp = intPadding(tempsActuel);
+    vBitmapOutput(-165, 900, tmp, GLUT_STROKE_ROMAN);
 }
 
 std::string intPadding(int i){
@@ -77,6 +78,11 @@ std::string intPadding(int i){
         s = "0." + s.substr(0, 2);
     }
     return s;
+}
+
+GLvoid afficheScore(GLfloat score){
+    int s = score;
+    vBitmapOutput(1000, 900, std::to_string(s), GLUT_STROKE_ROMAN);
 }
 
 void vBitmapOutput(GLfloat x, GLfloat y, std::string string, void *font)
