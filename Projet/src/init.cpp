@@ -24,7 +24,7 @@ Vaisseau * vaisseau = new Vaisseau(10);
 Vaisseau * ennemi = new Vaisseau(5);
 std::vector<Asteroide *> asteroides;
 
-GLfloat score =0;
+GLfloat score = 0;
 
 GLvoid Redimensionne(GLsizei width, GLsizei height){
 	glViewport(0, 0, width, height);

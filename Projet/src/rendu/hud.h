@@ -2,6 +2,7 @@
 
 GLvoid barreVie(GLfloat vie);
 GLvoid boutonPause();
-GLvoid timer();
+GLvoid timer(int time);
 
-void vBitmapOutput(char *string, void *font);
+void vBitmapOutput(GLfloat x, GLfloat y, std::string s, void *font);
+std::string intPadding(int i);

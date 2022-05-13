@@ -50,7 +50,6 @@ GLvoid VM_init() {
 		glRotatef(- vaisseau->getAngle2(), 1, 0, 0);
 		if(vaisseau->invincible ==true) glCallList(6);
 		else glCallList(1);
-			
 	glPopMatrix();
 
  
