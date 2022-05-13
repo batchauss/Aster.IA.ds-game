@@ -53,26 +53,52 @@ GLvoid boutonPause(){
     glPopMatrix();
 }
 
-GLvoid timer(){
+GLvoid timer(int time){
     glColor3d(0.2,0.6,0.2);
-    vBitmapOutput("TEXTE ECRIT EN VERT",GLUT_BITMAP_TIMES_ROMAN_24);
+    std::string tmp = intPadding(time);
+    vBitmapOutput(-165, 900, tmp, GLUT_STROKE_ROMAN);
 }
 
-void vBitmapOutput(char * string, void *font)
+GLvoid afficheScore(){
+    
+}
+
+std::string intPadding(int i){
+    if(i <= 0) return "STOP";
+    std::string s = std::to_string(i);
+    
+    if(s.size() == 5){
+        s = s.substr(0, 2) + "." + s.substr(2, 2);
+    }
+    else if(s.size() == 4){
+        s = s.substr(0, 1) + '.' + s.substr(1, 2);
+    }
+    else if(s.size() == 3){
+        s = "0." + s.substr(0, 2);
+    }
+    return s;
+}
+
+void vBitmapOutput(GLfloat x, GLfloat y, std::string string, void *font)
 {
-        //Début 2D
+    //Début 2D
     glMatrixMode (GL_PROJECTION);
     glPushMatrix();
     glLoadIdentity();
-    glOrtho(-5, 5, -5, 5, -1.0f, 1.0f);
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
     glLoadIdentity();
 
-    glRasterPos2i(10, 10);
+    glColor3f(1.0, 1.0, 1.0);
+    glLineWidth(5);
+    glScalef(1/1520.38, 1/1520.38, 1/1520.38);
+    glScalef(1.2, 1.4, 1.4);
+
+    glTranslatef(x, y, 0);
+
 	int len;
-	len = (int) strlen(string); // Calcule la longueur de la chaîne
-	for(int i = 0; i < len; i++) glutBitmapCharacter(font,string[i]); // Affiche chaque caractère de la chaîne
+	len = string.size(); // Calcule la longueur de la chaîne
+	for(int i = 0; i < len; i++) glutStrokeCharacter(font,string[i]); // Affiche chaque caractère de la chaîne
     
     //End 2D
     glMatrixMode(GL_PROJECTION);

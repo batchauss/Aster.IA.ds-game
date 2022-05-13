@@ -2,24 +2,21 @@
 
 extern GLvoid VM_init();
 extern GLvoid boutonPause();
-extern GLvoid timer();
+extern GLvoid timer(int i);
 extern GLfloat ambiente[4];
 extern bool pauseActivated;
 
 bool doPauseOnce = false;
-
-#include <iostream>
 
 GLvoid Modelisation()
 {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
-  timer();
-
   if(!pauseActivated){
     for(unsigned int i=0; i<3; i++) ambiente[i] = 0.7;
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambiente);
+    timer(20000 - glutGet(GLUT_ELAPSED_TIME));
     VM_init();
     glutSwapBuffers();
     doPauseOnce = false;
