@@ -54,10 +54,11 @@ void renduCamera(Vaisseau * vaisseau){
     gluLookAt(vaisseau->camera->posx(), vaisseau->camera->posy(), vaisseau->camera->posz(), vaisseau->posx(), vaisseau->posy(), vaisseau->posz(), 0, 1, 0);
 }
 
-void renduTir(Tir * t){
+void renduTir(int etatVaisseau,Tir * t){
      glPushMatrix();
        {  
-        glColor3f(1, 1, 0);
+        if(etatVaisseau==1 )glColor4f(1, 1, 0,1);
+        else if(etatVaisseau==2 )glColor4f(1, 1, 0,0);
         glTranslatef(t->posX(), t->posY(), t->posZ() );
         glRotatef(t->getAngle(),0.0,1.0,0.0);
         glScalef(0.2,0.2,0.4);
