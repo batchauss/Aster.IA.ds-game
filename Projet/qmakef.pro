@@ -1,5 +1,7 @@
 QT   += core gui widgets
-LIBS += -lglut -lGLU
+LIBS += -lglut -lGLU 
+
+
 
 QMAKE_CC = gcc
 QMAKE_CXX = g++
@@ -27,7 +29,7 @@ HEADERS += \
      $$files(src/objets/*.h) \
      $$files(src/rendu/*.h) \
      $$files(src/touches/*.h) \
-     $$files(src/*.h) \
+
 
 DESTDIR = ./
 OBJECTS_DIR = build/obj

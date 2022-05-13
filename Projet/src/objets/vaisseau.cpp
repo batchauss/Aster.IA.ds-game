@@ -88,7 +88,7 @@ void Vaisseau::setAngle(GLfloat a){  //angle x z
 
 
 void Vaisseau::setAngle2(GLfloat a){  //angle y z
-    if((this->angle[1] + a) < 45 && (this->angle[1] + a) > -45){
+    if((this->angle[1] + a) < 60 && (this->angle[1] + a) > -60){
     this->angle[1] += a;
     a *= 3.14 / 180;
 
@@ -113,7 +113,7 @@ void Vaisseau::setAngle2(GLfloat a){  //angle y z
 void Vaisseau::moveForward(){
     GLfloat calculRotationTranslatex = -vitesse * sin(getAngle ()* 3.14 / 180);
     GLfloat calculRotationTranslatey = vitesse * sin(getAngle2() * 3.14 / 180);
-    GLfloat calculRotationTranslatez =  -vitesse * cos((getAngle() - getAngle2()) * 3.14 / 180);
+    GLfloat calculRotationTranslatez =  -vitesse * cos((getAngle() ) * 3.14 / 180);
  
     if (cos((getAngle2()) * 3.14 / 180) >= 0){
         this->move(calculRotationTranslatex, calculRotationTranslatey, calculRotationTranslatez);    

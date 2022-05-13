@@ -7,6 +7,7 @@
 
 #include "rendu/rendu.h"
 
+
 GLuint texture[5];
 int window = 0;
 GLfloat ambiente[4] = {0.7, 0.7, 0.7, 1};
@@ -23,8 +24,8 @@ struct objmtl ennemiobj;
 Vaisseau * vaisseau = new Vaisseau(10);
 Vaisseau * ennemi = new Vaisseau(5);
 std::vector<Asteroide *> asteroides;
-
 GLfloat score = 0;
+
 
 GLvoid Redimensionne(GLsizei width, GLsizei height){
 	glViewport(0, 0, width, height);
@@ -73,6 +74,7 @@ int notre_init(int argc, char** argv, void (*Modelisation)(), QMainWindow * mw){
 	//implementation des fichiers de textures
 	TEXTURE_STRUCT * night = readPpm((char *)"./pic/night.ppm");
 	Parametres_texture(0, night, texture[0]);
+
 
 	glutMainLoop();
 	return 1;

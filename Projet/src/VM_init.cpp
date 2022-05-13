@@ -64,7 +64,7 @@ GLvoid VM_init() {
 				std::cout<<"vaisseau touché, vie :"<<vaisseau->getVie()<<std::endl;
 				vaisseau->invincible=true;
 				temps_invincible = (int)temps_acceleration_reelle(1) +3;
-				asteroides.at(i)->split();
+				asteroides.at(i)->setTouche(true);
 	   		}
 			
 			//
