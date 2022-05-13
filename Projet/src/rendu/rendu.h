@@ -4,6 +4,7 @@
 #include "../objets/asteroideMoyen.h"
 #include "../objets/asteroideGrand.h"
 #include "../objets/tir.h"
+#include "../objets/fonctionsEnnemi.h"
 #include "../fonctions/obj.h"
 
 void renduAsteroide( int taille,struct objmtl as);

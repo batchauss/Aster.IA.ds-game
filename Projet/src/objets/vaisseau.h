@@ -29,6 +29,8 @@ public :
     GLfloat getLargeur(){return this->largeur;}
     GLfloat getHauteur(){return this->hauteur;}
 
+    std::string getStatut(){return this->statut;}
+
     void setPos(GLfloat x, GLfloat y, GLfloat z){           // Modifie pos
         this->pos[0] = x;
         this->pos[1] = y;
@@ -42,14 +44,16 @@ public :
     void calculmoveForward();
     void moveForward();
     void decreaseSpeed();
-     void setSpeed(GLfloat v){ 
+    void setSpeed(GLfloat v){ 
         this->vitesse=v;
-     }
-     void setHitbox( GLfloat lo, GLfloat la, GLfloat h){
+    }
+    void setHitbox( GLfloat lo, GLfloat la, GLfloat h){
          this->longueur =lo;
          this->largeur=la;
          this->hauteur=h;
-     }
+    }
+
+    void setStatut(std::string s){this->statut =s;}
     
     GLvoid tirer();
 
@@ -70,6 +74,7 @@ private :
     GLfloat largeur;
     GLfloat hauteur;
     GLfloat vie;
+    std::string statut;
 };
 
 #endif

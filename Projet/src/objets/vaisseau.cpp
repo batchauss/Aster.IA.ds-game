@@ -17,6 +17,7 @@ Vaisseau::Vaisseau(int nbBalles){
     this->hauteur=3;
     this->vie=100;
     this->invincible=false;
+    this->statut="intact";
 
     camera = new Camera(posx(), posy() + 10, posz() + 20);
     

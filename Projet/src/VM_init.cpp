@@ -109,17 +109,11 @@ GLvoid VM_init() {
 
 
   // soucoupe de l'ennemi
-  if(temps_acceleration_reelle(1)>5 && ennemi->getVie()!=0){
+  if(temps_acceleration_reelle(1)>10 && ennemi->getVie()>0){
 	glPushMatrix();
-		ennemi->moveForward();
-		
-		ennemi->tirer();
-		ennemi->setSpeed(1);
-		ennemi->setAngle2(2);
-		ennemi->setAngle(0);
-		glTranslatef(ennemi->posx(), ennemi->posy(), ennemi->posz());
-		glRotatef(180 + ennemi->getAngle(),0,1, 0);
-		glCallList(5);
+
+		deplacementEnnemi();
+
 		//l'ennemi tire deux ballles par secondes
 		if((int)temps_acceleration_reelle(2)%1==0 &&(int)temps_acceleration_reelle(1) !=temps_precedent){
 			actionTir(ennemi);
@@ -128,13 +122,15 @@ GLvoid VM_init() {
 		for(unsigned int i=0; i<ennemi->tirs.size();++i){
 		 renduTir(1,ennemi->tirs.at(i));
 	}
-	glPopMatrix();
+	glPopMatrix(); 
+	ennemiTouche(); 
   }
   
+  
 
-	frontieres(texture[0]);
-	if(vaisseau->getVie()<=30) grille(1.0 ,0.0 ,0.0); // la couleur de la grille deviens rouge si la vie du vaisseau est basse
-	else  grille(1.0 ,0.0 ,1.0);
+  frontieres(texture[0]);
+  if(vaisseau->getVie()<=30) grille(1.0 ,0.0 ,0.0); // la couleur de la grille deviens rouge si la vie du vaisseau est basse
+  else  grille(1.0 ,0.0 ,1.0);
 
 	
 }
