@@ -82,7 +82,7 @@ std::string intPadding(int i){
 
 GLvoid afficheScore(GLfloat score){
     int s = score;
-    vBitmapOutput(1000, 900, std::to_string(s), GLUT_STROKE_ROMAN);
+    vBitmapOutput(850, 900, std::to_string(s)+"pts", GLUT_STROKE_ROMAN);
 }
 
 void vBitmapOutput(GLfloat x, GLfloat y, std::string string, void *font)
