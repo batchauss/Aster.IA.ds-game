@@ -22,7 +22,7 @@ void AsteroidePetit::split(){
     
     for(unsigned int i = 0; i<asteroides.size();++i){ // on reassigne l'id des asteroides
         asteroides.at(i)->setId(i);
-      }
+    }
 }
 
  GLvoid AsteroidePetit::asteroideTouche(){

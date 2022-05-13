@@ -7,6 +7,8 @@
 #include "fonctions/frontiere.h"
 #include "fonctions/frames.h"
 
+extern GLfloat score;
+
 extern bool zPressed;
 extern bool qPressed;
 extern bool dPressed;
@@ -67,7 +69,6 @@ GLvoid VM_init() {
 				asteroides.at(i)->setTouche(true);
 	   		}
 			
-			//
 			if(vaisseau->invincible==false && vaisseau->collisionVaisseauVaisseau(ennemi)){
 				if(vaisseau->getVie()>=30 )vaisseau->setVie(vaisseau->getVie()-30);
 				else vaisseau->setVie(0);
@@ -122,14 +123,15 @@ GLvoid VM_init() {
 		 renduTir(1,ennemi->tirs.at(i));
 	}
 	glPopMatrix(); 
-	ennemiTouche(); 
+	//ennemiTouche(); 
   }
-  
+
   
 
   frontieres(texture[0]);
   if(vaisseau->getVie()<=30) grille(1.0 ,0.0 ,0.0); // la couleur de la grille deviens rouge si la vie du vaisseau est basse
   else  grille(1.0 ,0.0 ,1.0);
 
+	afficheScore(score);
 	
 }

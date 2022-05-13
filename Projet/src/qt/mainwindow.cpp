@@ -1,33 +1,60 @@
 #include "mainwindow.h"
 
+#include <iostream>
+
 extern GLvoid VM_init();
 extern GLvoid boutonPause();
 extern GLvoid timer(int i);
+
 extern GLfloat ambiente[4];
 extern bool pauseActivated;
 
+int tempsAvant;
+int tempsApres;
+
+int tempsRetenu = 0;
+
 bool doPauseOnce = false;
+bool doUnpauseOnce = false;
 
 GLvoid Modelisation()
 {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
-  if(!pauseActivated){
+  if(!pauseActivated){  // Lorque pause n'est pas actif
+
+    if(doUnpauseOnce){
+      tempsRetenu += tempsApres - tempsAvant;
+      doUnpauseOnce = false;
+    }
+
     for(unsigned int i=0; i<3; i++) ambiente[i] = 0.7;
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambiente);
-    timer(20000 - glutGet(GLUT_ELAPSED_TIME));
+
+    timer(tempsRetenu);
+
     VM_init();
     glutSwapBuffers();
+
     doPauseOnce = false;
   }
-  else if(!doPauseOnce){
+  else if(!doPauseOnce){ // effectué une seule fois => bouton de pause activé
     boutonPause();
+
+    tempsAvant = glutGet(GLUT_ELAPSED_TIME);
+    
     for(unsigned int i=0; i<3; i++) ambiente[i] = 0.3;
+    
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambiente);
     VM_init();
     glutSwapBuffers();
+
     doPauseOnce = true;
+    doUnpauseOnce = true;
+  }
+  else {
+    tempsApres = glutGet(GLUT_ELAPSED_TIME);
   }
 }
 
