@@ -3,6 +3,7 @@
 
 #include "rendu/rendu.h"
 #include "rendu/hud.h"
+#include "rendu/decor.h"
 #include "touches/actions.h"
 #include "fonctions/frontiere.h"
 #include "fonctions/frames.h"
@@ -50,6 +51,7 @@ GLvoid VM_init() {
 		glRotatef(- vaisseau->getAngle2(), 1, 0, 0);
 		if(vaisseau->invincible ==true) glCallList(6);
 		else glCallList(1);
+		  
 	glPopMatrix();
 
  
@@ -131,5 +133,6 @@ GLvoid VM_init() {
   else { grille(1.0 , 0.0 ,1.0); }
 
   afficheScore(score);
-	
+
+  decorPlanetes();
 }

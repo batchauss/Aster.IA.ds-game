@@ -5,6 +5,7 @@ GLvoid boutonPause();
 GLvoid timer(int tempsRetenu);
 GLvoid afficheScore(GLfloat score);
 GLvoid decoHUD();
+GLvoid afficheVitesse();
 
 void vBitmapOutput(GLfloat x, GLfloat y, std::string s, void *font);
 std::string intPadding(int i);

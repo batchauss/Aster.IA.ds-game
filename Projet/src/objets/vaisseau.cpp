@@ -232,7 +232,7 @@ bool Vaisseau::collisionVaisseauAsteroide(Asteroide * a){
 }
 
 bool Vaisseau::collisionVaisseauVaisseau( Vaisseau *v){
-  if(!this->invincible)
+  if(!this->invincible && v->getVie()>0)
   {     
     if(abs(this->posx() - v->posx()) < this->getLargeur() + v->getLargeur())
     {

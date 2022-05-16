@@ -60,7 +60,7 @@ GLvoid timer(int tempsRetenu){
     int tempsPasse = tempsMax - glutGet(GLUT_ELAPSED_TIME);
     int tempsActuel = tempsPasse + tempsRetenu;
 
-    glColor3d(0.2,0.6,0.2);
+    glColor3f(0.2,0.6,0.2);
     std::string tmp = intPadding(tempsActuel);
     vBitmapOutput(-165, 900, tmp, GLUT_STROKE_ROMAN);
 }
@@ -154,4 +154,8 @@ GLvoid decoHUD(){
     glPopMatrix();
     glMatrixMode(GL_MODELVIEW);
     glPopMatrix();
+}
+
+GLvoid afficheVitesse(){
+    
 }
