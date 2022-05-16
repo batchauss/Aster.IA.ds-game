@@ -65,6 +65,7 @@ SOURCES       = src/fonctions/frames.cpp \
 		src/objets/fonctionsEnnemi.cpp \
 		src/objets/tir.cpp \
 		src/objets/vaisseau.cpp \
+		src/rendu/decor.cpp \
 		src/rendu/hud.cpp \
 		src/rendu/rendu.cpp \
 		src/touches/actions.cpp \
@@ -87,6 +88,7 @@ OBJECTS       = build/obj/frames.o \
 		build/obj/fonctionsEnnemi.o \
 		build/obj/tir.o \
 		build/obj/vaisseau.o \
+		build/obj/decor.o \
 		build/obj/hud.o \
 		build/obj/rendu.o \
 		build/obj/actions.o \
@@ -189,6 +191,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		src/objets/fonctionsEnnemi.h \
 		src/objets/tir.h \
 		src/objets/vaisseau.h \
+		src/rendu/decor.h \
 		src/rendu/hud.h \
 		src/rendu/rendu.h \
 		src/touches/actions.h \
@@ -207,6 +210,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		src/objets/fonctionsEnnemi.cpp \
 		src/objets/tir.cpp \
 		src/objets/vaisseau.cpp \
+		src/rendu/decor.cpp \
 		src/rendu/hud.cpp \
 		src/rendu/rendu.cpp \
 		src/touches/actions.cpp \
@@ -406,8 +410,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents src/fonctions/frames.h src/fonctions/frontiere.h src/fonctions/obj.h src/fonctions/ppm.h src/fonctions/texture.h src/qt/mainwindow.h src/qt/pausewindow.h src/objets/asteroide.h src/objets/asteroideGrand.h src/objets/asteroideMoyen.h src/objets/asteroidePetit.h src/objets/camera.h src/objets/fonctionsEnnemi.h src/objets/tir.h src/objets/vaisseau.h src/rendu/hud.h src/rendu/rendu.h src/touches/actions.h src/touches/touches.h $(DISTDIR)/
-	$(COPY_FILE) --parents src/fonctions/frames.cpp src/fonctions/frontiere.cpp src/fonctions/obj.cpp src/fonctions/ppm.cpp src/fonctions/texture.cpp src/qt/mainwindow.cpp src/qt/pausewindow.cpp src/objets/asteroide.cpp src/objets/asteroideGrand.cpp src/objets/asteroideMoyen.cpp src/objets/asteroidePetit.cpp src/objets/camera.cpp src/objets/fonctionsEnnemi.cpp src/objets/tir.cpp src/objets/vaisseau.cpp src/rendu/hud.cpp src/rendu/rendu.cpp src/touches/actions.cpp src/init.cpp src/main.cpp src/VM_init.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents src/fonctions/frames.h src/fonctions/frontiere.h src/fonctions/obj.h src/fonctions/ppm.h src/fonctions/texture.h src/qt/mainwindow.h src/qt/pausewindow.h src/objets/asteroide.h src/objets/asteroideGrand.h src/objets/asteroideMoyen.h src/objets/asteroidePetit.h src/objets/camera.h src/objets/fonctionsEnnemi.h src/objets/tir.h src/objets/vaisseau.h src/rendu/decor.h src/rendu/hud.h src/rendu/rendu.h src/touches/actions.h src/touches/touches.h $(DISTDIR)/
+	$(COPY_FILE) --parents src/fonctions/frames.cpp src/fonctions/frontiere.cpp src/fonctions/obj.cpp src/fonctions/ppm.cpp src/fonctions/texture.cpp src/qt/mainwindow.cpp src/qt/pausewindow.cpp src/objets/asteroide.cpp src/objets/asteroideGrand.cpp src/objets/asteroideMoyen.cpp src/objets/asteroidePetit.cpp src/objets/camera.cpp src/objets/fonctionsEnnemi.cpp src/objets/tir.cpp src/objets/vaisseau.cpp src/rendu/decor.cpp src/rendu/hud.cpp src/rendu/rendu.cpp src/touches/actions.cpp src/init.cpp src/main.cpp src/VM_init.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -571,6 +575,10 @@ build/obj/vaisseau.o: src/objets/vaisseau.cpp src/objets/vaisseau.h \
 		src/fonctions/obj.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/vaisseau.o src/objets/vaisseau.cpp
 
+build/obj/decor.o: src/rendu/decor.cpp src/rendu/decor.h \
+		src/init.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/decor.o src/rendu/decor.cpp
+
 build/obj/hud.o: src/rendu/hud.cpp src/rendu/hud.h \
 		src/init.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/hud.o src/rendu/hud.cpp
@@ -637,6 +645,7 @@ build/obj/VM_init.o: src/VM_init.cpp src/rendu/rendu.h \
 		src/objets/fonctionsEnnemi.h \
 		src/fonctions/obj.h \
 		src/rendu/hud.h \
+		src/rendu/decor.h \
 		src/touches/actions.h \
 		src/touches/touches.h \
 		src/fonctions/frontiere.h \

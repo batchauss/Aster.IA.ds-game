@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "../objets/vaisseau.h"
 
 #include <iostream>
 
@@ -82,6 +83,7 @@ void mainwindow::createWidgetMenuPrincipal(int argc, char**argv){
   [=](){
     this->hide();
     notre_init(argc, argv, &Modelisation, this);
+  
   });
 
   //  Bouton Options
