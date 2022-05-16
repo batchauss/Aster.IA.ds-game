@@ -38,11 +38,9 @@ GLvoid VM_init() {
 
 	renduCamera(vaisseau);
 	
-
 	for(unsigned int i=0; i<vaisseau->tirs.size();++i){
 		if(vaisseau->invincible ==true) renduTir(2,vaisseau->tirs.at(i));
 		renduTir(1,vaisseau->tirs.at(i));
-		
 	}
 
 	glPushMatrix();
@@ -123,14 +121,14 @@ GLvoid VM_init() {
 		 renduTir(1,ennemi->tirs.at(i));
 	}
 	glPopMatrix(); 
-	//ennemiTouche(); 
+	ennemiTouche();
   }
 
   
 
   frontieres(texture[0]);
   if(vaisseau->getVie()<=30) grille(1.0 ,0.0 ,0.0); // la couleur de la grille deviens rouge si la vie du vaisseau est basse
-  else  grille(1.0 ,0.0 ,1.0);
+  else  grille(1.0 , 0.0 ,1.0);
 
 	afficheScore(score);
 	

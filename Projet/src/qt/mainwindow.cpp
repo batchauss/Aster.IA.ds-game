@@ -5,6 +5,7 @@
 extern GLvoid VM_init();
 extern GLvoid boutonPause();
 extern GLvoid timer(int i);
+extern GLvoid decoHUD();
 
 extern GLfloat ambiente[4];
 extern bool pauseActivated;
@@ -22,6 +23,9 @@ GLvoid Modelisation()
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
+  decoHUD();
+  timer(tempsRetenu);
+
   if(!pauseActivated){  // Lorque pause n'est pas actif
 
     if(doUnpauseOnce){
@@ -31,8 +35,6 @@ GLvoid Modelisation()
 
     for(unsigned int i=0; i<3; i++) ambiente[i] = 0.7;
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambiente);
-
-    timer(tempsRetenu);
 
     VM_init();
     glutSwapBuffers();

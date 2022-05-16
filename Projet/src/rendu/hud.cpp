@@ -1,6 +1,7 @@
 #include "hud.h"
 
 extern bool pauseActivated;
+extern GLuint texture[2];
 
 GLvoid barreVie(GLfloat vie){
     if(!pauseActivated){
@@ -41,7 +42,7 @@ GLvoid boutonPause(){
     glLoadIdentity();
 
         glTranslatef(-4, 4, 0);
-	    glScalef(0.2, 1 , 1);
+	    glScalef(0.2, 1, 1);
         glutSolidCube(1);
         glTranslatef(1.5, 0, 0);
         glutSolidCube(1);
@@ -54,7 +55,7 @@ GLvoid boutonPause(){
 }
 
 GLvoid timer(int tempsRetenu){
-    int tempsMax = 60000;
+    int tempsMax = 120000;
 
     int tempsPasse = tempsMax - glutGet(GLUT_ELAPSED_TIME);
     int tempsActuel = tempsPasse + tempsRetenu;
@@ -68,21 +69,17 @@ std::string intPadding(int i){
     if(i <= 0) return "STOP";
     std::string s = std::to_string(i);
     
-    if(s.size() == 5){
-        s = s.substr(0, 2) + "." + s.substr(2, 2);
-    }
-    else if(s.size() == 4){
-        s = s.substr(0, 1) + '.' + s.substr(1, 2);
-    }
-    else if(s.size() == 3){
-        s = "0." + s.substr(0, 2);
-    }
+    if(s.size() == 6)      s = s.substr(0, 3) + "." + s.substr(3, 1);
+    else if(s.size() == 5) s = s.substr(0, 2) + "." + s.substr(2, 2);
+    else if(s.size() == 4) s = s.substr(0, 1) + '.' + s.substr(1, 2);
+    else if(s.size() == 3) s = "0." + s.substr(0, 2);
+
     return s;
 }
 
 GLvoid afficheScore(GLfloat score){
     int s = score;
-    vBitmapOutput(850, 900, std::to_string(s)+"pts", GLUT_STROKE_ROMAN);
+    vBitmapOutput(780, 900, std::to_string(s)+"pts", GLUT_STROKE_ROMAN);
 }
 
 void vBitmapOutput(GLfloat x, GLfloat y, std::string string, void *font)
@@ -106,6 +103,52 @@ void vBitmapOutput(GLfloat x, GLfloat y, std::string string, void *font)
 	len = string.size(); // Calcule la longueur de la chaîne
 	for(int i = 0; i < len; i++) glutStrokeCharacter(font,string[i]); // Affiche chaque caractère de la chaîne
     
+    //End 2D
+    glMatrixMode(GL_PROJECTION);
+    glPopMatrix();
+    glMatrixMode(GL_MODELVIEW);
+    glPopMatrix();
+}
+
+GLvoid decoHUD(){
+    glMatrixMode (GL_PROJECTION);
+    glPushMatrix();
+    glLoadIdentity();
+    glOrtho(-5, 5, -5, 5, -1.0f, 1.0f);
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glLoadIdentity();
+
+    glColor3f(0.4, 0, 0.8);
+    glLineWidth(4);
+    glBegin(GL_LINE_STRIP);
+        glVertex2f(-4.8, -4.8);
+        glVertex2f(4.8, -4.8);
+        glVertex2f(4.8, 3.85);
+        glVertex2f(5, 3.85);
+    glEnd();
+    glBegin(GL_LINE_STRIP);
+        glVertex2f(2.8, 5);
+        glVertex2f(2.8, 4.8);
+        glVertex2f(1, 4.8);
+        glVertex2f(0.8, 3.85);
+        glVertex2f(-0.8, 3.85);
+        glVertex2f(-1, 4.8);
+        glVertex2f(-4.8, 4.8);
+        glVertex2f(-4.8, -4.8);
+    glEnd();
+    //V2 HUD
+    /*glBegin(GL_LINE_STRIP);
+        glVertex2f(2.3, 5);
+        glVertex2f(2.3, 4.8);
+        glVertex2f(1, 4.8);
+        glVertex2f(0.8, 3.85);
+        glVertex2f(-0.8, 3.85);
+        glVertex2f(-1, 4.8);
+        glVertex2f(-2.3, 4.8);
+        glVertex2f(-2.3, 5);
+    glEnd();*/
+
     //End 2D
     glMatrixMode(GL_PROJECTION);
     glPopMatrix();

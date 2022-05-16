@@ -12,3 +12,5 @@ void renduCamera(Vaisseau * v);
 void renduTir(int etatVaisseau, Tir *t);
 void renduVaisseau(int etatVaisseau ,struct objmtl v);
 void renduEnnemi(struct objmtl e);
+void renduPlanete(struct objmtl planete);
+void renduCoeur(struct objmtl coeur);

@@ -13,6 +13,8 @@ extern GLfloat rayon_y;
     4 : GRAND ASTEROIDE
     5 : ENNEMI
     6 : VAISSEAU TOUCHÉ ( INVINCIBLE )
+    7 : PLANETE DECOR 1
+    8 : COEUR SOUCOUPE
 */
 
 void renduAsteroide( int taille,struct objmtl as){
@@ -70,7 +72,8 @@ void renduTir(int etatVaisseau,Tir * t){
 void renduVaisseau( int etatVaisseau, struct objmtl v){
     
     if(etatVaisseau ==1) glNewList(1, GL_COMPILE_AND_EXECUTE);
-    else if(etatVaisseau ==2) glNewList(6, GL_COMPILE_AND_EXECUTE);
+    else if(etatVaisseau == 2) glNewList(6, GL_COMPILE_AND_EXECUTE);
+    
     glPushMatrix();
     {
         glScalef(0.5, 0.5, 0.5);
@@ -116,5 +119,50 @@ void renduEnnemi(struct objmtl e){
         }
     }
     glPopMatrix();
+    glEndList();
+}
+
+void renduPlanete(struct objmtl planete){
+    glNewList(7, GL_COMPILE_AND_EXECUTE);
+    glPushMatrix();
+    {
+        glScalef(7,7,7);
+        for(const auto& face : planete.obj.faces){
+            glBegin(GL_POLYGON);
+
+            int indexMat = face.at(face.size() - 1).at(0);
+            GLfloat shin = planete.materiaux.at(indexMat-1).Ns;
+            glMaterialfv(GL_FRONT, GL_SHININESS, &shin);
+            glNormal3f(planete.obj.vn.at(face.at(0).at(2)-1).at(0), planete.obj.vn.at(face.at(0).at(2)-1).at(1), planete.obj.vn.at(face.at(0).at(2)-1).at(2));
+            
+            glColor3f(planete.materiaux.at(indexMat-1).Kd.at(0), planete.materiaux.at(indexMat-1).Kd.at(1), planete.materiaux.at(indexMat-1).Kd.at(2));
+            for(const auto& vertex : face) {
+                glVertex3f(planete.obj.v.at(vertex.at(0) - 1).at(0), planete.obj.v.at(vertex.at(0) - 1).at(1), planete.obj.v.at(vertex.at(0) - 1).at(2));
+            }
+            glEnd(); 
+        }
+    }
+    glPopMatrix();
+    glEndList();
+}
+
+void renduCoeur(struct objmtl coeur){
+    glNewList(8, GL_COMPILE_AND_EXECUTE);
+
+    for(const auto& face : coeur.obj.faces){
+        glBegin(GL_POLYGON);
+
+        int indexMat = face.at(face.size() - 1).at(0);
+        GLfloat shin = coeur.materiaux.at(indexMat-1).Ns;
+        glMaterialfv(GL_FRONT, GL_SHININESS, &shin);
+        glNormal3f(coeur.obj.vn.at(face.at(0).at(2)-1).at(0), coeur.obj.vn.at(face.at(0).at(2)-1).at(1), coeur.obj.vn.at(face.at(0).at(2)-1).at(2));
+            
+        glColor3f(coeur.materiaux.at(indexMat-1).Kd.at(0), coeur.materiaux.at(indexMat-1).Kd.at(1), coeur.materiaux.at(indexMat-1).Kd.at(2));
+        for(const auto& vertex : face) {
+            glVertex3f(coeur.obj.v.at(vertex.at(0) - 1).at(0), coeur.obj.v.at(vertex.at(0) - 1).at(1), coeur.obj.v.at(vertex.at(0) - 1).at(2));
+        }
+        glEnd(); 
+    }
+    
     glEndList();
 }
