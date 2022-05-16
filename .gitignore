@@ -1,4 +1,6 @@
 project:pro.user.*
 Projet/build/
-Projet/obj/
+.qmake.stash
+Aster.IA.ds
+Makefile
 .vscode
