@@ -15,7 +15,7 @@ GLfloat temps_acceleration_reelle(GLfloat vitesse){
     temps_depuis_le_precedent_calcul = 0;
     fps = frames * 10;
     frames = 0;
-    vitesse_reelle = vitesse/2 / ((GLfloat) fps);
+    vitesse_reelle = vitesse / 2 / ((GLfloat) fps);
   }
   temps = glutGet(GLUT_ELAPSED_TIME);
   acceleration += vitesse_reelle;

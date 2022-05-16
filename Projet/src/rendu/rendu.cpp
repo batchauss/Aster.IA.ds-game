@@ -11,7 +11,7 @@ extern GLfloat rayon_y;
     2 : PETIT ASTERODIDE
     3 : MOYEN ASTEROIDE
     4 : GRAND ASTEROIDE
-    5 : ENNEMI
+    5 : SOUCOUPE ENNEMI
     6 : VAISSEAU TOUCHÉ ( INVINCIBLE )
     7 : PLANETE DECOR 1
     8 : COEUR SOUCOUPE
@@ -148,7 +148,8 @@ void renduPlanete(struct objmtl planete){
 
 void renduCoeur(struct objmtl coeur){
     glNewList(8, GL_COMPILE_AND_EXECUTE);
-
+    glScalef(0.015, 0.025, 0.015);
+    glDisable(GL_LIGHT0);
     for(const auto& face : coeur.obj.faces){
         glBegin(GL_POLYGON);
 
@@ -156,13 +157,13 @@ void renduCoeur(struct objmtl coeur){
         GLfloat shin = coeur.materiaux.at(indexMat-1).Ns;
         glMaterialfv(GL_FRONT, GL_SHININESS, &shin);
         glNormal3f(coeur.obj.vn.at(face.at(0).at(2)-1).at(0), coeur.obj.vn.at(face.at(0).at(2)-1).at(1), coeur.obj.vn.at(face.at(0).at(2)-1).at(2));
-            
+        
         glColor3f(coeur.materiaux.at(indexMat-1).Kd.at(0), coeur.materiaux.at(indexMat-1).Kd.at(1), coeur.materiaux.at(indexMat-1).Kd.at(2));
         for(const auto& vertex : face) {
             glVertex3f(coeur.obj.v.at(vertex.at(0) - 1).at(0), coeur.obj.v.at(vertex.at(0) - 1).at(1), coeur.obj.v.at(vertex.at(0) - 1).at(2));
         }
         glEnd(); 
     }
-    
+    glEnable(GL_LIGHT0);
     glEndList();
 }

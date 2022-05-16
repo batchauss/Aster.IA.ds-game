@@ -26,6 +26,9 @@ extern Vaisseau * ennemi;
 
 extern GLuint texture[2];
 
+GLfloat angleHeart = 0;
+extern GLvoid vieSoucoupe(int i, GLfloat angle);
+
 GLvoid VM_init() {
 	vaisseau->moveForward();
 	vaisseau->tirer();
@@ -80,18 +83,9 @@ GLvoid VM_init() {
 				exit(1);
 			}
 			
-			if(asteroides.at(i)->getTaille()==1){
-				glCallList(2);   		
-			    glFlush();
-			}
-			else if(asteroides.at(i)->getTaille()==2){
-				glCallList(3);   		
-			    glFlush();
-			}
-			else if(asteroides.at(i)->getTaille()==3){
-				glCallList(4);   		
-			    glFlush();
-			}
+			glCallList(asteroides.at(i)->getTaille() + 1);   		
+			glFlush();
+
 			asteroides.at(i)->asteroideTouche();
 			if(asteroides.at(i)->getTouche() == true){ 
 				asteroides.at(i)->setTouche(false);
@@ -109,7 +103,8 @@ GLvoid VM_init() {
   // soucoupe de l'ennemi
   if(temps_acceleration_reelle(1)>10 && ennemi->getVie()>0){
 	glPushMatrix();
-
+	
+		vieSoucoupe(ennemi->getVie(), angleHeart++);
 		deplacementEnnemi();
 
 		//l'ennemi tire deux ballles par secondes

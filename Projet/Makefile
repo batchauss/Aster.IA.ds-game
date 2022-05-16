@@ -178,7 +178,6 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		src/fonctions/frontiere.h \
 		src/fonctions/obj.h \
 		src/fonctions/ppm.h \
-		src/fonctions/stb_image.h \
 		src/fonctions/texture.h \
 		src/qt/mainwindow.h \
 		src/qt/pausewindow.h \
@@ -407,7 +406,7 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents src/fonctions/frames.h src/fonctions/frontiere.h src/fonctions/obj.h src/fonctions/ppm.h src/fonctions/stb_image.h src/fonctions/texture.h src/qt/mainwindow.h src/qt/pausewindow.h src/objets/asteroide.h src/objets/asteroideGrand.h src/objets/asteroideMoyen.h src/objets/asteroidePetit.h src/objets/camera.h src/objets/fonctionsEnnemi.h src/objets/tir.h src/objets/vaisseau.h src/rendu/hud.h src/rendu/rendu.h src/touches/actions.h src/touches/touches.h $(DISTDIR)/
+	$(COPY_FILE) --parents src/fonctions/frames.h src/fonctions/frontiere.h src/fonctions/obj.h src/fonctions/ppm.h src/fonctions/texture.h src/qt/mainwindow.h src/qt/pausewindow.h src/objets/asteroide.h src/objets/asteroideGrand.h src/objets/asteroideMoyen.h src/objets/asteroidePetit.h src/objets/camera.h src/objets/fonctionsEnnemi.h src/objets/tir.h src/objets/vaisseau.h src/rendu/hud.h src/rendu/rendu.h src/touches/actions.h src/touches/touches.h $(DISTDIR)/
 	$(COPY_FILE) --parents src/fonctions/frames.cpp src/fonctions/frontiere.cpp src/fonctions/obj.cpp src/fonctions/ppm.cpp src/fonctions/texture.cpp src/qt/mainwindow.cpp src/qt/pausewindow.cpp src/objets/asteroide.cpp src/objets/asteroideGrand.cpp src/objets/asteroideMoyen.cpp src/objets/asteroidePetit.cpp src/objets/camera.cpp src/objets/fonctionsEnnemi.cpp src/objets/tir.cpp src/objets/vaisseau.cpp src/rendu/hud.cpp src/rendu/rendu.cpp src/touches/actions.cpp src/init.cpp src/main.cpp src/VM_init.cpp $(DISTDIR)/
 
 

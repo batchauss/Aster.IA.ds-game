@@ -20,6 +20,7 @@ struct objmtl asteroideObj;
 struct objmtl asteroide2Obj;
 struct objmtl asteroide3Obj;
 struct objmtl ennemiobj;
+struct objmtl heartObj;
 
 Vaisseau * vaisseau = new Vaisseau(10);
 Vaisseau * ennemi = new Vaisseau(5);
@@ -64,12 +65,11 @@ int notre_init(int argc, char** argv, void (*Modelisation)(), QMainWindow * mw){
 
 	renduVaisseau(1,vaisseauObj);
 	renduVaisseau(2,vaisseauObj);
-
 	renduAsteroide(1, asteroideObj);
 	renduAsteroide(2, asteroide2Obj);
 	renduAsteroide(3, asteroide3Obj);
-
 	renduEnnemi(ennemiobj);
+	renduCoeur(heartObj);
 		
 	//implementation des fichiers de textures
 	TEXTURE_STRUCT * night = readPpm((char *)"./pic/night.ppm");
@@ -87,6 +87,7 @@ void initialise(){
 	asteroide2Obj = loadObj("models/asteroides2");
 	asteroide3Obj = loadObj("models/asteroides3");
 	ennemiobj = loadObj("models/ennemi");
+	heartObj = loadObj("models/heart");
 
 	remplissageTableauR();
 	creationAsteroides();

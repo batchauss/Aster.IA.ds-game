@@ -55,7 +55,7 @@ GLvoid boutonPause(){
 }
 
 GLvoid timer(int tempsRetenu){
-    int tempsMax = 100000;
+    int tempsMax = 120000;
 
     int tempsPasse = tempsMax - glutGet(GLUT_ELAPSED_TIME);
     int tempsActuel = tempsPasse + tempsRetenu;
@@ -150,6 +150,46 @@ GLvoid decoHUD(){
     glEnd();*/
 
     //End 2D
+    glMatrixMode(GL_PROJECTION);
+    glPopMatrix();
+    glMatrixMode(GL_MODELVIEW);
+    glPopMatrix();
+}
+
+GLvoid vieSoucoupe(int vie, GLfloat angle){
+    glMatrixMode (GL_PROJECTION);
+    glPushMatrix();
+    glLoadIdentity();
+    glOrtho(-5, 5, -5, 5, -1.0f, 1.0f);
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glLoadIdentity();
+
+    glTranslatef(4.5, 1, 0);
+    glPushMatrix();
+        glTranslatef(0, 1, 0);
+        glScalef(0.1, 0.1, 0.1);
+        glScalef(0.2, 0.4, 0.2);
+        glCallList(5);
+    glPopMatrix();
+    glRotatef(angle, 0, 1, 0);
+    glPushMatrix();
+        glCallList(8);
+    glPopMatrix();
+
+    if(vie > 10) {
+        glPushMatrix();
+            glTranslatef(0, -1, 0);
+            glCallList(8);
+        glPopMatrix();
+        if(vie == 30) {
+            glPushMatrix();
+                glTranslatef(0, -2, 0);
+                glCallList(8);
+            glPopMatrix();
+        }
+    }
+
     glMatrixMode(GL_PROJECTION);
     glPopMatrix();
     glMatrixMode(GL_MODELVIEW);
