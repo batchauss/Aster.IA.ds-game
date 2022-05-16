@@ -55,7 +55,7 @@ GLvoid boutonPause(){
 }
 
 GLvoid timer(int tempsRetenu){
-    int tempsMax = 120000;
+    int tempsMax = 100000;
 
     int tempsPasse = tempsMax - glutGet(GLUT_ELAPSED_TIME);
     int tempsActuel = tempsPasse + tempsRetenu;

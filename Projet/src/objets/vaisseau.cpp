@@ -92,18 +92,18 @@ void Vaisseau::setAngle2(GLfloat a){  //angle y z
     this->angle[1] += a;
     a *= 3.14 / 180;
 
-    //GLfloat xCam = camera->posx() - posx();
-    //GLfloat yCam = camera->posy() - posy();
-    //GLfloat zCam = camera->posz() - posz();
+   /* GLfloat xCam = camera->posx() - posx();
+    GLfloat yCam = camera->posy() - posy();
+    GLfloat zCam = camera->posz() - posz();
 
-   /* camera->setPos(
+    camera->setPos(
         camera->posx(),
         -zCam * sin(a) + yCam * cos(a) + posy(),  
         zCam *  cos(a) + yCam * sin(a) + posz()    
-    );*/
+    );
     
     
-
+*/
      for (unsigned int i = 0; i< tirs.size();++i){ // les munitions se déplacent avec le vaisseau (angle)
         if(!tirs.at(i)->getTirActif()) tirs.at(i)->setAngle2(this->angle[1]);
      }

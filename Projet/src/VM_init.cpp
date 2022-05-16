@@ -128,8 +128,8 @@ GLvoid VM_init() {
 
   frontieres(texture[0]);
   if(vaisseau->getVie()<=30) grille(1.0 ,0.0 ,0.0); // la couleur de la grille deviens rouge si la vie du vaisseau est basse
-  else  grille(1.0 , 0.0 ,1.0);
+  else { grille(1.0 , 0.0 ,1.0); }
 
-	afficheScore(score);
+  afficheScore(score);
 	
 }

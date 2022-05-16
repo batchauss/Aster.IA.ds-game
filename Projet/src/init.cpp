@@ -8,7 +8,7 @@
 #include "rendu/rendu.h"
 
 
-GLuint texture[2];
+GLuint texture[5];
 int window = 0;
 GLfloat ambiente[4] = {0.7, 0.7, 0.7, 1};
 
@@ -19,9 +19,7 @@ struct objmtl vaisseauObj;
 struct objmtl asteroideObj;
 struct objmtl asteroide2Obj;
 struct objmtl asteroide3Obj;
-struct objmtl ennemiObj;
-struct objmtl heartObj;
-struct objmtl planete1Obj;
+struct objmtl ennemiobj;
 
 Vaisseau * vaisseau = new Vaisseau(10);
 Vaisseau * ennemi = new Vaisseau(5);
@@ -53,8 +51,6 @@ int notre_init(int argc, char** argv, void (*Modelisation)(), QMainWindow * mw){
 	glutSpecialUpFunc(&releaseToucheSpeciale);
 	glClearColor(0.0 , 0.0 , 0.0 , 0.0);
 
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_LIGHTING);
     glEnable(GL_COLOR_MATERIAL);
 	glEnable(GL_LIGHT0);
@@ -63,19 +59,22 @@ int notre_init(int argc, char** argv, void (*Modelisation)(), QMainWindow * mw){
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 
-	//Rendu / création des listes d'affichage
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	renduVaisseau(1,vaisseauObj);
 	renduVaisseau(2,vaisseauObj);
+
 	renduAsteroide(1, asteroideObj);
 	renduAsteroide(2, asteroide2Obj);
 	renduAsteroide(3, asteroide3Obj);
-	renduEnnemi(ennemiObj);
-	renduPlanete(planete1Obj);
-	renduCoeur(heartObj);
 
+	renduEnnemi(ennemiobj);
+		
 	//implementation des fichiers de textures
 	TEXTURE_STRUCT * night = readPpm((char *)"./pic/night.ppm");
 	Parametres_texture(0, night, texture[0]);
+
 
 	glutMainLoop();
 	return 1;
@@ -87,11 +86,7 @@ void initialise(){
 	asteroideObj = loadObj("models/asteroides1");
 	asteroide2Obj = loadObj("models/asteroides2");
 	asteroide3Obj = loadObj("models/asteroides3");
-	ennemiObj = loadObj("models/ennemi");
-	heartObj = loadObj("models/heart");
-
-
-	planete1Obj = loadObj("models/planete1");
+	ennemiobj = loadObj("models/ennemi");
 
 	remplissageTableauR();
 	creationAsteroides();
