@@ -51,7 +51,6 @@ OBJECTS_DIR   = build/obj/
 ####### Files
 
 SOURCES       = src/fonctions/frames.cpp \
-		src/fonctions/frontiere.cpp \
 		src/fonctions/obj.cpp \
 		src/fonctions/ppm.cpp \
 		src/fonctions/texture.cpp \
@@ -66,6 +65,7 @@ SOURCES       = src/fonctions/frames.cpp \
 		src/objets/tir.cpp \
 		src/objets/vaisseau.cpp \
 		src/rendu/decor.cpp \
+		src/rendu/frontiere.cpp \
 		src/rendu/hud.cpp \
 		src/rendu/rendu.cpp \
 		src/touches/actions.cpp \
@@ -74,7 +74,6 @@ SOURCES       = src/fonctions/frames.cpp \
 		src/VM_init.cpp build/moc/moc_finwindow.cpp \
 		build/moc/moc_mainwindow.cpp
 OBJECTS       = build/obj/frames.o \
-		build/obj/frontiere.o \
 		build/obj/obj.o \
 		build/obj/ppm.o \
 		build/obj/texture.o \
@@ -89,6 +88,7 @@ OBJECTS       = build/obj/frames.o \
 		build/obj/tir.o \
 		build/obj/vaisseau.o \
 		build/obj/decor.o \
+		build/obj/frontiere.o \
 		build/obj/hud.o \
 		build/obj/rendu.o \
 		build/obj/actions.o \
@@ -177,7 +177,6 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		qmakef.pro src/fonctions/frames.h \
-		src/fonctions/frontiere.h \
 		src/fonctions/obj.h \
 		src/fonctions/ppm.h \
 		src/fonctions/texture.h \
@@ -192,11 +191,11 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		src/objets/tir.h \
 		src/objets/vaisseau.h \
 		src/rendu/decor.h \
+		src/rendu/frontiere.h \
 		src/rendu/hud.h \
 		src/rendu/rendu.h \
 		src/touches/actions.h \
 		src/touches/touches.h src/fonctions/frames.cpp \
-		src/fonctions/frontiere.cpp \
 		src/fonctions/obj.cpp \
 		src/fonctions/ppm.cpp \
 		src/fonctions/texture.cpp \
@@ -211,6 +210,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		src/objets/tir.cpp \
 		src/objets/vaisseau.cpp \
 		src/rendu/decor.cpp \
+		src/rendu/frontiere.cpp \
 		src/rendu/hud.cpp \
 		src/rendu/rendu.cpp \
 		src/touches/actions.cpp \
@@ -410,8 +410,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents src/fonctions/frames.h src/fonctions/frontiere.h src/fonctions/obj.h src/fonctions/ppm.h src/fonctions/texture.h src/qt/finwindow.h src/qt/mainwindow.h src/objets/asteroide.h src/objets/asteroideGrand.h src/objets/asteroideMoyen.h src/objets/asteroidePetit.h src/objets/camera.h src/objets/fonctionsEnnemi.h src/objets/tir.h src/objets/vaisseau.h src/rendu/decor.h src/rendu/hud.h src/rendu/rendu.h src/touches/actions.h src/touches/touches.h $(DISTDIR)/
-	$(COPY_FILE) --parents src/fonctions/frames.cpp src/fonctions/frontiere.cpp src/fonctions/obj.cpp src/fonctions/ppm.cpp src/fonctions/texture.cpp src/qt/finwindow.cpp src/qt/mainwindow.cpp src/objets/asteroide.cpp src/objets/asteroideGrand.cpp src/objets/asteroideMoyen.cpp src/objets/asteroidePetit.cpp src/objets/camera.cpp src/objets/fonctionsEnnemi.cpp src/objets/tir.cpp src/objets/vaisseau.cpp src/rendu/decor.cpp src/rendu/hud.cpp src/rendu/rendu.cpp src/touches/actions.cpp src/init.cpp src/main.cpp src/VM_init.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents src/fonctions/frames.h src/fonctions/obj.h src/fonctions/ppm.h src/fonctions/texture.h src/qt/finwindow.h src/qt/mainwindow.h src/objets/asteroide.h src/objets/asteroideGrand.h src/objets/asteroideMoyen.h src/objets/asteroidePetit.h src/objets/camera.h src/objets/fonctionsEnnemi.h src/objets/tir.h src/objets/vaisseau.h src/rendu/decor.h src/rendu/frontiere.h src/rendu/hud.h src/rendu/rendu.h src/touches/actions.h src/touches/touches.h $(DISTDIR)/
+	$(COPY_FILE) --parents src/fonctions/frames.cpp src/fonctions/obj.cpp src/fonctions/ppm.cpp src/fonctions/texture.cpp src/qt/finwindow.cpp src/qt/mainwindow.cpp src/objets/asteroide.cpp src/objets/asteroideGrand.cpp src/objets/asteroideMoyen.cpp src/objets/asteroidePetit.cpp src/objets/camera.cpp src/objets/fonctionsEnnemi.cpp src/objets/tir.cpp src/objets/vaisseau.cpp src/rendu/decor.cpp src/rendu/frontiere.cpp src/rendu/hud.cpp src/rendu/rendu.cpp src/touches/actions.cpp src/init.cpp src/main.cpp src/VM_init.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -453,7 +453,6 @@ build/moc/moc_finwindow.cpp: src/init.h \
 	/usr/lib/qt5/bin/moc $(DEFINES) --include '/home/etud/Git Repo/Aster.ia.ds/Projet/build/moc/moc_predefs.h' -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I'/home/etud/Git Repo/Aster.ia.ds/Projet' -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include src/qt/finwindow.h -o build/moc/moc_finwindow.cpp
 
 build/moc/moc_mainwindow.cpp: src/init.h \
-		src/fonctions/frontiere.h \
 		src/touches/actions.h \
 		src/touches/touches.h \
 		src/objets/camera.h \
@@ -486,10 +485,6 @@ build/obj/frames.o: src/fonctions/frames.cpp src/fonctions/frames.h \
 		src/init.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/frames.o src/fonctions/frames.cpp
 
-build/obj/frontiere.o: src/fonctions/frontiere.cpp src/fonctions/frontiere.h \
-		src/init.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/frontiere.o src/fonctions/frontiere.cpp
-
 build/obj/obj.o: src/fonctions/obj.cpp src/fonctions/obj.h \
 		src/init.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/obj.o src/fonctions/obj.cpp
@@ -508,7 +503,6 @@ build/obj/finwindow.o: src/qt/finwindow.cpp src/qt/finwindow.h \
 
 build/obj/mainwindow.o: src/qt/mainwindow.cpp src/qt/mainwindow.h \
 		src/init.h \
-		src/fonctions/frontiere.h \
 		src/touches/actions.h \
 		src/touches/touches.h \
 		src/objets/camera.h \
@@ -554,6 +548,7 @@ build/obj/camera.o: src/objets/camera.cpp src/objets/camera.h \
 
 build/obj/fonctionsEnnemi.o: src/objets/fonctionsEnnemi.cpp src/objets/fonctionsEnnemi.h \
 		src/init.h \
+		src/fonctions/frames.h \
 		src/objets/vaisseau.h \
 		src/objets/camera.h \
 		src/objets/tir.h \
@@ -574,12 +569,18 @@ build/obj/vaisseau.o: src/objets/vaisseau.cpp src/objets/vaisseau.h \
 		src/objets/asteroideMoyen.h \
 		src/objets/asteroideGrand.h \
 		src/objets/fonctionsEnnemi.h \
+		src/fonctions/frames.h \
 		src/fonctions/obj.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/vaisseau.o src/objets/vaisseau.cpp
 
 build/obj/decor.o: src/rendu/decor.cpp src/rendu/decor.h \
-		src/init.h
+		src/init.h \
+		src/fonctions/frames.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/decor.o src/rendu/decor.cpp
+
+build/obj/frontiere.o: src/rendu/frontiere.cpp src/rendu/frontiere.h \
+		src/init.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/frontiere.o src/rendu/frontiere.cpp
 
 build/obj/hud.o: src/rendu/hud.cpp src/rendu/hud.h \
 		src/init.h
@@ -595,6 +596,7 @@ build/obj/rendu.o: src/rendu/rendu.cpp src/rendu/rendu.h \
 		src/objets/asteroideMoyen.h \
 		src/objets/asteroideGrand.h \
 		src/objets/fonctionsEnnemi.h \
+		src/fonctions/frames.h \
 		src/fonctions/obj.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/rendu.o src/rendu/rendu.cpp
 
@@ -623,12 +625,13 @@ build/obj/init.o: src/init.cpp src/init.h \
 		src/objets/asteroideMoyen.h \
 		src/objets/asteroideGrand.h \
 		src/objets/fonctionsEnnemi.h \
-		src/fonctions/obj.h
+		src/fonctions/frames.h \
+		src/fonctions/obj.h \
+		src/rendu/decor.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/init.o src/init.cpp
 
 build/obj/main.o: src/main.cpp src/qt/mainwindow.h \
 		src/init.h \
-		src/fonctions/frontiere.h \
 		src/touches/actions.h \
 		src/touches/touches.h \
 		src/objets/camera.h \
@@ -648,14 +651,14 @@ build/obj/VM_init.o: src/VM_init.cpp src/rendu/rendu.h \
 		src/objets/asteroideMoyen.h \
 		src/objets/asteroideGrand.h \
 		src/objets/fonctionsEnnemi.h \
+		src/fonctions/frames.h \
 		src/fonctions/obj.h \
 		src/rendu/hud.h \
 		src/rendu/decor.h \
 		src/touches/actions.h \
 		src/touches/touches.h \
 		src/qt/finwindow.h \
-		src/fonctions/frontiere.h \
-		src/fonctions/frames.h
+		src/rendu/frontiere.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/VM_init.o src/VM_init.cpp
 
 build/obj/moc_finwindow.o: build/moc/moc_finwindow.cpp 

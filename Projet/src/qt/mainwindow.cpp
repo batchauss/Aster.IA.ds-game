@@ -133,6 +133,7 @@ void mainwindow::createWidgetMenuOption(){
   tailleFenetreCB->addItem("1920x1080");
   tailleFenetreCB->addItem("Fullscreen");
 
+
   //  Layout
 
   QGridLayout * layoutOption = new QGridLayout();
@@ -165,15 +166,17 @@ mainwindow::mainwindow(int argc, char**argv)
     : QMainWindow()
 {
   widgets = new QStackedWidget();
-
   this->showFullScreen();
-
   /*      Central Widget      */
 
   createWidgetMenuPrincipal(argc, argv);
   createWidgetMenuOption();
 
   this->setCentralWidget(widgets);
+  
+
+  
+  
 }
 
 mainwindow::~mainwindow(){}

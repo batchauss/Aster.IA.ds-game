@@ -32,6 +32,7 @@ void actionTir( Vaisseau *v){
         t=v->tirs.at(v->tirs.size()-1);
         v->tirs.insert(v->tirs.begin(),t);
         v->tirs.pop_back();
+        
 }
 
 void touche(unsigned char key, int x, int y) 
@@ -48,7 +49,7 @@ void touche(unsigned char key, int x, int y)
     
     case ESPACE:
         
-        actionTir(vaisseau);
+        if(!vaisseau->invincible)actionTir(vaisseau);
 
       break;
     
