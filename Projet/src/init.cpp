@@ -6,6 +6,7 @@
 #include "fonctions/ppm.h"
 
 #include "rendu/rendu.h"
+#include "rendu/decor.h"
 
 
 GLuint texture[5];
@@ -42,6 +43,7 @@ int notre_init(int argc, char** argv, void (*Modelisation)(), QMainWindow * mw){
 	glutInitWindowSize(1280, 960);
 	glutInitWindowPosition(0, 0);
 	window = glutCreateWindow("Aster.IA.ds");
+	
 	glutFullScreen();
 	glutDisplayFunc(Modelisation);
 	glutIdleFunc(Modelisation);
@@ -70,6 +72,7 @@ int notre_init(int argc, char** argv, void (*Modelisation)(), QMainWindow * mw){
 	renduAsteroide(3, asteroide3Obj);
 	renduEnnemi(ennemiobj);
 	renduCoeur(heartObj);
+	decorPlanetes();
 		
 	//implementation des fichiers de textures
 	TEXTURE_STRUCT * night = readPpm((char *)"./pic/night.ppm");
@@ -93,7 +96,7 @@ void initialise(){
 	creationAsteroides();
 
 	ennemi->setVie(30);
-	ennemi->setPos(Rand(-200,200),Rand(-200,200),Rand(-200,200));
+	ennemi->setPos(Rand(-100,100),Rand(-100,100),Rand(-100,100));
 }
 
 int Rand( int a, int b) // fonction rand

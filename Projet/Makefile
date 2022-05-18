@@ -30,12 +30,12 @@ QINSTALL      = /usr/lib/qt5/bin/qmake -install qinstall
 QINSTALL_PROGRAM = /usr/lib/qt5/bin/qmake -install qinstall -exe
 DEL_FILE      = rm -f
 SYMLINK       = ln -f -s
-DEL_DIR       = rmdir
+DEL_DIR     = rmdir
 MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = Aster.IA.ds1.0.0
-DISTDIR = /home/etud/Git\ Repo/Aster.ia.ds/Projet/build/obj/Aster.IA.ds1.0.0
+DISTDIR = /home/etud/Bureau/asteraids/Aster.ia.ds/Projet/build/obj/Aster.IA.ds1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1
 LIBS          = $(SUBLIBS) -lglut -lGLU -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
@@ -44,6 +44,7 @@ RANLIB        =
 SED           = sed
 STRIP         = strip
 
+
 ####### Output directory
 
 OBJECTS_DIR   = build/obj/
@@ -51,7 +52,6 @@ OBJECTS_DIR   = build/obj/
 ####### Files
 
 SOURCES       = src/fonctions/frames.cpp \
-		src/fonctions/frontiere.cpp \
 		src/fonctions/obj.cpp \
 		src/fonctions/ppm.cpp \
 		src/fonctions/texture.cpp \
@@ -66,6 +66,7 @@ SOURCES       = src/fonctions/frames.cpp \
 		src/objets/tir.cpp \
 		src/objets/vaisseau.cpp \
 		src/rendu/decor.cpp \
+		src/rendu/frontiere.cpp \
 		src/rendu/hud.cpp \
 		src/rendu/rendu.cpp \
 		src/touches/actions.cpp \
@@ -74,7 +75,6 @@ SOURCES       = src/fonctions/frames.cpp \
 		src/VM_init.cpp build/moc/moc_mainwindow.cpp \
 		build/moc/moc_pausewindow.cpp
 OBJECTS       = build/obj/frames.o \
-		build/obj/frontiere.o \
 		build/obj/obj.o \
 		build/obj/ppm.o \
 		build/obj/texture.o \
@@ -89,6 +89,7 @@ OBJECTS       = build/obj/frames.o \
 		build/obj/tir.o \
 		build/obj/vaisseau.o \
 		build/obj/decor.o \
+		build/obj/frontiere.o \
 		build/obj/hud.o \
 		build/obj/rendu.o \
 		build/obj/actions.o \
@@ -131,6 +132,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_input_support_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_kms_support_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_linuxaccessibility_support_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_multimedia.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_multimediawidgets.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_network.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_network_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_opengl_private.pri \
@@ -139,6 +142,11 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_platformcompositor_support_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_qml.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_qmltest.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_quick.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_quickcontrols2.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_quickwidgets.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_service_support_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql_private.pri \
@@ -177,7 +185,6 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		qmakef.pro src/fonctions/frames.h \
-		src/fonctions/frontiere.h \
 		src/fonctions/obj.h \
 		src/fonctions/ppm.h \
 		src/fonctions/texture.h \
@@ -192,11 +199,11 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		src/objets/tir.h \
 		src/objets/vaisseau.h \
 		src/rendu/decor.h \
+		src/rendu/frontiere.h \
 		src/rendu/hud.h \
 		src/rendu/rendu.h \
 		src/touches/actions.h \
 		src/touches/touches.h src/fonctions/frames.cpp \
-		src/fonctions/frontiere.cpp \
 		src/fonctions/obj.cpp \
 		src/fonctions/ppm.cpp \
 		src/fonctions/texture.cpp \
@@ -211,6 +218,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		src/objets/tir.cpp \
 		src/objets/vaisseau.cpp \
 		src/rendu/decor.cpp \
+		src/rendu/frontiere.cpp \
 		src/rendu/hud.cpp \
 		src/rendu/rendu.cpp \
 		src/touches/actions.cpp \
@@ -262,6 +270,8 @@ Makefile: qmakef.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf 
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_input_support_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_kms_support_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_linuxaccessibility_support_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_multimedia.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_multimediawidgets.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_network.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_network_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_opengl_private.pri \
@@ -270,6 +280,11 @@ Makefile: qmakef.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf 
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_platformcompositor_support_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_qml.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_qmltest.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_quick.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_quickcontrols2.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_quickwidgets.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_service_support_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql_private.pri \
@@ -346,6 +361,8 @@ Makefile: qmakef.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf 
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_input_support_private.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_kms_support_private.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_linuxaccessibility_support_private.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_multimedia.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_multimediawidgets.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_network.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_network_private.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_opengl_private.pri:
@@ -354,6 +371,11 @@ Makefile: qmakef.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf 
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_platformcompositor_support_private.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport_private.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_qml.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_qmltest.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_quick.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_quickcontrols2.pri:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_quickwidgets.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_service_support_private.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql_private.pri:
@@ -410,8 +432,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents src/fonctions/frames.h src/fonctions/frontiere.h src/fonctions/obj.h src/fonctions/ppm.h src/fonctions/texture.h src/qt/mainwindow.h src/qt/pausewindow.h src/objets/asteroide.h src/objets/asteroideGrand.h src/objets/asteroideMoyen.h src/objets/asteroidePetit.h src/objets/camera.h src/objets/fonctionsEnnemi.h src/objets/tir.h src/objets/vaisseau.h src/rendu/decor.h src/rendu/hud.h src/rendu/rendu.h src/touches/actions.h src/touches/touches.h $(DISTDIR)/
-	$(COPY_FILE) --parents src/fonctions/frames.cpp src/fonctions/frontiere.cpp src/fonctions/obj.cpp src/fonctions/ppm.cpp src/fonctions/texture.cpp src/qt/mainwindow.cpp src/qt/pausewindow.cpp src/objets/asteroide.cpp src/objets/asteroideGrand.cpp src/objets/asteroideMoyen.cpp src/objets/asteroidePetit.cpp src/objets/camera.cpp src/objets/fonctionsEnnemi.cpp src/objets/tir.cpp src/objets/vaisseau.cpp src/rendu/decor.cpp src/rendu/hud.cpp src/rendu/rendu.cpp src/touches/actions.cpp src/init.cpp src/main.cpp src/VM_init.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents src/fonctions/frames.h src/fonctions/obj.h src/fonctions/ppm.h src/fonctions/texture.h src/qt/mainwindow.h src/qt/pausewindow.h src/objets/asteroide.h src/objets/asteroideGrand.h src/objets/asteroideMoyen.h src/objets/asteroidePetit.h src/objets/camera.h src/objets/fonctionsEnnemi.h src/objets/tir.h src/objets/vaisseau.h src/rendu/decor.h src/rendu/frontiere.h src/rendu/hud.h src/rendu/rendu.h src/touches/actions.h src/touches/touches.h $(DISTDIR)/
+	$(COPY_FILE) --parents src/fonctions/frames.cpp src/fonctions/obj.cpp src/fonctions/ppm.cpp src/fonctions/texture.cpp src/qt/mainwindow.cpp src/qt/pausewindow.cpp src/objets/asteroide.cpp src/objets/asteroideGrand.cpp src/objets/asteroideMoyen.cpp src/objets/asteroidePetit.cpp src/objets/camera.cpp src/objets/fonctionsEnnemi.cpp src/objets/tir.cpp src/objets/vaisseau.cpp src/rendu/decor.cpp src/rendu/frontiere.cpp src/rendu/hud.cpp src/rendu/rendu.cpp src/touches/actions.cpp src/init.cpp src/main.cpp src/VM_init.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -447,7 +469,6 @@ compiler_moc_header_make_all: build/moc/moc_mainwindow.cpp build/moc/moc_pausewi
 compiler_moc_header_clean:
 	-$(DEL_FILE) build/moc/moc_mainwindow.cpp build/moc/moc_pausewindow.cpp
 build/moc/moc_mainwindow.cpp: src/init.h \
-		src/fonctions/frontiere.h \
 		src/touches/actions.h \
 		src/touches/touches.h \
 		src/objets/camera.h \
@@ -457,13 +478,13 @@ build/moc/moc_mainwindow.cpp: src/init.h \
 		src/qt/mainwindow.h \
 		build/moc/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include '/home/etud/Git Repo/Aster.ia.ds/Projet/build/moc/moc_predefs.h' -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I'/home/etud/Git Repo/Aster.ia.ds/Projet' -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include src/qt/mainwindow.h -o build/moc/moc_mainwindow.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/etud/Bureau/asteraids/Aster.ia.ds/Projet/build/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/etud/Bureau/asteraids/Aster.ia.ds/Projet -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include src/qt/mainwindow.h -o build/moc/moc_mainwindow.cpp
 
 build/moc/moc_pausewindow.cpp: src/init.h \
 		src/qt/pausewindow.h \
 		build/moc/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include '/home/etud/Git Repo/Aster.ia.ds/Projet/build/moc/moc_predefs.h' -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I'/home/etud/Git Repo/Aster.ia.ds/Projet' -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include src/qt/pausewindow.h -o build/moc/moc_pausewindow.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/etud/Bureau/asteraids/Aster.ia.ds/Projet/build/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/etud/Bureau/asteraids/Aster.ia.ds/Projet -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include src/qt/pausewindow.h -o build/moc/moc_pausewindow.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -485,10 +506,6 @@ build/obj/frames.o: src/fonctions/frames.cpp src/fonctions/frames.h \
 		src/init.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/frames.o src/fonctions/frames.cpp
 
-build/obj/frontiere.o: src/fonctions/frontiere.cpp src/fonctions/frontiere.h \
-		src/init.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/frontiere.o src/fonctions/frontiere.cpp
-
 build/obj/obj.o: src/fonctions/obj.cpp src/fonctions/obj.h \
 		src/init.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/obj.o src/fonctions/obj.cpp
@@ -503,7 +520,6 @@ build/obj/texture.o: src/fonctions/texture.cpp src/fonctions/texture.h \
 
 build/obj/mainwindow.o: src/qt/mainwindow.cpp src/qt/mainwindow.h \
 		src/init.h \
-		src/fonctions/frontiere.h \
 		src/touches/actions.h \
 		src/touches/touches.h \
 		src/objets/camera.h \
@@ -579,6 +595,10 @@ build/obj/decor.o: src/rendu/decor.cpp src/rendu/decor.h \
 		src/init.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/decor.o src/rendu/decor.cpp
 
+build/obj/frontiere.o: src/rendu/frontiere.cpp src/rendu/frontiere.h \
+		src/init.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/frontiere.o src/rendu/frontiere.cpp
+
 build/obj/hud.o: src/rendu/hud.cpp src/rendu/hud.h \
 		src/init.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/hud.o src/rendu/hud.cpp
@@ -619,12 +639,12 @@ build/obj/init.o: src/init.cpp src/init.h \
 		src/objets/asteroideMoyen.h \
 		src/objets/asteroideGrand.h \
 		src/objets/fonctionsEnnemi.h \
-		src/fonctions/obj.h
+		src/fonctions/obj.h \
+		src/rendu/decor.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/init.o src/init.cpp
 
 build/obj/main.o: src/main.cpp src/qt/mainwindow.h \
 		src/init.h \
-		src/fonctions/frontiere.h \
 		src/touches/actions.h \
 		src/touches/touches.h \
 		src/objets/camera.h \
@@ -648,7 +668,6 @@ build/obj/VM_init.o: src/VM_init.cpp src/rendu/rendu.h \
 		src/rendu/decor.h \
 		src/touches/actions.h \
 		src/touches/touches.h \
-		src/fonctions/frontiere.h \
 		src/fonctions/frames.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/VM_init.o src/VM_init.cpp
 

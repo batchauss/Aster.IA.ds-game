@@ -5,7 +5,7 @@
 #include "rendu/hud.h"
 #include "rendu/decor.h"
 #include "touches/actions.h"
-#include "fonctions/frontiere.h"
+#include "rendu/frontiere.h"
 #include "fonctions/frames.h"
 
 extern GLfloat score;
@@ -32,7 +32,7 @@ extern GLvoid vieSoucoupe(int i, GLfloat angle);
 
 GLvoid VM_init() {
 	vaisseau->moveForward();
-	vaisseau->tirer();
+	if(!vaisseau->invincible)vaisseau->tirer(); //le vaisseau ne tire pas lorsqu'il est invincible
 	if(!zPressed) vaisseau->decreaseSpeed();
 	if(qPressed) vaisseau->setAngle(2);
 	if(dPressed) vaisseau->setAngle(-2);
@@ -43,8 +43,7 @@ GLvoid VM_init() {
 	renduCamera(vaisseau);
 	
 	for(unsigned int i=0; i<vaisseau->tirs.size();++i){
-		if(vaisseau->invincible ==true) renduTir(2,vaisseau->tirs.at(i));
-		renduTir(1,vaisseau->tirs.at(i));
+		if(!vaisseau->invincible) renduTir(1,vaisseau->tirs.at(i));
 	}
 
 	glPushMatrix();
@@ -52,9 +51,11 @@ GLvoid VM_init() {
 		glTranslatef(vaisseau->posx(), vaisseau->posy(), vaisseau->posz());
 		glRotatef(180 + vaisseau->getAngle(), 0, 1, 0);
 		glRotatef(- vaisseau->getAngle2(), 1, 0, 0);
+		
+		//transparence du vaisseau quand il est touché
 		if(vaisseau->invincible ==true) glCallList(6);
-		else glCallList(1);
-		  
+		else glCallList(1);	
+	  
 	glPopMatrix();
 
  
@@ -103,22 +104,25 @@ GLvoid VM_init() {
 
 
   // soucoupe de l'ennemi
-  if(temps_acceleration_reelle(1)>10 && ennemi->getVie()>0){
+  if(temps_acceleration_reelle(1)>20 && ennemi->getVie()>0){  //delai de l'apparition de l'ennemi
 	glPushMatrix();
 	
 		vieSoucoupe(ennemi->getVie(), angleHeart++);
 		deplacementEnnemi();
-
-		//l'ennemi tire deux ballles par secondes
-		if((int)temps_acceleration_reelle(2)%1==0 &&(int)temps_acceleration_reelle(1) !=temps_precedent){
-			actionTir(ennemi);
-			temps_precedent=(int)temps_acceleration_reelle(1);
-		}
 		for(unsigned int i=0; i<ennemi->tirs.size();++i){
 		 renduTir(1,ennemi->tirs.at(i));
 	}
+
+		//l'ennemi tire aussi des balles
+		if((int)temps_acceleration_reelle(1)%1==0 &&(int)temps_acceleration_reelle(1) !=temps_precedent){
+			actionTir(ennemi);
+			std::cout<<ennemi->tirs.at(0)->posX()<<" " <<ennemi->posx();
+			temps_precedent=(int)temps_acceleration_reelle(1);
+		}
+		
 	glPopMatrix(); 
 	ennemiTouche();
+	tirEnnemi();
   }
 
   
@@ -129,5 +133,5 @@ GLvoid VM_init() {
 
   afficheScore(score);
 
-  decorPlanetes();
+  glCallList(9);//decor de planetes hors frontieres
 }

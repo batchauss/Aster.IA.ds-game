@@ -195,7 +195,7 @@ GLvoid Vaisseau::tirer(){ // tire une balle
          tirs.at(i)->setposmomentTir(tirs.at(i)->posX(),tirs.at(i)->posY(),tirs.at(i)->posZ());
     }
     
-    //on remet la balle a sa place si il atteint la portée grace au calcul de la longueur
+    //on remet la balle a sa place si il atteint la portée grace au calcul de la longueur (longueur =200)
     if ( longueur > 200 || longueur < -200 ){ 
         longueurTot[i]=0;       
         tirs.at(i)->release(this->posx(),this->posy(),this->posz(),this->getAngle(), this->getAngle2());
