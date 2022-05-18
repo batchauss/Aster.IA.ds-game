@@ -71,7 +71,8 @@ SOURCES       = src/fonctions/frames.cpp \
 		src/touches/actions.cpp \
 		src/init.cpp \
 		src/main.cpp \
-		src/VM_init.cpp build/moc/moc_mainwindow.cpp
+		src/VM_init.cpp qrc_ressource.cpp \
+		build/moc/moc_mainwindow.cpp
 OBJECTS       = build/obj/frames.o \
 		build/obj/obj.o \
 		build/obj/ppm.o \
@@ -94,6 +95,7 @@ OBJECTS       = build/obj/frames.o \
 		build/obj/init.o \
 		build/obj/main.o \
 		build/obj/VM_init.o \
+		build/obj/qrc_ressource.o \
 		build/obj/moc_mainwindow.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
@@ -155,6 +157,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
@@ -285,6 +288,7 @@ Makefile: qmakef.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf 
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
@@ -304,6 +308,7 @@ Makefile: qmakef.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf 
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		qmakef.pro \
+		ressource.qrc \
 		/usr/lib/x86_64-linux-gnu/libQt5Widgets.prl \
 		/usr/lib/x86_64-linux-gnu/libQt5Gui.prl \
 		/usr/lib/x86_64-linux-gnu/libQt5Core.prl
@@ -368,6 +373,7 @@ Makefile: qmakef.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf 
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf:
@@ -387,6 +393,7 @@ Makefile: qmakef.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf 
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf:
 qmakef.pro:
+ressource.qrc:
 /usr/lib/x86_64-linux-gnu/libQt5Widgets.prl:
 /usr/lib/x86_64-linux-gnu/libQt5Gui.prl:
 /usr/lib/x86_64-linux-gnu/libQt5Core.prl:
@@ -404,6 +411,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
+	$(COPY_FILE) --parents ressource.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents src/fonctions/frames.h src/fonctions/obj.h src/fonctions/ppm.h src/fonctions/texture.h src/fonctions/writeScore.h src/qt/mainwindow.h src/objets/asteroide.h src/objets/asteroideGrand.h src/objets/asteroideMoyen.h src/objets/asteroidePetit.h src/objets/camera.h src/objets/fonctionsEnnemi.h src/objets/tir.h src/objets/vaisseau.h src/rendu/decor.h src/rendu/frontiere.h src/rendu/hud.h src/rendu/rendu.h src/touches/actions.h src/touches/touches.h $(DISTDIR)/
 	$(COPY_FILE) --parents src/fonctions/frames.cpp src/fonctions/obj.cpp src/fonctions/ppm.cpp src/fonctions/texture.cpp src/fonctions/writeScore.cpp src/qt/mainwindow.cpp src/objets/asteroide.cpp src/objets/asteroideGrand.cpp src/objets/asteroideMoyen.cpp src/objets/asteroidePetit.cpp src/objets/camera.cpp src/objets/fonctionsEnnemi.cpp src/objets/tir.cpp src/objets/vaisseau.cpp src/rendu/decor.cpp src/rendu/frontiere.cpp src/rendu/hud.cpp src/rendu/rendu.cpp src/touches/actions.cpp src/init.cpp src/main.cpp src/VM_init.cpp $(DISTDIR)/
@@ -430,8 +438,14 @@ check: first
 
 benchmark: first
 
-compiler_rcc_make_all:
+compiler_rcc_make_all: qrc_ressource.cpp
 compiler_rcc_clean:
+	-$(DEL_FILE) qrc_ressource.cpp
+qrc_ressource.cpp: ressource.qrc \
+		/usr/lib/qt5/bin/rcc \
+		pic/aste.ico
+	/usr/lib/qt5/bin/rcc -name ressource ressource.qrc -o qrc_ressource.cpp
+
 compiler_moc_predefs_make_all: build/moc/moc_predefs.h
 compiler_moc_predefs_clean:
 	-$(DEL_FILE) build/moc/moc_predefs.h
@@ -465,7 +479,7 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean 
+compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_header_clean 
 
 ####### Compile
 
@@ -642,6 +656,9 @@ build/obj/VM_init.o: src/VM_init.cpp src/rendu/rendu.h \
 		src/touches/touches.h \
 		src/rendu/frontiere.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/VM_init.o src/VM_init.cpp
+
+build/obj/qrc_ressource.o: qrc_ressource.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/qrc_ressource.o qrc_ressource.cpp
 
 build/obj/moc_mainwindow.o: build/moc/moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/moc_mainwindow.o build/moc/moc_mainwindow.cpp

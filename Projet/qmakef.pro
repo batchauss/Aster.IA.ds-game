@@ -1,7 +1,7 @@
 QT   += core gui widgets
 LIBS += -lglut -lGLU 
 
-
+RESOURCES += ressource.qrc
 
 QMAKE_CC = gcc
 QMAKE_CXX = g++

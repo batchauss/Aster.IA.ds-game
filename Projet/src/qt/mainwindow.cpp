@@ -175,6 +175,7 @@ mainwindow::mainwindow(int argc, char**argv)
   this->setCentralWidget(widgets);
   
 
+  this->setWindowIcon(QIcon(":/pic/aste.ico"));
   
   
 }

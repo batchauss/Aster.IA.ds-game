@@ -8,7 +8,7 @@ extern  GLfloat score ;
 void deplacementEnnemi(){
     ennemi->moveForward();		
 	ennemi->tirer();
-	ennemi->setSpeed(0);
+	ennemi->setSpeed(1.3);
 	ennemi->setAngle2(2);
 	ennemi->setAngle(0);
     ennemi->setHitbox(7,7,7);
@@ -29,7 +29,6 @@ void ennemiTouche(){ // notre vaisseau touche la soucoupe
           {
              vaisseau->tirs.at(i)->release(vaisseau->posx(),vaisseau->posy(),vaisseau->posz(),vaisseau->getAngle(), vaisseau->getAngle2());
              ennemi->setVie(ennemi->getVie()-10);
-             std::cout<<" vie de l' ennemi  : "<<ennemi->getVie();
           }
       }
     } 

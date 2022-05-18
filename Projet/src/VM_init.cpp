@@ -68,7 +68,6 @@ GLvoid VM_init() {
 			
 			//contact entre le vaisseau et un asteroide
 			if(vaisseau->invincible==false && vaisseau->collisionVaisseauAsteroide(asteroides.at(i))  ){
-				std::cout<<"vaisseau touché, vie :"<<vaisseau->getVie()<<std::endl;
 				vaisseau->invincible=true;
 				temps_invincible = (int)temps_acceleration_reelle(1) +3;
 				asteroides.at(i)->setTouche(true);
@@ -77,13 +76,11 @@ GLvoid VM_init() {
 			if(vaisseau->invincible==false && vaisseau->collisionVaisseauVaisseau(ennemi)){
 				if(vaisseau->getVie()>=30 )vaisseau->setVie(vaisseau->getVie()-30);
 				else vaisseau->setVie(0);
-				std::cout<<"vaisseau touché, vie :"<<vaisseau->getVie()<<std::endl;
 				vaisseau->invincible=true;
 				temps_invincible = (int)temps_acceleration_reelle(1) +3;
 			}
 
 			if(vaisseau->getVie()==0) {
-				std::cout<<"vous avez perdu"<<std::endl;
 				exit(1);
 			}
 			
@@ -110,20 +107,9 @@ GLvoid VM_init() {
 	
 		vieSoucoupe(ennemi->getVie(), angleHeart++);
 		deplacementEnnemi();
-		for(unsigned int i=0; i<ennemi->tirs.size();++i){
-		 renduTir(1,ennemi->tirs.at(i));
-	}
-
-		//l'ennemi tire aussi des balles
-		if((int)temps_acceleration_reelle(1)%1==0 &&(int)temps_acceleration_reelle(1) !=temps_precedent){
-			actionTir(ennemi);
-			std::cout<<ennemi->tirs.at(0)->posX()<<" " <<ennemi->posx();
-			temps_precedent=(int)temps_acceleration_reelle(1);
-		}
-		
+	
 	glPopMatrix(); 
 	ennemiTouche();
-	tirEnnemi();
   }
 
   
