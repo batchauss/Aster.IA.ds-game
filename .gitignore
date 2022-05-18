@@ -1,6 +1,7 @@
 project:pro.user.*
 Projet/build/
-.qmake.stash
-Aster.IA.ds
-Makefile
+Projet/.qmake.stash
+Projet/Aster.IA.ds
+Projet/Makefile
+Projet/qrc_ressource.cpp
 .vscode
