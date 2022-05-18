@@ -12,5 +12,4 @@ GLvoid decorPlanetes(){
 		glColor3f(0.5f, 0.35f, 0.05f);
 		glutSolidTorus(5,20,20,20);		
   glPopMatrix();
-
 }

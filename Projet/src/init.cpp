@@ -8,7 +8,7 @@
 #include "rendu/rendu.h"
 
 
-GLuint texture[5];
+GLuint texture[1];
 int window = 0;
 GLfloat ambiente[4] = {0.7, 0.7, 0.7, 1};
 
@@ -27,6 +27,9 @@ Vaisseau * ennemi = new Vaisseau(5);
 std::vector<Asteroide *> asteroides;
 GLfloat score = 0;
 
+int argc;
+char** argv;
+
 
 GLvoid Redimensionne(GLsizei width, GLsizei height){
 	glViewport(0, 0, width, height);
@@ -36,8 +39,11 @@ GLvoid Redimensionne(GLsizei width, GLsizei height){
 	glMatrixMode(GL_MODELVIEW);
 }
 
-int notre_init(int argc, char** argv, void (*Modelisation)(), QMainWindow * mw){
-	glutInit(&argc, argv);
+int notre_init(int argc1, char** argv1, void (*Modelisation)()){
+	argc = argc1;
+	argv = argv1;
+
+	glutInit(&argc1, argv1);
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
 	glutInitWindowSize(1280, 960);
 	glutInitWindowPosition(0, 0);
@@ -75,7 +81,6 @@ int notre_init(int argc, char** argv, void (*Modelisation)(), QMainWindow * mw){
 	TEXTURE_STRUCT * night = readPpm((char *)"./pic/night.ppm");
 	Parametres_texture(0, night, texture[0]);
 
-
 	glutMainLoop();
 	return 1;
 }
@@ -95,6 +100,15 @@ void initialise(){
 	ennemi->setVie(30);
 	ennemi->setPos(Rand(-200,200),Rand(-200,200),Rand(-200,200));
 }
+
+void reinitialisation(){
+	initialise();
+
+	vaisseau = new Vaisseau(10);
+	ennemi = new Vaisseau(5);
+	score = 0;
+}
+
 
 int Rand( int a, int b) // fonction rand
 {

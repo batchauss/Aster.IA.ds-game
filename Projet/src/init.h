@@ -13,9 +13,10 @@
 
 
 GLvoid Redimensionne(GLsizei width, GLsizei height);
-int notre_init(int argc, char** argv, void (*Modelisation)(), QMainWindow * mw);
+int notre_init(int argc, char** argv, void (*Modelisation)());
 
 void initialise();
+void reinitialise();
 
 int Rand(int a, int b);
 void remplissageTableauR();

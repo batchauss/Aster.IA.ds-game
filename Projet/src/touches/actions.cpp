@@ -3,6 +3,9 @@
 
 extern Vaisseau * vaisseau;
 
+extern GLvoid Modelisation();
+extern void reinitialisation();
+
 bool zPressed = false;
 bool qPressed = false;
 bool dPressed = false;
@@ -15,6 +18,8 @@ bool keyDownPressed = false;
 bool keyLeftPressed = false;
 bool keyRightPressed = false;
 
+extern int argc;
+extern char** argv;
 
 void actionTir( Vaisseau *v){
   v->tirs.back()->setSpeed(2.6); 
@@ -33,8 +38,12 @@ void touche(unsigned char key, int x, int y)
 {
   switch(key){
     case ESCAPE :
-      if(pauseActivated) pauseActivated = false;
-      else pauseActivated = true;
+      /*if(pauseActivated) pauseActivated = false;
+      else pauseActivated = true;*/
+
+      glutExit();
+      reinitialisation();
+      notre_init(argc, argv, &Modelisation);
       break;
     
     case ESPACE:

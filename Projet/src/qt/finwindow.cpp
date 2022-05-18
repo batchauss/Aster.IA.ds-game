@@ -1,9 +1,9 @@
-#include "pausewindow.h"
+#include "finwindow.h"
 
-pausewindow::pausewindow()
+finwindow::finwindow()
     : QMainWindow()
 {
-this->setAttribute(Qt::WA_TranslucentBackground, true);
+//this->setAttribute(Qt::WA_TranslucentBackground, true);
 this->showFullScreen();
 
 QWidget * menuPause = new QWidget();
@@ -14,7 +14,6 @@ QWidget * menuPause = new QWidget();
   reprendreButton->setFixedSize(300, 100);
   QObject::connect(reprendreButton, &QPushButton::clicked,
   [=](){
-
   });
 
   QPushButton * exitButton = new QPushButton("Quitter le jeu");
@@ -37,4 +36,4 @@ QWidget * menuPause = new QWidget();
   this->setCentralWidget(menuPause);
 }
 
-pausewindow::~pausewindow(){}
+finwindow::~finwindow(){}
