@@ -10,9 +10,6 @@
 #include<iostream>
 
 
-#include <QMainWindow>
-
-
 GLvoid Redimensionne(GLsizei width, GLsizei height);
 int notre_init(int argc, char** argv, void (*Modelisation)());
 

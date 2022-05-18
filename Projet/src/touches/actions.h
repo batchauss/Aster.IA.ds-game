@@ -12,9 +12,6 @@
 #include "../objets/vaisseau.h"
 #include "../objets/tir.h"
 
-#include <QApplication>
-#include "../qt/finwindow.h"
-
 void actionTir( Vaisseau *v);
 void touche(unsigned char key, int x, int y);
 void releaseTouche(unsigned char key, int x, int y);
