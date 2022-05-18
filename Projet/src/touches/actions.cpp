@@ -2,8 +2,6 @@
 #include<iostream>
 
 extern Vaisseau * vaisseau;
-
-extern GLvoid Modelisation();
 extern void reinitialisation();
 
 bool zPressed = false;
@@ -42,9 +40,7 @@ void touche(unsigned char key, int x, int y)
       /*if(pauseActivated) pauseActivated = false;
       else pauseActivated = true;*/
 
-      glutExit();
       reinitialisation();
-      notre_init(argc, argv, &Modelisation);
       break;
     
     case ESPACE:
