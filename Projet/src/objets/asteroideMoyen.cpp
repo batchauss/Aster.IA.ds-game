@@ -53,7 +53,6 @@ void AsteroideMoyen::split(){
       vaisseau->tirs.at(i)->release(vaisseau->posx(),vaisseau->posy(),vaisseau->posz(),vaisseau->getAngle(), vaisseau->getAngle2());
       this->touche =true;
       score +=50;
-      std::cout<<score <<" points "<<std::endl;
       break;
     }
    

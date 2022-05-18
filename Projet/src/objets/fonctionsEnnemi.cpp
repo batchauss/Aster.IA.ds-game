@@ -29,7 +29,6 @@ void ennemiTouche(){ // notre vaisseau touche la soucoupe
           {
              vaisseau->tirs.at(i)->release(vaisseau->posx(),vaisseau->posy(),vaisseau->posz(),vaisseau->getAngle(), vaisseau->getAngle2());
              ennemi->setVie(ennemi->getVie()-10);
-             std::cout<<" vie de l' ennemi  : "<<ennemi->getVie();
           }
       }
     } 

@@ -8,7 +8,6 @@
 #include "rendu/rendu.h"
 #include "rendu/decor.h"
 
-
 GLuint texture[5];
 int window = 0;
 GLfloat ambiente[4] = {0.7, 0.7, 0.7, 1};
