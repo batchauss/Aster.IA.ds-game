@@ -3,9 +3,11 @@
 extern bool pauseActivated;
 extern GLuint texture[2];
 
+int tempsDef;
+
 GLvoid barreVie(GLfloat vie){
     if(!pauseActivated){
-//Début 2D
+    //Début 2D
     glMatrixMode (GL_PROJECTION);
     glPushMatrix();
     glLoadIdentity();
@@ -20,10 +22,10 @@ GLvoid barreVie(GLfloat vie){
         else if (vie>50) glColor3f(1.0, 1.0, 0.0);
         else  glColor3f(1.0, 0.0, 0.0);
 
-		glScalef(vie/120, 0.05, 0.05);
+		glScalef(vie / 120, 0.05, 0.05);
         glutSolidCube(1);
 
-//End 2D
+    //End 2D
     glMatrixMode(GL_PROJECTION);
     glPopMatrix();
     glMatrixMode(GL_MODELVIEW);
@@ -59,6 +61,8 @@ GLvoid timer(int tempsRetenu){
 
     int tempsPasse = tempsMax - glutGet(GLUT_ELAPSED_TIME);
     int tempsActuel = tempsPasse + tempsRetenu;
+
+    tempsDef = tempsActuel;
 
     glColor3f(0.2,0.6,0.2);
     std::string tmp = intPadding(tempsActuel);
@@ -137,17 +141,6 @@ GLvoid decoHUD(){
         glVertex2f(-4.8, 4.8);
         glVertex2f(-4.8, -4.8);
     glEnd();
-    //V2 HUD
-    /*glBegin(GL_LINE_STRIP);
-        glVertex2f(2.3, 5);
-        glVertex2f(2.3, 4.8);
-        glVertex2f(1, 4.8);
-        glVertex2f(0.8, 3.85);
-        glVertex2f(-0.8, 3.85);
-        glVertex2f(-1, 4.8);
-        glVertex2f(-2.3, 4.8);
-        glVertex2f(-2.3, 5);
-    glEnd();*/
 
     //End 2D
     glMatrixMode(GL_PROJECTION);

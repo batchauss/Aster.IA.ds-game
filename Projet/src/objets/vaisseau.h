@@ -5,7 +5,7 @@
 #include "camera.h"
 #include "tir.h"
 #include "asteroide.h"
-#include<vector>
+#include <vector>
 
 class Vaisseau {
 

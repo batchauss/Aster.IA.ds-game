@@ -54,8 +54,8 @@ SOURCES       = src/fonctions/frames.cpp \
 		src/fonctions/obj.cpp \
 		src/fonctions/ppm.cpp \
 		src/fonctions/texture.cpp \
+		src/qt/finwindow.cpp \
 		src/qt/mainwindow.cpp \
-		src/qt/pausewindow.cpp \
 		src/objets/asteroide.cpp \
 		src/objets/asteroideGrand.cpp \
 		src/objets/asteroideMoyen.cpp \
@@ -72,14 +72,14 @@ SOURCES       = src/fonctions/frames.cpp \
 		src/init.cpp \
 		src/main.cpp \
 		src/VM_init.cpp qrc_ressource.cpp \
-		build/moc/moc_mainwindow.cpp \
-		build/moc/moc_pausewindow.cpp
+		build/moc/moc_finwindow.cpp \
+		build/moc/moc_mainwindow.cpp
 OBJECTS       = build/obj/frames.o \
 		build/obj/obj.o \
 		build/obj/ppm.o \
 		build/obj/texture.o \
+		build/obj/finwindow.o \
 		build/obj/mainwindow.o \
-		build/obj/pausewindow.o \
 		build/obj/asteroide.o \
 		build/obj/asteroideGrand.o \
 		build/obj/asteroideMoyen.o \
@@ -97,8 +97,8 @@ OBJECTS       = build/obj/frames.o \
 		build/obj/main.o \
 		build/obj/VM_init.o \
 		build/obj/qrc_ressource.o \
-		build/obj/moc_mainwindow.o \
-		build/obj/moc_pausewindow.o
+		build/obj/moc_finwindow.o \
+		build/obj/moc_mainwindow.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -189,8 +189,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		src/fonctions/obj.h \
 		src/fonctions/ppm.h \
 		src/fonctions/texture.h \
+		src/qt/finwindow.h \
 		src/qt/mainwindow.h \
-		src/qt/pausewindow.h \
 		src/objets/asteroide.h \
 		src/objets/asteroideGrand.h \
 		src/objets/asteroideMoyen.h \
@@ -208,8 +208,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		src/fonctions/obj.cpp \
 		src/fonctions/ppm.cpp \
 		src/fonctions/texture.cpp \
+		src/qt/finwindow.cpp \
 		src/qt/mainwindow.cpp \
-		src/qt/pausewindow.cpp \
 		src/objets/asteroide.cpp \
 		src/objets/asteroideGrand.cpp \
 		src/objets/asteroideMoyen.cpp \
@@ -436,8 +436,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ressource.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents src/fonctions/frames.h src/fonctions/obj.h src/fonctions/ppm.h src/fonctions/texture.h src/qt/mainwindow.h src/qt/pausewindow.h src/objets/asteroide.h src/objets/asteroideGrand.h src/objets/asteroideMoyen.h src/objets/asteroidePetit.h src/objets/camera.h src/objets/fonctionsEnnemi.h src/objets/tir.h src/objets/vaisseau.h src/rendu/decor.h src/rendu/frontiere.h src/rendu/hud.h src/rendu/rendu.h src/touches/actions.h src/touches/touches.h $(DISTDIR)/
-	$(COPY_FILE) --parents src/fonctions/frames.cpp src/fonctions/obj.cpp src/fonctions/ppm.cpp src/fonctions/texture.cpp src/qt/mainwindow.cpp src/qt/pausewindow.cpp src/objets/asteroide.cpp src/objets/asteroideGrand.cpp src/objets/asteroideMoyen.cpp src/objets/asteroidePetit.cpp src/objets/camera.cpp src/objets/fonctionsEnnemi.cpp src/objets/tir.cpp src/objets/vaisseau.cpp src/rendu/decor.cpp src/rendu/frontiere.cpp src/rendu/hud.cpp src/rendu/rendu.cpp src/touches/actions.cpp src/init.cpp src/main.cpp src/VM_init.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents src/fonctions/frames.h src/fonctions/obj.h src/fonctions/ppm.h src/fonctions/texture.h src/qt/finwindow.h src/qt/mainwindow.h src/objets/asteroide.h src/objets/asteroideGrand.h src/objets/asteroideMoyen.h src/objets/asteroidePetit.h src/objets/camera.h src/objets/fonctionsEnnemi.h src/objets/tir.h src/objets/vaisseau.h src/rendu/decor.h src/rendu/frontiere.h src/rendu/hud.h src/rendu/rendu.h src/touches/actions.h src/touches/touches.h $(DISTDIR)/
+	$(COPY_FILE) --parents src/fonctions/frames.cpp src/fonctions/obj.cpp src/fonctions/ppm.cpp src/fonctions/texture.cpp src/qt/finwindow.cpp src/qt/mainwindow.cpp src/objets/asteroide.cpp src/objets/asteroideGrand.cpp src/objets/asteroideMoyen.cpp src/objets/asteroidePetit.cpp src/objets/camera.cpp src/objets/fonctionsEnnemi.cpp src/objets/tir.cpp src/objets/vaisseau.cpp src/rendu/decor.cpp src/rendu/frontiere.cpp src/rendu/hud.cpp src/rendu/rendu.cpp src/touches/actions.cpp src/init.cpp src/main.cpp src/VM_init.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -475,9 +475,15 @@ compiler_moc_predefs_clean:
 build/moc/moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -std=gnu++1z -Wall -W -dM -E -o build/moc/moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: build/moc/moc_mainwindow.cpp build/moc/moc_pausewindow.cpp
+compiler_moc_header_make_all: build/moc/moc_finwindow.cpp build/moc/moc_mainwindow.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) build/moc/moc_mainwindow.cpp build/moc/moc_pausewindow.cpp
+	-$(DEL_FILE) build/moc/moc_finwindow.cpp build/moc/moc_mainwindow.cpp
+build/moc/moc_finwindow.cpp: src/init.h \
+		src/qt/finwindow.h \
+		build/moc/moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/etud/Bureau/asteraids/Aster.ia.ds/Projet/build/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/etud/Bureau/asteraids/Aster.ia.ds/Projet -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include src/qt/finwindow.h -o build/moc/moc_finwindow.cpp
+
 build/moc/moc_mainwindow.cpp: src/init.h \
 		src/touches/actions.h \
 		src/touches/touches.h \
@@ -485,16 +491,11 @@ build/moc/moc_mainwindow.cpp: src/init.h \
 		src/objets/vaisseau.h \
 		src/objets/tir.h \
 		src/objets/asteroide.h \
+		src/qt/finwindow.h \
 		src/qt/mainwindow.h \
 		build/moc/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/etud/Bureau/asteraids/Aster.ia.ds/Projet/build/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/etud/Bureau/asteraids/Aster.ia.ds/Projet -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include src/qt/mainwindow.h -o build/moc/moc_mainwindow.cpp
-
-build/moc/moc_pausewindow.cpp: src/init.h \
-		src/qt/pausewindow.h \
-		build/moc/moc_predefs.h \
-		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/etud/Bureau/asteraids/Aster.ia.ds/Projet/build/moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/etud/Bureau/asteraids/Aster.ia.ds/Projet -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include src/qt/pausewindow.h -o build/moc/moc_pausewindow.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -528,6 +529,10 @@ build/obj/texture.o: src/fonctions/texture.cpp src/fonctions/texture.h \
 		src/fonctions/ppm.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/texture.o src/fonctions/texture.cpp
 
+build/obj/finwindow.o: src/qt/finwindow.cpp src/qt/finwindow.h \
+		src/init.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/finwindow.o src/qt/finwindow.cpp
+
 build/obj/mainwindow.o: src/qt/mainwindow.cpp src/qt/mainwindow.h \
 		src/init.h \
 		src/touches/actions.h \
@@ -535,12 +540,9 @@ build/obj/mainwindow.o: src/qt/mainwindow.cpp src/qt/mainwindow.h \
 		src/objets/camera.h \
 		src/objets/vaisseau.h \
 		src/objets/tir.h \
-		src/objets/asteroide.h
+		src/objets/asteroide.h \
+		src/qt/finwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/mainwindow.o src/qt/mainwindow.cpp
-
-build/obj/pausewindow.o: src/qt/pausewindow.cpp src/qt/pausewindow.h \
-		src/init.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/pausewindow.o src/qt/pausewindow.cpp
 
 build/obj/asteroide.o: src/objets/asteroide.cpp src/objets/asteroide.h \
 		src/init.h
@@ -636,7 +638,8 @@ build/obj/actions.o: src/touches/actions.cpp src/touches/actions.h \
 		src/init.h \
 		src/objets/vaisseau.h \
 		src/objets/tir.h \
-		src/objets/asteroide.h
+		src/objets/asteroide.h \
+		src/qt/finwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/actions.o src/touches/actions.cpp
 
 build/obj/init.o: src/init.cpp src/init.h \
@@ -646,6 +649,7 @@ build/obj/init.o: src/init.cpp src/init.h \
 		src/objets/vaisseau.h \
 		src/objets/tir.h \
 		src/objets/asteroide.h \
+		src/qt/finwindow.h \
 		src/fonctions/texture.h \
 		src/fonctions/ppm.h \
 		src/rendu/rendu.h \
@@ -665,7 +669,8 @@ build/obj/main.o: src/main.cpp src/qt/mainwindow.h \
 		src/objets/camera.h \
 		src/objets/vaisseau.h \
 		src/objets/tir.h \
-		src/objets/asteroide.h
+		src/objets/asteroide.h \
+		src/qt/finwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/main.o src/main.cpp
 
 build/obj/VM_init.o: src/VM_init.cpp src/rendu/rendu.h \
@@ -684,17 +689,18 @@ build/obj/VM_init.o: src/VM_init.cpp src/rendu/rendu.h \
 		src/rendu/decor.h \
 		src/touches/actions.h \
 		src/touches/touches.h \
+		src/qt/finwindow.h \
 		src/rendu/frontiere.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/VM_init.o src/VM_init.cpp
 
 build/obj/qrc_ressource.o: qrc_ressource.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/qrc_ressource.o qrc_ressource.cpp
 
+build/obj/moc_finwindow.o: build/moc/moc_finwindow.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/moc_finwindow.o build/moc/moc_finwindow.cpp
+
 build/obj/moc_mainwindow.o: build/moc/moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/moc_mainwindow.o build/moc/moc_mainwindow.cpp
-
-build/obj/moc_pausewindow.o: build/moc/moc_pausewindow.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/obj/moc_pausewindow.o build/moc/moc_pausewindow.cpp
 
 ####### Install
 

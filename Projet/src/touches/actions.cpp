@@ -2,6 +2,7 @@
 #include<iostream>
 
 extern Vaisseau * vaisseau;
+extern void reinitialisation();
 
 bool zPressed = false;
 bool qPressed = false;
@@ -15,6 +16,8 @@ bool keyDownPressed = false;
 bool keyLeftPressed = false;
 bool keyRightPressed = false;
 
+extern int argc;
+extern char** argv;
 
 void actionTir( Vaisseau *v){
   v->tirs.back()->setSpeed(2.6); 
@@ -34,8 +37,10 @@ void touche(unsigned char key, int x, int y)
 {
   switch(key){
     case ESCAPE :
-      if(pauseActivated) pauseActivated = false;
-      else pauseActivated = true;
+      /*if(pauseActivated) pauseActivated = false;
+      else pauseActivated = true;*/
+
+      reinitialisation();
       break;
     
     case ESPACE:

@@ -20,6 +20,7 @@ extern bool keyLeftPressed;
 
 int temps_precedent =0;
 int temps_invincible;
+extern int tempsDef;
 
 extern std::vector<Asteroide *> asteroides;
 extern Vaisseau * vaisseau;
@@ -101,7 +102,7 @@ GLvoid VM_init() {
 
 
   // soucoupe de l'ennemi
-  if(temps_acceleration_reelle(1)>20 && ennemi->getVie()>0){  //delai de l'apparition de l'ennemi
+  if(tempsDef < 80000 && ennemi->getVie()>0){  //delai de l'apparition de l'ennemi
 	glPushMatrix();
 	
 		vieSoucoupe(ennemi->getVie(), angleHeart++);

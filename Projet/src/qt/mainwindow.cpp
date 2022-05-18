@@ -81,9 +81,8 @@ void mainwindow::createWidgetMenuPrincipal(int argc, char**argv){
   jouer->setFixedSize(400, 100);
   QObject::connect(jouer, &QPushButton::clicked,
   [=](){
-    this->hide();
-    notre_init(argc, argv, &Modelisation, this);
-  
+    this->close();
+    return notre_init(argc, argv, &Modelisation);
   });
 
   //  Bouton Options
