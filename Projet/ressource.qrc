@@ -2,5 +2,6 @@
 <RCC version="1.0">
   <qresource prefixe ="/">
     <file>pic/aste.ico</file>
+    <file>pic/background.png</file>
   </qresource>
 </RCC>

@@ -121,7 +121,7 @@ void mainwindow::createWidgetMenuPrincipal(int argc, char**argv){
 void mainwindow::createWidgetMenuOption(){
   QWidget * menuOption = new QWidget();
   this->widgets->addWidget(menuOption);
-
+   
   //  Options
 
   QComboBox * languageCB = new QComboBox();
@@ -176,7 +176,10 @@ mainwindow::mainwindow(int argc, char**argv)
   
 
   this->setWindowIcon(QIcon(":/pic/aste.ico"));
-  
+    QPixmap bkgnd(":/pic/background.png");
+    QPalette palette;
+    palette.setBrush(QPalette::Window, bkgnd);
+    this->setPalette(palette);
   
 }
 

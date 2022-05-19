@@ -466,6 +466,7 @@ compiler_rcc_clean:
 	-$(DEL_FILE) qrc_ressource.cpp
 qrc_ressource.cpp: ressource.qrc \
 		/usr/lib/qt5/bin/rcc \
+		pic/background.png \
 		pic/aste.ico
 	/usr/lib/qt5/bin/rcc -name ressource ressource.qrc -o qrc_ressource.cpp
 
