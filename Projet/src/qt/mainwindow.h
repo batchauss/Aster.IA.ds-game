@@ -8,6 +8,8 @@
 #include "../objets/vaisseau.h"
 #include "../init.h"
 #include "../touches/actions.h"
+#include "../rendu/renduPause.h"
+#include "../rendu/hud.h"
 
 class mainwindow : public QMainWindow
 {

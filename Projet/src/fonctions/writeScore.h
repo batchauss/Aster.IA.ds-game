@@ -1,5 +1,5 @@
-#ifndef TEXTURE_H
-#define TEXTURE_X
+#ifndef WRITESCORE_H
+#define WRITESCORE_H
 
 #include <string>
 #include <fstream>

@@ -1,16 +1,14 @@
 #include "mainwindow.h"
 
 extern GLvoid VM_init();
-extern GLvoid timer(int i);
-extern GLvoid decoHUD();
-extern GLvoid renduPause();
+
+std::string pseudonyme;
 
 extern GLfloat ambiente[4];
 extern bool pauseActivated;
 
 int tempsAvant;
 int tempsApres;
-
 int tempsRetenu = 0;
 
 bool doPauseOnce = false;
@@ -72,12 +70,25 @@ void mainwindow::createWidgetMenuPrincipal(int argc, char**argv){
   QWidget * menuPrincipal = new QWidget();
   this->widgets->addWidget(menuPrincipal);
 
+  //  Text area pseudo
+
+  QLineEdit * pseudo = new QLineEdit();
+  pseudo->setAlignment(Qt::AlignCenter);
+  pseudo->setFixedSize(400, 50);
+  pseudo->setMaxLength(10);
+  pseudo->setPlaceholderText("PSEUDO");
+  int r = rand() % 1000 + 1;
+  pseudo->setText("Anon" + QString::number(r));
+  pseudo->setFont(QFont("Cochin", 15));
+
   //  Bouton Jouer
 
-  QPushButton * jouer = new QPushButton("Jouer");
+  QPushButton * jouer = new QPushButton("JOUER");
+  jouer->setFont(QFont("Times", 30));
   jouer->setFixedSize(400, 100);
   QObject::connect(jouer, &QPushButton::clicked,
   [=](){
+    pseudonyme = pseudo->text().toStdString();
     this->close();
     return notre_init(argc, argv, &Modelisation);
   });
@@ -86,6 +97,7 @@ void mainwindow::createWidgetMenuPrincipal(int argc, char**argv){
 
   QPushButton * options = new QPushButton("Options");
   options->setFixedSize(190, 50);
+  options->setFont(QFont("Times", 15));
   QObject::connect(options, &QPushButton::clicked,
   [=](){
     switchMenuOption();
@@ -95,6 +107,7 @@ void mainwindow::createWidgetMenuPrincipal(int argc, char**argv){
   
   QPushButton * quitter = new QPushButton("Quitter");
   quitter->setFixedSize(190, 50);
+  quitter->setFont(QFont("Times", 15));
   QObject::connect(quitter, &QPushButton::clicked,
   [=](){
     this->close();
@@ -105,10 +118,12 @@ void mainwindow::createWidgetMenuPrincipal(int argc, char**argv){
   QGridLayout * layout = new QGridLayout();
   layout->setAlignment(Qt::AlignCenter);
   layout->setHorizontalSpacing(20);
+  layout->setVerticalSpacing(10);
  
-  layout->addWidget(jouer, 0, 0, 2, 4);
-  layout->addWidget(options, 2, 0, 1, 1);
-  layout->addWidget(quitter, 2, 1, 1, 1);
+  layout->addWidget(pseudo, 0, 0, 1, 2);
+  layout->addWidget(jouer, 1, 0, 1, 2);
+  layout->addWidget(options, 2, 0);
+  layout->addWidget(quitter, 2, 1);
 
   menuPrincipal->setLayout(layout);
 

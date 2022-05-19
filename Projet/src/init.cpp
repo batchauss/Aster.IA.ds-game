@@ -32,6 +32,8 @@ int argc;
 char** argv;
 extern GLvoid Modelisation();
 
+extern std::string pseudonyme;
+
 
 GLvoid Redimensionne(GLsizei width, GLsizei height){
 	glViewport(0, 0, width, height);

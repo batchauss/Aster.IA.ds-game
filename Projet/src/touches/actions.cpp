@@ -18,6 +18,8 @@ bool keyRightPressed = false;
 extern int argc;
 extern char** argv;
 
+extern void reinitialisation();
+
 void actionTir( Vaisseau *v){
   v->tirs.back()->setSpeed(2.6); 
         v->tirs.back()->setTirActif(true);
@@ -42,7 +44,6 @@ void touche(unsigned char key, int x, int y)
     
     case ESPACE:
         if(!vaisseau->invincible)actionTir(vaisseau);
-
       break;
     
     case TOUCHE_MIN_Z :
@@ -57,6 +58,19 @@ void touche(unsigned char key, int x, int y)
     case TOUCHE_MIN_D :
       dPressed = true;
       break;
+
+    case TOUCHE_MIN_R :
+      if(pauseActivated){
+        pauseActivated = false;
+        reinitialisation();
+      }
+      break; 
+    
+    case TOUCHE_MIN_L :
+      if(pauseActivated){
+        exit(1);
+      }
+      break; 
   }
 }
 

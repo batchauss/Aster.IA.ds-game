@@ -15,6 +15,8 @@ GLvoid barreVie(GLfloat vie){
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
     glLoadIdentity();
+    glDisable(GL_LIGHTING);
+
 
         glTranslatef(0, 0.3, 0);
 
@@ -26,6 +28,7 @@ GLvoid barreVie(GLfloat vie){
         glutSolidCube(1);
 
     //End 2D
+    glEnable(GL_LIGHTING);
     glMatrixMode(GL_PROJECTION);
     glPopMatrix();
     glMatrixMode(GL_MODELVIEW);
@@ -43,7 +46,7 @@ GLvoid timer(int tempsRetenu){
 
     glColor3f(0.2,0.6,0.2);
     std::string tmp = intPadding(tempsActuel);
-    vBitmapOutput(-165, 900, tmp, GLUT_STROKE_ROMAN);
+    vBitmapOutput(-165, 900, 1, 1, tmp, GLUT_STROKE_ROMAN, 4);
 }
 
 std::string intPadding(int i){
@@ -60,10 +63,10 @@ std::string intPadding(int i){
 
 GLvoid afficheScore(GLfloat score){
     int s = score;
-    vBitmapOutput(780, 900, std::to_string(s)+"pts", GLUT_STROKE_ROMAN);
+    vBitmapOutput(780, 900, 1, 1, std::to_string(s)+"pts", GLUT_STROKE_ROMAN, 5);
 }
 
-void vBitmapOutput(GLfloat x, GLfloat y, std::string string, void *font)
+void vBitmapOutput(GLfloat x, GLfloat y, GLfloat scalex, GLfloat scaley, std::string string, void *font, GLfloat lineWidth)
 {
     //Début 2D
     glMatrixMode (GL_PROJECTION);
@@ -72,11 +75,13 @@ void vBitmapOutput(GLfloat x, GLfloat y, std::string string, void *font)
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
     glLoadIdentity();
+    glDisable(GL_LIGHTING);
 
     glColor3f(1.0, 1.0, 1.0);
-    glLineWidth(5);
+    glLineWidth(lineWidth);
     glScalef(1/1520.38, 1/1520.38, 1/1520.38);
-    glScalef(1.2, 1.4, 1.4);
+    glScalef(1.2, 1.4, 1);
+    glScalef(scalex, scaley, 1);
 
     glTranslatef(x, y, 0);
 
@@ -85,6 +90,7 @@ void vBitmapOutput(GLfloat x, GLfloat y, std::string string, void *font)
 	for(int i = 0; i < len; i++) glutStrokeCharacter(font,string[i]); // Affiche chaque caractère de la chaîne
     
     //End 2D
+    glEnable(GL_LIGHTING);
     glMatrixMode(GL_PROJECTION);
     glPopMatrix();
     glMatrixMode(GL_MODELVIEW);
@@ -99,6 +105,7 @@ GLvoid decoHUD(){
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
     glLoadIdentity();
+    glDisable(GL_LIGHTING);
 
     glColor3f(0.4, 0, 0.8);
     glLineWidth(4);
@@ -120,6 +127,7 @@ GLvoid decoHUD(){
     glEnd();
 
     //End 2D
+    glEnable(GL_LIGHTING);
     glMatrixMode(GL_PROJECTION);
     glPopMatrix();
     glMatrixMode(GL_MODELVIEW);
