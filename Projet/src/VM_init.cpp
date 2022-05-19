@@ -6,7 +6,6 @@
 #include "rendu/decor.h"
 #include "touches/actions.h"
 #include "rendu/frontiere.h"
-#include "fonctions/frames.h"
 
 extern GLfloat score;
 
@@ -18,7 +17,6 @@ extern bool keyDownPressed;
 extern bool keyRightPressed;
 extern bool keyLeftPressed;
 
-int temps_precedent =0;
 int temps_invincible;
 extern int tempsDef;
 
@@ -69,7 +67,7 @@ GLvoid VM_init() {
 			//contact entre le vaisseau et un asteroide
 			if(vaisseau->invincible==false && vaisseau->collisionVaisseauAsteroide(asteroides.at(i))  ){
 				vaisseau->invincible=true;
-				temps_invincible = (int)temps_acceleration_reelle(1) +3;
+				temps_invincible = tempsDef - 3000;
 				asteroides.at(i)->setTouche(true);
 	   		}
 			
@@ -77,7 +75,7 @@ GLvoid VM_init() {
 				if(vaisseau->getVie()>=30 )vaisseau->setVie(vaisseau->getVie()-30);
 				else vaisseau->setVie(0);
 				vaisseau->invincible=true;
-				temps_invincible = (int)temps_acceleration_reelle(1) +3;
+				temps_invincible = tempsDef - 3000;
 			}
 
 			if(vaisseau->getVie()==0) {
@@ -95,7 +93,7 @@ GLvoid VM_init() {
 			}
 
 				//vaisseau invincible pendant 3 seconde apres contact
-				if(temps_invincible == (int)temps_acceleration_reelle(1))  vaisseau->invincible=false;
+				if(temps_invincible > tempsDef)  vaisseau->invincible=false;
 		glPopMatrix();
 	}
 

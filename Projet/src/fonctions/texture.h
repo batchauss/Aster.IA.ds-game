@@ -1,5 +1,5 @@
 #ifndef TEXTURE_H
-#define TEXTURE_X
+#define TEXTURE_H
 
 #include "../init.h"
 #include "ppm.h"

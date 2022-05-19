@@ -1,7 +1,6 @@
 #include "../init.h"
 
 GLvoid barreVie(GLfloat vie);
-GLvoid boutonPause();
 GLvoid timer(int tempsRetenu);
 GLvoid afficheScore(GLfloat score);
 GLvoid decoHUD();

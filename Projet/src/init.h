@@ -8,7 +8,6 @@
 #include <stdio.h> 
 #include <stdlib.h>
 #include<iostream>
-#include <QMainWindow>
 
 
 GLvoid Redimensionne(GLsizei width, GLsizei height);

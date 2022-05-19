@@ -2,7 +2,6 @@
 #include<iostream>
 
 extern Vaisseau * vaisseau;
-extern void reinitialisation();
 
 bool zPressed = false;
 bool qPressed = false;
@@ -37,14 +36,11 @@ void touche(unsigned char key, int x, int y)
 {
   switch(key){
     case ESCAPE :
-      /*if(pauseActivated) pauseActivated = false;
-      else pauseActivated = true;*/
-
-      reinitialisation();
+      if(pauseActivated) pauseActivated = false;
+      else pauseActivated = true;
       break;
     
     case ESPACE:
-        
         if(!vaisseau->invincible)actionTir(vaisseau);
 
       break;

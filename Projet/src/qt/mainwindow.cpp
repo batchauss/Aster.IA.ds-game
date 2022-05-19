@@ -1,12 +1,9 @@
 #include "mainwindow.h"
-#include "../objets/vaisseau.h"
-
-#include <iostream>
 
 extern GLvoid VM_init();
-extern GLvoid boutonPause();
 extern GLvoid timer(int i);
 extern GLvoid decoHUD();
+extern GLvoid renduPause();
 
 extern GLfloat ambiente[4];
 extern bool pauseActivated;
@@ -43,7 +40,7 @@ GLvoid Modelisation()
     doPauseOnce = false;
   }
   else if(!doPauseOnce){ // effectué une seule fois => bouton de pause activé
-    boutonPause();
+    renduPause();
 
     tempsAvant = glutGet(GLUT_ELAPSED_TIME);
     
