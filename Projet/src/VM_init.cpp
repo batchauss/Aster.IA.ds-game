@@ -31,6 +31,7 @@ extern GLvoid vieSoucoupe(int i, GLfloat angle);
 
 GLvoid VM_init() {
 	vaisseau->moveForward();
+	
 	if(!vaisseau->invincible)vaisseau->tirer(); //le vaisseau ne tire pas lorsqu'il est invincible
 	if(!zPressed) vaisseau->decreaseSpeed();
 	if(qPressed) vaisseau->setAngle(2);

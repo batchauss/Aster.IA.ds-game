@@ -28,8 +28,7 @@ void actionTir( Vaisseau *v){
 
         t=v->tirs.at(v->tirs.size()-1);
         v->tirs.insert(v->tirs.begin(),t);
-        v->tirs.pop_back();
-        
+        v->tirs.pop_back();        
 }
 
 void touche(unsigned char key, int x, int y) 

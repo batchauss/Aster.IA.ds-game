@@ -8,7 +8,7 @@ extern  GLfloat score ;
 void deplacementEnnemi(){
     ennemi->moveForward();		
 	ennemi->tirer();
-	ennemi->setSpeed(1.3);
+	ennemi->setSpeed(1);
 	ennemi->setAngle2(2);
 	ennemi->setAngle(0);
     ennemi->setHitbox(7,7,7);

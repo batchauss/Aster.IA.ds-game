@@ -9,12 +9,6 @@ extern Vaisseau * vaisseau;
 extern  GLfloat score ;
 
 AsteroideMoyen::AsteroideMoyen( int i) :Asteroide(i){
-    this->_id=i; 
-    this->_x=0;
-    this->_y=0;
-    this->_z=0;
-    this->_angle = 0;  
-    this->vitesse =0.6;
     this->taille=2;
     this->rayon_hitbox=12;
 }
@@ -41,6 +35,7 @@ void AsteroideMoyen::split(){
       for(unsigned int i = 0; i<asteroides.size();++i){
          asteroides.at(i)->setId(i);
      }
+     delete this;
   }
 
  GLvoid AsteroideMoyen::asteroideTouche(){
