@@ -13,9 +13,6 @@ GLuint texture[1];
 int window = 0;
 GLfloat ambiente[4] = {0.7, 0.7, 0.7, 1};
 
-GLfloat r[50][3]; // tableau de coordonnées aléatoires pour les astéroides
-GLfloat angle_ast[50]; // tableau d'angle aléatoires qui vont permettre de créer une direction d'un asteroide
-
 struct objmtl vaisseauObj = loadObj("models/vaisseau");
 struct objmtl asteroideObj = loadObj("models/asteroides1");
 struct objmtl asteroide2Obj = loadObj("models/asteroides2");
@@ -93,7 +90,6 @@ int notre_init(int argc1, char** argv1, void (*Modelisation)()){
 }
 
 void initialise(){
-	remplissageTableauR();
 	asteroides.clear();
 	creationAsteroides();
 
@@ -115,28 +111,19 @@ void reinitialisation(){
 }
 
 
-int Rand( int a, int b) // fonction rand
+float Rand( float a, float b) // fonction rand
 {
-return a + (int)((float)rand() * (b-a+1) / (RAND_MAX-1));
+ float random = ((float) rand()) / (float) RAND_MAX;
+    float diff = b - a;
+    float r = random * diff;
+    return a + r;
 }
 
-void remplissageTableauR(){
-	for(int i=0;i<30;++i){ 
-  	 	r[i][0] = Rand(-399,399);
-  	 	r[i][1] = Rand(-399,399);
-  	 	r[i][2] = Rand(-399,399);
-	 	angle_ast[i] = Rand(0,360);;
-	} 
-}
 
 void creationAsteroides(){
-	//creation des asteroides de grande tailles ( le jeu commence avec 4 grands 
+	//creation des asteroides de grande tailles
 	for( int i=0;i<4;++i){
        Asteroide * a = new AsteroideGrand(i);
-	   a->setX(r[i][0]);
-	   a->setY(r[i][1]);
-	   a->setZ(r[i][2]);
-	   a->setAngle(angle_ast[i]); 
 	   asteroides.push_back(a) ;  
 	}
 }
