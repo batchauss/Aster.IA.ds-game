@@ -3,9 +3,10 @@
 
 #include <QMainWindow>
 #include <QtWidgets>
+#include <iostream>
 
+#include "../objets/vaisseau.h"
 #include "../init.h"
-
 #include "../touches/actions.h"
 
 class mainwindow : public QMainWindow

@@ -1,5 +1,4 @@
 #include "decor.h"
-#include"../fonctions/frames.h"
 
 GLvoid decorPlanetes(){
 	glNewList(9, GL_COMPILE_AND_EXECUTE);

@@ -2,8 +2,6 @@
 #include<iostream>
 
 extern Vaisseau * vaisseau;
-extern std::vector<int> getScores();
-
 
 bool zPressed = false;
 bool qPressed = false;
@@ -43,9 +41,7 @@ void touche(unsigned char key, int x, int y)
       break;
     
     case ESPACE:
-
         if(!vaisseau->invincible)actionTir(vaisseau);
-        getScores();
 
       break;
     
