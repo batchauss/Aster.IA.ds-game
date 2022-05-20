@@ -1,5 +1,6 @@
 #include "hud.h"
 
+extern bool finActivated;
 extern bool pauseActivated;
 extern GLuint texture[2];
 extern std::string pseudonyme;
@@ -60,6 +61,8 @@ GLvoid timer(int tempsRetenu){
     int tempsActuel = tempsPasse + tempsRetenu;
 
     tempsDef = tempsActuel;
+    
+    if(tempsActuel <= 0) finActivated = true;
 
     glColor3f(0.2,0.6,0.2);
     std::string tmp = intPadding(tempsActuel);

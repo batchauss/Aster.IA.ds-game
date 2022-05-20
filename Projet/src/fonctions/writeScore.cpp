@@ -3,11 +3,26 @@
 extern std::vector<std::string> split(const std::string& s);
 
 void writeScore(std::string pseudo, int score){
-
     std::fstream file("scores/scores.txt", std::ios_base::in | std::ios_base::out | std::ios_base::ate);
     if (!file) {
         std::cout << "failed to open ";
     } else {
+        file << score;
+        switch(std::to_string(score).length()){
+            case 1:
+                file << "    ";
+                break;
+            case 2:
+                file << "   ";
+                break;
+            case 3:
+                file << "  ";
+                break;
+            case 4:
+                file << " ";
+                break;
+        }
+        file << pseudo << std::endl;
         file.close();
     }
 }
@@ -59,6 +74,5 @@ std::vector<std::string> bestScores(){
     else {
         for(unsigned int i = 0; i < allScores.size(); i++) scores.push_back(allScores.at(i));
     }
-    for(auto a : scores) std::cout << a << std::endl;
     return scores;
 }

@@ -10,6 +10,7 @@
 #include "../touches/actions.h"
 #include "../rendu/renduPause.h"
 #include "../rendu/hud.h"
+#include "../fonctions/finJeu.h"
 
 class mainwindow : public QMainWindow
 {

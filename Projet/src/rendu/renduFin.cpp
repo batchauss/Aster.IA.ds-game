@@ -12,22 +12,13 @@ GLvoid renduFin(){
     
     //  Ecriture des scores
     glPushMatrix();
-        vBitmapOutput(-900, 1200, 0.5, 0.5, "HIGHSCORES", GLUT_STROKE_ROMAN, 5);
+        vBitmapOutput(-400, 1200, 0.5, 0.5, "HIGHSCORES", GLUT_STROKE_ROMAN, 5);
         std::vector<std::string> scores = bestScores();
         GLfloat espacementHauteur = 800;
         for(unsigned int i=0; i < scores.size(); i++){
-            vBitmapOutput(-900, espacementHauteur, 0.5, 0.5, scores.at(i), GLUT_STROKE_ROMAN, 3);
+            vBitmapOutput(-500, espacementHauteur, 0.5, 0.5, scores.at(i), GLUT_STROKE_ROMAN, 3);
             espacementHauteur -= 200;
         }
-    glPopMatrix();
-
-    //  Séparation ligne blanche
-    glColor3f(0.4, 0, 0.8);
-    glPushMatrix();
-        glBegin(GL_LINE_STRIP);
-            glVertex2f(0.6, 3);
-            glVertex2f(0.6, -1);
-        glEnd();
     glPopMatrix();
 
     //  Affichage "boutons"

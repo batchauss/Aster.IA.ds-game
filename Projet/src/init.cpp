@@ -30,6 +30,7 @@ char** argv;
 extern GLvoid Modelisation();
 
 extern std::string pseudonyme;
+extern bool writeOnce;
 
 GLvoid Redimensionne(GLsizei width, GLsizei height){
 	glViewport(0, 0, width, height);
@@ -104,6 +105,7 @@ void reinitialisation(){
 	ennemi = new Vaisseau(5);
 	
 	score = 0;
+	bool writeOnce = false;
 
 	glutExit();
     notre_init(argc, argv, &Modelisation);

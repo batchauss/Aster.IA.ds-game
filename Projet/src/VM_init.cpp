@@ -7,6 +7,8 @@
 #include "touches/actions.h"
 #include "rendu/frontiere.h"
 
+extern bool finActivated;
+
 extern GLfloat score;
 
 extern bool zPressed;
@@ -80,7 +82,7 @@ GLvoid VM_init() {
 			}
 
 			if(vaisseau->getVie()==0) {
-				exit(1);
+				finActivated = true;
 			}
 			
 			glCallList(asteroides.at(i)->getTaille() + 1);   		

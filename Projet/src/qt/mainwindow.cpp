@@ -3,9 +3,11 @@
 extern GLvoid VM_init();
 
 std::string pseudonyme;
+extern GLfloat score;
 
 extern GLfloat ambiente[4];
 extern bool pauseActivated;
+extern bool finActivated;
 
 int tempsAvant = 0;
 int tempsApres = 0;
@@ -21,10 +23,14 @@ GLvoid Modelisation()
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
-  decoHUD();
-  timer(tempsRetenu);
+  if(finActivated){
+    finJeu(score, pseudonyme);
+    glutSwapBuffers();
+  }
+  else if(!pauseActivated){  // Lorque pause n'est pas actif
 
-  if(!pauseActivated){  // Lorque pause n'est pas actif
+    decoHUD();
+    timer(tempsRetenu);
 
     if(doUnpauseOnce){
       tempsRetenu += tempsApres - tempsAvant;
@@ -40,8 +46,8 @@ GLvoid Modelisation()
     doPauseOnce = false;
   }
   else if(!doPauseOnce){ // effectué une seule fois => bouton de pause activé
-    renduFin();
-
+    timer(tempsRetenu);
+    renduPause();
     tempsAvant = glutGet(GLUT_ELAPSED_TIME);
     
     for(unsigned int i=0; i<3; i++) ambiente[i] = 0.3;

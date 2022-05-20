@@ -8,6 +8,7 @@ bool qPressed = false;
 bool dPressed = false;
 
 bool pauseActivated = false;
+bool finActivated = false;
 
 Tir * t ;
 bool keyUpPressed = false;
@@ -59,14 +60,15 @@ void touche(unsigned char key, int x, int y)
       break;
 
     case TOUCHE_MIN_R :
-      if(pauseActivated){
+      if(pauseActivated || finActivated){
         pauseActivated = false;
+        finActivated = false;
         reinitialisation();
       }
       break; 
     
     case TOUCHE_MIN_L :
-      if(pauseActivated){
+      if(pauseActivated || finActivated){
         exit(1);
       }
       break; 
