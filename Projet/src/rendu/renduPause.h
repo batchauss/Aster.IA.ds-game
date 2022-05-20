@@ -8,6 +8,4 @@
 GLvoid renduPause();
 GLvoid boutonPause();
 
-GLvoid renduFinJeu();
-
 #endif

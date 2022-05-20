@@ -31,7 +31,6 @@ extern GLvoid Modelisation();
 
 extern std::string pseudonyme;
 
-
 GLvoid Redimensionne(GLsizei width, GLsizei height){
 	glViewport(0, 0, width, height);
 	glMatrixMode(GL_PROJECTION);

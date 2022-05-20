@@ -1,6 +1,6 @@
-#include "renduPause.h"
+#include "renduFin.h"
 
-GLvoid renduPause(){
+GLvoid renduFin(){
     glMatrixMode (GL_PROJECTION);
     glPushMatrix();
     glLoadIdentity();
@@ -9,8 +9,6 @@ GLvoid renduPause(){
     glPushMatrix();
     glLoadIdentity();
     glDisable(GL_LIGHTING);
-
-    boutonPause();
     
     //  Ecriture des scores
     glPushMatrix();
@@ -34,15 +32,10 @@ GLvoid renduPause(){
 
     //  Affichage "boutons"
     glColor3f(1, 1, 1);
-    glColor3f(1, 1, 1);
-    vBitmapOutput(-1500, -1400, 0.3, 0.5, "  Reprendre", GLUT_STROKE_ROMAN, 3);
-    vBitmapOutput(-1500, -1550, 0.3, 0.5, "Touche Echap", GLUT_STROKE_ROMAN, 3);
-
-    vBitmapOutput(-250, -1400, 0.3, 0.5, " Rejouer", GLUT_STROKE_ROMAN, 3);
-    vBitmapOutput(-250, -1550, 0.3, 0.5, "Touche R", GLUT_STROKE_ROMAN, 3);
-    
-    vBitmapOutput(800, -1400, 0.3, 0.5, " Quitter", GLUT_STROKE_ROMAN, 3);
-    vBitmapOutput(800, -1550, 0.3, 0.5, "Touche L", GLUT_STROKE_ROMAN, 3);
+    vBitmapOutput(-1200, -1300, 0.3, 0.5, " Rejouer", GLUT_STROKE_ROMAN, 3);
+    vBitmapOutput(-1200, -1450, 0.3, 0.5, "Touche R", GLUT_STROKE_ROMAN, 3);
+    vBitmapOutput(700, -1300, 0.3, 0.5, " Quitter", GLUT_STROKE_ROMAN, 3);
+    vBitmapOutput(700, -1450, 0.3, 0.5, "Touche L", GLUT_STROKE_ROMAN, 3);
 
     //  Fenêtre
     glPushMatrix();
@@ -67,15 +60,5 @@ GLvoid renduPause(){
     glMatrixMode(GL_PROJECTION);
     glPopMatrix();
     glMatrixMode(GL_MODELVIEW);
-    glPopMatrix();
-}
-
-GLvoid boutonPause(){
-    glPushMatrix();
-        glTranslatef(-4, 4, 0);
-	    glScalef(0.2, 1, 1);
-        glutSolidCube(1);
-        glTranslatef(1.5, 0, 0);
-        glutSolidCube(1);
     glPopMatrix();
 }

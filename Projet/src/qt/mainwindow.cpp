@@ -7,12 +7,14 @@ std::string pseudonyme;
 extern GLfloat ambiente[4];
 extern bool pauseActivated;
 
-int tempsAvant;
-int tempsApres;
+int tempsAvant = 0;
+int tempsApres = 0;
 int tempsRetenu = 0;
 
 bool doPauseOnce = false;
 bool doUnpauseOnce = false;
+
+extern GLvoid renduFin();
 
 GLvoid Modelisation()
 {
@@ -38,7 +40,7 @@ GLvoid Modelisation()
     doPauseOnce = false;
   }
   else if(!doPauseOnce){ // effectué une seule fois => bouton de pause activé
-    renduPause();
+    renduFin();
 
     tempsAvant = glutGet(GLUT_ELAPSED_TIME);
     

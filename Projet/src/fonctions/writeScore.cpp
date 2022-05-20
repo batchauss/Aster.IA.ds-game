@@ -8,7 +8,6 @@ void writeScore(std::string pseudo, int score){
     if (!file) {
         std::cout << "failed to open ";
     } else {
-        file << pseudo << score << std::endl;
         file.close();
     }
 }

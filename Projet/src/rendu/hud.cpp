@@ -2,6 +2,7 @@
 
 extern bool pauseActivated;
 extern GLuint texture[2];
+extern std::string pseudonyme;
 
 int tempsDef;
 
@@ -17,6 +18,22 @@ GLvoid barreVie(GLfloat vie){
     glLoadIdentity();
     glDisable(GL_LIGHTING);
 
+        glPushMatrix();
+            GLfloat posx, posy;
+            switch(pseudonyme.size()){
+                case 10: posx = -350; break;
+                case 9: posx = -320; break;
+                case 8: posx = -280; break;
+                case 7: posx = -250; break;
+                case 6: posx = -220; break;
+                case 5: posx = -190; break;
+                case 4: posx = -160; break;
+                case 3: posx = -130; break;
+                case 2: posx = -90; break;
+                case 1: posx = -50; break;
+            }
+            vBitmapOutput(posx, 300, 0.3, 0.3, pseudonyme, GLUT_STROKE_ROMAN, 3);
+        glPopMatrix();
 
         glTranslatef(0, 0.3, 0);
 
