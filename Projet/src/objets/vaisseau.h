@@ -5,12 +5,12 @@
 #include "camera.h"
 #include "tir.h"
 #include "asteroide.h"
-#include<vector>
+#include <vector>
 
 class Vaisseau {
 
 public : 
-    Vaisseau();
+    Vaisseau(int nbBalles);
     ~Vaisseau();
     void move(GLfloat x, GLfloat y, GLfloat z);             // Permet d'incrémenter la position du vaisseau par x y z
     
@@ -25,6 +25,12 @@ public :
     GLfloat getSpeed(){return this->vitesse;}
     GLfloat getVie(){return this->vie;}
 
+    GLfloat getLongueur(){return this->longueur;}
+    GLfloat getLargeur(){return this->largeur;}
+    GLfloat getHauteur(){return this->hauteur;}
+
+    std::string getStatut(){return this->statut;}
+
     void setPos(GLfloat x, GLfloat y, GLfloat z){           // Modifie pos
         this->pos[0] = x;
         this->pos[1] = y;
@@ -38,13 +44,24 @@ public :
     void calculmoveForward();
     void moveForward();
     void decreaseSpeed();
-     void setSpeed(GLfloat v){ 
+    void setSpeed(GLfloat v){ 
         this->vitesse=v;
-     }
+    }
+    void setHitbox( GLfloat lo, GLfloat la, GLfloat h){
+         this->longueur =lo;
+         this->largeur=la;
+         this->hauteur=h;
+    }
+
+    void setStatut(std::string s){this->statut =s;}
     
     GLvoid tirer();
 
     bool collisionVaisseauAsteroide( Asteroide * a);
+
+    bool collisionVaisseauVaisseau( Vaisseau *v);
+
+    bool invincible;
 
     Camera * camera;
     std::vector <Tir *> tirs; // tableau de munitions
@@ -57,6 +74,7 @@ private :
     GLfloat largeur;
     GLfloat hauteur;
     GLfloat vie;
+    std::string statut;
 };
 
 #endif

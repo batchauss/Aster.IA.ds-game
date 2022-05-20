@@ -43,7 +43,7 @@ struct objmtl loadObj(std::string const & path){
     struct obj o = {v, vt, vn, faces};
     struct objmtl om = {o, materiaux};
 
-    std::cout << "Obj chargé : " << path << std::endl;
+    std::cout << "Obj chargé : " << path << " | ";
     std::cout << o.v.size() << " v, " <<  o.vt.size() << " vt, " <<  o.vn.size() << " vn, " <<  o.faces.size() << " faces." << std::endl;
     return om;
 }
@@ -100,7 +100,7 @@ mtls loadMtl(std::string const & path){
             materiaux.push_back(mat);
         }
     }
-    std::cout << "Mtl chargé : " << path << std::endl;
+    std::cout << "Mtl chargé : " << path << " | ";
     for(auto &a : materiaux){
         std::cout << a.nom << " ";
     }std::cout << std::endl;

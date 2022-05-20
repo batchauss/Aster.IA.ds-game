@@ -11,7 +11,7 @@ class Asteroide {
     
      public :
         Asteroide(int i);
-         ~Asteroide();
+        virtual ~Asteroide()=0;
 
     //Accesseur sur l'id de l'astéroide
         GLfloat getId(){return this->_id;}
@@ -50,9 +50,6 @@ class Asteroide {
 
         virtual void split() = 0; //fonction de séparation des astéroides
         virtual GLvoid asteroideTouche() = 0;
-
-        GLvoid contactEntreAsteroide();
-
                 
     protected:
 

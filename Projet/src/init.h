@@ -7,15 +7,16 @@
 #include <unistd.h>
 #include <stdio.h> 
 #include <stdlib.h>
-
+#include<iostream>
 
 
 GLvoid Redimensionne(GLsizei width, GLsizei height);
 int notre_init(int argc, char** argv, void (*Modelisation)());
 
 void initialise();
+void reinitialise();
 
-int Rand(int a, int b);
+float Rand(float a, float b);
 void remplissageTableauR();
 void creationAsteroides();
 

@@ -6,23 +6,31 @@
 #include "fonctions/ppm.h"
 
 #include "rendu/rendu.h"
+#include "rendu/decor.h"
 
-GLuint texture[5];
+
+GLuint texture[1];
 int window = 0;
 GLfloat ambiente[4] = {0.7, 0.7, 0.7, 1};
 
-GLfloat r[50][3]; // tableau de coordonnées aléatoires pour les astéroides
-GLfloat angle_ast[50]; // tableau d'angle aléatoires qui vont permettre de créer une direction d'un asteroide
+struct objmtl vaisseauObj = loadObj("models/vaisseau");
+struct objmtl asteroideObj = loadObj("models/asteroides1");
+struct objmtl asteroide2Obj = loadObj("models/asteroides2");
+struct objmtl asteroide3Obj = loadObj("models/asteroides3");
+struct objmtl ennemiobj = loadObj("models/ennemi");
+struct objmtl heartObj = loadObj("models/heart");
 
-struct objmtl vaisseauObj;
-struct objmtl asteroideObj;
-struct objmtl asteroide2Obj;
-struct objmtl asteroide3Obj;
-
-Vaisseau * vaisseau = new Vaisseau();
+Vaisseau * vaisseau = new Vaisseau(10);
+Vaisseau * ennemi = new Vaisseau(5);
 std::vector<Asteroide *> asteroides;
+GLfloat score = 0;
 
-GLfloat score =0;
+int argc;
+char** argv;
+extern GLvoid Modelisation();
+
+extern std::string pseudonyme;
+extern bool writeOnce;
 
 GLvoid Redimensionne(GLsizei width, GLsizei height){
 	glViewport(0, 0, width, height);
@@ -32,12 +40,17 @@ GLvoid Redimensionne(GLsizei width, GLsizei height){
 	glMatrixMode(GL_MODELVIEW);
 }
 
-int notre_init(int argc, char** argv, void (*Modelisation)()){
-	glutInit(&argc, argv);
+int notre_init(int argc1, char** argv1, void (*Modelisation)()){
+	argc = argc1;
+	argv = argv1;
+	initialise();
+
+	glutInit(&argc1, argv1);
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
 	glutInitWindowSize(1280, 960);
 	glutInitWindowPosition(0, 0);
 	window = glutCreateWindow("Aster.IA.ds");
+	
 	glutFullScreen();
 	glutDisplayFunc(Modelisation);
 	glutIdleFunc(Modelisation);
@@ -56,11 +69,17 @@ int notre_init(int argc, char** argv, void (*Modelisation)()){
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 
-	renduVaisseau(vaisseauObj);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+	renduVaisseau(1,vaisseauObj);
+	renduVaisseau(2,vaisseauObj);
 	renduAsteroide(1, asteroideObj);
 	renduAsteroide(2, asteroide2Obj);
 	renduAsteroide(3, asteroide3Obj);
+	renduEnnemi(ennemiobj);
+	renduCoeur(heartObj);
+	decorPlanetes();
 		
 	//implementation des fichiers de textures
 	TEXTURE_STRUCT * night = readPpm((char *)"./pic/night.ppm");
@@ -71,40 +90,41 @@ int notre_init(int argc, char** argv, void (*Modelisation)()){
 }
 
 void initialise(){
-
-	vaisseauObj = loadObj("models/vaisseau");
-	asteroideObj = loadObj("models/asteroides1");
-	asteroide2Obj = loadObj("models/asteroides2");
-	asteroide3Obj = loadObj("models/asteroides3");
-
-	remplissageTableauR();
+	asteroides.clear();
 	creationAsteroides();
+
+	ennemi->setVie(30);
+	ennemi->setPos(Rand(-100,100),Rand(-100,100),Rand(-100,100));
 }
 
-int Rand( int a, int b) // fonction rand
+void reinitialisation(){
+	delete vaisseau;
+	vaisseau = new Vaisseau(10);
+
+	delete ennemi;
+	ennemi = new Vaisseau(5);
+	
+	score = 0;
+	bool writeOnce = false;
+
+	glutExit();
+    notre_init(argc, argv, &Modelisation);
+}
+
+
+float Rand( float a, float b) // fonction rand
 {
-       int nRand ;
-       nRand= a + (int)((float)rand() * (b-a+1) / (RAND_MAX-1)) ;
-       return nRand;
+ float random = ((float) rand()) / (float) RAND_MAX;
+    float diff = b - a;
+    float r = random * diff;
+    return a + r;
 }
 
-void remplissageTableauR(){
-	for(int i=0;i<30;++i){ 
-  	 	r[i][0] = Rand(-399,399);
-  	 	r[i][1] = Rand(-399,399);
-  	 	r[i][2] = Rand(-399,399);
-	 	angle_ast[i] = Rand(0,360);;
-	} 
-}
 
 void creationAsteroides(){
-	//creation des asteroides de grande tailles ( le jeu commence avec 4 grands )
-	for(unsigned int i=0;i<4;++i){
+	//creation des asteroides de grande tailles
+	for( int i=0;i<4;++i){
        Asteroide * a = new AsteroideGrand(i);
-	   a->setX(r[i][0]);
-	   a->setY(r[i][1]);
-	   a->setZ(r[i][2]);
-	   a->setAngle(angle_ast[i]); 
 	   asteroides.push_back(a) ;  
 	}
 }

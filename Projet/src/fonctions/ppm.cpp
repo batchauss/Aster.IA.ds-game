@@ -147,6 +147,7 @@ unsigned char * rgb2rgba(TEXTURE_STRUCT * texture)
   int width = texture->width;
   int height = texture->height;
   unsigned char * data = texture->data;
+  
   unsigned char * temp = (unsigned char *) malloc (sizeof(unsigned char) * width* height *4);
   int i = 0;
 

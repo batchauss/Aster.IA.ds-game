@@ -7,12 +7,6 @@ extern Vaisseau * vaisseau;
 extern  GLfloat score ;
 
 AsteroidePetit::AsteroidePetit( int i) :Asteroide(i){
-    this->_id=i; 
-    this->_x=0;
-    this->_y=0;
-    this->_z=0;
-    this->_angle = 0;  
-    this->vitesse = 0.8; 
     this->taille=1;
     this->rayon_hitbox=5;
 }
@@ -22,7 +16,8 @@ void AsteroidePetit::split(){
     
     for(unsigned int i = 0; i<asteroides.size();++i){ // on reassigne l'id des asteroides
         asteroides.at(i)->setId(i);
-      }
+    }
+    delete this;
 }
 
  GLvoid AsteroidePetit::asteroideTouche(){
@@ -35,7 +30,6 @@ void AsteroidePetit::split(){
        vaisseau->tirs.at(i)->release(vaisseau->posx(),vaisseau->posy(),vaisseau->posz(),vaisseau->getAngle(), vaisseau->getAngle2());
       this->touche =true;
       score +=100;
-      std::cout<<score <<" points "<<std::endl;
       break;
     }
     

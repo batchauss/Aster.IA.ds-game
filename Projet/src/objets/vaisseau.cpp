@@ -5,7 +5,7 @@
 GLfloat longueurTot[5] ={0,0,0,0,0}; //tableau annexe pour le calcul de la longueur du tir
 extern std::vector<Asteroide *> asteroides;
 
-Vaisseau::Vaisseau(){
+Vaisseau::Vaisseau(int nbBalles){
     this->pos[0] = 0;
     this->pos[1] = 0;
     this->pos[2] = 0;
@@ -16,10 +16,12 @@ Vaisseau::Vaisseau(){
     this->largeur=3;
     this->hauteur=3;
     this->vie=100;
+    this->invincible=false;
+    this->statut="intact";
 
     camera = new Camera(posx(), posy() + 10, posz() + 20);
     
-    for (int i =0 ; i<5;++i){
+    for (int i =0 ; i<nbBalles;++i){
        Tir *t = new Tir(posx(), posy() , posz() );
        t->setTirActif(false);
        tirs.push_back(t); 
@@ -86,22 +88,22 @@ void Vaisseau::setAngle(GLfloat a){  //angle x z
 
 
 void Vaisseau::setAngle2(GLfloat a){  //angle y z
-    if((this->angle[1] + a) < 45 && (this->angle[1] + a) > -45){
+    if((this->angle[1] + a) < 60 && (this->angle[1] + a) > -60){
     this->angle[1] += a;
     a *= 3.14 / 180;
 
-    //GLfloat xCam = camera->posx() - posx();
-    //GLfloat yCam = camera->posy() - posy();
-    //GLfloat zCam = camera->posz() - posz();
+   /* GLfloat xCam = camera->posx() - posx();
+    GLfloat yCam = camera->posy() - posy();
+    GLfloat zCam = camera->posz() - posz();
 
-   /* camera->setPos(
+    camera->setPos(
         camera->posx(),
         -zCam * sin(a) + yCam * cos(a) + posy(),  
         zCam *  cos(a) + yCam * sin(a) + posz()    
-    );*/
+    );
     
     
-
+*/
      for (unsigned int i = 0; i< tirs.size();++i){ // les munitions se déplacent avec le vaisseau (angle)
         if(!tirs.at(i)->getTirActif()) tirs.at(i)->setAngle2(this->angle[1]);
      }
@@ -111,7 +113,7 @@ void Vaisseau::setAngle2(GLfloat a){  //angle y z
 void Vaisseau::moveForward(){
     GLfloat calculRotationTranslatex = -vitesse * sin(getAngle ()* 3.14 / 180);
     GLfloat calculRotationTranslatey = vitesse * sin(getAngle2() * 3.14 / 180);
-    GLfloat calculRotationTranslatez =  -vitesse * cos((getAngle() - getAngle2()) * 3.14 / 180);
+    GLfloat calculRotationTranslatez =  -vitesse * cos((getAngle() ) * 3.14 / 180);
  
     if (cos((getAngle2()) * 3.14 / 180) >= 0){
         this->move(calculRotationTranslatex, calculRotationTranslatey, calculRotationTranslatez);    
@@ -193,8 +195,8 @@ GLvoid Vaisseau::tirer(){ // tire une balle
          tirs.at(i)->setposmomentTir(tirs.at(i)->posX(),tirs.at(i)->posY(),tirs.at(i)->posZ());
     }
     
-    //on remet la balle a sa place si il atteint la portée grace au calcul de la longueur
-    if ( longueur > 100 || longueur < -100 ){ 
+    //on remet la balle a sa place si il atteint la portée grace au calcul de la longueur (longueur =200)
+    if ( longueur > 200 || longueur < -200 ){ 
         longueurTot[i]=0;       
         tirs.at(i)->release(this->posx(),this->posy(),this->posz(),this->getAngle(), this->getAngle2());
     }
@@ -203,6 +205,8 @@ GLvoid Vaisseau::tirer(){ // tire une balle
 
 
 bool Vaisseau::collisionVaisseauAsteroide(Asteroide * a){
+    if(!this->invincible)
+    {
         float sphereXDistance = abs(a->posX() - this->posx());
         float sphereYDistance = abs(a->posY() - this->posy());
         float sphereZDistance = abs(a->posZ() - this->posz());
@@ -224,5 +228,26 @@ bool Vaisseau::collisionVaisseauAsteroide(Asteroide * a){
             return true;
         }
         else return false;
+    }
+}
+
+bool Vaisseau::collisionVaisseauVaisseau( Vaisseau *v){
+  if(!this->invincible && v->getVie()>0)
+  {     
+    if(abs(this->posx() - v->posx()) < this->getLargeur() + v->getLargeur())
+    {
+      
+      if(abs(this->posy() - v->posy()) < this->getHauteur() + v->getHauteur())
+      {
+          
+          if(abs(this->posz() - v->posz()) < this->getLongueur() + v->getLongueur())
+          {
+             return true;
+          }
+      }
+    }
+   }
+
+   return false;
 
 }

@@ -7,13 +7,7 @@ extern std::vector<Asteroide *> asteroides;
 extern Vaisseau * vaisseau;
 extern  GLfloat score ;
 
-AsteroideGrand::AsteroideGrand( int i) :Asteroide(i){
-    this->_id=i; 
-    this->_x=0;
-    this->_y=0;
-    this->_z=0;
-    this->_angle = 0;  
-    this->vitesse = 0.5;
+AsteroideGrand::AsteroideGrand( int i) :Asteroide(i){  
     this->taille=3; 
     this->rayon_hitbox=25;
 }
@@ -39,6 +33,7 @@ AsteroideGrand::AsteroideGrand( int i) :Asteroide(i){
       for(unsigned int i = 0; i<asteroides.size();++i){
         asteroides.at(i)->setId(i);
       }
+      delete this;
   }
 
 
@@ -52,7 +47,6 @@ GLvoid AsteroideGrand::asteroideTouche(){
       vaisseau->tirs.at(i)->release(vaisseau->posx(),vaisseau->posy(),vaisseau->posz(),vaisseau->getAngle(), vaisseau->getAngle2());
       this->touche =true;
       score +=20;
-      std::cout<<score <<" points "<<std::endl;
       break;  
     }
   }
