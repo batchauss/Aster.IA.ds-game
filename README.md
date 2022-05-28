@@ -14,13 +14,20 @@ Votre objectif sera de réaliser un jeu multijoueur en 3D. Une liste d'objectifs
 Le but de ce stage est de fournir un contenu de base que l'association [PC[i]](https://projetcohesion.info) pourra enrichir avec quelques fonctionnalités supplémentaires telle que l'aspect multijoueur ou la gestion des IA, des cosmétiques etc. Pour ensuite déployer ce projet et permettre à tout étudiant de jouer ou de créer son IA sur le jeu.
 
 ## Table des matières
-1. [Pourquoi nous ? 🤔](#pourquoi-nous--)
-2. [Technologies](#technologies)
-3. [Méthodologie](#méthodologie)
-4. [Étapes](#étapes)
-5. [Contenu attendu](#contenu-attendu)
-6. [Contenu suplémentaire](#contenu-suplémentaire)
-7. [Une question ❓](#une-question-)
+1. [Compilation et exécution](#compilation-et-exécution)
+2. [Pourquoi nous ? 🤔](#pourquoi-nous--)
+3. [Technologies](#technologies)
+4. [Méthodologie](#méthodologie)
+5. [Étapes](#étapes)
+6. [Contenu attendu](#contenu-attendu)
+7. [Contenu suplémentaire](#contenu-suplémentaire)
+8. [Une question ❓](#une-question-)
+
+## Compilation et exécution
+
+Afin de pouvoir lancer le jeu il faut se rendre dans le
+dossier Projet puis effectuer les commandes "qmake",
+ensuite "make" puis lancer l'exécutable "./Aster.IA.ds" 
 
 ## Pourquoi nous ? 🤔
 
