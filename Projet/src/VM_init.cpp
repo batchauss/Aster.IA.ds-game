@@ -11,6 +11,7 @@ extern bool finActivated;
 
 extern GLfloat score;
 
+
 extern bool zPressed;
 extern bool qPressed;
 extern bool dPressed;

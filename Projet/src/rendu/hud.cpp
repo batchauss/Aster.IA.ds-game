@@ -20,7 +20,7 @@ GLvoid barreVie(GLfloat vie){
     glDisable(GL_LIGHTING);
 
         glPushMatrix();
-            GLfloat posx, posy;
+            GLfloat posx=0;
             switch(pseudonyme.size()){
                 case 10: posx = -350; break;
                 case 9: posx = -320; break;

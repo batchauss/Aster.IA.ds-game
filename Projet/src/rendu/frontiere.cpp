@@ -1,5 +1,8 @@
 #include "frontiere.h"
 
+
+ GLfloat sizeFrontiere =200;
+
 GLvoid cube_frontiere(GLuint texture){  //un cube entouré de textures 
 
  glBindTexture(GL_TEXTURE_2D, texture);
@@ -92,16 +95,16 @@ GLvoid grille(GLfloat r, GLfloat g, GLfloat b){/// quadrillage de frontière
 
       glLineWidth(1.2);
       glColor3f(r,g,b);
-      GLfloat size = 200;
+      
 
       for (int i = 0; i<=10;++i){
         glBegin(GL_LINE_LOOP);
         {
-            glVertex3f(-size,-size+(40 *i),size);//1
-            glVertex3f(size,-size+(40 *i),size);//2
+            glVertex3f(-sizeFrontiere,-sizeFrontiere+(40 *i),sizeFrontiere);//1
+            glVertex3f(sizeFrontiere,-sizeFrontiere+(40 *i),sizeFrontiere);//2
 
-            glVertex3f(size,-size+(40 *i),-size);//3
-            glVertex3f(-size,-size+(40 *i),-size);//4
+            glVertex3f(sizeFrontiere,-sizeFrontiere+(40 *i),-sizeFrontiere);//3
+            glVertex3f(-sizeFrontiere,-sizeFrontiere+(40 *i),-sizeFrontiere);//4
         }
         glEnd();
       }
@@ -110,11 +113,11 @@ GLvoid grille(GLfloat r, GLfloat g, GLfloat b){/// quadrillage de frontière
       for (int i = 0; i<=10;++i){
         glBegin(GL_LINE_LOOP);
         {
-            glVertex3f(-size,-size+(40 *i),size);//1
-            glVertex3f(size,-size+(40 *i),size);//2
+            glVertex3f(-sizeFrontiere,-sizeFrontiere+(40 *i),sizeFrontiere);//1
+            glVertex3f(sizeFrontiere,-sizeFrontiere+(40 *i),sizeFrontiere);//2
 
-            glVertex3f(size,-size+(40 *i),-size);//3
-            glVertex3f(-size,-size+(40 *i),-size);//4
+            glVertex3f(sizeFrontiere,-sizeFrontiere+(40 *i),-sizeFrontiere);//3
+            glVertex3f(-sizeFrontiere,-sizeFrontiere+(40 *i),-sizeFrontiere);//4
         }
         glEnd();
       }
@@ -123,11 +126,11 @@ GLvoid grille(GLfloat r, GLfloat g, GLfloat b){/// quadrillage de frontière
       for (int i = 0; i<=10;++i){
         glBegin(GL_LINE_LOOP);
         {
-            glVertex3f(-size,-size+(40 *i),size);//1
-            glVertex3f(size,-size+(40 *i),size);//2
+            glVertex3f(-sizeFrontiere,-sizeFrontiere+(40 *i),sizeFrontiere);//1
+            glVertex3f(sizeFrontiere,-sizeFrontiere+(40 *i),sizeFrontiere);//2
 
-            glVertex3f(size,-size+(40 *i),-size);//3
-            glVertex3f(-size,-size+(40 *i),-size);//4
+            glVertex3f(sizeFrontiere,-sizeFrontiere+(40 *i),-sizeFrontiere);//3
+            glVertex3f(-sizeFrontiere,-sizeFrontiere+(40 *i),-sizeFrontiere);//4
         }
         glEnd();
       }

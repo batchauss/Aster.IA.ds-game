@@ -6,9 +6,9 @@ extern std::vector <Asteroide *> asteroides;
 Asteroide::Asteroide( int i){
     this->_id=i; 
     //coordonnées aléatoires dans l'univers au départ
-    this->_x=Rand(-399,399);
-    this->_y=Rand(-399,399);
-    this->_z=Rand(-399,399);
+    this->_x=Rand(-199,199);
+    this->_y=Rand(-199,199);
+    this->_z=Rand(-199,199);
     this->_angle = Rand(0,360);  
     this->vitesse=Rand(0.1,1.2);
     this->taille=0;
