@@ -1,5 +1,6 @@
 project:pro.user.*
 Projet/build
+Project/obj
 Projet/.qmake.stash
 Projet/Aster.IA.ds
 Projet/Makefile
