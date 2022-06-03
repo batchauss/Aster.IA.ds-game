@@ -30,7 +30,13 @@ Si vous êtes intérréssé je vous invite à prendre contact avec l'association
 
 Si vous contribuer sur ce git, assurez-vous de suivre un fonctionnement comme le suivant :
 
-![Schema explicatif](.github/CONTRIBUTING_RESSOURCE/architecture_git.svg)
+<div align="center" style="text-align: center;">
+	<img 
+		src=".github/CONTRIBUTING_RESSOURCE/architecture_git.svg"
+		alt="Schema explicatif"
+		width="250"
+		/>
+</div>
 
 Pour proposer des modifications, il vous faudra d'abord créer votre branche ou fork depuis la branche main et demander une merge request vers la branche premain et ensuite un administrateur du projet validera ou non, avec une explication, la merge request, et les administrateur mettrons à jour vers la branche principal ensuite.
 
