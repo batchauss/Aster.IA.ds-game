@@ -3,11 +3,12 @@
 	viewBox="0 60 800 250"
 	width="800"
 	height="400"
-	style="background-color: white;"
+	style="background-color: #0b0b0b;"
 	>
+		<!-- clarity -->
 		<mask id="clarity">
-		<rect x="0" y="0" width="800" height="400" fill="#FFF" /> <!-- Include all -->
-		<rect x="95" y="196" width="10" height="10" fill="#000" /> <!-- Except intersect -->
+			<rect x="0" y="0" width="800" height="400" fill="#FFF" /> <!-- Include all -->
+			<rect x="95" y="196" width="10" height="10" fill="#000" /> <!-- Except intersect -->
 		</mask>
 
 		<!-- dev -->
@@ -19,16 +20,16 @@
 					H 575
 					S 600 300 600 275
 					V 200"
-			stroke="black"
+			stroke="lightgrey"
 			fill="transparent"
 			stroke-width="4"
-			mask="url(#clarity)"			/>
+			mask="url(#clarity)"/>
 			<text
 				x="118"
 				y="280"
 				font-family="monospace"
 				font-size="14"
-				fill="black">
+				fill="#EEE">
 			🔧 feature - lorem ipsum
 			</text>
 		</g>
@@ -40,10 +41,10 @@
 				y="190"
 				font-family="monospace"
 				font-size="14"
-				fill="darkblue">
+				fill="#22F">
 			🔒 premain
 			</text>
-			<rect x="0" y="200" width="1400" height="3" stroke="darkblue" />
+			<rect x="0" y="200" width="1400" height="3" fill="#22F" />
 			<path d="
 					M 600 202
 					H 675
@@ -51,7 +52,7 @@
 					V 100"
 					fill="transparent"
 					stroke-width="3"
-					stroke="darkblue" />
+					stroke="#22F" />
 		</g>
 
 		<!-- main -->
@@ -61,14 +62,14 @@
 				y="90"
 				font-family="monospace"
 				font-size="14"
-				fill="darkgreen">
+				fill="#2F2">
 			🔐 main
 			</text>
-			<rect x="0" y="100" width="1400" height="4" fill="darkgreen" />
+			<rect x="0" y="100" width="1400" height="4" fill="#1D1" />
 		</g>
 
 		<!-- Commit -->
-		<g id="commit">
+		<g id="commit" fill="grey">
 			<circle cx="100" cy="102" r="8" />
 			<circle cx="600" cy="202" r="8" />
 			<circle cx="700" cy="102" r="8" />
@@ -79,6 +80,5 @@
 			<circle cx="500" cy="300" r="8" />
 		</g>
 
-		<!-- clarity -->
 
 </svg>
