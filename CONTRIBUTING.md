@@ -31,10 +31,10 @@ Si vous êtes intérréssé je vous invite à prendre contact avec l'association
 Si vous contribuer sur ce git, assurez-vous de suivre un fonctionnement comme le suivant :
 
 <div align="center" style="text-align: center;">
-	<img 
+	<img
 		src=".github/CONTRIBUTING_RESSOURCE/architecture_git.svg"
 		alt="Schema explicatif"
-		width="250"
+		height="250"
 		/>
 </div>
 
