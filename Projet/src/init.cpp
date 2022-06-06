@@ -81,7 +81,7 @@ int notre_init(int argc1, char** argv1, void (*Modelisation)()){
 	renduEnnemi(ennemiobj);
 	renduCoeur(heartObj);
 	decorPlanetes();
-		
+
 	//implementation des fichiers de textures
 	TEXTURE_STRUCT * night = readPpm((char *)"./pic/night.ppm");
 	Parametres_texture(0, night, texture[0]);
@@ -104,9 +104,9 @@ void reinitialisation(){
 
 	delete ennemi;
 	ennemi = new Vaisseau(5);
-	
+
 	score = 0;
-	bool writeOnce = false;
+	writeOnce = false;
 
 	glutExit();
     notre_init(argc, argv, &Modelisation);
