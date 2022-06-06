@@ -50,8 +50,8 @@ int notre_init(int argc1, char** argv1, void (*Modelisation)()){
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
 	glutInitWindowSize(1280, 960);
 	glutInitWindowPosition(0, 0);
-	window = glutCreateWindow("Aster.IA.ds");
-	
+	window = glutCreateWindow("Aster.ia.ds");
+
 	glutFullScreen();
 	glutDisplayFunc(Modelisation);
 	glutIdleFunc(Modelisation);
@@ -81,7 +81,7 @@ int notre_init(int argc1, char** argv1, void (*Modelisation)()){
 	renduEnnemi(ennemiobj);
 	renduCoeur(heartObj);
 	decorPlanetes();
-		
+
 	//implementation des fichiers de textures
 	TEXTURE_STRUCT * night = readPpm((char *)"./pic/night.ppm");
 	Parametres_texture(0, night, texture[0]);
@@ -104,9 +104,9 @@ void reinitialisation(){
 
 	delete ennemi;
 	ennemi = new Vaisseau(5);
-	
+
 	score = 0;
-	bool writeOnce = false;
+	writeOnce = false;
 
 	glutExit();
     notre_init(argc, argv, &Modelisation);
@@ -115,17 +115,17 @@ void reinitialisation(){
 
 float Rand( float a, float b) // fonction rand
 {
- float random = ((float) rand()) / (float) RAND_MAX;
-    float diff = b - a;
-    float r = random * diff;
-    return a + r;
+	if( b < a ) return Rand(b,a);
+	float r = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+	return ( r * (b - a) ) + a;
+}
+
+int rand_i(int a, int b ) {
+	if( b < a ) return rand_i(b,a);
+	return ( rand() % (b - a) ) + a;
 }
 
 
-void creationAsteroides(){
-	//creation des asteroides de grande tailles
-	for( int i=0;i<4;++i){
-       Asteroide * a = new AsteroideGrand(i);
-	   asteroides.push_back(a) ;  
-	}
+void creationAsteroides() {
+	for( int i=0 ; i<4 ; ++i ) asteroides.push_back( new AsteroideGrand( asteroides.size() ) );
 }

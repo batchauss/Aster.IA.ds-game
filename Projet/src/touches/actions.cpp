@@ -22,30 +22,31 @@ extern char** argv;
 extern void reinitialisation();
 
 void actionTir( Vaisseau *v){
-  v->tirs.back()->setSpeed(2.6); 
+  v->tirs.back()->setSpeed(2.6);
         v->tirs.back()->setTirActif(true);
 
         v->tirs.back()->setposXmomentTir(v->posx());
         v->tirs.back()->setposYmomentTir(v->posy());
-        v->tirs.back()->setposZmomentTir(v->posz()); 
+        v->tirs.back()->setposZmomentTir(v->posz());
 
         t=v->tirs.at(v->tirs.size()-1);
         v->tirs.insert(v->tirs.begin(),t);
-        v->tirs.pop_back();        
+        v->tirs.pop_back();
 }
 
-void touche(unsigned char key, int x, int y) 
+// /!\ x & y unused but required for the glut signature
+void touche(unsigned char key, int x, int y)
 {
   switch(key){
     case ESCAPE :
       if(pauseActivated) pauseActivated = false;
       else pauseActivated = true;
       break;
-    
+
     case ESPACE:
         if(!vaisseau->invincible)actionTir(vaisseau);
       break;
-    
+
     case TOUCHE_MIN_Z :
       zPressed = true;
       vaisseau->setSpeed(2);
@@ -65,16 +66,17 @@ void touche(unsigned char key, int x, int y)
         finActivated = false;
         reinitialisation();
       }
-      break; 
-    
+      break;
+
     case TOUCHE_MIN_L :
       if(pauseActivated || finActivated){
         exit(1);
       }
-      break; 
+      break;
   }
 }
 
+// /!\ x & y unused but required for the glut signature
 void releaseTouche(unsigned char key, int x, int y){
   switch(key){
     case TOUCHE_MIN_Z :
@@ -92,7 +94,8 @@ void releaseTouche(unsigned char key, int x, int y){
   }
 }
 
-void toucheSpeciale(int key, int x, int y) 
+// /!\ x & y unused but required for the glut signature
+void toucheSpeciale(int key, int x, int y)
 {
   switch(key){
 
@@ -110,11 +113,12 @@ void toucheSpeciale(int key, int x, int y)
 
     case GLUT_KEY_RIGHT :
       keyRightPressed = true;
-      break; 
+      break;
   }
 }
 
-void releaseToucheSpeciale(int key, int x, int y) 
+// /!\ x & y unused but required for the glut signature
+void releaseToucheSpeciale(int key, int x, int y)
 {
   switch(key){
 
@@ -132,8 +136,6 @@ void releaseToucheSpeciale(int key, int x, int y)
 
     case GLUT_KEY_RIGHT :
       keyRightPressed = false;
-      break;      
+      break;
   }
 }
-
-
