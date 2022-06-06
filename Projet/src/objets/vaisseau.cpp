@@ -87,72 +87,53 @@ void Vaisseau::setAngle(GLfloat a){  //angle x z
 
 
 
-void Vaisseau::setAngle2(GLfloat a){  //angle y z
-    if((this->angle[1] + a) < 60 && (this->angle[1] + a) > -60){
-    this->angle[1] += a;
-    a *= 3.14 / 180;
+void Vaisseau::setAngle2(GLfloat a){  // pitch angle (2nd angle)
+	this->angle[1] += a;
 
-   /* GLfloat xCam = camera->posx() - posx();
-    GLfloat yCam = camera->posy() - posy();
-    GLfloat zCam = camera->posz() - posz();
-
-    camera->setPos(
-        camera->posx(),
-        -zCam * sin(a) + yCam * cos(a) + posy(),  
-        zCam *  cos(a) + yCam * sin(a) + posz()    
-    );
-    
-    
-*/
-     for (unsigned int i = 0; i< tirs.size();++i){ // les munitions se déplacent avec le vaisseau (angle)
-        if(!tirs.at(i)->getTirActif()) tirs.at(i)->setAngle2(this->angle[1]);
+     for (unsigned int i = 0; i< tirs.size();++i){
+     	if(!tirs.at(i)->getTirActif()) tirs.at(i)->setAngle2(this->angle[1]);
      }
-    }
 }
 
 void Vaisseau::moveForward(){
-    GLfloat calculRotationTranslatex = -vitesse * sin(getAngle ()* 3.14 / 180);
-    GLfloat calculRotationTranslatey = vitesse * sin(getAngle2() * 3.14 / 180);
-    GLfloat calculRotationTranslatez =  -vitesse * cos((getAngle() ) * 3.14 / 180);
- 
-    if (cos((getAngle2()) * 3.14 / 180) >= 0){
-        this->move(calculRotationTranslatex, calculRotationTranslatey, calculRotationTranslatez);    
-        camera->move(calculRotationTranslatex,calculRotationTranslatey, calculRotationTranslatez);
+    	// Player Rotation
+    	float yaw   = getAngle()  * 3.14 / 180;
+    	float pitch = getAngle2() * 3.14 / 180;
+    	float roll  = 0;
 
-        for (unsigned int i = 0; i< tirs.size();++i){  // les munitions se déplacent avec le vaisseau (position)
-          if(!tirs.at(i)->getTirActif()){
-               tirs.at(i)->move(calculRotationTranslatex, calculRotationTranslatey, calculRotationTranslatez);
-               tirs.at(i)->setposmomentTir(tirs.at(i)->posX(),tirs.at(i)->posY(),tirs.at(i)->posZ());
-          }
-        }
-    }
+    	// Player direction
+    	float pdx = -1 * sin(yaw) * cos(pitch);
+    	float pdy =      sin(pitch);
+     float pdz = -1 * cos(yaw) * cos(pitch);
 
-    if (cos((getAngle2()) * 3.14 / 180) < 0){
-        this->move(-calculRotationTranslatex, calculRotationTranslatey, calculRotationTranslatez);    
-        camera->move(-calculRotationTranslatex,calculRotationTranslatey, calculRotationTranslatez);
+	// Player velocity
+	pdx *= vitesse;
+	pdy *= vitesse;
+	pdz *= vitesse;
 
-        for (unsigned int i = 0; i< tirs.size();++i){  // les munitions se déplacent avec le vaisseau (position)
-          if(!tirs.at(i)->getTirActif()){
-               tirs.at(i)->move(-calculRotationTranslatex, calculRotationTranslatey, calculRotationTranslatez);
-               tirs.at(i)->setposmomentTir(tirs.at(i)->posX(),tirs.at(i)->posY(),tirs.at(i)->posZ());
-          }
-        }
-    }
+	// Move player
+	this->move( pdx, pdy, pdz );
+
+	// Keep is projectile inside is ship
+	for(auto & tir: tirs) if(! tir->getTirActif()) {
+		tir->move( pdx , pdy , pdz );
+		tir->setposmomentTir( tir->posX(), tir->posY(), tir->posZ() 	);
+	}
 }
 
 void Vaisseau::decreaseSpeed(){
     if(vitesse > 0) vitesse *= 0.96;
     else if(vitesse < 0) vitesse *= 0.90;
-    
+
 }
 
-GLvoid Vaisseau::tirer(){ // tire une balle 
-  for (unsigned int i = 0; i< tirs.size();++i){
-    
-        GLfloat longueur = longueurTot[i]+ sqrt( (tirs.at(i)->posX()-tirs.at(i)->posXmomentTir())*(tirs.at(i)->posX()-tirs.at(i)->posXmomentTir()) 
+GLvoid Vaisseau::tirer(){ // tire une balle
+	for (unsigned int i = 0; i< tirs.size();++i){
+
+        GLfloat longueur = longueurTot[i]+ sqrt( (tirs.at(i)->posX()-tirs.at(i)->posXmomentTir())*(tirs.at(i)->posX()-tirs.at(i)->posXmomentTir())
                                 +(tirs.at(i)->posY()-tirs.at(i)->posYmomentTir())*(tirs.at(i)->posY()-tirs.at(i)->posYmomentTir())
                                 +(tirs.at(i)->posZ()-tirs.at(i)->posZmomentTir())*(tirs.at(i)->posZ()-tirs.at(i)->posZmomentTir())  );
-    
+
         GLfloat calculRotationTranslatexTir = -tirs.at(i)->getSpeed() * sin(tirs.at(i)->getAngle() * 3.14 / 180);
         GLfloat calculRotationTranslateyTir = tirs.at(i)->getSpeed() * sin(tirs.at(i)->getAngle2() * 3.14 / 180);
         GLfloat calculRotationTranslatezTir = -tirs.at(i)->getSpeed() * cos(tirs.at(i)->getAngle() * 3.14 / 180);
