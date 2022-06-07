@@ -24,6 +24,7 @@ SOURCES += \
 
 HEADERS += \
      \
+     $$files(includes/*.h) \
      $$files(src/fonctions/*.h) \
      $$files(src/qt/*.h) \
      $$files(src/objets/*.h) \
