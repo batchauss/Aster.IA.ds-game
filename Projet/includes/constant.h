@@ -12,6 +12,8 @@ namespace gameconf
     const int POSITIVE_AREA_SIZE = 200;
     const int NEGATIVE_AREA_SIZE = -200;
     const unsigned int ASTEROID_OUT_OF_AREA_RELOCATE = 400;
+    const unsigned int BIG_ASTEROID_SCORE = 20;
+    const unsigned int MEDIUM_ASTEROID_SCORE = 50;
 
     // ASTEROIDS STATS
     const int ASTEROID_MIN_RAND_POS = -199;
@@ -24,6 +26,20 @@ namespace gameconf
     const unsigned int ASTEROID_BASE_HITBOX = 0;
     const unsigned int ASTEROID_MOVE_FORWARD_ANGLE = 180;
     const bool ASTEROID_BASE_TOUCH = false;
+
+    // BIG ASTEROID STATS
+    const unsigned int BIG_ASTEROID_BASE_SIZE = 3;
+    const unsigned int BIG_ASTEROID_BASE_HITBOX = 25;
+    const unsigned int BIG_ASTEROID_SPLIT_DISTANCE = 4;
+    const unsigned int BIG_ASTEROID_MIN_ANGLE = 1;
+    const unsigned int BIG_ASTEROID_MAX_ANGLE = 360;
+
+    // MEDIUM ASTEROID STATS
+    const unsigned int MEDIUM_ASTEROID_BASE_SIZE = 2;
+    const unsigned int MEDIUM_ASTEROID_BASE_HITBOX = 12;
+    const unsigned int MEDIUM_ASTEROID_SPLIT_DISTANCE = 2;
+    const unsigned int MEDIUM_ASTEROID_MIN_ANGLE = 1;
+    const unsigned int MEDIUM_ASTEROID_MAX_ANGLE = 360;
 
     // ENNEMY STATS
     const int ENEMY_SPAWN_DELAY = 80000;
