@@ -1,5 +1,5 @@
 QT   += core gui widgets
-LIBS += -lglut -lGLU 
+LIBS += -lglut -lGLU
 
 RESOURCES += ressource.qrc
 
@@ -20,6 +20,7 @@ SOURCES += \
      $$files(src/objets/*.cpp) \
      $$files(src/rendu/*.cpp) \
      $$files(src/touches/*.cpp) \
+     $$files(src/math/*.cpp) \
      $$files(src/*.cpp) \
 
 HEADERS += \
@@ -29,6 +30,7 @@ HEADERS += \
      $$files(src/objets/*.h) \
      $$files(src/rendu/*.h) \
      $$files(src/touches/*.h) \
+     $$files(src/math/*.h) \
 
 
 DESTDIR = ./
