@@ -34,4 +34,4 @@ jobs:
       uses: actions/download-artifact@v3.0.0
       with:
          name: "Asteriads.deb"
-         path: Projet/Asteriads_0.0.3-1_amd64.deb
+         path: Projet/Asteriads*.deb
