@@ -19,10 +19,11 @@ jobs:
       run: sudo apt install make qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools freeglut3-dev 
 
     - name: qmake
-      run: qmake
+      run: cd Projet && qmake
       
     - name: make
-      run: make
+      run: cd Projet && make
+      
 #   - name: Download a Build Artifact
 #     uses: actions/download-artifact@v3.0.0
 #     with:
