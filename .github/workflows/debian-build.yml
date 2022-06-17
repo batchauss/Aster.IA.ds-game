@@ -27,6 +27,9 @@ jobs:
     - name: dpkg
       run: cd Projet && ../.github/workflows/debian-build.sh
 
+    - name: test
+      run: ls Project
+      
     - name: Publish .deb     
       uses: actions/download-artifact@v3.0.0
       with:
