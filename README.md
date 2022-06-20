@@ -5,7 +5,7 @@
 	Jeu-vidéo - Interface graphique - IA - Rendu 3D
 </p>
 
-![Debian based build](https://github.com/pci-ua/Aster.ia.ds/actions/workflows/debian-build.yml/badge.svg)
+[![Debian based build](https://github.com/pci-ua/Aster.ia.ds/actions/workflows/debian-build.yml/badge.svg?branch=main)](https://github.com/pci-ua/Aster.ia.ds/actions/workflows/debian-build.yml)
 
 <h2 size="1" margin="0"><h6>⠀</h6></h2>
 	
@@ -29,10 +29,25 @@ Le but de ce stage est de fournir un contenu de base que l'association [PC[i]](h
 
 ## Compilation et exécution
 
-Afin de pouvoir lancer le jeu il faut se rendre dans le
-dossier Projet puis effectuer les commandes "qmake",
-ensuite "make" puis lancer l'exécutable "./Aster.IA.ds" 
+### OS Debian-based
+_Ubuntu, Debian, Mint etc. liste complète [ici](https://upload.wikimedia.org/wikipedia/commons/1/1b/Linux_Distribution_Timeline.svg)_
+Télécharger l'archive disponible [ici](https://github.com/pci-ua/Aster.ia.ds/actions/runs/2529179307) puis :
+```bash
+unzip Aster.ia.ds.deb.zip
+sudo apt install ./Aster.ia.ds_0.0.3-1_amd64.deb
+```
 
+Pour lancer le jeu : `Aster.ia.ds` 
+
+### OS non Debian-based
+Demander à `contact@projetcohesion` ou créer une issue sur ce repository pour obtenir une version compatible.
+
+### Windows
+Une version windows 10 et 11 est prévu dans le futur, soyez patient.
+
+### MacOS
+Pour l'instant aucune version mac n'est prévu.
+ 
 ## Pourquoi nous ? 🤔
 
  Un projet avec une réelle application derrière, et orienté jeux-vidéo.
