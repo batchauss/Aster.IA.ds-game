@@ -26,13 +26,15 @@ cp $PROJECT_NAME $DEST_FOLDER/usr/bin/
 mkdir $DEST_FOLDER/DEBIAN/
 touch $DEST_FOLDER/DEBIAN/control
 echo "
-Package: $PROJECT_NAME
+Source: $PROJECT_NAME
 Version: $PROJECT_VERSION
 Architecture: $CONF_ARCHITECTURE
 Maintainer: Mathieu TOULON <contact@projetcohesion.info>
 Description: A game devellop for and by student of the University of Angers at PC[i]
  Still in dev be carefull
 " > $DEST_FOLDER/DEBIAN/control
+
+dpkg-shlibdeps -O $PROJECT_NAME 2> /dev/null | sed -e "s/^shlibs:Depends=/Depends:/g" >> $DEST_FOLDER/DEBIAN/control
 
 # Setup assets
 mkdir -p $DEST_FOLDER/usr/share/Aster.ia.ds/
