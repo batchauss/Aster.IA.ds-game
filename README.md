@@ -1,11 +1,15 @@
 <div align="center">
 	<h1> Aster.ia.ds </h1>
-</div>
 
 <p align="center">
 	Jeu-vidéo - Interface graphique - IA - Rendu 3D
 </p>
 
+![Debian based build](https://github.com/pci-ua/Aster.ia.ds/actions/workflows/debian-build.yml/badge.svg)
+
+<h2 size="1" margin="0"><h6>⠀</h6></h2>
+	
+</div>
 Basé sur le jeu des années 80 [Asteroids](https://fr.wikipedia.org/wiki/Asteroids),
 Aster.ia.ds est un remake de ce dernier avec des technologies vues en cours.
 
