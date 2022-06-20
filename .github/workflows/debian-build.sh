@@ -39,7 +39,7 @@ mkdir -p $DEST_FOLDER/usr/share/Aster.ia.ds/
 cp -r models $DEST_FOLDER/usr/share/Aster.ia.ds/
 cp -r settings $DEST_FOLDER/usr/share/Aster.ia.ds/
 cp -r scores $DEST_FOLDER/usr/share/Aster.ia.ds/
-cp -r settings $DEST_FOLDER/usr/share/Aster.ia.ds/
+cp -r pic $DEST_FOLDER/usr/share/Aster.ia.ds/
 
 # Generate .deb
 dpkg-deb --build --root-owner-group $DEST_FOLDER
