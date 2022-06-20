@@ -1,9 +1,11 @@
 #include "writeScore.h"
 
+const std::string PATH_TO_ASSETS = "/usr/share/Aster.ia.ds/";
+
 extern std::vector<std::string> split(const std::string& s);
 
 void writeScore(std::string pseudo, int score){
-    std::fstream file("scores/scores.txt", std::ios_base::in | std::ios_base::out | std::ios_base::ate);
+    std::fstream file(PATH_TO_ASSETS+"scores/scores.txt", std::ios_base::in | std::ios_base::out | std::ios_base::ate);
     if (!file) {
         std::cout << "failed to open ";
     } else {
@@ -30,7 +32,7 @@ void writeScore(std::string pseudo, int score){
 std::vector<std::string> getScoresPs(){
     std::vector<std::string> v;
 
-    std::fstream file("scores/scores.txt", std::ios_base::in);
+    std::fstream file(PATH_TO_ASSETS+"scores/scores.txt", std::ios_base::in);
     if (!file) {
         std::cout << "failed to open";
     }
