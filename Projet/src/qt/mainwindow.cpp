@@ -16,6 +16,9 @@ int tempsRetenu = 0;
 bool doPauseOnce = false;
 bool doUnpauseOnce = false;
 
+
+const std::string PATH_TO_ASSETS = "/usr/share/Aster.ia.ds/";
+
 extern GLvoid renduFin();
 
 GLvoid Modelisation()
@@ -195,8 +198,8 @@ mainwindow::mainwindow(int argc, char**argv)
   this->setCentralWidget(widgets);
   
 
-  this->setWindowIcon(QIcon(":/pic/aste.ico"));
-    QPixmap bkgnd(":/pic/background.png");
+  this->setWindowIcon(QIcon(QString::fromStdString(PATH_TO_ASSETS+"/pic/aste.ico")));
+    QPixmap bkgnd(QString::fromStdString(PATH_TO_ASSETS+"/pic/background.png"));
     QPalette palette;
     palette.setBrush(QPalette::Window, bkgnd);
     this->setPalette(palette);

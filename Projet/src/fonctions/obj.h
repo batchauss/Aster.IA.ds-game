@@ -24,7 +24,7 @@ struct objmtl {
     mtls materiaux;
 };
 
-struct objmtl loadObj(std::string const & file);
+struct objmtl loadObj(std::string file);
 mtls loadMtl(std::string const & file);
 std::vector<std::string> split(const std::string& s);
 std::vector<int> splitDelimit(const std::string& s, std::string d);
