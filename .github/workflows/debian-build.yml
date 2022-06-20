@@ -1,10 +1,8 @@
 name: Debian based build
 
 on:
-  push:
-    branches: [ "main", "premain", "feature/make_install_setup_automatic" ]
   pull_request:
-    branches: [ "main", "premain", "feature/make_install_setup_automatic" ]
+    branches: [ "main", "premain" ]
 
 jobs:
   build:
