@@ -6,7 +6,7 @@ RESOURCES += ressource.qrc
 QMAKE_CC = gcc
 QMAKE_CXX = g++
 
-TARGET = Aster.IA.ds
+TARGET = Aster.ia.ds
 TEMPLATE = app
 
 DEFINES += QT_DEPRECATED_WARNINGS
