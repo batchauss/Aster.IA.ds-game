@@ -27,6 +27,7 @@ mkdir $DEST_FOLDER/DEBIAN/
 touch $DEST_FOLDER/DEBIAN/control
 echo "
 Source: $PROJECT_NAME
+Package: $PROJECT_NAME
 Version: $PROJECT_VERSION
 Architecture: $CONF_ARCHITECTURE
 Maintainer: Mathieu TOULON <contact@projetcohesion.info>
