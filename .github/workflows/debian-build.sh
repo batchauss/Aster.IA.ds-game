@@ -20,7 +20,7 @@ DEST_FOLDER="${PROJECT_NAME}_${PROJECT_VERSION}-${PROJECT_REVISION}_${CONF_ARCHI
 # Setup binary
 mkdir $DEST_FOLDER
 mkdir -p $DEST_FOLDER/usr/bin/
-cp "Aster.IA.ds" $DEST_FOLDER/usr/bin/
+cp $PROJECT_NAME $DEST_FOLDER/usr/bin/
 
 # Setup info files
 mkdir $DEST_FOLDER/DEBIAN/
