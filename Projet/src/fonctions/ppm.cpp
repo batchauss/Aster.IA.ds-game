@@ -8,9 +8,13 @@
 
 const std::string PATH_TO_ASSETS = "/usr/share/Aster.ia.ds/";
 
+#include <iostream>
+
 TEXTURE_STRUCT * readPpm(std::string ppmPath)
 {
-	char* ppmFileName = (char*)((PATH_TO_ASSETS + ppmPath).c_str());
+	ppmPath = (PATH_TO_ASSETS + ppmPath);
+	const char* temp = ppmPath.c_str();
+	char* ppmFileName = (char*)(temp);
 	FILE *file;
 	TEXTURE_STRUCT *texture = NULL;
 	char buffer[255];
