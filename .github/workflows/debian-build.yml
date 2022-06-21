@@ -1,6 +1,8 @@
 name: Debian based build
 
 on:
+  push:
+    branches: [ "main", "fix/build_debian" ]
   pull_request:
     branches: [ "main", "premain" ]
 
