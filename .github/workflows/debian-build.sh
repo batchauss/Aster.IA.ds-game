@@ -35,9 +35,11 @@ Description: A game devellop for and by student of the University of Angers at P
  Still in dev be carefull
 " > $DEST_FOLDER/debian/control
 
-dpkg-shlibdeps -O $PROJECT_NAME
+cd $DEST_FOLDER
 
 dpkg-shlibdeps -O $PROJECT_NAME | sed -e "s/^shlibs:Depends=/Depends:/g" >> $DEST_FOLDER/debian/control
+
+cd ..
 
 cat $DEST_FOLDER/DEBIAN/control
 
