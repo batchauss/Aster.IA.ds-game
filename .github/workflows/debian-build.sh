@@ -37,6 +37,8 @@ Description: A game devellop for and by student of the University of Angers at P
 
 dpkg-shlibdeps -O $PROJECT_NAME 2> /dev/null | sed -e "s/^shlibs:Depends=/Depends:/g" >> $DEST_FOLDER/DEBIAN/control
 
+cat $DEST_FOLDER/DEBIAN/control
+
 # Setup assets
 mkdir -p $DEST_FOLDER/usr/share/Aster.ia.ds/
 cp -r models $DEST_FOLDER/usr/share/Aster.ia.ds/
