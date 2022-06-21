@@ -23,19 +23,26 @@ mkdir -p $DEST_FOLDER/usr/bin/
 cp $PROJECT_NAME $DEST_FOLDER/usr/bin/
 
 # Setup info files
-mkdir $DEST_FOLDER/DEBIAN/
-touch $DEST_FOLDER/DEBIAN/control
-echo "
-Source: $PROJECT_NAME
-Package: $PROJECT_NAME
+mkdir $DEST_FOLDER/debian/
+touch $DEST_FOLDER/debian/control
+echo \
+"Source: $PROJECT_NAME
+Maintainer: Mathieu TOULON <contact@projetcohesion.info>
 Version: $PROJECT_VERSION
 Architecture: $CONF_ARCHITECTURE
-Maintainer: Mathieu TOULON <contact@projetcohesion.info>
+Package: $PROJECT_NAME
 Description: A game devellop for and by student of the University of Angers at PC[i]
- Still in dev be carefull
-" > $DEST_FOLDER/DEBIAN/control
+ Still in dev be carefull" \
+> $DEST_FOLDER/debian/control
 
-dpkg-shlibdeps -O $PROJECT_NAME 2> /dev/null | sed -e "s/^shlibs:Depends=/Depends:/g" >> $DEST_FOLDER/DEBIAN/control
+cd $DEST_FOLDER
+
+dpkg-shlibdeps -O usr/bin/$PROJECT_NAME 2> /dev/null | sed -e "s/^shlibs:Depends=/Depends:/g" >> debian/control
+
+mv debian DEBIAN
+
+cd ..
+
 
 # Setup assets
 mkdir -p $DEST_FOLDER/usr/share/Aster.ia.ds/
