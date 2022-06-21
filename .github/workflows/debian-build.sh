@@ -26,8 +26,7 @@ cp $PROJECT_NAME $DEST_FOLDER/usr/bin/
 mkdir $DEST_FOLDER/debian/
 touch $DEST_FOLDER/debian/control
 echo "
-Source: r$PROJECT_NAME
-Package: $PROJECT_NAME
+Source: $PROJECT_NAME
 Version: $PROJECT_VERSION
 Architecture: $CONF_ARCHITECTURE
 Maintainer: Mathieu TOULON <contact@projetcohesion.info>
