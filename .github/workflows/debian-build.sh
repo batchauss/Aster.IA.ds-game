@@ -26,7 +26,7 @@ cp $PROJECT_NAME $DEST_FOLDER/usr/bin/
 mkdir $DEST_FOLDER/debian/
 touch $DEST_FOLDER/debian/control
 echo "
-Source: $PROJECT_NAME
+Source: r$PROJECT_NAME
 Package: $PROJECT_NAME
 Version: $PROJECT_VERSION
 Architecture: $CONF_ARCHITECTURE
