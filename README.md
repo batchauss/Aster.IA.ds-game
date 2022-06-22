@@ -34,12 +34,15 @@ Votre objectif sera de réaliser un jeu multicontre et avec d'autres joueurs.
 
 <img
 	src="https://upload.wikimedia.org/wikipedia/commons/9/9e/UbuntuCoF.svg"
+	alt="Ubuntu"
 	height="20"/>
 <img
 	src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Debian-OpenLogo.svg"
+	alt="Debian"
 	height="20"/>
 <img
 	src="https://upload.wikimedia.org/wikipedia/fr/3/3b/Raspberry_Pi_logo.svg"
+	alt="Rasp OS"
 	height="20"/>
 
 Télécharger l'archive `Aster.ia.ds.deb` de la dernière release, puis :
@@ -52,6 +55,12 @@ _Tous les systèmes qui hérite de debian supporte cette installation, liste com
 Pour lancer le jeu : `Aster.ia.ds` 
 
 ### Autre OS Linux
+
+<img
+	src="https://upload.wikimedia.org/wikipedia/commons/7/74/Arch_Linux_logo.svg"
+	alt="Arch Linux"
+	height="20"/>
+
 Demander à `contact@projetcohesion` ou créer une issue sur ce repository pour obtenir une version compatible.
 
 ### Windows
@@ -78,7 +87,11 @@ Pour l'instant aucune version mac n'est prévu.
  - [x] Création, préparation et maturation par [PC[i]](https://projetcohesion.info)
  - [x] Discussion avec des enseignants de la L3 informatique de l'[UA](https://www.univ-angers.fr), pour l'organisation d'un stage sur le sujet.
  - [x] Développement initial par des étudiants en L3 dans le cadre de leurs stages de fin d'année,il sera encadré par l'association [PC[i]](https://projetcohesion.info) et durera 8 semaines.
- - [ ] Reprise du projet par `PC[i]` en interne pour rajouter des fonctionnalités manquantes et préparer le déploiement
+ - [ ] Reprise du projet par `PC[i]` en interne pour corriger quelques problèmes
+ - [ ] Reprise du projet par les étudiants pour :
+   - [ ] Multijoueur
+   - [ ] Interface d'e création d'IA
+   - [ ] Discord Rich Presence
  - [ ] Première pré-release réservée aux membres de PC[i] et aux étudiants ayant contribués (aux environs de Juillet 2022)
  - [ ] Déploiement de la première release (Première date de sortie espérée aux environs de début Aout 2022)
 
@@ -90,10 +103,8 @@ N'hésitez surtout pas à venir participer à ce projet, toutes les informations
 
 N'hésite pas à envoyer un mail à contact@projetcohesion.info
 
-Ou [à venir nous voir](https://projetcohesion.info/a-propos/#bureau) on est souvent dans le batiment H (H001/2/3/7)
+Ou [à venir nous voir](https://projetcohesion.info/a-propos/#bureau) dans le rez-de-chaussé du batiment H de l'UA. ( [GMap](https://www.google.com/maps/place/Facult%C3%A9+des+Sciences,+2+Bd+de+Lavoisier,+49000+Angers/@47.4805015,-0.6000928,17z/data=!3m1!4b1!4m5!3m4!1s0x48087f1bc2f35b47:0xe3ea8379948a1e65!8m2!3d47.4805015!4d-0.6000928) , [Plan du site](https://math.univ-angers.fr/wp-content/uploads/2018/08/plancampus.gif))
 
-
-Le but de ce stage est de fournir un contenu de base que l'association [PC[i]](https://projetcohesion.info) pourra enrichir avec quelques fonctionnalités supplémentaires telle que l'aspect multijoueur ou la gestion des IA, des cosmétiques etc. Pour ensuite déployer ce projet et permettre à tout étudiant de jouer ou de créer son IA sur le jeu.
 
 
 <hr/>
