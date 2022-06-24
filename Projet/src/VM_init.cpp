@@ -37,14 +37,19 @@ GLvoid VM_init()
 {
 	vaisseau->moveForward();
 
+	
+	// Temporary calculation
+	float tempPitch = abs((int)vaisseau->getAngle2()) % 360;
+	bool isVewReversed = ( (tempPitch > 90) && (tempPitch < 270) );
+
 	if (!vaisseau->invincible)
 		vaisseau->tirer(); // le vaisseau ne tire pas lorsqu'il est invincible
 	if (!zPressed)
 		vaisseau->decreaseSpeed();
 	if (qPressed)
-		vaisseau->setAngle(playercontrols::POSITIVE_MOVEMENT);
+		vaisseau->setAngle( isVewReversed ? playercontrols::NEGATIVE_MOVEMENT : playercontrols::POSITIVE_MOVEMENT);
 	if (dPressed)
-		vaisseau->setAngle(playercontrols::NEGATIVE_MOVEMENT);
+		vaisseau->setAngle( isVewReversed ? playercontrols::POSITIVE_MOVEMENT : playercontrols::NEGATIVE_MOVEMENT);
 
 	if (keyUpPressed)
 		vaisseau->setAngle2(playercontrols::NEGATIVE_MOVEMENT);

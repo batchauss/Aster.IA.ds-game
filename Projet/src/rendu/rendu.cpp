@@ -53,7 +53,38 @@ void renduAsteroide( int taille,struct objmtl as){
 }
 
 void renduCamera(Vaisseau * vaisseau){
-    gluLookAt(vaisseau->camera->posx(), vaisseau->camera->posy(), vaisseau->camera->posz(), vaisseau->posx(), vaisseau->posy(), vaisseau->posz(), 0, 1, 0);
+	// Player Position
+	float ppx = vaisseau->posx();
+	float ppy = vaisseau->posy();
+	float ppz = vaisseau->posz();
+
+	// Player Rotation
+	float yaw   = vaisseau->getAngle()  * 3.14 / 180;
+	float pitch = vaisseau->getAngle2() * 3.14 / 180;
+	float roll  = 0;
+
+	// Player direction
+	float pdx = -1 * sin(yaw) * cos(pitch);
+	float pdy =      sin(pitch);
+ 	float pdz = -1 * cos(yaw) * cos(pitch);
+
+	// Camera Position
+	float cpx = ppx - (25 * pdx);
+	float cpy = ppy - (25 * pdy);
+	float cpz = ppz - (25 * pdz);
+
+	// Up direction
+	float tempPitch = abs((int)vaisseau->getAngle2()) % 360;
+	float upx = 0;
+	float upy = ( (tempPitch > 90) && (tempPitch < 270) ) ? -1 : 1 ;
+	float upz = 0;
+
+	// Setup camera
+	gluLookAt(
+		cpx, cpy, cpz,
+		ppx, ppy, ppz,
+		upx, upy, upz
+	);
 }
 
 void renduTir(int etatVaisseau,Tir * t){
