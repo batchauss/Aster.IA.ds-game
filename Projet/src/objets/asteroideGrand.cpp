@@ -42,7 +42,7 @@ void AsteroideGrand::split()
   delete this;
 }
 
-GLvoid AsteroidePetit::asteroideTouche()
+GLvoid AsteroideGrand::asteroideTouche()
 {
     for (auto & tir : vaisseau->tirs)
     {
