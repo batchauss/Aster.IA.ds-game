@@ -123,39 +123,31 @@ void Vaisseau::setAngle2(GLfloat a)
 
 void Vaisseau::moveForward()
 {
-    GLfloat calculRotationTranslatex = -vitesse * sin(getAngle() * gameconf::DEG2RAD);
-    GLfloat calculRotationTranslatey = vitesse * sin(getAngle2() * gameconf::DEG2RAD);
-    GLfloat calculRotationTranslatez = -vitesse * cos((getAngle()) * gameconf::DEG2RAD);
+	// Player Rotation
+	float yaw   = getAngle()  * gameconf::DEG2RAD;
+	float pitch = getAngle2() * gameconf::DEG2RAD;
+	float roll  = 0;
 
-    if (cos((getAngle2()) * gameconf::DEG2RAD) >= 0)
-    {
-        this->move(calculRotationTranslatex, calculRotationTranslatey, calculRotationTranslatez);
-        camera->move(calculRotationTranslatex, calculRotationTranslatey, calculRotationTranslatez);
+    // Player direction
+    float pdx = -1 * sin(yaw) * cos(pitch);
+    float pdy =      sin(pitch);
+    float pdz = -1 * cos(yaw) * cos(pitch);
 
-        for (unsigned int i = 0; i < tirs.size(); ++i)
-        { // les munitions se déplacent avec le vaisseau (position)
-            if (!tirs.at(i)->getTirActif())
-            {
-                tirs.at(i)->move(calculRotationTranslatex, calculRotationTranslatey, calculRotationTranslatez);
-                tirs.at(i)->setposmomentTir(tirs.at(i)->posX(), tirs.at(i)->posY(), tirs.at(i)->posZ());
-            }
-        }
-    }
+	// Player velocity
+	pdx *= vitesse;
+	pdy *= vitesse;
+	pdz *= vitesse;
 
-    if (cos((getAngle2()) * gameconf::DEG2RAD) < 0)
-    {
-        this->move(-calculRotationTranslatex, calculRotationTranslatey, calculRotationTranslatez);
-        camera->move(-calculRotationTranslatex, calculRotationTranslatey, calculRotationTranslatez);
+	// Move player
+	this->move( pdx, pdy, pdz );
 
-        for (unsigned int i = 0; i < tirs.size(); ++i)
-        { // les munitions se déplacent avec le vaisseau (position)
-            if (!tirs.at(i)->getTirActif())
-            {
-                tirs.at(i)->move(-calculRotationTranslatex, calculRotationTranslatey, calculRotationTranslatez);
-                tirs.at(i)->setposmomentTir(tirs.at(i)->posX(), tirs.at(i)->posY(), tirs.at(i)->posZ());
-            }
-        }
-    }
+	// Keep is projectile inside is ship
+	for(auto & tir: tirs) 
+        if(! tir->getTirActif())
+        {
+		    tir->move( pdx , pdy , pdz );
+		    tir->setposmomentTir( tir->posX(), tir->posY(), tir->posZ() );
+	    }
 }
 
 void Vaisseau::decreaseSpeed()
