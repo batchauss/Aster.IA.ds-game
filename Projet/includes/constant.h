@@ -95,8 +95,8 @@ namespace gameconf
 
 namespace playercontrols
 {
-    const int NEGATIVE_MOVEMENT = -2;
-    const unsigned int POSITIVE_MOVEMENT = 2;
+    const GLfloat NEGATIVE_MOVEMENT = -2;
+    const GLfloat POSITIVE_MOVEMENT = 2;
     const GLfloat POSITIVE_SPEED_DECREASE = 0.96;
     const GLfloat NEGATIVE_SPEED_DECREASE = 0.90;
 };

@@ -82,43 +82,21 @@ void Vaisseau::setAngle(GLfloat a)
     // GLfloat yCam = camera->posy() - posy();
     GLfloat zCam = camera->posz() - posz();
 
-    camera->setPos(
-        xCam * cos(a) + zCam * sin(a) + posx(), ////faire avec setangle et setangle2 ???
-        camera->posy(),
-        -xCam * sin(a) + zCam * cos(a) + posz());
-
     for (unsigned int i = 0; i < tirs.size(); ++i)
     { // les munitions se déplacent avec le vaisseau (angle)
         if (!tirs.at(i)->getTirActif())
             tirs.at(i)->setAngle(this->angle[0]);
     }
+
 }
 
 void Vaisseau::setAngle2(GLfloat a)
-{ // angle y z
-    if ((this->angle[1] + a) < gameconf::PLAYER_PITCH_LIMIT && (this->angle[1] + a) > -gameconf::PLAYER_PITCH_LIMIT)
-    {
-        this->angle[1] += a;
-        a *= gameconf::DEG2RAD;
+{ // pitch angle (2nd angle)
+	this->angle[1] += a;
 
-        /* GLfloat xCam = camera->posx() - posx();
-         GLfloat yCam = camera->posy() - posy();
-         GLfloat zCam = camera->posz() - posz();
-
-         camera->setPos(
-             camera->posx(),
-             -zCam * sin(a) + yCam * cos(a) + posy(),
-             zCam *  cos(a) + yCam * sin(a) + posz()
-         );
-
-
-     */
-        for (unsigned int i = 0; i < tirs.size(); ++i)
-        { // les munitions se déplacent avec le vaisseau (angle)
-            if (!tirs.at(i)->getTirActif())
-                tirs.at(i)->setAngle2(this->angle[1]);
-        }
-    }
+    for (unsigned int i = 0; i< tirs.size();++i)
+     	if(!tirs.at(i)->getTirActif())
+            tirs.at(i)->setAngle2(this->angle[1]);
 }
 
 void Vaisseau::moveForward()

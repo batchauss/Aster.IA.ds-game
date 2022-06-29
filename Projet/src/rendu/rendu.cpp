@@ -59,9 +59,18 @@ void renduAsteroide(int taille, struct objmtl as)
     glEndList();
 }
 
-void renduCamera(Vaisseau *vaisseau)
-{
-    gluLookAt(vaisseau->camera->posx(), vaisseau->camera->posy(), vaisseau->camera->posz(), vaisseau->posx(), vaisseau->posy(), vaisseau->posz(), 0, 1, 0);
+void renduCamera(Vaisseau * vaisseau){
+
+	float x = vaisseau->posx();
+	float y = vaisseau->posy();
+	float z = vaisseau->posz();
+
+	float a = vaisseau->getAngle();
+	float b = vaisseau->getAngle2();
+	float c = 0;
+
+    Camera::posCamFromObj( {x,y,z} , {a,b,c} );
+
 }
 
 void renduTir(int etatVaisseau, Tir *t)
