@@ -1,6 +1,6 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 #include "ppm.h"
 
 //ppm.h et ppm.c sont les fichiers qui lisent et interprètent les textures en .ppm

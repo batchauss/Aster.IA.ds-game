@@ -1,6 +1,5 @@
 #pragma once
 
-#include <unistd.h>
 /* ascii codes for various special keys */
 
 #define TOUCHE_MIN_Z 122
