@@ -10,8 +10,6 @@
 #include "rendu/rendu.h"
 #include "rendu/decor.h"
 
-#include <string>
-
 GLuint texture[1];
 int window = 0;
 GLfloat ambiente[4] = {0.7, 0.7, 0.7, 1};
@@ -86,9 +84,8 @@ int notre_init(int argc1, char **argv1, void (*Modelisation)())
 	renduCoeur(heartObj);
 	decorPlanetes();
 
-
-	//implementation des fichiers de textures
-	TEXTURE_STRUCT *night = readPpm((char *)"pic/night.ppm");
+	// implementation des fichiers de textures
+	TEXTURE_STRUCT *night = readPpm((char *)"./pic/night.ppm");
 	Parametres_texture(0, night, texture[0]);
 
 	glutMainLoop();

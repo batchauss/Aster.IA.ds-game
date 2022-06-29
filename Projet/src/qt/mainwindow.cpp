@@ -1,3 +1,5 @@
+#include "../../includes/constant.h"
+
 #include "mainwindow.h"
 
 extern GLvoid VM_init();
@@ -9,38 +11,39 @@ extern GLfloat ambiente[4];
 extern bool pauseActivated;
 extern bool finActivated;
 
-int tempsAvant = 0;
-int tempsApres = 0;
-int tempsRetenu = 0;
+int tempsAvant = gameconf::BASETIME;
+int tempsApres = gameconf::BASETIME;
+int tempsRetenu = gameconf::BASETIME;
 
 bool doPauseOnce = false;
 bool doUnpauseOnce = false;
-
-
-const std::string PATH_TO_ASSETS = "/usr/share/Aster.ia.ds/";
 
 extern GLvoid renduFin();
 
 GLvoid Modelisation()
 {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glLoadIdentity();
+  glLoadIdentity();
 
-  if(finActivated){
+  if (finActivated)
+  {
     finJeu(score, pseudonyme);
     glutSwapBuffers();
   }
-  else if(!pauseActivated){  // Lorque pause n'est pas actif
+  else if (!pauseActivated)
+  { // Lorque pause n'est pas actif
 
     decoHUD();
     timer(tempsRetenu);
 
-    if(doUnpauseOnce){
+    if (doUnpauseOnce)
+    {
       tempsRetenu += tempsApres - tempsAvant;
       doUnpauseOnce = false;
     }
 
-    for(unsigned int i=0; i<3; i++) ambiente[i] = 0.7;
+    for (unsigned int i = 0; i < 3; i++)
+      ambiente[i] = gameconf::GAME_AMBIENTE_LIGHT;
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambiente);
 
     VM_init();
@@ -48,13 +51,15 @@ GLvoid Modelisation()
 
     doPauseOnce = false;
   }
-  else if(!doPauseOnce){ // effectué une seule fois => bouton de pause activé
+  else if (!doPauseOnce)
+  { // effectué une seule fois => bouton de pause activé
     timer(tempsRetenu);
     renduPause();
     tempsAvant = glutGet(GLUT_ELAPSED_TIME);
-    
-    for(unsigned int i=0; i<3; i++) ambiente[i] = 0.3;
-    
+
+    for (unsigned int i = 0; i < 3; i++)
+      ambiente[i] = gameconf::PAUSE_AMBIENTE_LIGHT;
+
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambiente);
     VM_init();
     glutSwapBuffers();
@@ -62,13 +67,15 @@ GLvoid Modelisation()
     doPauseOnce = true;
     doUnpauseOnce = true;
   }
-  else {
+  else
+  {
     tempsApres = glutGet(GLUT_ELAPSED_TIME);
   }
 }
 
-void mainwindow::alignCenterWindow(){
-  QDesktopWidget * widget = QApplication::desktop();
+void mainwindow::alignCenterWindow()
+{
+  QDesktopWidget *widget = QApplication::desktop();
   int desktop_width = widget->width();
   int desktop_height = widget->height();
   int x = desktop_width / 2 - width() / 2;
@@ -77,115 +84,120 @@ void mainwindow::alignCenterWindow(){
 }
 
 /*      Menu principal      */
-void mainwindow::createWidgetMenuPrincipal(int argc, char**argv){
-  QWidget * menuPrincipal = new QWidget();
+void mainwindow::createWidgetMenuPrincipal(int argc, char **argv)
+{
+  QWidget *menuPrincipal = new QWidget();
   this->widgets->addWidget(menuPrincipal);
 
   //  Text area pseudo
 
-  QLineEdit * pseudo = new QLineEdit();
+  QLineEdit *pseudo = new QLineEdit();
   pseudo->setAlignment(Qt::AlignCenter);
-  pseudo->setFixedSize(400, 50);
-  pseudo->setMaxLength(10);
+  pseudo->setFixedSize(menu::PSEUDO_AREA_SIZE_X, menu::PSEUDO_AREA_SIZE_Y);
+  pseudo->setMaxLength(menu::PSEUDO_MAX_LENGTH);
   pseudo->setPlaceholderText("PSEUDO");
   int r = rand() % 1000 + 1;
   pseudo->setText("Anon" + QString::number(r));
-  pseudo->setFont(QFont("Cochin", 15));
+  pseudo->setFont(QFont("Cochin", lang_fr::PSEUDO_BOX_FONTSIZE));
 
   //  Bouton Jouer
 
-  QPushButton * jouer = new QPushButton("JOUER");
-  jouer->setFont(QFont("Times", 30));
-  jouer->setFixedSize(400, 100);
+  QPushButton *jouer = new QPushButton("JOUER");
+  jouer->setFont(QFont("Times", lang_fr::PLAY_BUTTON_FONTSIZE));
+  jouer->setFixedSize(lang_fr::PLAY_BUTTON_SIZE_X, lang_fr::PLAY_BUTTON_SIZE_Y);
   QObject::connect(jouer, &QPushButton::clicked,
-  [=](){
-    pseudonyme = pseudo->text().toStdString();
-    this->close();
-    return notre_init(argc, argv, &Modelisation);
-  });
+                   [=]()
+                   {
+                     pseudonyme = pseudo->text().toStdString();
+                     this->close();
+                     return notre_init(argc, argv, &Modelisation);
+                   });
 
   //  Bouton Options
 
-  QPushButton * options = new QPushButton("Options");
-  options->setFixedSize(190, 50);
-  options->setFont(QFont("Times", 15));
+  QPushButton *options = new QPushButton("Options");
+  options->setFixedSize(lang_fr::OPTIONS_BUTTON_SIZE_X, lang_fr::OPTIONS_BUTTON_SIZE_Y);
+  options->setFont(QFont("Times", lang_fr::OPTIONS_BUTTON_FONTSIZE));
   QObject::connect(options, &QPushButton::clicked,
-  [=](){
-    switchMenuOption();
-  });
+                   [=]()
+                   {
+                     switchMenuOption();
+                   });
 
   //  Bouton Quitter
-  
-  QPushButton * quitter = new QPushButton("Quitter");
-  quitter->setFixedSize(190, 50);
-  quitter->setFont(QFont("Times", 15));
+
+  QPushButton *quitter = new QPushButton("Quitter");
+  quitter->setFixedSize(lang_fr::QUIT_BUTTON_SIZE_X, lang_fr::QUIT_BUTTON_SIZE_Y);
+  quitter->setFont(QFont("Times", lang_fr::QUIT_BUTTON_FONTSIZE));
   QObject::connect(quitter, &QPushButton::clicked,
-  [=](){
-    this->close();
-  });
+                   [=]()
+                   {
+                     this->close();
+                   });
 
   //  Layout
 
-  QGridLayout * layout = new QGridLayout();
+  QGridLayout *layout = new QGridLayout();
   layout->setAlignment(Qt::AlignCenter);
-  layout->setHorizontalSpacing(20);
-  layout->setVerticalSpacing(10);
- 
-  layout->addWidget(pseudo, 0, 0, 1, 2);
-  layout->addWidget(jouer, 1, 0, 1, 2);
-  layout->addWidget(options, 2, 0);
-  layout->addWidget(quitter, 2, 1);
+  layout->setHorizontalSpacing(menu::HORIZONTAL_SPACING);
+  layout->setVerticalSpacing(menu::VERTICAL_SPACING);
+
+  layout->addWidget(pseudo, menu::PSEUDO_PLACEMENT[0], menu::PSEUDO_PLACEMENT[1], menu::PSEUDO_PLACEMENT[2], menu::PSEUDO_PLACEMENT[3]);
+  layout->addWidget(jouer, menu::PLAY_PLACEMENT[0], menu::PLAY_PLACEMENT[1], menu::PLAY_PLACEMENT[2], menu::PLAY_PLACEMENT[3]);
+  layout->addWidget(options, menu::OPTIONS_PLACEMENT[0], menu::OPTIONS_PLACEMENT[1]);
+  layout->addWidget(quitter, menu::QUIT_PLACEMENT[0], menu::QUIT_PLACEMENT[1]);
 
   menuPrincipal->setLayout(layout);
-
 }
 
 /*      Menu options      */
-void mainwindow::createWidgetMenuOption(){
-  QWidget * menuOption = new QWidget();
+void mainwindow::createWidgetMenuOption()
+{
+  QWidget *menuOption = new QWidget();
   this->widgets->addWidget(menuOption);
-   
+
   //  Options
 
-  QComboBox * languageCB = new QComboBox();
+  QComboBox *languageCB = new QComboBox();
   languageCB->addItem("Français");
   languageCB->addItem("English");
 
-  QComboBox * tailleFenetreCB = new QComboBox();
-  tailleFenetreCB->addItem("1280x960");
+  QComboBox *tailleFenetreCB = new QComboBox();
+  tailleFenetreCB->addItem("1290x980");
   tailleFenetreCB->addItem("1920x1080");
   tailleFenetreCB->addItem("Fullscreen");
 
-
   //  Layout
 
-  QGridLayout * layoutOption = new QGridLayout();
+  QGridLayout *layoutOption = new QGridLayout();
   layoutOption->setAlignment(Qt::AlignCenter);
-  layoutOption->setHorizontalSpacing(20);
+  layoutOption->setHorizontalSpacing(menu::OPT_HORIZONTAL_SPACING);
 
-  layoutOption->addWidget(new QLabel("Langue : "), 0, 0);
-  layoutOption->addWidget(languageCB, 0 , 1);
-  layoutOption->addWidget(new QLabel("Taille de la fenêtre : "), 1, 0);
-  layoutOption->addWidget(tailleFenetreCB, 1, 1);
+  layoutOption->addWidget(new QLabel("Langue : "), lang_fr::LANG_SIZE_X, lang_fr::LANG_SIZE_Y);
+  layoutOption->addWidget(languageCB, menu::OPT_LANG_PLACEMENT[0], menu::OPT_LANG_PLACEMENT[1]);
+  layoutOption->addWidget(new QLabel(" Taille de la fenêtre: "), lang_fr::LANG_SIZE_X, lang_fr::LANG_SIZE_Y);
+  layoutOption->addWidget(tailleFenetreCB, menu::OPT_WINDOW_PLACEMENT[0], menu::OPT_WINDOW_PLACEMENT[1]);
 
-  QPushButton * quitterOptions = new QPushButton("Quitter (Sans sauvegarder)");
+  QPushButton *quitterOptions = new QPushButton("Quitter (Sans sauvegarder)");
   QObject::connect(quitterOptions, &QPushButton::clicked,
-  [=](){
-    switchMenuPrincipal();
-  });
-  layoutOption->addWidget(quitterOptions, 2, 0);
+                   [=]()
+                   {
+                     switchMenuPrincipal();
+                   });
+  layoutOption->addWidget(quitterOptions, menu::OPT_QUIT_PLACEMENT[0], menu::OPT_QUIT_PLACEMENT[1]);
 
-  QPushButton * confirmeOptions = new QPushButton("Confirmer");
+  QPushButton *confirmeOptions = new QPushButton("Confirmer");
   QObject::connect(confirmeOptions, &QPushButton::clicked,
-  [=](){
-    switchMenuPrincipal();
-  });
-  layoutOption->addWidget(confirmeOptions, 2, 1);
+                   [=]()
+                   {
+                     switchMenuPrincipal();
+                   });
+  layoutOption->addWidget(confirmeOptions, menu::OPT_SAVE_PLACEMENT[0], menu::OPT_SAVE_PLACEMENT[1]);
 
   menuOption->setLayout(layoutOption);
 }
 
-mainwindow::mainwindow(int argc, char**argv)
+mainwindow::mainwindow(int argc, char **argv)
     : QMainWindow()
 {
   widgets = new QStackedWidget();
@@ -196,14 +208,12 @@ mainwindow::mainwindow(int argc, char**argv)
   createWidgetMenuOption();
 
   this->setCentralWidget(widgets);
-  
 
-  this->setWindowIcon(QIcon(QString::fromStdString(PATH_TO_ASSETS+"/pic/aste.ico")));
-    QPixmap bkgnd(QString::fromStdString(PATH_TO_ASSETS+"/pic/background.png"));
-    QPalette palette;
-    palette.setBrush(QPalette::Window, bkgnd);
-    this->setPalette(palette);
-  
+  this->setWindowIcon(QIcon(":/pic/aste.ico"));
+  QPixmap bkgnd(":/pic/background.png");
+  QPalette palette;
+  palette.setBrush(QPalette::Window, bkgnd);
+  this->setPalette(palette);
 }
 
-mainwindow::~mainwindow(){}
+mainwindow::~mainwindow() {}

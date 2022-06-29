@@ -3,10 +3,10 @@
 
 
 class AsteroideMoyen: public Asteroide {
-
+    
      public :
         AsteroideMoyen(int i);
-        ~AsteroideMoyen() = default;
+        ~AsteroideMoyen() ;
 
         void split() override;
         GLvoid asteroideTouche() override;
