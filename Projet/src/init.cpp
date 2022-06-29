@@ -97,8 +97,10 @@ void initialise()
 	asteroides.clear();
 	creationAsteroides();
 
+	auto getRandPosition = []() { return Rand(gameconf::ENEMY_MIN_RAND_POS, gameconf::ENEMY_MAX_RAND_POS); }
+
 	ennemi->setVie(gameconf::ENEMY_BASE_LIFE);
-	ennemi->setPos(Rand(gameconf::ENEMY_MIN_RAND_POS, gameconf::ENEMY_MAX_RAND_POS), Rand(gameconf::ENEMY_MIN_RAND_POS, gameconf::ENEMY_MAX_RAND_POS), Rand(gameconf::ENEMY_MIN_RAND_POS, gameconf::ENEMY_MAX_RAND_POS));
+	ennemi->setPos(getRandPosition(), getRandPosition(), getRandPosition() );
 }
 
 void reinitialisation()
