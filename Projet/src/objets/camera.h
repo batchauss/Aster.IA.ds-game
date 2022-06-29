@@ -17,4 +17,8 @@ class Camera {
 
   private :
     GLfloat pos[3];
+
+  public:
+    static void posCamFromObj(Vect pos,Vect rot); // Degree unit expected
+
 };
