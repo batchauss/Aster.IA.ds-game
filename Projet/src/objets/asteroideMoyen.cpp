@@ -44,13 +44,21 @@ void AsteroideMoyen::split()
 
 GLvoid AsteroideMoyen::asteroideTouche()
 {
-  for (unsigned int i = 0; i < vaisseau->tirs.size(); ++i)
+  for (auto & tir : vaisseau->tirs)
   {
-    GLfloat longueur = sqrt((vaisseau->tirs.at(i)->posX() - this->posX()) * (vaisseau->tirs.at(i)->posX() - this->posX()) + (vaisseau->tirs.at(i)->posY() - this->posY()) * (vaisseau->tirs.at(i)->posY() - this->posY()) + (vaisseau->tirs.at(i)->posZ() - this->posZ()) * (vaisseau->tirs.at(i)->posZ() - this->posZ()));
+    auto P2 = []( float a ) { return a * a; };
 
-    if (longueur <= this->rayon_hitbox and vaisseau->tirs.at(i)->getTirActif())
-    {
-      vaisseau->tirs.at(i)->release(vaisseau->posx(), vaisseau->posy(), vaisseau->posz(), vaisseau->getAngle(), vaisseau->getAngle2());
+    GLfloat longueur = sqrt(  P2( tir->posX() - this->posX() )
+                     + P2( tir->posY() - this->posY() )
+                     + P2( tir->posZ() - this->posZ() ) );
+
+    if (
+     (longueur <= this->rayon_hitbox) and (tir->getTirActif())
+    ) {
+      tir->release(
+        vaisseau->posx(), vaisseau->posy(), vaisseau->posz(), 
+        vaisseau->getAngle(), vaisseau->getAngle2()
+      );
       this->touche = true;
       score += gameconf::MEDIUM_ASTEROID_SCORE;
       break;
