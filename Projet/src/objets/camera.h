@@ -1,5 +1,4 @@
-#ifndef CAMERA_H
-#define CAMERA_H
+#pragma once
 
 #include "../init.h"
 
@@ -18,5 +17,3 @@ class Camera {
   private :
     GLfloat pos[3];
 };
-
-#endif

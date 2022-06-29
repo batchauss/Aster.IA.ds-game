@@ -1,5 +1,5 @@
-#ifndef __TOUCHES
-#define __TOUCHES
+#pragma once
+
 #include <unistd.h>
 /* ascii codes for various special keys */
 
@@ -12,5 +12,3 @@
 
 #define ESCAPE 27
 #define ESPACE 32
-
-#endif

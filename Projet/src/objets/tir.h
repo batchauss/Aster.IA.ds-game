@@ -1,5 +1,4 @@
-#ifndef TIR_H
-#define TIR_H
+#pragma once
 
 #include "../init.h"
 
@@ -66,5 +65,3 @@ class Tir {
         GLfloat vitesse_tir;
         bool tirActif ;
 };
-
-#endif

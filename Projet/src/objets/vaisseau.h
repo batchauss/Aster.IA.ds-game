@@ -1,5 +1,4 @@
-#ifndef VAISSEAU_H
-#define VAISSEAU_H
+#pragma once
 
 #include "../init.h"
 #include "camera.h"
@@ -76,5 +75,3 @@ private :
     GLfloat vie;
     std::string statut;
 };
-
-#endif

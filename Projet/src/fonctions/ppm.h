@@ -1,7 +1,6 @@
 // gcc -Wall ppm.c -c -o ppm.o
 
-#ifndef LIB_PPM_H
-#define LIB_PPM_H
+#pragma once
 
 typedef struct
 {
@@ -12,4 +11,3 @@ typedef struct
 TEXTURE_STRUCT  * readPpm (char *ppmFileName);
 void writePpm (char *filename, unsigned char *data);
 unsigned char * rgb2rgba(TEXTURE_STRUCT * texture);
-#endif 
