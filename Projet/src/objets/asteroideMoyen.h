@@ -6,7 +6,7 @@ class AsteroideMoyen: public Asteroide {
     
      public :
         AsteroideMoyen(int i);
-        ~AsteroideMoyen() ;
+        ~AsteroideMoyen() = default;
 
         void split() override;
         GLvoid asteroideTouche() override;

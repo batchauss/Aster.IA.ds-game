@@ -16,7 +16,7 @@ class mainwindow : public QMainWindow
     Q_OBJECT
 public:
     mainwindow(int argc, char**argv);
-    ~mainwindow();
+    ~mainwindow() = default;
 
     void createWidgetMenuPrincipal(int argc, char**argv);
     void createWidgetMenuOption();

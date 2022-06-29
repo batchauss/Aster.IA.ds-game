@@ -57,5 +57,3 @@ GLvoid AsteroideMoyen::asteroideTouche()
     }
   }
 }
-
-AsteroideMoyen::~AsteroideMoyen() {}

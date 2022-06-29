@@ -31,7 +31,6 @@ Vaisseau::Vaisseau(int nbBalles)
         tirs.push_back(t);
     }
 }
-Vaisseau::~Vaisseau() {}
 
 void Vaisseau::move(GLfloat x, GLfloat y, GLfloat z)
 {

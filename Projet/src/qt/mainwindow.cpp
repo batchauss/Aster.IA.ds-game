@@ -215,5 +215,3 @@ mainwindow::mainwindow(int argc, char **argv)
   palette.setBrush(QPalette::Window, bkgnd);
   this->setPalette(palette);
 }
-
-mainwindow::~mainwindow() {}

@@ -10,7 +10,7 @@ class Vaisseau {
 
 public : 
     Vaisseau(int nbBalles);
-    ~Vaisseau();
+    ~Vaisseau() = default;
     void move(GLfloat x, GLfloat y, GLfloat z);             // Permet d'incrémenter la position du vaisseau par x y z
     
 

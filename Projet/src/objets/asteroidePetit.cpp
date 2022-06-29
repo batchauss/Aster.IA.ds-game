@@ -40,5 +40,3 @@ GLvoid AsteroidePetit::asteroideTouche()
         }
     }
 }
-
-AsteroidePetit::~AsteroidePetit() {}
