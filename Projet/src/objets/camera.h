@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../init.h"
+#include "../math/vect.h"
 
 class Camera {
   public : 
