@@ -14,12 +14,12 @@ GLuint texture[1];
 int window = 0;
 GLfloat ambiente[4] = {0.7, 0.7, 0.7, 1};
 
-struct objmtl vaisseauObj = loadObj("models/vaisseau");
-struct objmtl asteroideObj = loadObj("models/asteroides1");
-struct objmtl asteroide2Obj = loadObj("models/asteroides2");
-struct objmtl asteroide3Obj = loadObj("models/asteroides3");
-struct objmtl ennemiobj = loadObj("models/ennemi");
-struct objmtl heartObj = loadObj("models/heart");
+struct objmtl vaisseauObj	= loadObj("models/vaisseau");
+struct objmtl asteroideObj	= loadObj("models/asteroides1");
+struct objmtl asteroide2Obj	= loadObj("models/asteroides2");
+struct objmtl asteroide3Obj	= loadObj("models/asteroides3");
+struct objmtl ennemiobj		= loadObj("models/ennemi");
+struct objmtl heartObj		= loadObj("models/heart");
 
 Vaisseau *vaisseau = new Vaisseau(gameconf::PLAYER_BASE_BULLETS_NUMBER);
 Vaisseau *ennemi = new Vaisseau(gameconf::ENEMY_BASE_BULLETS_NUMBER);
@@ -85,7 +85,7 @@ int notre_init(int argc1, char **argv1, void (*Modelisation)())
 	decorPlanetes();
 
 	// implementation des fichiers de textures
-	TEXTURE_STRUCT *night = readPpm((char *)"./pic/night.ppm");
+	TEXTURE_STRUCT *night = readPpm("pic/night.ppm");
 	Parametres_texture(0, night, texture[0]);
 
 	glutMainLoop();

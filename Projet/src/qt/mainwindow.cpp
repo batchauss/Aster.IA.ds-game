@@ -209,8 +209,8 @@ mainwindow::mainwindow(int argc, char **argv)
 
   this->setCentralWidget(widgets);
 
-  this->setWindowIcon(QIcon(":/pic/aste.ico"));
-  QPixmap bkgnd(":/pic/background.png");
+  this->setWindowIcon(QIcon(QString::fromStdString(config(configKey::PATH_TO_ASSETS)+"pic/aste.ico")));
+  QPixmap bkgnd(QString::fromStdString(config(configKey::PATH_TO_ASSETS)+"pic/background.png"));
   QPalette palette;
   palette.setBrush(QPalette::Window, bkgnd);
   this->setPalette(palette);

@@ -3,9 +3,11 @@
 #include <cstring>
 #include "ppm.h"
 
+#include "../../includes/config.h"
+
 //ppm.h et ppm.c sont les fichiers qui lisent et interprètent les textures en .ppm
 
-TEXTURE_STRUCT * readPpm(char *ppmFileName)
+TEXTURE_STRUCT * readPpm(std::string ppmFilePath)
 {
 	FILE *file;
 	TEXTURE_STRUCT *texture = NULL;
@@ -13,6 +15,7 @@ TEXTURE_STRUCT * readPpm(char *ppmFileName)
 	int pixelFormat;
 	int i;
 
+	char* ppmFileName = (char*) ( ( config(configKey::PATH_TO_ASSETS) + ppmFilePath).c_str() );
 
 	if ((file = fopen(ppmFileName, "rb")) == NULL)
 	{

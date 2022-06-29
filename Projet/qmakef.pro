@@ -22,6 +22,7 @@ SOURCES += \
      $$files(src/touches/*.cpp) \
      $$files(src/math/*.cpp) \
      $$files(src/*.cpp) \
+     $$files(includes/*.cpp) \
 
 HEADERS += \
      \

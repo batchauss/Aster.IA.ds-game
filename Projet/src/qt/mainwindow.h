@@ -11,6 +11,8 @@
 #include "../rendu/hud.h"
 #include "../fonctions/finJeu.h"
 
+#include "../../includes/config.h"
+
 class mainwindow : public QMainWindow
 {
     Q_OBJECT
