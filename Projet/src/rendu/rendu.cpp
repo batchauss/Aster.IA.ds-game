@@ -192,7 +192,7 @@ void renduCoeur(struct objmtl coeur)
         glNormal3f(coeur.obj.vn.at(face.at(0).at(2) - 1).at(0), coeur.obj.vn.at(face.at(0).at(2) - 1).at(1), coeur.obj.vn.at(face.at(0).at(2) - 1).at(2));
 
         // glColor3f(coeur.materiaux.at(indexMat-1).Kd.at(0), coeur.materiaux.at(indexMat-1).Kd.at(1), coeur.materiaux.at(indexMat-1).Kd.at(2));
-        glColor3f(200, 0, 0);
+        glColor3f(1, 0, 0);
         for (const auto &vertex : face)
         {
             glVertex3f(coeur.obj.v.at(vertex.at(0) - 1).at(0), coeur.obj.v.at(vertex.at(0) - 1).at(1), coeur.obj.v.at(vertex.at(0) - 1).at(2));
