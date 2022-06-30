@@ -1,5 +1,4 @@
-#ifndef __INIT
-#define __INIT
+#pragma once
 
 #include <GL/gl.h>
 #include <GL/glu.h>
@@ -19,5 +18,3 @@ void reinitialise();
 float Rand(float a, float b);
 void remplissageTableauR();
 void creationAsteroides();
-
-#endif

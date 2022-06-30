@@ -1,5 +1,4 @@
-#ifndef ASTEROIDE_H
-#define ASTEROIDE_H
+#pragma once
 
 #include "../init.h"
 #include "math.h"
@@ -66,5 +65,3 @@ class Asteroide {
         bool touche ;
         
 };
-
-#endif

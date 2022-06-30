@@ -1,52 +1,56 @@
+#include "../../includes/constant.h"
+
 #include "renduFin.h"
 
-GLvoid renduFin(){
-    glMatrixMode (GL_PROJECTION);
+GLvoid renduFin()
+{
+    glMatrixMode(GL_PROJECTION);
     glPushMatrix();
     glLoadIdentity();
-    glOrtho(-5, 5, -5, 5, -1.0f, 1.0f);
+    glOrtho(render::PROJECTION_LEFT, render::PROJECTION_RIGHT, render::PROJECTION_BOTTOM, render::PROJECTION_TOP, render::PROJECTION_NEAR_VAL, render::PROJECTION_FAR_VAL);
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
     glLoadIdentity();
     glDisable(GL_LIGHTING);
-    
+
     //  Ecriture des scores
     glPushMatrix();
-        vBitmapOutput(-400, 1200, 0.5, 0.5, "HIGHSCORES", GLUT_STROKE_ROMAN, 5);
-        std::vector<std::string> scores = bestScores();
-        GLfloat espacementHauteur = 800;
-        for(unsigned int i=0; i < scores.size(); i++){
-            vBitmapOutput(-500, espacementHauteur, 0.5, 0.5, scores.at(i), GLUT_STROKE_ROMAN, 3);
-            espacementHauteur -= 200;
-        }
+    vBitmapOutput(render::SCORE_X, render::SCORE_Y, render::SCORE_SCALE_X, render::SCORE_SCALE_Y, "HIGHSCORES", GLUT_STROKE_ROMAN, render::SCORE_LINE_WIDTH);
+    std::vector<std::string> scores = bestScores();
+    GLfloat espacementHauteur = render::HEIGHT_SPACE;
+    for (unsigned int i = 0; i < scores.size(); i++)
+    {
+        vBitmapOutput(render::PLAYER_SCORE_X, espacementHauteur, render::PLAYER_SCORE_SCALE_X, render::PLAYER_SCORE_SCALE_Y, scores.at(i), GLUT_STROKE_ROMAN, render::PLAYER_SCORE_LINE_WIDTH);
+        espacementHauteur -= render::HEIGHT_SPACE_DIFF;
+    }
     glPopMatrix();
 
     //  Affichage "boutons"
-    glColor3f(1, 1, 1);
-    vBitmapOutput(-1200, -1300, 0.3, 0.5, " Rejouer", GLUT_STROKE_ROMAN, 3);
-    vBitmapOutput(-1200, -1450, 0.3, 0.5, "Touche R", GLUT_STROKE_ROMAN, 3);
-    vBitmapOutput(700, -1300, 0.3, 0.5, " Quitter", GLUT_STROKE_ROMAN, 3);
-    vBitmapOutput(700, -1450, 0.3, 0.5, "Touche L", GLUT_STROKE_ROMAN, 3);
+    glColor3f(render::BUTTONS_COLOR, render::BUTTONS_COLOR, render::BUTTONS_COLOR);
+    vBitmapOutput(render::END_REPLAY_BUTTONS_BITMAP_X, render::END_REPLAY_BUTTONS_BITMAP_Y, render::END_REPLAY_BUTTONS_BITMAP_SCALEX, render::END_REPLAY_BUTTONS_BITMAP_SCALEY, " Rejouer", GLUT_STROKE_ROMAN, render::END_REPLAY_BUTTONS_BITMAP_LINE_WIDTH);
+    vBitmapOutput(render::END_LABEL_REPLAY_BUTTONS_BITMAP_X, render::END_LABEL_REPLAY_BUTTONS_BITMAP_Y, render::END_LABEL_REPLAY_BUTTONS_BITMAP_SCALEY, render::END_LABEL_REPLAY_BUTTONS_BITMAP_SCALEY, "Touche R", GLUT_STROKE_ROMAN, render::END_LABEL_REPLAY_BUTTONS_BITMAP_LINE_WIDTH);
+    vBitmapOutput(render::END_QUIT_BUTTONS_BITMAP_X, render::END_QUIT_BUTTONS_BITMAP_Y, render::END_QUIT_BUTTONS_BITMAP_SCALEX, render::END_QUIT_BUTTONS_BITMAP_SCALEY, " Quitter", GLUT_STROKE_ROMAN, render::END_QUIT_BUTTONS_BITMAP_LINE_WIDTH);
+    vBitmapOutput(render::END_LABEL_QUIT_BUTTONS_BITMAP_X, render::END_LABEL_QUIT_BUTTONS_BITMAP_Y, render::END_LABEL_QUIT_BUTTONS_BITMAP_SCALEX, render::END_LABEL_QUIT_BUTTONS_BITMAP_SCALEY, "Touche L", GLUT_STROKE_ROMAN, render::END_LABEL_QUIT_BUTTONS_BITMAP_LINE_WIDTH);
 
     //  Fenêtre
     glPushMatrix();
-        glColor3f(0, 0, 0);
-        glBegin(GL_QUADS);
-            glVertex2f(-1.9, -4.3);
-            glVertex2f(1.9, -4.3);
-            glVertex2f(1.9, 3.3);
-            glVertex2f(-1.9, 3.3);
-        glEnd();
-        glColor3f(0.4, 0, 0.8);
-        glBegin(GL_QUADS);
-            glVertex2f(-2, -4.5);
-            glVertex2f(2, -4.5);
-            glVertex2f(2, 3.5);
-            glVertex2f(-2, 3.5);
-        glEnd();
+    glColor3f(render::BLACK_R, render::BLACK_G, render::BLACK_B);
+    glBegin(GL_QUADS);
+    glVertex2f(render::FIRST_QUAD_POINT_ONE, render::FIRST_QUAD_POINT_TWO);
+    glVertex2f(render::FIRST_QUAD_POINT_THREE, render::FIRST_QUAD_POINT_TWO);
+    glVertex2f(render::FIRST_QUAD_POINT_THREE, render::FIRST_QUAD_POINT_FOUR);
+    glVertex2f(render::FIRST_QUAD_POINT_ONE, render::FIRST_QUAD_POINT_FOUR);
+    glEnd();
+    glColor3f(render::SECOND_QUAD_R, render::SECOND_QUAD_G, render::SECOND_QUAD_B);
+    glBegin(GL_QUADS);
+    glVertex2f(render::SECOND_QUAD_POINT_ONE, render::SECOND_QUAD_POINT_TWO);
+    glVertex2f(render::SECOND_QUAD_POINT_THREE, render::SECOND_QUAD_POINT_TWO);
+    glVertex2f(render::SECOND_QUAD_POINT_THREE, render::SECOND_QUAD_POINT_FOUR);
+    glVertex2f(render::SECOND_QUAD_POINT_ONE, render::SECOND_QUAD_POINT_FOUR);
+    glEnd();
     glPopMatrix();
-            
-    //End 2D
+
+    // End 2D
     glEnable(GL_LIGHTING);
     glMatrixMode(GL_PROJECTION);
     glPopMatrix();

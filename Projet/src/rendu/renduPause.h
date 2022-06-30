@@ -1,5 +1,4 @@
-#ifndef RENDUPAUSE_H
-#define RENDUPAUSE_H
+#pragma once
 
 #include "../init.h"
 #include "hud.h"
@@ -7,5 +6,3 @@
 
 GLvoid renduPause();
 GLvoid boutonPause();
-
-#endif

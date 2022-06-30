@@ -1,3 +1,5 @@
+#include "../../includes/constant.h"
+
 #include "hud.h"
 
 extern bool finActivated;
@@ -7,89 +9,124 @@ extern std::string pseudonyme;
 
 int tempsDef;
 
-GLvoid barreVie(GLfloat vie){
-    if(!pauseActivated){
-    //Début 2D
-    glMatrixMode (GL_PROJECTION);
-    glPushMatrix();
-    glLoadIdentity();
-    glOrtho(-5, 5, -5, 5, -1.0f, 1.0f);
-    glMatrixMode(GL_MODELVIEW);
-    glPushMatrix();
-    glLoadIdentity();
-    glDisable(GL_LIGHTING);
+GLvoid barreVie(GLfloat vie)
+{
+    if (!pauseActivated)
+    {
+        // Début 2D
+        glMatrixMode(GL_PROJECTION);
+        glPushMatrix();
+        glLoadIdentity();
+        glOrtho(hud::PROJECTION_LEFT, hud::PROJECTION_RIGHT, hud::PROJECTION_BOTTOM, hud::PROJECTION_TOP, hud::PROJECTION_NEAR_VAL, hud::PROJECTION_FAR_VAL);
+        glMatrixMode(GL_MODELVIEW);
+        glPushMatrix();
+        glLoadIdentity();
+        glDisable(GL_LIGHTING);
 
         glPushMatrix();
-            GLfloat posx=0;
-            switch(pseudonyme.size()){
-                case 10: posx = -350; break;
-                case 9: posx = -320; break;
-                case 8: posx = -280; break;
-                case 7: posx = -250; break;
-                case 6: posx = -220; break;
-                case 5: posx = -190; break;
-                case 4: posx = -160; break;
-                case 3: posx = -130; break;
-                case 2: posx = -90; break;
-                case 1: posx = -50; break;
-            }
-            vBitmapOutput(posx, 300, 0.3, 0.3, pseudonyme, GLUT_STROKE_ROMAN, 3);
+        GLfloat posx = hud::PSEUDO_DEFAULT_POSITION;
+        switch (pseudonyme.size())
+        {
+        case 10:
+            posx = hud::PSEUDO_POSITION_TEN;
+            break;
+        case 9:
+            posx = hud::PSEUDO_POSITION_NINE;
+            break;
+        case 8:
+            posx = hud::PSEUDO_POSITION_EIGHT;
+            break;
+        case 7:
+            posx = hud::PSEUDO_POSITION_SEVEN;
+            break;
+        case 6:
+            posx = hud::PSEUDO_POSITION_SIX;
+            break;
+        case 5:
+            posx = hud::PSEUDO_POSITION_FIVE;
+            break;
+        case 4:
+            posx = hud::PSEUDO_POSITION_FOUR;
+            break;
+        case 3:
+            posx = hud::PSEUDO_POSITION_THREE;
+            break;
+        case 2:
+            posx = hud::PSEUDO_POSITION_TWO;
+            break;
+        case 1:
+            posx = hud::PSEUDO_POSITION_ONE;
+            break;
+        }
+        vBitmapOutput(posx, hud::BITMAP_Y, hud::BITMAP_SCALEX, hud::BITMAP_SCALEY, pseudonyme, GLUT_STROKE_ROMAN, hud::BITMAP_LINE_WIDTH);
         glPopMatrix();
 
-        glTranslatef(0, 0.3, 0);
+        glTranslatef(hud::LIFE_INDICATOR_TRANSLATE_X, hud::LIFE_INDICATOR_TRANSLATE_Y, hud::LIFE_INDICATOR_TRANSLATE_Z);
 
-        if(vie>70) glColor3f(0.0, 1.0, 0.0);
-        else if (vie>50) glColor3f(1.0, 1.0, 0.0);
-        else  glColor3f(1.0, 0.0, 0.0);
+        if (vie > hud::MAX_LIFE_DELIMITER)
+            glColor3f(hud::MAX_LIFE_RED, hud::MAX_LIFE_GREEN, hud::MAX_LIFE_BLUE);
+        else if (vie > hud::LOW_LIFE_DELIMITER)
+            glColor3f(hud::MIDDLE_LIFE_RED, hud::MIDDLE_LIFE_GREEN, hud::MIDDLE_LIFE_BLUE);
+        else
+            glColor3f(hud::LOW_LIFE_RED, hud::LOW_LIFE_GREEN, hud::LOW_LIFE_BLUE);
 
-		glScalef(vie / 120, 0.05, 0.05);
-        glutSolidCube(1);
+        glScalef(vie / hud::LIFE_INDICATOR_SCALEX, hud::LIFE_INDICATOR_SCALEY, hud::LIFE_INDICATOR_SCALEZ);
+        glutSolidCube(hud::LIFE_INDICATOR_SIZE);
 
-    //End 2D
-    glEnable(GL_LIGHTING);
-    glMatrixMode(GL_PROJECTION);
-    glPopMatrix();
-    glMatrixMode(GL_MODELVIEW);
-    glPopMatrix();
+        // End 2D
+        glEnable(GL_LIGHTING);
+        glMatrixMode(GL_PROJECTION);
+        glPopMatrix();
+        glMatrixMode(GL_MODELVIEW);
+        glPopMatrix();
     }
 }
 
-GLvoid timer(int tempsRetenu){
-    int tempsMax = 100000;
+GLvoid timer(int tempsRetenu)
+{
+    int tempsMax = hud::MAX_TIME;
 
     int tempsPasse = tempsMax - glutGet(GLUT_ELAPSED_TIME);
     int tempsActuel = tempsPasse + tempsRetenu;
 
     tempsDef = tempsActuel;
-    
-    if(tempsActuel <= 0) finActivated = true;
 
-    glColor3f(0.2,0.6,0.2);
+    if (tempsActuel <= 0)
+        finActivated = true;
+
+    glColor3f(hud::TIMER_RED, hud::TIMER_GREEN, hud::TIMER_BLUE);
     std::string tmp = intPadding(tempsActuel);
-    vBitmapOutput(-165, 900, 1, 1, tmp, GLUT_STROKE_ROMAN, 4);
+    vBitmapOutput(hud::TIMER_BITMAP_X, hud::TIMER_BITMAP_Y, hud::TIMER_BITMAP_SCALEX, hud::TIMER_BITMAP_SCALEY, tmp, GLUT_STROKE_ROMAN, hud::TIMER_BITMAP_LINE_WIDTH);
 }
 
-std::string intPadding(int i){
-    if(i <= 0) return "STOP";
+std::string intPadding(int i)
+{
+    if (i <= 0)
+        return "STOP";
     std::string s = std::to_string(i);
-    
-    if(s.size() == 6)      s = s.substr(0, 3) + "." + s.substr(3, 1);
-    else if(s.size() == 5) s = s.substr(0, 2) + "." + s.substr(2, 2);
-    else if(s.size() == 4) s = s.substr(0, 1) + '.' + s.substr(1, 2);
-    else if(s.size() == 3) s = "0." + s.substr(0, 2);
+
+    if (s.size() == 6)
+        s = s.substr(0, 3) + "." + s.substr(3, 1);
+    else if (s.size() == 5)
+        s = s.substr(0, 2) + "." + s.substr(2, 2);
+    else if (s.size() == 4)
+        s = s.substr(0, 1) + '.' + s.substr(1, 2);
+    else if (s.size() == 3)
+        s = "0." + s.substr(0, 2);
 
     return s;
 }
 
-GLvoid afficheScore(GLfloat score){
+GLvoid afficheScore(GLfloat score)
+{
     int s = score;
-    vBitmapOutput(780, 900, 1, 1, std::to_string(s)+"pts", GLUT_STROKE_ROMAN, 5);
+    vBitmapOutput(hud::SCORE_BITMAP_X, hud::SCORE_BITMAP_Y, hud::SCORE_BITMAP_SCALEX, hud::SCORE_BITMAP_SCALEY, std::to_string(s) + "pts", GLUT_STROKE_ROMAN, hud::SCORE_BITMAP_LINE_WIDTH);
 }
 
 void vBitmapOutput(GLfloat x, GLfloat y, GLfloat scalex, GLfloat scaley, std::string string, void *font, GLfloat lineWidth)
 {
-    //Début 2D
-    glMatrixMode (GL_PROJECTION);
+    // Début 2D
+    glMatrixMode(GL_PROJECTION);
     glPushMatrix();
     glLoadIdentity();
     glMatrixMode(GL_MODELVIEW);
@@ -97,19 +134,20 @@ void vBitmapOutput(GLfloat x, GLfloat y, GLfloat scalex, GLfloat scaley, std::st
     glLoadIdentity();
     glDisable(GL_LIGHTING);
 
-    glColor3f(1.0, 1.0, 1.0);
+    glColor3f(hud::BITMAP_RED, hud::BITMAP_GREEN, hud::BITMAP_BLUE);
     glLineWidth(lineWidth);
-    glScalef(1/1520.38, 1/1520.38, 1/1520.38);
+    glScalef(hud::BITMAP_SCALE, hud::BITMAP_SCALE, hud::BITMAP_SCALE);
     glScalef(1.2, 1.4, 1);
     glScalef(scalex, scaley, 1);
 
     glTranslatef(x, y, 0);
 
-	int len;
-	len = string.size(); // Calcule la longueur de la chaîne
-	for(int i = 0; i < len; i++) glutStrokeCharacter(font,string[i]); // Affiche chaque caractère de la chaîne
-    
-    //End 2D
+    int len;
+    len = string.size(); // Calcule la longueur de la chaîne
+    for (int i = 0; i < len; i++)
+        glutStrokeCharacter(font, string[i]); // Affiche chaque caractère de la chaîne
+
+    // End 2D
     glEnable(GL_LIGHTING);
     glMatrixMode(GL_PROJECTION);
     glPopMatrix();
@@ -117,36 +155,37 @@ void vBitmapOutput(GLfloat x, GLfloat y, GLfloat scalex, GLfloat scaley, std::st
     glPopMatrix();
 }
 
-GLvoid decoHUD(){
-    glMatrixMode (GL_PROJECTION);
+GLvoid decoHUD()
+{
+    glMatrixMode(GL_PROJECTION);
     glPushMatrix();
     glLoadIdentity();
-    glOrtho(-5, 5, -5, 5, -1.0f, 1.0f);
+    glOrtho(hud::PROJECTION_LEFT, hud::PROJECTION_RIGHT, hud::PROJECTION_BOTTOM, hud::PROJECTION_TOP, hud::PROJECTION_NEAR_VAL, hud::PROJECTION_FAR_VAL);
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
     glLoadIdentity();
     glDisable(GL_LIGHTING);
 
-    glColor3f(0.4, 0, 0.8);
-    glLineWidth(4);
+    glColor3f(hud::HUD_RED, hud::HUD_GREEN, hud::HUD_BLUE);
+    glLineWidth(hud::HUD_LINE_WIDTH);
     glBegin(GL_LINE_STRIP);
-        glVertex2f(-4.8, -4.8);
-        glVertex2f(4.8, -4.8);
-        glVertex2f(4.8, 3.85);
-        glVertex2f(5, 3.85);
+    glVertex2f(-hud::HUD_ORIGIN, -hud::HUD_ORIGIN);
+    glVertex2f(hud::HUD_ORIGIN, -hud::HUD_ORIGIN);
+    glVertex2f(hud::HUD_ORIGIN, hud::HUD_EXTREMITY_ONE);
+    glVertex2f(hud::HUD_EXTREMITY_TWO, hud::HUD_EXTREMITY_ONE);
     glEnd();
     glBegin(GL_LINE_STRIP);
-        glVertex2f(2.8, 5);
-        glVertex2f(2.8, 4.8);
-        glVertex2f(1, 4.8);
-        glVertex2f(0.8, 3.85);
-        glVertex2f(-0.8, 3.85);
-        glVertex2f(-1, 4.8);
-        glVertex2f(-4.8, 4.8);
-        glVertex2f(-4.8, -4.8);
+    glVertex2f(hud::HUD_EXTREMITY_THREE, hud::HUD_EXTREMITY_TWO);
+    glVertex2f(hud::HUD_EXTREMITY_THREE, hud::HUD_ORIGIN);
+    glVertex2f(hud::HUD_EXTREMITY_FOUR, hud::HUD_ORIGIN);
+    glVertex2f(hud::HUD_EXTREMITY_FIVE, hud::HUD_EXTREMITY_ONE);
+    glVertex2f(-hud::HUD_EXTREMITY_FIVE, hud::HUD_EXTREMITY_ONE);
+    glVertex2f(-hud::HUD_EXTREMITY_FOUR, hud::HUD_ORIGIN);
+    glVertex2f(-hud::HUD_ORIGIN, hud::HUD_ORIGIN);
+    glVertex2f(-hud::HUD_ORIGIN, -hud::HUD_ORIGIN);
     glEnd();
 
-    //End 2D
+    // End 2D
     glEnable(GL_LIGHTING);
     glMatrixMode(GL_PROJECTION);
     glPopMatrix();
@@ -154,36 +193,39 @@ GLvoid decoHUD(){
     glPopMatrix();
 }
 
-GLvoid vieSoucoupe(int vie, GLfloat angle){
-    glMatrixMode (GL_PROJECTION);
+GLvoid vieSoucoupe(int vie, GLfloat angle)
+{
+    glMatrixMode(GL_PROJECTION);
     glPushMatrix();
     glLoadIdentity();
-    glOrtho(-5, 5, -5, 5, -1.0f, 1.0f);
+    glOrtho(hud::PROJECTION_LEFT, hud::PROJECTION_RIGHT, hud::PROJECTION_BOTTOM, hud::PROJECTION_TOP, hud::PROJECTION_NEAR_VAL, hud::PROJECTION_FAR_VAL);
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
     glLoadIdentity();
 
-    glTranslatef(4.5, 1, 0);
+    glTranslatef(hud::ENEMY_X, hud::ENEMY_Y, hud::ENEMY_Z);
     glPushMatrix();
-        glTranslatef(0, 1, 0);
-        glScalef(0.1, 0.1, 0.1);
-        glScalef(0.2, 0.4, 0.2);
-        glCallList(5);
+    glTranslatef(hud::SECOND_ENEMY_X, hud::ENEMY_Y, hud::SECOND_ENEMY_Z);
+    glScalef(0.1, 0.1, 0.1);
+    glScalef(0.2, 0.4, 0.2);
+    glCallList(5);
     glPopMatrix();
-    glRotatef(angle, 0, 1, 0);
+    glRotatef(angle, hud::ENEMY_ROTATE_X, hud::ENEMY_ROTATE_Y, hud::ENEMY_ROTATE_Z);
     glPushMatrix();
-        glCallList(8);
+    glCallList(8);
     glPopMatrix();
 
-    if(vie > 10) {
+    if (vie > hud::ENEMY_LOW_LIFE_DELIMITER)
+    {
         glPushMatrix();
-            glTranslatef(0, -1, 0);
-            glCallList(8);
+        glTranslatef(hud::ENEMY_MINLIFE_TRANSLATE_X, hud::ENEMY_MINLIFE_TRANSLATE_Y, hud::ENEMY_MINLIFE_TRANSLATE_Z);
+        glCallList(8);
         glPopMatrix();
-        if(vie == 30) {
+        if (vie == hud::ENEMY_MAX_LIFE_DELIMITER)
+        {
             glPushMatrix();
-                glTranslatef(0, -2, 0);
-                glCallList(8);
+            glTranslatef(hud::ENEMY_MAXLIFE_TRANSLATE_X, hud::ENEMY_MAXLIFE_TRANSLATE_Y, hud::ENEMY_MAXLIFE_TRANSLATE_Z);
+            glCallList(8);
             glPopMatrix();
         }
     }
