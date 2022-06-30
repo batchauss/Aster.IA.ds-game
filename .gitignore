@@ -5,4 +5,5 @@ Projet/.qmake.stash
 Projet/Aster.ia.ds
 Projet/Makefile
 Projet/qrc_ressource.cpp
+Projet/includes/config.cpp
 .vscode

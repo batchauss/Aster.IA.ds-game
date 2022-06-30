@@ -1,110 +1,115 @@
+#include "../../includes/constant.h"
+
 #include "vaisseau.h"
 #include "../rendu/rendu.h"
 #include <iostream>
 
-GLfloat longueurTot[5] ={0,0,0,0,0}; //tableau annexe pour le calcul de la longueur du tir
+GLfloat longueurTot[5] = {0, 0, 0, 0, 0}; // tableau annexe pour le calcul de la longueur du tir
 extern std::vector<Asteroide *> asteroides;
 
-Vaisseau::Vaisseau(int nbBalles){
-    this->pos[0] = 0;
-    this->pos[1] = 0;
-    this->pos[2] = 0;
-    this->angle[0] = 0;
-    this->angle[1] = 0;
-    this->vitesse = 0;
-    this->longueur=3;  // longueur largeur hauteur pour la hitbox
-    this->largeur=3;
-    this->hauteur=3;
-    this->vie=100;
-    this->invincible=false;
-    this->statut="intact";
+Vaisseau::Vaisseau(int nbBalles)
+{
+    this->pos[0] = gameconf::PLAYER_BASE_POSITION;
+    this->pos[1] = gameconf::PLAYER_BASE_POSITION;
+    this->pos[2] = gameconf::PLAYER_BASE_POSITION;
+    this->angle[0] = gameconf::PLAYER_BASE_ROTATION;
+    this->angle[1] = gameconf::PLAYER_BASE_ROTATION;
+    this->vitesse = gameconf::PLAYER_BASE_SPEED;
+    this->longueur = gameconf::PLAYER_LENGTH; // longueur largeur hauteur pour la hitbox
+    this->largeur = gameconf::PLAYER_WIDTH;
+    this->hauteur = gameconf::PLAYER_HEIGHT;
+    this->vie = gameconf::PLAYER_BASE_LIFE;
+    this->invincible = gameconf::PLAYER_SPAWNING_INVINCIBILITY;
+    this->statut = "intact";
 
-    camera = new Camera(posx(), posy() + 10, posz() + 20);
+    camera = new Camera(posx(), posy() + gameconf::CAMERA_Y, posz() + gameconf::CAMERA_Z);
 
-    for (int i =0 ; i<nbBalles;++i){
-       Tir *t = new Tir(posx(), posy() , posz() );
-       t->setTirActif(false);
-       tirs.push_back(t);
+    for (int i = 0; i < nbBalles; ++i)
+    {
+        Tir *t = new Tir(posx(), posy(), posz());
+        t->setTirActif(false);
+        tirs.push_back(t);
     }
-
 }
-Vaisseau::~Vaisseau(){}
 
-void Vaisseau::move(GLfloat x, GLfloat y, GLfloat z){
+void Vaisseau::move(GLfloat x, GLfloat y, GLfloat z)
+{
     this->pos[0] += x;
     this->pos[1] += y;
     this->pos[2] += z;
 
-
     /*  Si le vaisseau dépasse les limites, il réaparrait de l'autre côté et la caméra aussi*/
 
-    if(posx() > 200){
-        this->pos[0] += -400;
-        camera->setPos(camera->posx() - 400, camera->posy(), camera->posz());
+    if (posx() > gameconf::POSITIVE_AREA_SIZE)
+    {
+        this->pos[0] -= gameconf::PLAYER_OUT_OF_ARENA_RELOCATION;
+        camera->setPos(camera->posx() - gameconf::PLAYER_OUT_OF_ARENA_RELOCATION, camera->posy(), camera->posz());
     }
-    else if(posx() < -200){
-        this->pos[0] += 400;
-        camera->setPos(camera->posx() + 400, camera->posy(), camera->posz());
+    else if (posx() < gameconf::NEGATIVE_AREA_SIZE)
+    {
+        this->pos[0] += gameconf::PLAYER_OUT_OF_ARENA_RELOCATION;
+        camera->setPos(camera->posx() + gameconf::PLAYER_OUT_OF_ARENA_RELOCATION, camera->posy(), camera->posz());
     }
-    if(posy() > 200){
-        this->pos[1] += -400;
-        camera->setPos(camera->posx(), camera->posy()-400, camera->posz());
+    if (posy() > gameconf::POSITIVE_AREA_SIZE)
+    {
+        this->pos[1] -= gameconf::PLAYER_OUT_OF_ARENA_RELOCATION;
+        camera->setPos(camera->posx(), camera->posy() - gameconf::PLAYER_OUT_OF_ARENA_RELOCATION, camera->posz());
     }
-    else if(posy() < -200){
-        this->pos[1] += 400;
-        camera->setPos(camera->posx(), camera->posy()+400, camera->posz());
+    else if (posy() < gameconf::NEGATIVE_AREA_SIZE)
+    {
+        this->pos[1] += gameconf::PLAYER_OUT_OF_ARENA_RELOCATION;
+        camera->setPos(camera->posx(), camera->posy() + gameconf::PLAYER_OUT_OF_ARENA_RELOCATION, camera->posz());
     }
-    if(posz() > 200){
-        this->pos[2] += -400;
-        camera->setPos(camera->posx(), camera->posy(), camera->posz() - 400);
+    if (posz() > gameconf::POSITIVE_AREA_SIZE)
+    {
+        this->pos[2] -= gameconf::PLAYER_OUT_OF_ARENA_RELOCATION;
+        camera->setPos(camera->posx(), camera->posy(), camera->posz() - gameconf::PLAYER_OUT_OF_ARENA_RELOCATION);
     }
-    else if(posz() < -200){
-        this->pos[2] += 400;
-        camera->setPos(camera->posx(), camera->posy(), camera->posz() + 400);
+    else if (posz() < gameconf::NEGATIVE_AREA_SIZE)
+    {
+        this->pos[2] += gameconf::PLAYER_OUT_OF_ARENA_RELOCATION;
+        camera->setPos(camera->posx(), camera->posy(), camera->posz() + gameconf::PLAYER_OUT_OF_ARENA_RELOCATION);
     }
 }
 
-void Vaisseau::setAngle(GLfloat a){  //angle x z
+void Vaisseau::setAngle(GLfloat a)
+{ // angle x z
     this->angle[0] += a;
-    a *= 3.14 / 180;
+    a *= gameconf::DEG2RAD;
 
-    //Rotation de la caméra
+    // Rotation de la caméra
     GLfloat xCam = camera->posx() - posx();
-   // GLfloat yCam = camera->posy() - posy();
+    // GLfloat yCam = camera->posy() - posy();
     GLfloat zCam = camera->posz() - posz();
 
-    camera->setPos(
-        xCam * cos(a) + zCam * sin(a) + posx(),  ////faire avec setangle et setangle2 ???
-        camera->posy(),
-        -xCam * sin(a) + zCam * cos(a) + posz()
-    );
+    for (unsigned int i = 0; i < tirs.size(); ++i)
+    { // les munitions se déplacent avec le vaisseau (angle)
+        if (!tirs.at(i)->getTirActif())
+            tirs.at(i)->setAngle(this->angle[0]);
+    }
 
-
-     for (unsigned int i = 0; i< tirs.size();++i){ // les munitions se déplacent avec le vaisseau (angle)
-        if(!tirs.at(i)->getTirActif()) tirs.at(i)->setAngle(this->angle[0]);
-     }
 }
 
-
-
-void Vaisseau::setAngle2(GLfloat a){  // pitch angle (2nd angle)
+void Vaisseau::setAngle2(GLfloat a)
+{ // pitch angle (2nd angle)
 	this->angle[1] += a;
 
-     for (unsigned int i = 0; i< tirs.size();++i){
-     	if(!tirs.at(i)->getTirActif()) tirs.at(i)->setAngle2(this->angle[1]);
-     }
+    for (unsigned int i = 0; i< tirs.size();++i)
+     	if(!tirs.at(i)->getTirActif())
+            tirs.at(i)->setAngle2(this->angle[1]);
 }
 
-void Vaisseau::moveForward(){
-    	// Player Rotation
-    	float yaw   = getAngle()  * 3.14 / 180;
-    	float pitch = getAngle2() * 3.14 / 180;
-    	float roll  = 0;
+void Vaisseau::moveForward()
+{
+	// Player Rotation
+	float yaw   = getAngle()  * gameconf::DEG2RAD;
+	float pitch = getAngle2() * gameconf::DEG2RAD;
+	float roll  = 0;
 
-    	// Player direction
-    	float pdx = -1 * sin(yaw) * cos(pitch);
-    	float pdy =      sin(pitch);
-     float pdz = -1 * cos(yaw) * cos(pitch);
+    // Player direction
+    float pdx = -1 * sin(yaw) * cos(pitch);
+    float pdy =      sin(pitch);
+    float pdz = -1 * cos(yaw) * cos(pitch);
 
 	// Player velocity
 	pdx *= vitesse;
@@ -115,120 +120,152 @@ void Vaisseau::moveForward(){
 	this->move( pdx, pdy, pdz );
 
 	// Keep is projectile inside is ship
-	for(auto & tir: tirs) if(! tir->getTirActif()) {
-		tir->move( pdx , pdy , pdz );
-		tir->setposmomentTir( tir->posX(), tir->posY(), tir->posZ() 	);
-	}
+	for(auto & tir: tirs) 
+        if(! tir->getTirActif())
+        {
+		    tir->move( pdx , pdy , pdz );
+		    tir->setposmomentTir( tir->posX(), tir->posY(), tir->posZ() );
+	    }
 }
 
-void Vaisseau::decreaseSpeed(){
-    if(vitesse > 0) vitesse *= 0.96;
-    else if(vitesse < 0) vitesse *= 0.90;
-
+void Vaisseau::decreaseSpeed()
+{
+    if (vitesse > 0)
+        vitesse *= playercontrols::POSITIVE_SPEED_DECREASE;
+    else if (vitesse < 0)
+        vitesse *= playercontrols::NEGATIVE_SPEED_DECREASE;
 }
 
-GLvoid Vaisseau::tirer(){ // tire une balle
-	for (unsigned int i = 0; i< tirs.size();++i){
+GLvoid Vaisseau::tirer()
+{ // tire une balle
+    for (unsigned int i = 0; i < tirs.size(); ++i)
+    {
 
-        GLfloat longueur = longueurTot[i]+ sqrt( (tirs.at(i)->posX()-tirs.at(i)->posXmomentTir())*(tirs.at(i)->posX()-tirs.at(i)->posXmomentTir())
-                                +(tirs.at(i)->posY()-tirs.at(i)->posYmomentTir())*(tirs.at(i)->posY()-tirs.at(i)->posYmomentTir())
-                                +(tirs.at(i)->posZ()-tirs.at(i)->posZmomentTir())*(tirs.at(i)->posZ()-tirs.at(i)->posZmomentTir())  );
+        GLfloat longueur = longueurTot[i] + sqrt((tirs.at(i)->posX() - tirs.at(i)->posXmomentTir()) * (tirs.at(i)->posX() - tirs.at(i)->posXmomentTir()) + (tirs.at(i)->posY() - tirs.at(i)->posYmomentTir()) * (tirs.at(i)->posY() - tirs.at(i)->posYmomentTir()) + (tirs.at(i)->posZ() - tirs.at(i)->posZmomentTir()) * (tirs.at(i)->posZ() - tirs.at(i)->posZmomentTir()));
 
-        GLfloat calculRotationTranslatexTir = -tirs.at(i)->getSpeed() * sin(tirs.at(i)->getAngle() * 3.14 / 180);
-        GLfloat calculRotationTranslateyTir = tirs.at(i)->getSpeed() * sin(tirs.at(i)->getAngle2() * 3.14 / 180);
-        GLfloat calculRotationTranslatezTir = -tirs.at(i)->getSpeed() * cos(tirs.at(i)->getAngle() * 3.14 / 180);
+        GLfloat calculRotationTranslatexTir = -tirs.at(i)->getSpeed() * sin(tirs.at(i)->getAngle() * gameconf::DEG2RAD);
+        GLfloat calculRotationTranslateyTir = tirs.at(i)->getSpeed() * sin(tirs.at(i)->getAngle2() * gameconf::DEG2RAD);
+        GLfloat calculRotationTranslatezTir = -tirs.at(i)->getSpeed() * cos(tirs.at(i)->getAngle() * gameconf::DEG2RAD);
         tirs.at(i)->move(calculRotationTranslatexTir, calculRotationTranslateyTir, calculRotationTranslatezTir);
 
+        // gestion du franchissage de frontière du tir
+        if (tirs.at(i)->posX() > gameconf::POSITIVE_AREA_SIZE)
+        {
+            longueurTot[i] = longueur;
+            tirs.at(i)->setPos(tirs.at(i)->posX() - gameconf::BULLET_OUT_OF_ARENA_RELOCATION, tirs.at(i)->posY(), tirs.at(i)->posZ());
+            tirs.at(i)->setposmomentTir(tirs.at(i)->posX(), tirs.at(i)->posY(), tirs.at(i)->posZ());
+        }
 
-    //gestion du franchissage de frontière du tir
-    if (tirs.at(i)->posX() > 200){
-        longueurTot[i]=longueur;
-        tirs.at(i)->setPos(tirs.at(i)->posX()-400,tirs.at(i)->posY(),tirs.at(i)->posZ());
-        tirs.at(i)->setposmomentTir(tirs.at(i)->posX(),tirs.at(i)->posY(),tirs.at(i)->posZ());
-    }
+        else if (tirs.at(i)->posX() < gameconf::NEGATIVE_AREA_SIZE)
+        {
+            longueurTot[i] = longueur;
+            tirs.at(i)->setPos(tirs.at(i)->posX() + gameconf::BULLET_OUT_OF_ARENA_RELOCATION, tirs.at(i)->posY(), tirs.at(i)->posZ());
+            tirs.at(i)->setposmomentTir(tirs.at(i)->posX(), tirs.at(i)->posY(), tirs.at(i)->posZ());
+        }
 
-    else if (tirs.at(i)->posX() < -200){
-        longueurTot[i]=longueur;
-         tirs.at(i)->setPos(tirs.at(i)->posX()+400,tirs.at(i)->posY(),tirs.at(i)->posZ());
-         tirs.at(i)->setposmomentTir(tirs.at(i)->posX(),tirs.at(i)->posY(),tirs.at(i)->posZ());
-    }
+        if (tirs.at(i)->posY() > gameconf::POSITIVE_AREA_SIZE)
+        {
+            longueurTot[i] = longueur;
+            tirs.at(i)->setPos(tirs.at(i)->posX(), tirs.at(i)->posY() - gameconf::BULLET_OUT_OF_ARENA_RELOCATION, tirs.at(i)->posZ());
+            tirs.at(i)->setposmomentTir(tirs.at(i)->posX(), tirs.at(i)->posY(), tirs.at(i)->posZ());
+        }
+        else if (tirs.at(i)->posY() < gameconf::NEGATIVE_AREA_SIZE)
+        {
+            longueurTot[i] = longueur;
+            tirs.at(i)->setPos(tirs.at(i)->posX(), tirs.at(i)->posY() + gameconf::BULLET_OUT_OF_ARENA_RELOCATION, tirs.at(i)->posZ());
+            tirs.at(i)->setposmomentTir(tirs.at(i)->posX(), tirs.at(i)->posY(), tirs.at(i)->posZ());
+        }
 
-    if (tirs.at(i)->posY() > 200){
-        longueurTot[i]=longueur;
-         tirs.at(i)->setPos(tirs.at(i)->posX(),tirs.at(i)->posY()-400,tirs.at(i)->posZ());
-         tirs.at(i)->setposmomentTir(tirs.at(i)->posX(),tirs.at(i)->posY(),tirs.at(i)->posZ());
-    }
-    else if (tirs.at(i)->posY() < -200){
-        longueurTot[i]=longueur;
-         tirs.at(i)->setPos(tirs.at(i)->posX(),tirs.at(i)->posY()+400,tirs.at(i)->posZ());
-         tirs.at(i)->setposmomentTir(tirs.at(i)->posX(),tirs.at(i)->posY(),tirs.at(i)->posZ());
-    }
+        if (tirs.at(i)->posZ() > gameconf::POSITIVE_AREA_SIZE)
+        {
+            longueurTot[i] = longueur;
+            tirs.at(i)->setPos(tirs.at(i)->posX(), tirs.at(i)->posY(), tirs.at(i)->posZ() - gameconf::BULLET_OUT_OF_ARENA_RELOCATION);
+            tirs.at(i)->setposmomentTir(tirs.at(i)->posX(), tirs.at(i)->posY(), tirs.at(i)->posZ());
+        }
 
-    if (tirs.at(i)->posZ() > 200){
-        longueurTot[i]=longueur;
-         tirs.at(i)->setPos(tirs.at(i)->posX(),tirs.at(i)->posY(),tirs.at(i)->posZ()-400);
-         tirs.at(i)->setposmomentTir(tirs.at(i)->posX(),tirs.at(i)->posY(),tirs.at(i)->posZ());
-    }
+        else if (tirs.at(i)->posZ() < gameconf::NEGATIVE_AREA_SIZE)
+        {
+            longueurTot[i] = longueur;
+            tirs.at(i)->setPos(tirs.at(i)->posX(), tirs.at(i)->posY(), tirs.at(i)->posZ() + gameconf::BULLET_OUT_OF_ARENA_RELOCATION);
+            tirs.at(i)->setposmomentTir(tirs.at(i)->posX(), tirs.at(i)->posY(), tirs.at(i)->posZ());
+        }
 
-    else if (tirs.at(i)->posZ() < -200){
-        longueurTot[i]=longueur;
-         tirs.at(i)->setPos(tirs.at(i)->posX(),tirs.at(i)->posY(),tirs.at(i)->posZ()+400);
-         tirs.at(i)->setposmomentTir(tirs.at(i)->posX(),tirs.at(i)->posY(),tirs.at(i)->posZ());
+        // on remet la balle a sa place si il atteint la portée grace au calcul de la longueur
+        if (longueur > gameconf::POSITIVE_AREA_SIZE || longueur < gameconf::NEGATIVE_AREA_SIZE)
+        {
+            longueurTot[i] = 0;
+            tirs.at(i)->release(this->posx(), this->posy(), this->posz(), this->getAngle(), this->getAngle2());
+        }
     }
-
-    //on remet la balle a sa place si il atteint la portée grace au calcul de la longueur
-    if ( longueur > 200 || longueur < -200 ){
-        longueurTot[i]=0;
-        tirs.at(i)->release(this->posx(),this->posy(),this->posz(),this->getAngle(), this->getAngle2());
-    }
-  }
 }
 
-
-bool Vaisseau::collisionVaisseauAsteroide(Asteroide * a){
-    if(!this->invincible)
+bool Vaisseau::collisionVaisseauAsteroide(Asteroide *a)
+{
+    if (!this->invincible)
     {
         float sphereXDistance = abs(a->posX() - this->posx());
         float sphereYDistance = abs(a->posY() - this->posy());
         float sphereZDistance = abs(a->posZ() - this->posz());
 
-        if (sphereXDistance >= (this->largeur + a->getRayon())) { return false; }
-        if (sphereYDistance >= (this->longueur + a->getRayon())) { return false; }
-        if (sphereZDistance >= (this->hauteur + a->getRayon())) { return false; }
+        if (sphereXDistance >= (this->largeur + a->getRayon()))
+        {
+            return false;
+        }
+        if (sphereYDistance >= (this->longueur + a->getRayon()))
+        {
+            return false;
+        }
+        if (sphereZDistance >= (this->hauteur + a->getRayon()))
+        {
+            return false;
+        }
 
-        if (sphereXDistance < (this->largeur)) { this->vie-=10; return true; }
-        if (sphereYDistance < (this->longueur)) { this->vie-=10; return true; }
-        if (sphereZDistance < (this->hauteur)) { this->vie-=10; return true; }
+        if (sphereXDistance < (this->largeur))
+        {
+            this->vie -= gameconf::ASTEROID_CONTACT_DAMAGE;
+            return true;
+        }
+        if (sphereYDistance < (this->longueur))
+        {
+            this->vie -= gameconf::ASTEROID_CONTACT_DAMAGE;
+            return true;
+        }
+        if (sphereZDistance < (this->hauteur))
+        {
+            this->vie -= gameconf::ASTEROID_CONTACT_DAMAGE;
+            return true;
+        }
 
         float cornerDistance_sq = ((sphereXDistance - this->largeur) * (sphereXDistance - this->largeur)) +
                                   ((sphereYDistance - this->longueur) * (sphereYDistance - this->longueur) +
-                                  ((sphereYDistance - this->hauteur) * (sphereYDistance - this->hauteur)));
+                                   ((sphereYDistance - this->hauteur) * (sphereYDistance - this->hauteur)));
 
-        if (cornerDistance_sq < (a->getRayon() * a->getRayon())){
-            this->vie-=10;
+        if (cornerDistance_sq < (a->getRayon() * a->getRayon()))
+        {
+            this->vie -= gameconf::ASTEROID_CONTACT_DAMAGE;
             return true;
         }
     }
     return false;
 }
 
-bool Vaisseau::collisionVaisseauVaisseau( Vaisseau *v){
-  if(!this->invincible && v->getVie()>0)
-  {
-    if(abs(this->posx() - v->posx()) < this->getLargeur() + v->getLargeur())
+bool Vaisseau::collisionVaisseauVaisseau(Vaisseau *v)
+{
+    if (!this->invincible && v->getVie() > gameconf::PLAYER_DEAD)
     {
+        if (abs(this->posx() - v->posx()) < this->getLargeur() + v->getLargeur())
+        {
 
-      if(abs(this->posy() - v->posy()) < this->getHauteur() + v->getHauteur())
-      {
+            if (abs(this->posy() - v->posy()) < this->getHauteur() + v->getHauteur())
+            {
 
-          if(abs(this->posz() - v->posz()) < this->getLongueur() + v->getLongueur())
-          {
-             return true;
-          }
-      }
+                if (abs(this->posz() - v->posz()) < this->getLongueur() + v->getLongueur())
+                {
+                    return true;
+                }
+            }
+        }
     }
-   }
 
-   return false;
-
+    return false;
 }

@@ -1,4 +1,6 @@
-#include"init.h"
+#include "../includes/constant.h"
+
+#include "init.h"
 
 #include "touches/actions.h"
 
@@ -8,33 +10,31 @@
 #include "rendu/rendu.h"
 #include "rendu/decor.h"
 
-#include <string>
-
-
 GLuint texture[1];
 int window = 0;
 GLfloat ambiente[4] = {0.7, 0.7, 0.7, 1};
 
-struct objmtl vaisseauObj = loadObj("models/vaisseau");
-struct objmtl asteroideObj = loadObj("models/asteroides1");
-struct objmtl asteroide2Obj = loadObj("models/asteroides2");
-struct objmtl asteroide3Obj = loadObj("models/asteroides3");
-struct objmtl ennemiobj = loadObj("models/ennemi");
-struct objmtl heartObj = loadObj("models/heart");
+struct objmtl vaisseauObj	= loadObj("models/vaisseau");
+struct objmtl asteroideObj	= loadObj("models/asteroides1");
+struct objmtl asteroide2Obj	= loadObj("models/asteroides2");
+struct objmtl asteroide3Obj	= loadObj("models/asteroides3");
+struct objmtl ennemiobj		= loadObj("models/ennemi");
+struct objmtl heartObj		= loadObj("models/heart");
 
-Vaisseau * vaisseau = new Vaisseau(10);
-Vaisseau * ennemi = new Vaisseau(5);
+Vaisseau *vaisseau = new Vaisseau(gameconf::PLAYER_BASE_BULLETS_NUMBER);
+Vaisseau *ennemi = new Vaisseau(gameconf::ENEMY_BASE_BULLETS_NUMBER);
 std::vector<Asteroide *> asteroides;
-GLfloat score = 0;
+GLfloat score = gameconf::BASE_SCORE;
 
 int argc;
-char** argv;
+char **argv;
 extern GLvoid Modelisation();
 
 extern std::string pseudonyme;
 extern bool writeOnce;
 
-GLvoid Redimensionne(GLsizei width, GLsizei height){
+GLvoid Redimensionne(GLsizei width, GLsizei height)
+{
 	glViewport(0, 0, width, height);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -42,7 +42,8 @@ GLvoid Redimensionne(GLsizei width, GLsizei height){
 	glMatrixMode(GL_MODELVIEW);
 }
 
-int notre_init(int argc1, char** argv1, void (*Modelisation)()){
+int notre_init(int argc1, char **argv1, void (*Modelisation)())
+{
 	argc = argc1;
 	argv = argv1;
 	initialise();
@@ -61,10 +62,10 @@ int notre_init(int argc1, char** argv1, void (*Modelisation)()){
 	glutKeyboardUpFunc(&releaseTouche);
 	glutSpecialFunc(&toucheSpeciale);
 	glutSpecialUpFunc(&releaseToucheSpeciale);
-	glClearColor(0.0 , 0.0 , 0.0 , 0.0);
+	glClearColor(0.0, 0.0, 0.0, 0.0);
 
 	glEnable(GL_LIGHTING);
-    glEnable(GL_COLOR_MATERIAL);
+	glEnable(GL_COLOR_MATERIAL);
 	glEnable(GL_LIGHT0);
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambiente);
 
@@ -74,8 +75,8 @@ int notre_init(int argc1, char** argv1, void (*Modelisation)()){
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	renduVaisseau(1,vaisseauObj);
-	renduVaisseau(2,vaisseauObj);
+	renduVaisseau(1, vaisseauObj);
+	renduVaisseau(2, vaisseauObj);
 	renduAsteroide(1, asteroideObj);
 	renduAsteroide(2, asteroide2Obj);
 	renduAsteroide(3, asteroide3Obj);
@@ -83,50 +84,57 @@ int notre_init(int argc1, char** argv1, void (*Modelisation)()){
 	renduCoeur(heartObj);
 	decorPlanetes();
 
-	//implementation des fichiers de textures
-	TEXTURE_STRUCT * night = readPpm((char *)"pic/night.ppm");
+	// implementation des fichiers de textures
+	TEXTURE_STRUCT *night = readPpm("pic/night.ppm");
 	Parametres_texture(0, night, texture[0]);
 
 	glutMainLoop();
 	return 1;
 }
 
-void initialise(){
+void initialise()
+{
 	asteroides.clear();
 	creationAsteroides();
 
-	ennemi->setVie(30);
-	ennemi->setPos(Rand(-100,100),Rand(-100,100),Rand(-100,100));
+	auto getRandPosition = []() { return Rand(gameconf::ENEMY_MIN_RAND_POS, gameconf::ENEMY_MAX_RAND_POS); };
+
+	ennemi->setVie(gameconf::ENEMY_BASE_LIFE);
+	ennemi->setPos(getRandPosition(), getRandPosition(), getRandPosition() );
 }
 
-void reinitialisation(){
+void reinitialisation()
+{
 	delete vaisseau;
-	vaisseau = new Vaisseau(10);
+	vaisseau = new Vaisseau(gameconf::PLAYER_BASE_BULLETS_NUMBER);
 
 	delete ennemi;
-	ennemi = new Vaisseau(5);
+	ennemi = new Vaisseau(gameconf::ENEMY_BASE_BULLETS_NUMBER);
 
-	score = 0;
+	score = gameconf::BASE_SCORE;
 	writeOnce = false;
 
 	glutExit();
-    notre_init(argc, argv, &Modelisation);
+	notre_init(argc, argv, &Modelisation);
 }
 
-
-float Rand( float a, float b) // fonction rand
+float Rand(float a, float b) // fonction rand
 {
-	if( b < a ) return Rand(b,a);
+	if (b < a)
+		return Rand(b, a);
 	float r = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
-	return ( r * (b - a) ) + a;
+	return (r * (b - a)) + a;
 }
 
-int rand_i(int a, int b ) {
-	if( b < a ) return rand_i(b,a);
-	return ( rand() % (b - a) ) + a;
+int rand_i(int a, int b)
+{
+	if (b < a)
+		return rand_i(b, a);
+	return (rand() % (b - a)) + a;
 }
 
-
-void creationAsteroides() {
-	for( int i=0 ; i<4 ; ++i ) asteroides.push_back( new AsteroideGrand( asteroides.size() ) );
+void creationAsteroides()
+{
+	for (int i = 0; i < gameconf::BASE_ASTEROIDS_NUMBER; ++i)
+		asteroides.push_back(new AsteroideGrand(asteroides.size()));
 }

@@ -1,37 +1,50 @@
+#include "../../includes/constant.h"
+
 #include "asteroidePetit.h"
-#include<iostream>
-#include"vaisseau.h"
+#include <iostream>
+#include "vaisseau.h"
 
 extern std::vector<Asteroide *> asteroides;
-extern Vaisseau * vaisseau;
-extern  GLfloat score ;
+extern Vaisseau *vaisseau;
+extern GLfloat score;
 
-AsteroidePetit::AsteroidePetit( int i) :Asteroide(i){
-    this->taille=1;
-    this->rayon_hitbox=5;
+AsteroidePetit::AsteroidePetit(int i) : Asteroide(i)
+{
+    this->taille = gameconf::SMALL_ASTEROID_BASE_SIZE;
+    this->rayon_hitbox = gameconf::SMALL_ASTEROID_BASE_HITBOX;
 }
 
-void AsteroidePetit::split(){
-    asteroides.erase(asteroides.begin()+this->_id); // suppression du petit asteroide
+void AsteroidePetit::split()
+{
+    asteroides.erase(asteroides.begin() + this->_id); // suppression du petit asteroide
 
-    for(unsigned int i = 0; i<asteroides.size();++i){ // on reassigne l'id des asteroides
+    for (unsigned int i = 0; i < asteroides.size(); ++i)
+    { // on reassigne l'id des asteroides
         asteroides.at(i)->setId(i);
     }
     delete this;
 }
 
- GLvoid AsteroidePetit::asteroideTouche(){
-    for (unsigned int i = 0; i< vaisseau->tirs.size();++i){
-        GLfloat longueur = sqrt( (vaisseau->tirs.at(i)->posX()-this->posX())*(vaisseau->tirs.at(i)->posX()-this->posX())
-                                +(vaisseau->tirs.at(i)->posY()-this->posY())*(vaisseau->tirs.at(i)->posY()-this->posY())
-                                +(vaisseau->tirs.at(i)->posZ()-this->posZ())*(vaisseau->tirs.at(i)->posZ()-this->posZ()) );
+GLvoid AsteroidePetit::asteroideTouche()
+{
+  for (auto & tir : vaisseau->tirs)
+  {
+    auto P2 = []( float a ) { return a * a; };
 
-    if(longueur<=this->rayon_hitbox and vaisseau->tirs.at(i)->getTirActif()){
-       vaisseau->tirs.at(i)->release(vaisseau->posx(),vaisseau->posy(),vaisseau->posz(),vaisseau->getAngle(), vaisseau->getAngle2());
-      this->touche =true;
-      score +=100;
+    GLfloat longueur = sqrt(  P2( tir->posX() - this->posX() )
+                     + P2( tir->posY() - this->posY() )
+                     + P2( tir->posZ() - this->posZ() ) );
+
+    if (
+     (longueur <= this->rayon_hitbox) and (tir->getTirActif())
+    ) {
+      tir->release(
+        vaisseau->posx(), vaisseau->posy(), vaisseau->posz(), 
+        vaisseau->getAngle(), vaisseau->getAngle2()
+      );
+      this->touche = true;
+      score += gameconf::SMALL_ASTEROID_SCORE;
       break;
     }
-
   }
- }
+}
