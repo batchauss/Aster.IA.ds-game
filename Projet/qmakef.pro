@@ -22,9 +22,11 @@ SOURCES += \
      $$files(src/touches/*.cpp) \
      $$files(src/math/*.cpp) \
      $$files(src/*.cpp) \
+     $$files(includes/*.cpp) \
 
 HEADERS += \
      \
+     $$files(includes/*.h) \
      $$files(src/fonctions/*.h) \
      $$files(src/qt/*.h) \
      $$files(src/objets/*.h) \

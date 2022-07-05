@@ -1,5 +1,4 @@
-#ifndef VAISSEAU_H
-#define VAISSEAU_H
+#pragma once
 
 #include "../init.h"
 #include "camera.h"
@@ -11,7 +10,7 @@ class Vaisseau {
 
 public : 
     Vaisseau(int nbBalles);
-    ~Vaisseau();
+    ~Vaisseau() = default;
     void move(GLfloat x, GLfloat y, GLfloat z);             // Permet d'incrémenter la position du vaisseau par x y z
     
 
@@ -76,5 +75,3 @@ private :
     GLfloat vie;
     std::string statut;
 };
-
-#endif

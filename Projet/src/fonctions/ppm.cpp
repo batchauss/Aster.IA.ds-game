@@ -1,26 +1,21 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 #include "ppm.h"
-#include <string>
+
+#include "../../includes/config.h"
 
 //ppm.h et ppm.c sont les fichiers qui lisent et interprètent les textures en .ppm
 
-const std::string PATH_TO_ASSETS = "/usr/share/Aster.ia.ds/";
-
-#include <iostream>
-
-TEXTURE_STRUCT * readPpm(std::string ppmPath)
+TEXTURE_STRUCT * readPpm(std::string ppmFilePath)
 {
-	ppmPath = (PATH_TO_ASSETS + ppmPath);
-	const char* temp = ppmPath.c_str();
-	char* ppmFileName = (char*)(temp);
 	FILE *file;
 	TEXTURE_STRUCT *texture = NULL;
 	char buffer[255];
 	int pixelFormat;
 	int i;
 
+	char* ppmFileName = (char*) ( ( config(configKey::PATH_TO_ASSETS) + ppmFilePath).c_str() );
 
 	if ((file = fopen(ppmFileName, "rb")) == NULL)
 	{

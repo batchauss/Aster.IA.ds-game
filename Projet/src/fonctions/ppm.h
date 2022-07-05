@@ -10,6 +10,6 @@ typedef struct
   unsigned char *data;
 } TEXTURE_STRUCT;
 
-TEXTURE_STRUCT  * readPpm (std::string ppmFilePath);
+TEXTURE_STRUCT  * readPpm (std::string ppmFileName);
 void writePpm (char *filename, unsigned char *data);
 unsigned char * rgb2rgba(TEXTURE_STRUCT * texture);

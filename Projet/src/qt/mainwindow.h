@@ -1,5 +1,4 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#pragma once
 
 #include <QMainWindow>
 #include <QtWidgets>
@@ -12,12 +11,14 @@
 #include "../rendu/hud.h"
 #include "../fonctions/finJeu.h"
 
+#include "../../includes/config.h"
+
 class mainwindow : public QMainWindow
 {
     Q_OBJECT
 public:
     mainwindow(int argc, char**argv);
-    ~mainwindow();
+    ~mainwindow() = default;
 
     void createWidgetMenuPrincipal(int argc, char**argv);
     void createWidgetMenuOption();
@@ -35,5 +36,3 @@ public:
 
     QStackedWidget * widgets;
 };
-
-#endif

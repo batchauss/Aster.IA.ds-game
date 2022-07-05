@@ -3,6 +3,19 @@
 #include <cmath>
 #include <GL/glu.h>
 
+Camera::Camera(GLfloat x, GLfloat y, GLfloat z){
+    this->pos[0] = x;
+    this->pos[1] = y;
+    this->pos[2] = z;
+}
+Camera::~Camera(){}
+
+void Camera::move(GLfloat x, GLfloat y, GLfloat z){
+    this->pos[0] += x;
+    this->pos[1] += y;
+    this->pos[2] += z;
+}
+
 void Camera::posCamFromObj(Vect playerPosition,Vect rotDeg) {
 
 	// Degree to Rad
@@ -31,16 +44,4 @@ void Camera::posCamFromObj(Vect playerPosition,Vect rotDeg) {
 		playerPosition.getX(), playerPosition.getY(), playerPosition.getZ(),
 		upDirection.getX(), upDirection.getY(), upDirection.getZ()
 	);
-}
-Camera::Camera(GLfloat x, GLfloat y, GLfloat z){
-    this->pos[0] = x;
-    this->pos[1] = y;
-    this->pos[2] = z;
-}
-Camera::~Camera(){}
-
-void Camera::move(GLfloat x, GLfloat y, GLfloat z){
-    this->pos[0] += x;
-    this->pos[1] += y;
-    this->pos[2] += z;
 }
