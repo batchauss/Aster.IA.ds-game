@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 
-extern GLvoid VM_init();
+extern GLvoid frame();
 
 std::string pseudonyme;
 extern GLfloat score;
@@ -40,7 +40,7 @@ GLvoid Modelisation()
     for(unsigned int i=0; i<3; i++) ambiente[i] = 0.7;
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambiente);
 
-    VM_init();
+    frame();
     glutSwapBuffers();
 
     doPauseOnce = false;
@@ -53,7 +53,7 @@ GLvoid Modelisation()
     for(unsigned int i=0; i<3; i++) ambiente[i] = 0.3;
     
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambiente);
-    VM_init();
+    frame();
     glutSwapBuffers();
 
     doPauseOnce = true;
