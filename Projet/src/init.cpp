@@ -8,6 +8,7 @@
 #include "rendu/rendu.h"
 #include "rendu/decor.h"
 
+#include <string>
 
 
 GLuint texture[1];
@@ -83,7 +84,7 @@ int notre_init(int argc1, char** argv1, void (*Modelisation)()){
 	decorPlanetes();
 
 	//implementation des fichiers de textures
-	TEXTURE_STRUCT * night = readPpm((char *)"./pic/night.ppm");
+	TEXTURE_STRUCT * night = readPpm((char *)"pic/night.ppm");
 	Parametres_texture(0, night, texture[0]);
 
 	glutMainLoop();

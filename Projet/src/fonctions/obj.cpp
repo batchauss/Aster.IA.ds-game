@@ -1,6 +1,9 @@
 #include "obj.h"
 
-struct objmtl loadObj(std::string const & path){
+const std::string PATH_TO_ASSETS = "/usr/share/Aster.ia.ds/";
+
+struct objmtl loadObj(std::string path){
+    path = PATH_TO_ASSETS+path;
     mtls materiaux;
     materiaux = loadMtl(path);
 

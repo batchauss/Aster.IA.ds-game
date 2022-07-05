@@ -36,6 +36,10 @@ void update() {
 	// Déplacement
 	vaisseau->moveForward();
 
+// Temporary calculation
+float tempPitch = abs((int)vaisseau->getAngle2()) % 360;
+bool isVewReversed = ( (tempPitch > 90) && (tempPitch < 270) );
+
 	for(auto asteroide : asteroides)
 		asteroide->moveForward();
 
@@ -44,8 +48,8 @@ void update() {
 
 	// Contrôle Déplacement
 	if(!zPressed) vaisseau->decreaseSpeed();
-	if(qPressed) vaisseau->setAngle(2);
-	if(dPressed) vaisseau->setAngle(-2);
+	if(qPressed) vaisseau->setAngle( isVewReversed ? -2 : 2 );
+	if(dPressed) vaisseau->setAngle( isVewReversed ? 2 : -2 );
 
 	if(keyUpPressed) vaisseau->setAngle2(-2);
 	if(keyDownPressed) vaisseau->setAngle2(2);
