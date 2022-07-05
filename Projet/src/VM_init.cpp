@@ -98,7 +98,7 @@ GLvoid rendu() {
 	// Projectile
 	if( ! vaisseau->invincible )
 		for(const auto & tir : vaisseau->tirs)
-			renduTir( 1, vaisseau->tirs.at(i) );
+			renduTir( 1, tir );
 
 	// Barre de vie & Vaisseau
 	glPushMatrix();
