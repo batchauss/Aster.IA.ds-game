@@ -33,15 +33,44 @@ GLfloat angleHeart = 0;
 extern GLvoid vieSoucoupe(int i, GLfloat angle);
 
 void update() {
+	// Déplacement
 	vaisseau->moveForward();
 
+	for(auto asteroide : asteroides)
+		asteroide->moveForward();
+
+	// Tir
 	if(!vaisseau->invincible)vaisseau->tirer(); //le vaisseau ne tire pas lorsqu'il est invincible
+
+	// Contrôle Déplacement
 	if(!zPressed) vaisseau->decreaseSpeed();
 	if(qPressed) vaisseau->setAngle(2);
 	if(dPressed) vaisseau->setAngle(-2);
 
 	if(keyUpPressed) vaisseau->setAngle2(-2);
 	if(keyDownPressed) vaisseau->setAngle2(2);
+
+	// Mécnique collision
+	for(auto asteroide : asteroides) {
+		if(  (!vaisseau->invincible) && vaisseau->collisionVaisseauAsteroide(asteroide)  ){
+			vaisseau->invincible = true;
+			temps_invincible = tempsDef - 3000;
+			asteroide->setTouche(true);
+		}
+	}
+
+	if(vaisseau->invincible==false && vaisseau->collisionVaisseauVaisseau(ennemi)){
+		if(vaisseau->getVie()>=30 )
+			vaisseau->setVie(vaisseau->getVie()-30);
+		else
+			vaisseau->setVie(0);
+		vaisseau->invincible=true;
+		temps_invincible = tempsDef - 3000;
+	}
+
+	// Ending
+	if(vaisseau->getVie()==0)
+		finActivated = true;
 }
 
 GLvoid rendu() {
@@ -49,11 +78,11 @@ GLvoid rendu() {
 	renduCamera(vaisseau);
 
 	// Projectile
-	for(unsigned int i=0; i<vaisseau->tirs.size();++i){
-		if(!vaisseau->invincible) renduTir(1,vaisseau->tirs.at(i));
-	}
+	if( ! vaisseau->invincible )
+		for(const auto & tir : vaisseau->tirs)
+			renduTir( 1, vaisseau->tirs.at(i) );
 
-
+	// Barre de vie & Vaisseau
 	glPushMatrix();
 		barreVie(vaisseau->getVie());
 		glTranslatef(vaisseau->posx(), vaisseau->posy(), vaisseau->posz());
@@ -63,43 +92,31 @@ GLvoid rendu() {
 		//transparence du vaisseau quand il est touché
 		if(vaisseau->invincible ==true) glCallList(6);
 		else glCallList(1);
-
 	glPopMatrix();
 
-
+	// Astéroïdes
 	for(unsigned int i=0;i<asteroides.size();++i){
 		glPushMatrix();
-			glTranslatef(asteroides.at(i)->posX(),asteroides.at(i)->posY(),asteroides.at(i)->posZ());
-            glRotatef(asteroides.at(i)->getAngle(),1,1,1);
-			asteroides.at(i)->moveForward();
+		glTranslatef(
+			asteroides.at(i)->posX(),
+			asteroides.at(i)->posY(),
+			asteroides.at(i)->posZ()
+		);
+          glRotatef(
+			asteroides.at(i)->getAngle(),
+			1,
+			1,
+			1
+		);
+		glCallList( asteroides.at(i)->getTaille() + 1 );
+		glFlush();
 
-			//contact entre le vaisseau et un asteroide
-			if(vaisseau->invincible==false && vaisseau->collisionVaisseauAsteroide(asteroides.at(i))  ){
-				vaisseau->invincible=true;
-				temps_invincible = tempsDef - 3000;
-				asteroides.at(i)->setTouche(true);
-	   		}
-
-			if(vaisseau->invincible==false && vaisseau->collisionVaisseauVaisseau(ennemi)){
-				if(vaisseau->getVie()>=30 )vaisseau->setVie(vaisseau->getVie()-30);
-				else vaisseau->setVie(0);
-				vaisseau->invincible=true;
-				temps_invincible = tempsDef - 3000;
-			}
-
-			if(vaisseau->getVie()==0) {
-				finActivated = true;
-			}
-
-			glCallList(asteroides.at(i)->getTaille() + 1);
-			glFlush();
-
-			asteroides.at(i)->asteroideTouche();
-			if(asteroides.at(i)->getTouche() == true){
-				asteroides.at(i)->setTouche(false);
-				asteroides.at(i)->split();
-				i = i-1;
-			}
+		asteroides.at(i)->asteroideTouche();
+		if(asteroides.at(i)->getTouche() == true){
+			asteroides.at(i)->setTouche(false);
+			asteroides.at(i)->split();
+			i = i-1;
+		}
 
 				//vaisseau invincible pendant 3 seconde apres contact
 				if(temps_invincible > tempsDef)  vaisseau->invincible=false;
