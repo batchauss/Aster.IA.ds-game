@@ -11,10 +11,15 @@ TEMPLATE = app
 
 DEFINES += QT_DEPRECATED_WARNINGS
 
-CONFIG += c++1z
+CONFIG += c++2a
+
+INCLUDEPATH += discordRichPresence/lib/lib
+LIBS += -ldiscord_game_sdk -Lsrc/discordRichPresence/lib/lib/x86_64/
 
 SOURCES += \
      \
+     $$files(src/discordRichPresence/*.cpp) \
+     $$files(src/discordRichPresence/lib/*.cpp) \
      $$files(src/fonctions/*.cpp) \
      $$files(src/qt/*.cpp) \
      $$files(src/objets/*.cpp) \
@@ -33,6 +38,8 @@ HEADERS += \
      $$files(src/rendu/*.h) \
      $$files(src/touches/*.h) \
      $$files(src/math/*.h) \
+     $$files(src/discordRichPresence/*.h) \
+     $$files(src/discordRichPresence/lib/*.h) \
 
 
 DESTDIR = ./
