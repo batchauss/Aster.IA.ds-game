@@ -10,6 +10,8 @@
 #include "rendu/rendu.h"
 #include "rendu/decor.h"
 
+#include "discordRichPresence/interface.h"
+
 GLuint texture[1];
 int window = 0;
 GLfloat ambiente[4] = {0.7, 0.7, 0.7, 1};
@@ -94,6 +96,9 @@ int notre_init(int argc1, char **argv1, void (*Modelisation)())
 
 void initialise()
 {
+
+	DiscordRichPresence::make().setStatus( DiscordRichPresenceStatus::playing );
+
 	asteroides.clear();
 	creationAsteroides();
 
