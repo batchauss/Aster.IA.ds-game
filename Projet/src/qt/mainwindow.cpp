@@ -106,7 +106,7 @@ void mainwindow::createWidgetMenuPrincipal(int argc, char **argv)
   jouer->setFont(QFont("Times", lang_fr::PLAY_BUTTON_FONTSIZE));
   jouer->setFixedSize(lang_fr::PLAY_BUTTON_SIZE_X, lang_fr::PLAY_BUTTON_SIZE_Y);
   QObject::connect(jouer, &QPushButton::clicked,
-                   [this,argc,argv,&pseudo]()
+                   [this,argc,argv,pseudo]()
                    {
                      pseudonyme = pseudo->text().toStdString();
                      this->close();

@@ -1,18 +1,20 @@
 #include "interface.h"
 
-#include <chrono> // std::chrono
 #include <unistd.h> // fork, pipe, read, write
-#include <cstdint> // uint64_t
-#include <iostream> // std::cout
-#include <thread> // std::thread
-#include <csignal> // std::signal
 #include <stdlib.h> // exit
 #include <fcntl.h> // fcntl
+#include <csignal> // std::signal
+
+#include <cstdint> // uint64_t
+
+#include <chrono> // std::chrono
+#include <thread> // std::thread
+#include <iostream> // std::cout
 
 namespace config {
 	const uint64_t DISCORD_APP_ID = 981131950960037929;
-	const int DISCORD_RETRY_DELAY = 60/*s*/;
-	const int DISCORD_PING_INTERVAL = 750/*ms*/;
+	const std::chrono::duration DISCORD_RETRY_DELAY = std::chrono::seconds(60);
+	const std::chrono::duration DISCORD_PING_INTERVAL = std::chrono::milliseconds(750);
 };
 
 discord::Timestamp DiscordRichPresence::now() const {
@@ -48,7 +50,8 @@ DiscordRichPresence::DiscordRichPresence() {
 		this->dataChannel = channels[0];
 		// Lancement de la routine
 		this->run();
-
+		delete this;
+		exit(0);
 
 	} else { // Processus père
 		// Le père ne lira pas sur le canal d'échange
@@ -84,7 +87,7 @@ void DiscordRichPresence::run() {
 		switch( fail_code ) {
 			case 4:
 				std::cout << "Discord not started" << std::endl;
-				std::this_thread::sleep_for(std::chrono::seconds(config::DISCORD_RETRY_DELAY));
+				std::this_thread::sleep_for(config::DISCORD_RETRY_DELAY);
 				return this->run();
 
 			default:
@@ -113,27 +116,27 @@ void DiscordRichPresence::run() {
     	 * Loop to send info
     	 **/
     	// Handle cleanly interruption
-	bool interrupted = false;
-	int count = 400;
+	bool end = false;
     	do {
     		core->RunCallbacks();
 
-		update(activity,core);
+		update(activity,core,end);
 
-    		std::this_thread::sleep_for(std::chrono::milliseconds(config::DISCORD_PING_INTERVAL));
-		count--;
-		if(count==0)break;
-    	} while (!interrupted);
+    		std::this_thread::sleep_for(config::DISCORD_PING_INTERVAL);
+    	} while (!end);
+
+	delete core;
 }
 
 DiscordRichPresence* DiscordRichPresence::instance = 0;
 
-void DiscordRichPresence::update(discord::Activity & activity,discord::Core* core) {
+void DiscordRichPresence::update(discord::Activity & activity,discord::Core* core,bool & end) {
 
 	DiscordRichPresenceStatus rep;
 	int readCode = read(this->dataChannel , &rep , sizeof(DiscordRichPresenceStatus) );
 	if( readCode == 0 ) {
-		exit(0);
+		end = true;
+		return;
 	} else
 	if( readCode == -1) {
 		// Nothing to read, nothing to do

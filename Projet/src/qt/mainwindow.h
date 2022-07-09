@@ -15,7 +15,8 @@
 
 class mainwindow : public QMainWindow
 {
-    Q_OBJECT
+    Q_OBJECT;
+    
 public:
     mainwindow(int argc, char**argv);
     ~mainwindow() = default;
