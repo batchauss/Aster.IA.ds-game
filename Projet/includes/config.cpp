@@ -2,6 +2,9 @@
 
 #include <stdexcept>
 
+// Décommenter la ligne ci-dessous pour passer en mode dév
+// #define ENV_DEV
+
 std::string config( configKey k ) {
 
     #ifdef ENV_DEV
