@@ -1,5 +1,7 @@
 #include "config.h"
 
+#include <stdexcept>
+
 std::string config( configKey k ) {
 
     #ifdef ENV_DEV
@@ -15,4 +17,5 @@ std::string config( configKey k ) {
     }
     #endif
 
+	throw std::range_error("config error");
 }

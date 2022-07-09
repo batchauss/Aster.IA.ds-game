@@ -77,11 +77,6 @@ void Vaisseau::setAngle(GLfloat a)
     this->angle[0] += a;
     a *= gameconf::DEG2RAD;
 
-    // Rotation de la caméra
-    GLfloat xCam = camera->posx() - posx();
-    // GLfloat yCam = camera->posy() - posy();
-    GLfloat zCam = camera->posz() - posz();
-
     for (unsigned int i = 0; i < tirs.size(); ++i)
     { // les munitions se déplacent avec le vaisseau (angle)
         if (!tirs.at(i)->getTirActif())
@@ -104,8 +99,9 @@ void Vaisseau::moveForward()
 	// Player Rotation
 	float yaw   = getAngle()  * gameconf::DEG2RAD;
 	float pitch = getAngle2() * gameconf::DEG2RAD;
-	float roll  = 0;
-
+	// float roll  = 0;
+	// not usefull yet
+	
     // Player direction
     float pdx = -1 * sin(yaw) * cos(pitch);
     float pdy =      sin(pitch);

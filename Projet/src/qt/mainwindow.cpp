@@ -106,7 +106,7 @@ void mainwindow::createWidgetMenuPrincipal(int argc, char **argv)
   jouer->setFont(QFont("Times", lang_fr::PLAY_BUTTON_FONTSIZE));
   jouer->setFixedSize(lang_fr::PLAY_BUTTON_SIZE_X, lang_fr::PLAY_BUTTON_SIZE_Y);
   QObject::connect(jouer, &QPushButton::clicked,
-                   [=]()
+                   [this,argc,argv,&pseudo]()
                    {
                      pseudonyme = pseudo->text().toStdString();
                      this->close();
@@ -118,22 +118,14 @@ void mainwindow::createWidgetMenuPrincipal(int argc, char **argv)
   QPushButton *options = new QPushButton("Options");
   options->setFixedSize(lang_fr::OPTIONS_BUTTON_SIZE_X, lang_fr::OPTIONS_BUTTON_SIZE_Y);
   options->setFont(QFont("Times", lang_fr::OPTIONS_BUTTON_FONTSIZE));
-  QObject::connect(options, &QPushButton::clicked,
-                   [=]()
-                   {
-                     switchMenuOption();
-                   });
+  QObject::connect(options, &QPushButton::clicked, this, &mainwindow::switchMenuOption);
 
   //  Bouton Quitter
 
   QPushButton *quitter = new QPushButton("Quitter");
   quitter->setFixedSize(lang_fr::QUIT_BUTTON_SIZE_X, lang_fr::QUIT_BUTTON_SIZE_Y);
   quitter->setFont(QFont("Times", lang_fr::QUIT_BUTTON_FONTSIZE));
-  QObject::connect(quitter, &QPushButton::clicked,
-                   [=]()
-                   {
-                     this->close();
-                   });
+  QObject::connect(quitter, &QPushButton::clicked, this, &QWidget::close);
 
   //  Layout
 
@@ -179,19 +171,11 @@ void mainwindow::createWidgetMenuOption()
   layoutOption->addWidget(tailleFenetreCB, menu::OPT_WINDOW_PLACEMENT[0], menu::OPT_WINDOW_PLACEMENT[1]);
 
   QPushButton *quitterOptions = new QPushButton("Quitter (Sans sauvegarder)");
-  QObject::connect(quitterOptions, &QPushButton::clicked,
-                   [=]()
-                   {
-                     switchMenuPrincipal();
-                   });
+  QObject::connect(quitterOptions, &QPushButton::clicked, this, &mainwindow::switchMenuOption);
   layoutOption->addWidget(quitterOptions, menu::OPT_QUIT_PLACEMENT[0], menu::OPT_QUIT_PLACEMENT[1]);
 
   QPushButton *confirmeOptions = new QPushButton("Confirmer");
-  QObject::connect(confirmeOptions, &QPushButton::clicked,
-                   [=]()
-                   {
-                     switchMenuPrincipal();
-                   });
+  QObject::connect(confirmeOptions, &QPushButton::clicked, this, &mainwindow::switchMenuOption);
   layoutOption->addWidget(confirmeOptions, menu::OPT_SAVE_PLACEMENT[0], menu::OPT_SAVE_PLACEMENT[1]);
 
   menuOption->setLayout(layoutOption);

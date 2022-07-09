@@ -215,7 +215,7 @@ GLvoid vieSoucoupe(int vie, GLfloat angle)
     glCallList(8);
     glPopMatrix();
 
-    if (vie > hud::ENEMY_LOW_LIFE_DELIMITER)
+    if (vie > static_cast<int>(hud::ENEMY_LOW_LIFE_DELIMITER))
     {
         glPushMatrix();
         glTranslatef(hud::ENEMY_MINLIFE_TRANSLATE_X, hud::ENEMY_MINLIFE_TRANSLATE_Y, hud::ENEMY_MINLIFE_TRANSLATE_Z);
