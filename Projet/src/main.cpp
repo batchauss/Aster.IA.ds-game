@@ -6,13 +6,13 @@
 
 int main(int argc, char**argv)
 {
-  srand(time(0));
-  initialise();
+	srand(time(0));
+	initialise();
 
 	DiscordRichPresence::make().setStatus( DiscordRichPresenceStatus::menu );
 
-  QApplication * a = new QApplication(argc, argv);
-    mainwindow * m = new mainwindow(argc, argv);
-    m->show();
-  return a->exec();
+	QApplication * a = new QApplication(argc, argv);
+	mainwindow * m = new mainwindow(argc, argv);
+	m->show();
+	return a->exec();
 }
