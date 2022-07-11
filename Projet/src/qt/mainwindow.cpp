@@ -86,12 +86,12 @@ void mainwindow::alignCenterWindow()
 /*      Menu principal      */
 void mainwindow::createWidgetMenuPrincipal(int argc, char **argv)
 {
-  QWidget *menuPrincipal = new QWidget();
+	QWidget* menuPrincipal = new QWidget(this->widgets);
   this->widgets->addWidget(menuPrincipal);
 
   //  Text area pseudo
 
-  QLineEdit *pseudo = new QLineEdit();
+  QLineEdit *pseudo = new QLineEdit(menuPrincipal);
   pseudo->setAlignment(Qt::AlignCenter);
   pseudo->setFixedSize(menu::PSEUDO_AREA_SIZE_X, menu::PSEUDO_AREA_SIZE_Y);
   pseudo->setMaxLength(menu::PSEUDO_MAX_LENGTH);
@@ -102,7 +102,7 @@ void mainwindow::createWidgetMenuPrincipal(int argc, char **argv)
 
   //  Bouton Jouer
 
-  QPushButton *jouer = new QPushButton("JOUER");
+  QPushButton *jouer = new QPushButton("JOUER",menuPrincipal);
   jouer->setFont(QFont("Times", lang_fr::PLAY_BUTTON_FONTSIZE));
   jouer->setFixedSize(lang_fr::PLAY_BUTTON_SIZE_X, lang_fr::PLAY_BUTTON_SIZE_Y);
   QObject::connect(jouer, &QPushButton::clicked,
@@ -115,21 +115,21 @@ void mainwindow::createWidgetMenuPrincipal(int argc, char **argv)
 
   //  Bouton Options
 
-  QPushButton *options = new QPushButton("Options");
+  QPushButton *options = new QPushButton("Options",menuPrincipal);
   options->setFixedSize(lang_fr::OPTIONS_BUTTON_SIZE_X, lang_fr::OPTIONS_BUTTON_SIZE_Y);
   options->setFont(QFont("Times", lang_fr::OPTIONS_BUTTON_FONTSIZE));
   QObject::connect(options, &QPushButton::clicked, this, &mainwindow::switchMenuOption);
 
   //  Bouton Quitter
 
-  QPushButton *quitter = new QPushButton("Quitter");
+  QPushButton *quitter = new QPushButton("Quitter",menuPrincipal);
   quitter->setFixedSize(lang_fr::QUIT_BUTTON_SIZE_X, lang_fr::QUIT_BUTTON_SIZE_Y);
   quitter->setFont(QFont("Times", lang_fr::QUIT_BUTTON_FONTSIZE));
   QObject::connect(quitter, &QPushButton::clicked, this, &QWidget::close);
 
   //  Layout
 
-  QGridLayout *layout = new QGridLayout();
+  QGridLayout *layout = new QGridLayout(menuPrincipal);
   layout->setAlignment(Qt::AlignCenter);
   layout->setHorizontalSpacing(menu::HORIZONTAL_SPACING);
   layout->setVerticalSpacing(menu::VERTICAL_SPACING);
@@ -142,43 +142,47 @@ void mainwindow::createWidgetMenuPrincipal(int argc, char **argv)
   menuPrincipal->setLayout(layout);
 }
 
+mainwindow::~mainwindow() {
+	if( widgets != nullptr ) delete widgets;
+}
+
 /*      Menu options      */
 void mainwindow::createWidgetMenuOption()
 {
-  QWidget *menuOption = new QWidget();
-  this->widgets->addWidget(menuOption);
+  QWidget* menuOptions = new QWidget(this->widgets);
+  this->widgets->addWidget(menuOptions);
 
   //  Options
 
-  QComboBox *languageCB = new QComboBox();
+  QComboBox *languageCB = new QComboBox(menuOptions);
   languageCB->addItem("Français");
   languageCB->addItem("English");
 
-  QComboBox *tailleFenetreCB = new QComboBox();
+  QComboBox *tailleFenetreCB = new QComboBox(menuOptions);
   tailleFenetreCB->addItem("1290x980");
   tailleFenetreCB->addItem("1920x1080");
   tailleFenetreCB->addItem("Fullscreen");
 
   //  Layout
 
-  QGridLayout *layoutOption = new QGridLayout();
+  QGridLayout *layoutOption = new QGridLayout(menuOptions);
   layoutOption->setAlignment(Qt::AlignCenter);
   layoutOption->setHorizontalSpacing(menu::OPT_HORIZONTAL_SPACING);
 
-  layoutOption->addWidget(new QLabel("Langue : "), lang_fr::LANG_SIZE_X, lang_fr::LANG_SIZE_Y);
+  layoutOption->addWidget(new QLabel("Langue : ",menuOptions), lang_fr::LANG_SIZE_X, lang_fr::LANG_SIZE_Y);
   layoutOption->addWidget(languageCB, menu::OPT_LANG_PLACEMENT[0], menu::OPT_LANG_PLACEMENT[1]);
-  layoutOption->addWidget(new QLabel(" Taille de la fenêtre: "), lang_fr::LANG_SIZE_X, lang_fr::LANG_SIZE_Y);
+  layoutOption->addWidget(new QLabel(" Taille de la fenêtre: ",menuOptions), lang_fr::LANG_SIZE_X, lang_fr::LANG_SIZE_Y);
   layoutOption->addWidget(tailleFenetreCB, menu::OPT_WINDOW_PLACEMENT[0], menu::OPT_WINDOW_PLACEMENT[1]);
 
-  QPushButton *quitterOptions = new QPushButton("Quitter (Sans sauvegarder)");
-  QObject::connect(quitterOptions, &QPushButton::clicked, this, &mainwindow::switchMenuOption);
+  QPushButton *quitterOptions = new QPushButton("Quitter (Sans sauvegarder)",menuOptions);
+  QObject::connect(quitterOptions, &QPushButton::clicked, this, &mainwindow::switchMenuPrincipal);
   layoutOption->addWidget(quitterOptions, menu::OPT_QUIT_PLACEMENT[0], menu::OPT_QUIT_PLACEMENT[1]);
 
-  QPushButton *confirmeOptions = new QPushButton("Confirmer");
-  QObject::connect(confirmeOptions, &QPushButton::clicked, this, &mainwindow::switchMenuOption);
+  QPushButton *confirmeOptions = new QPushButton("Confirmer",menuOptions);
+  QObject::connect(confirmeOptions, &QPushButton::clicked, this, &mainwindow::switchMenuPrincipal);
   layoutOption->addWidget(confirmeOptions, menu::OPT_SAVE_PLACEMENT[0], menu::OPT_SAVE_PLACEMENT[1]);
 
-  menuOption->setLayout(layoutOption);
+  menuOptions->setLayout(layoutOption);
 }
 
 mainwindow::mainwindow(int argc, char **argv)

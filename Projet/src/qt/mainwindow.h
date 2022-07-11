@@ -16,10 +16,10 @@
 class mainwindow : public QMainWindow
 {
     Q_OBJECT;
-    
+
 public:
     mainwindow(int argc, char**argv);
-    ~mainwindow() = default;
+    ~mainwindow();
 
     void createWidgetMenuPrincipal(int argc, char**argv);
     void createWidgetMenuOption();
@@ -35,5 +35,5 @@ public:
 
     //void Timer()
 
-    QStackedWidget * widgets;
+    QStackedWidget* widgets;
 };
