@@ -20,6 +20,9 @@ jobs:
 
     - name: qmake
       run: cd Projet && qmake
+
+    - name: tempInfo
+      run: cd Projet && qmake
       
     - name: make
       run: cd Projet && make
