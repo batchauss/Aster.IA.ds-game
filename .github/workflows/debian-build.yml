@@ -25,7 +25,7 @@ jobs:
       run: cd Projet && echo "Makefile:\n" && cat Makefile && echo "C++ version :\n" && g++ -dM -E -x c++  /dev/null | grep -F __cplusplus
 
     - name: evenMoreTempInfo
-      run: g++ -c -pipe -O2 -std=gnu++2a -Wall -Wextra -D_REENTRANT -fPIC -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -IdiscordRichPresence/lib/lib -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -Ibuild/moc -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -o build/obj/main.o src/main.cpp
+      run: cd Projet && g++ -c -pipe -O2 -std=gnu++2a -Wall -Wextra -D_REENTRANT -fPIC -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -IdiscordRichPresence/lib/lib -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -Ibuild/moc -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -o build/obj/main.o src/main.cpp
 
     - name: make
       run: cd Projet && make
