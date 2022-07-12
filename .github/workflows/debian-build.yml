@@ -22,8 +22,8 @@ jobs:
       run: cd Projet && qmake
 
     - name: tempInfo
-      run: cd Projet && qmake
-      
+      run: cd Projet && cat Makefile
+
     - name: make
       run: cd Projet && make
     
