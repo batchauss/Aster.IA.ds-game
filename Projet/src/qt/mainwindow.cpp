@@ -83,9 +83,16 @@ void mainwindow::alignCenterWindow()
   this->move(QPoint(x, y));
 }
 
+#include <QFontDatabase>
+#include <iostream>
 /*      Menu principal      */
 void mainwindow::createWidgetMenuPrincipal(int argc, char **argv)
 {
+  QFontDatabase k;
+const QStringList fontFamilies = k.families();
+for (const QString &s : fontFamilies) {
+    std::cout << "-" << s.toStdString() << std::endl;
+  }
   QWidget *menuPrincipal = new QWidget();
   this->widgets->addWidget(menuPrincipal);
 
@@ -99,12 +106,44 @@ void mainwindow::createWidgetMenuPrincipal(int argc, char **argv)
   int r = rand() % 1000 + 1;
   pseudo->setText("Anon" + QString::number(r));
   pseudo->setFont(QFont("Cochin", lang_fr::PSEUDO_BOX_FONTSIZE));
+  pseudo->setCursor(Qt::IBeamCursor);
+  menuPrincipal->setStyleSheet(
+    QString("QLineEdit {") +
+    QString("color: white;") +
+    QString("background-color: rgba( 45, 45, 45, 60% );") +
+    QString("border-radius: 50px;") +
+    QString("border-width: 1px;") +
+    QString("border-style: solid;") +
+    QString("border-top-color: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #66c9ff, stop: 0.1 #66c9ff, stop: 0.2 #00ffdd, stop: 0.3 #66c9ff, stop: 1 #66c9ff);") +
+    QString("border-left-color: #66c9ff;") +
+    QString("border-right-color: #66c9ff;") +
+    QString("border-bottom-color: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 0, stop: 1 #66c9ff, stop: 0.9 #66c9ff, stop: 0.8 #00ffdd, stop: 0.7 #66c9ff, stop: 0 #66c9ff);") +
+    QString("}") +
+    QString("QPushButton {") +
+    QString("font-family: Monospace;") +
+    QString("color: white;") +
+    QString("background-color: rgba( 102, 201, 255, 20% );") +
+    QString("border-width: 1px;") +
+    QString("border-style: solid;") +
+    QString("border-top-color: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #66c9ff, stop: 0.1 #66c9ff, stop: 0.2 #00ffdd, stop: 0.3 #66c9ff, stop: 1 #66c9ff);") +
+    QString("border-left-color: #66c9ff;") +
+    QString("border-right-color: #66c9ff;") +
+    QString("border-bottom-color: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 0, stop: 1 #66c9ff, stop: 0.9 #66c9ff, stop: 0.8 #00ffdd, stop: 0.7 #66c9ff, stop: 0 #66c9ff);") +
+    QString("}") +
+    QString("QLineEdit:hover {") +
+    QString("background-color: rgba( 45, 45, 45, 0% );") +
+    QString("}") +
+    QString("QLineEdit:focus {") +
+    QString("background-color: rgba( 45, 45, 45, 0% );") +
+    QString("}")
+  );
 
   //  Bouton Jouer
 
   QPushButton *jouer = new QPushButton("JOUER");
   jouer->setFont(QFont("Times", lang_fr::PLAY_BUTTON_FONTSIZE));
   jouer->setFixedSize(lang_fr::PLAY_BUTTON_SIZE_X, lang_fr::PLAY_BUTTON_SIZE_Y);
+  jouer->setCursor(Qt::PointingHandCursor);
   QObject::connect(jouer, &QPushButton::clicked,
                    [=]()
                    {
@@ -118,6 +157,7 @@ void mainwindow::createWidgetMenuPrincipal(int argc, char **argv)
   QPushButton *options = new QPushButton("Options");
   options->setFixedSize(lang_fr::OPTIONS_BUTTON_SIZE_X, lang_fr::OPTIONS_BUTTON_SIZE_Y);
   options->setFont(QFont("Times", lang_fr::OPTIONS_BUTTON_FONTSIZE));
+  options->setCursor(Qt::PointingHandCursor);
   QObject::connect(options, &QPushButton::clicked,
                    [=]()
                    {
@@ -129,6 +169,7 @@ void mainwindow::createWidgetMenuPrincipal(int argc, char **argv)
   QPushButton *quitter = new QPushButton("Quitter");
   quitter->setFixedSize(lang_fr::QUIT_BUTTON_SIZE_X, lang_fr::QUIT_BUTTON_SIZE_Y);
   quitter->setFont(QFont("Times", lang_fr::QUIT_BUTTON_FONTSIZE));
+  quitter->setCursor(Qt::PointingHandCursor);
   QObject::connect(quitter, &QPushButton::clicked,
                    [=]()
                    {
