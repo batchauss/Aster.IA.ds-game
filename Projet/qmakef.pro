@@ -11,7 +11,7 @@ TEMPLATE = app
 
 DEFINES += QT_DEPRECATED_WARNINGS
 
-CONFIG += c++1z
+CONFIG += c++2a
 
 INCLUDEPATH += discordRichPresence/lib/lib
 LIBS += -ldiscord_game_sdk -Lsrc/discordRichPresence/lib/lib/x86_64/

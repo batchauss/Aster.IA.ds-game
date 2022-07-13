@@ -21,10 +21,16 @@ jobs:
     - name: qmake
       run: cd Projet && qmake
 
-    - name: tempInfo
-      run: cd Projet && echo "Makefile:\n" && cat Makefile && echo "C++ version :\n" && g++ -dM -E -x c++  /dev/null | grep -F __cplusplus
+    - name: "Temp : show makefile"
+      run: cd Projet && cat Makefile
 
-    - name: evenMoreTempInfo
+    - name: "Temp : show qt version"
+      run: qmake -v
+
+    - name: "Try to upgrade Qt"
+      run: sudo apt upgrade -y
+
+    - name: "Temp : show qt version after upgrade"
       run: qmake -v
 
     - name: make
