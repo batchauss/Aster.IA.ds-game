@@ -67,7 +67,7 @@ void renduCamera(Vaisseau * vaisseau){
 
 	auto a = vaisseau->getAngle();
 	auto b = vaisseau->getAngle2();
-	auto c = 0;
+	auto c = 0.0f;
 
 	Camera::posCamFromObj( {x,y,z} , {a,b,c} );
 
