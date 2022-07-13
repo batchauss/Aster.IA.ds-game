@@ -34,6 +34,6 @@ private:
 	static DiscordRichPresence* instance;	// Stock l'uniqu instance
 	int dataChannel;
 
-	void update(discord::Activity & activity,discord::Core* core);
+	void update(discord::Activity & activity,discord::Core* core,bool & end);
 
 };

@@ -51,6 +51,18 @@ cp -r settings $DEST_FOLDER/usr/share/Aster.ia.ds/
 cp -r scores $DEST_FOLDER/usr/share/Aster.ia.ds/
 cp -r pic $DEST_FOLDER/usr/share/Aster.ia.ds/
 
+# Setup dynamic libraries
+mkdir -p $DEST_FOLDER/usr/lib/asteriads/
+find -name lib*.so -exec cp {} $DEST_FOLDER/usr/lib/asteriads/ \;
+
+# Setup post installation script :
+mkdir -p $DEST_FOLDER/DEBIAN
+touch $DEST_FOLDER/DEBIAN/postint
+echo \
+"#!/bin/bash
+ldconfig /usr/lib/asteriads/ # Tell the linker to use this folder as dynamic lib source folder
+" > $DEST_FOLDER/DEBIAN/postint
+
 # Generate .deb
 dpkg-deb --build --root-owner-group $DEST_FOLDER
 

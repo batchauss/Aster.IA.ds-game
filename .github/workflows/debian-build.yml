@@ -14,20 +14,32 @@ jobs:
     steps:
     - name: Checkout project
       uses: actions/checkout@v3
-      
+
     - name: Download dependencies
-      run: sudo apt install make qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools freeglut3-dev 
+      run: sudo apt install make qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools freeglut3-dev
 
     - name: qmake
       run: cd Projet && qmake
-      
+
+    - name: "Temp : show makefile"
+      run: cd Projet && cat Makefile
+
+    - name: "Temp : show qt version"
+      run: qmake -v
+
+    - name: "Try to upgrade Qt"
+      run: sudo apt upgrade -y
+
+    - name: "Temp : show qt version after upgrade"
+      run: qmake -v
+
     - name: make
       run: cd Projet && make
-    
+
     - name: dpkg
       run: cd Projet && ../.github/workflows/debian-build.sh
 
-    - name: Publish .deb     
+    - name: Publish .deb
       uses: actions/upload-artifact@v3.0.0
       with:
          name: "Aster.ia.ds.deb"

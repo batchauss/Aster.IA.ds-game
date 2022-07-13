@@ -33,16 +33,22 @@ extern GLuint texture[2];
 GLfloat angleHeart = 0;
 extern GLvoid vieSoucoupe(int i, GLfloat angle);
 
-GLvoid VM_init()
-{
+void update() {
+	// Déplacement
 	vaisseau->moveForward();
 
 	// Temporary calculation
 	float tempPitch = abs((int)vaisseau->getAngle2()) % 360;
 	bool isVewReversed = ( (tempPitch > 90) && (tempPitch < 270) );
 
+	for(auto asteroide : asteroides)
+		asteroide->moveForward();
+
+	// Tir
 	if (!vaisseau->invincible)
 		vaisseau->tirer(); // le vaisseau ne tire pas lorsqu'il est invincible
+
+	// Contrôle Déplacement
 	if (!zPressed)
 		vaisseau->decreaseSpeed();
 	if (qPressed)
@@ -55,14 +61,46 @@ GLvoid VM_init()
 	if (keyDownPressed)
 		vaisseau->setAngle2(playercontrols::POSITIVE_MOVEMENT);
 
-	renduCamera(vaisseau);
-
-	for (unsigned int i = 0; i < vaisseau->tirs.size(); ++i)
-	{
-		if (!vaisseau->invincible)
-			renduTir(1, vaisseau->tirs.at(i));
+	// Mécnique collision
+	for(auto asteroide : asteroides) {
+		if(  (!vaisseau->invincible) && vaisseau->collisionVaisseauAsteroide(asteroide)  ){
+			vaisseau->invincible = true;
+			temps_invincible = tempsDef - gameconf::INVINCIBILITY_TIME;
+			asteroide->setTouche(true);
+		}
 	}
 
+	if(vaisseau->invincible==false && vaisseau->collisionVaisseauVaisseau(ennemi)){
+		if(vaisseau->getVie()>=30 )
+			vaisseau->setVie(vaisseau->getVie()-30);
+		else
+			vaisseau->setVie(0);
+		vaisseau->invincible=true;
+		temps_invincible = tempsDef - gameconf::INVINCIBILITY_TIME;
+	}
+
+	// Ending
+
+	if (vaisseau->getVie() == gameconf::PLAYER_MIN_LIFE)
+	{
+		finActivated = true;
+	}
+		// vaisseau invincible pendant 3 seconde apres contact
+		if (temps_invincible > tempsDef)
+			vaisseau->invincible = false;
+
+}
+
+GLvoid rendu() {
+	// Caméra
+	renduCamera(vaisseau);
+
+	// Projectile
+	if( ! vaisseau->invincible )
+		for(const auto & tir : vaisseau->tirs)
+			renduTir( 1, tir );
+
+	// Barre de vie & Vaisseau
 	glPushMatrix();
 	barreVie(vaisseau->getVie());
 	glTranslatef(vaisseau->posx(), vaisseau->posy(), vaisseau->posz());
@@ -101,14 +139,10 @@ GLvoid VM_init()
 			vaisseau->invincible = true;
 			temps_invincible = tempsDef - gameconf::INVINCIBILITY_TIME;
 		}
-
-		if (vaisseau->getVie() == gameconf::PLAYER_MIN_LIFE)
-		{
-			finActivated = true;
-		}
-
 		glCallList(asteroides.at(i)->getTaille() + 1);
 		glFlush();
+
+
 
 		asteroides.at(i)->asteroideTouche();
 		if (asteroides.at(i)->getTouche() == true)
@@ -118,9 +152,7 @@ GLvoid VM_init()
 			i = i - 1;
 		}
 
-		// vaisseau invincible pendant 3 seconde apres contact
-		if (temps_invincible > tempsDef)
-			vaisseau->invincible = false;
+
 		glPopMatrix();
 	}
 
@@ -146,5 +178,11 @@ GLvoid VM_init()
 
 	afficheScore(score);
 
-	glCallList(9); // decor de planetes hors frontieres
+  glCallList(9);//decor de planetes hors frontieres
+}
+
+
+GLvoid frame() {
+	update();
+	rendu();
 }

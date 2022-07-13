@@ -1,5 +1,10 @@
 #include "config.h"
 
+#include <stdexcept>
+
+// Décommenter la ligne ci-dessous pour passer en mode dév
+// #define ENV_DEV
+
 std::string config( configKey k ) {
 
     #ifdef ENV_DEV
@@ -15,4 +20,5 @@ std::string config( configKey k ) {
     }
     #endif
 
+	throw std::range_error("config error");
 }
