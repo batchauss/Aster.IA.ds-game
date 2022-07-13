@@ -1,18 +1,35 @@
 #include "interface.h"
 
-#include <chrono> // std::chrono
 #include <unistd.h> // fork, pipe, read, write
-#include <cstdint> // uint64_t
-#include <iostream> // std::cout
-#include <thread> // std::thread
-#include <csignal> // std::signal
 #include <stdlib.h> // exit
 #include <fcntl.h> // fcntl
+#include <csignal> // std::signal
+#include <poll.h>
+#include <cstdint> // uint64_t
+
+#include <chrono> // std::chrono
+#include <thread> // std::thread
+#include <iostream> // std::cout
+
+bool is_pipe_closed(int fd) {
+    struct pollfd pfd = {
+        .fd = fd,
+        .events = POLLOUT,
+		.revents = 0,
+    };
+
+    if (poll(&pfd, 1, 1) < 0) {
+        return false;
+    }
+
+    return pfd.revents & POLLERR;
+}
 
 namespace config {
+	const int DISCORD_MAX_TRY = 5;
 	const uint64_t DISCORD_APP_ID = 981131950960037929;
-	const int DISCORD_RETRY_DELAY = 60/*s*/;
-	const int DISCORD_PING_INTERVAL = 750/*ms*/;
+	const std::chrono::duration DISCORD_RETRY_DELAY = std::chrono::seconds(60);
+	const std::chrono::duration DISCORD_PING_INTERVAL = std::chrono::milliseconds(750);
 };
 
 discord::Timestamp DiscordRichPresence::now() const {
@@ -32,7 +49,11 @@ DiscordRichPresence& DiscordRichPresence::make() {
 DiscordRichPresence::DiscordRichPresence() {
 	// Création système échange de donnée
 	int channels[2];
-	pipe(channels);
+	if( pipe(channels) != 0 ) {
+		std::cout << "Error while trying to create pipe for discordRichPresence sub program" << std::endl;
+		delete this;
+		exit(1);
+	};
 
 	// La lecture ne doit pas être bloquante
 	fcntl( channels[0] , F_SETFL , fcntl(channels[0], F_GETFL) | O_NONBLOCK );
@@ -48,7 +69,8 @@ DiscordRichPresence::DiscordRichPresence() {
 		this->dataChannel = channels[0];
 		// Lancement de la routine
 		this->run();
-
+		delete this;
+		exit(0);
 
 	} else { // Processus père
 		// Le père ne lira pas sur le canal d'échange
@@ -64,7 +86,12 @@ DiscordRichPresence::~DiscordRichPresence() {
 }
 
 void DiscordRichPresence::setStatus(DiscordRichPresenceStatus state) {
-	write(dataChannel, &state, sizeof(DiscordRichPresenceStatus));
+	ssize_t returnCode = write(dataChannel, &state, sizeof(DiscordRichPresenceStatus));
+	if( returnCode != 0 ) {
+		std::cout << "Error while trying to send data to rich presence sub program" << std::endl;
+		delete this;
+		exit(1);
+	};;
 }
 
 void DiscordRichPresence::run() {
@@ -84,8 +111,12 @@ void DiscordRichPresence::run() {
 		switch( fail_code ) {
 			case 4:
 				std::cout << "Discord not started" << std::endl;
-				std::this_thread::sleep_for(std::chrono::seconds(config::DISCORD_RETRY_DELAY));
-				return this->run();
+				std::this_thread::sleep_for(config::DISCORD_RETRY_DELAY);
+				if( ! is_pipe_closed(this->dataChannel) ) {
+					return this->run();
+				} else {
+					return;
+				}
 
 			default:
 				std::cout << "Failed to setup discord SDK! (err :" << fail_code << ")" << std::endl;
@@ -113,29 +144,29 @@ void DiscordRichPresence::run() {
     	 * Loop to send info
     	 **/
     	// Handle cleanly interruption
-	bool interrupted = false;
-	int count = 400;
+	bool end = false;
     	do {
     		core->RunCallbacks();
 
-		update(activity,core);
+			update(activity,core,end);
 
-    		std::this_thread::sleep_for(std::chrono::milliseconds(config::DISCORD_PING_INTERVAL));
-		count--;
-		if(count==0)break;
-    	} while (!interrupted);
+    		std::this_thread::sleep_for(config::DISCORD_PING_INTERVAL);
+    	} while (!end);
+
+	delete core;
 }
 
 DiscordRichPresence* DiscordRichPresence::instance = 0;
 
-void DiscordRichPresence::update(discord::Activity & activity,discord::Core* core) {
+void DiscordRichPresence::update(discord::Activity & activity,discord::Core* core,bool & end) {
 
 	DiscordRichPresenceStatus rep;
 	int readCode = read(this->dataChannel , &rep , sizeof(DiscordRichPresenceStatus) );
 	if( readCode == 0 ) {
-		exit(0);
+		end = true;
+		return;
 	} else
-	if( readCode == -1) {
+	if( readCode == -1 ) {
 		// Nothing to read, nothing to do
 	} else {
 		switch (rep) {

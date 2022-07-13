@@ -7,6 +7,7 @@
 
 //ppm.h et ppm.c sont les fichiers qui lisent et interprètent les textures en .ppm
 
+#include <iostream>
 TEXTURE_STRUCT * readPpm(std::string ppmFilePath)
 {
 	FILE *file;
@@ -15,7 +16,11 @@ TEXTURE_STRUCT * readPpm(std::string ppmFilePath)
 	int pixelFormat;
 	int i;
 
+		printf( "Config path : %s\n" ,  config(configKey::PATH_TO_ASSETS).c_str());
+		printf( "File path : %s\n" ,  ppmFilePath.c_str());
+		printf( "Whole path : %s\n" ,  ( config(configKey::PATH_TO_ASSETS) + ppmFilePath).c_str() );
 	char* ppmFileName = (char*) ( ( config(configKey::PATH_TO_ASSETS) + ppmFilePath).c_str() );
+	printf( "Resulting path : %s\n" ,  ppmFileName );
 
 	if ((file = fopen(ppmFileName, "rb")) == NULL)
 	{
@@ -41,7 +46,7 @@ TEXTURE_STRUCT * readPpm(std::string ppmFilePath)
 		getchar();
 		return NULL;
 	}
-	
+
 	//Ignoring backspaces, tabulations, end of lines and carriage return
 	while (1)
 	{
@@ -60,7 +65,7 @@ TEXTURE_STRUCT * readPpm(std::string ppmFilePath)
 	}
 	buffer[i] = '\0';
 	texture->width = atoi(buffer);
-	//Ignoring backspaces, tabulations, end of lines and carriage return	
+	//Ignoring backspaces, tabulations, end of lines and carriage return
 	while (1)
 	{
 		fread (buffer, sizeof(char), 1, file);
@@ -78,7 +83,7 @@ TEXTURE_STRUCT * readPpm(std::string ppmFilePath)
 	}
 	buffer[i] = '\0';
 	texture->height = atoi(buffer);
-	//Ignoring backspaces, tabulations, end of lines and carriage return	
+	//Ignoring backspaces, tabulations, end of lines and carriage return
 	while (1)
 	{
 		fread (buffer, sizeof(char), 1, file);
@@ -110,7 +115,7 @@ TEXTURE_STRUCT * readPpm(std::string ppmFilePath)
 	while ((pixelFormat - (1 << texture->bpp)) >= 1)
 		texture->bpp++;
 	//printf ("Detected %d BPP\n", texture->bpp);
-	//Ignoring backspaces, tabulations, end of lines and carriage return	
+	//Ignoring backspaces, tabulations, end of lines and carriage return
 	while (1)
 	{
 		fread (buffer, sizeof(char), 1, file);
@@ -134,7 +139,7 @@ TEXTURE_STRUCT * readPpm(std::string ppmFilePath)
 	  ligne++;
 	}
 	// fread(texture->data, sizeof(unsigned char), 3*texture->width*texture->height, file);
-	
+
 	printf ("(OK) : The file %s was correctly parsed and uploaded in memory [function readPpm]\n", ppmFileName);
 	//printf ("%d %d %d\n", texture->width, texture->height, texture->bpp);getchar();getchar();
 
@@ -150,7 +155,7 @@ unsigned char * rgb2rgba(TEXTURE_STRUCT * texture)
   int width = texture->width;
   int height = texture->height;
   unsigned char * data = texture->data;
-  
+
   unsigned char * temp = (unsigned char *) malloc (sizeof(unsigned char) * width* height *4);
   int i = 0;
 
@@ -158,25 +163,25 @@ unsigned char * rgb2rgba(TEXTURE_STRUCT * texture)
     {
       temp[i*4+0] = data[i*3+0];
       temp[i*4+1] = data[i*3+1];
-      temp[i*4+2] = data[i*3+2];      
+      temp[i*4+2] = data[i*3+2];
       if ((data[i*3+0]==0) && (data[i*3+1]==0) && (data[i*3+2]==0))
 	temp[i*4+3] = 255;	// Pixel noir donc transparent
       else
 	temp[i*4+3] = (unsigned char)0; // Pixel complÃ¨tement opaque
-    }									       
+    }
   return temp;
 }
 
 
 void writePpm (char *filename, unsigned char *data)
 {
-  unsigned int width = 256; 
-  unsigned int height = 256; 
+  unsigned int width = 256;
+  unsigned int height = 256;
   FILE *file;
   char buffer[256];
 
   buffer[0] = '\0';
-  sprintf (buffer, "P6\n%u %u\n255\n", width, height); 
+  sprintf (buffer, "P6\n%u %u\n255\n", width, height);
   file = fopen (filename, "wb");
   if (file == NULL)
     {

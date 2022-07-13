@@ -14,20 +14,20 @@ jobs:
     steps:
     - name: Checkout project
       uses: actions/checkout@v3
-      
-    - name: Download dependencies
-      run: sudo apt install make qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools freeglut3-dev 
 
-    - name: qmake
+    - name: Download dependencies
+      run: sudo apt install make qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools freeglut3-dev
+
+    - name: "Build: qmake"
       run: cd Projet && qmake
-      
-    - name: make
+
+    - name: "Build: make"
       run: cd Projet && make
-    
-    - name: dpkg
+
+    - name: "Build: dpkg"
       run: cd Projet && ../.github/workflows/debian-build.sh
 
-    - name: Publish .deb     
+    - name: Publish .deb
       uses: actions/upload-artifact@v3.0.0
       with:
          name: "Aster.ia.ds.deb"

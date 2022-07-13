@@ -61,15 +61,15 @@ void renduAsteroide(int taille, struct objmtl as)
 
 void renduCamera(Vaisseau * vaisseau){
 
-	float x = vaisseau->posx();
-	float y = vaisseau->posy();
-	float z = vaisseau->posz();
+	auto x = vaisseau->posx();
+	auto y = vaisseau->posy();
+	auto z = vaisseau->posz();
 
-	float a = vaisseau->getAngle();
-	float b = vaisseau->getAngle2();
-	float c = 0;
+	auto a = vaisseau->getAngle();
+	auto b = vaisseau->getAngle2();
+	auto c = 0.0f;
 
-    Camera::posCamFromObj( {x,y,z} , {a,b,c} );
+	Camera::posCamFromObj( {x,y,z} , {a,b,c} );
 
 }
 
