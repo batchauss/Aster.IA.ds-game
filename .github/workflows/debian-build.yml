@@ -18,25 +18,13 @@ jobs:
     - name: Download dependencies
       run: sudo apt install make qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools freeglut3-dev
 
-    - name: qmake
+    - name: "Build: qmake"
       run: cd Projet && qmake
 
-    - name: "Temp : show makefile"
-      run: cd Projet && cat Makefile
-
-    - name: "Temp : show qt version"
-      run: qmake -v
-
-    - name: "Try to upgrade Qt"
-      run: sudo apt upgrade -y
-
-    - name: "Temp : show qt version after upgrade"
-      run: qmake -v
-
-    - name: make
+    - name: "Build: make"
       run: cd Projet && make
 
-    - name: dpkg
+    - name: "Build: dpkg"
       run: cd Projet && ../.github/workflows/debian-build.sh
 
     - name: Publish .deb
