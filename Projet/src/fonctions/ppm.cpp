@@ -16,10 +16,8 @@ TEXTURE_STRUCT * readPpm(std::string ppmFilePath)
 	int pixelFormat;
 	int i;
 
-		printf( "Config path : %s\n" ,  config(configKey::PATH_TO_ASSETS).c_str());
-		printf( "File path : %s\n" ,  ppmFilePath.c_str());
-		printf( "Whole path : %s\n" ,  ( config(configKey::PATH_TO_ASSETS) + ppmFilePath).c_str() );
-	char* ppmFileName = (char*) ( ( config(configKey::PATH_TO_ASSETS) + ppmFilePath).c_str() );
+	ppmFilePath = config(configKey::PATH_TO_ASSETS) + ppmFilePath;
+	const char* ppmFileName = ppmFilePath.c_str();
 	printf( "Resulting path : %s\n" ,  ppmFileName );
 
 	if ((file = fopen(ppmFileName, "rb")) == NULL)

@@ -49,7 +49,7 @@ DiscordRichPresence& DiscordRichPresence::make() {
 DiscordRichPresence::DiscordRichPresence() {
 	// Création système échange de donnée
 	int channels[2];
-	if( pipe(channels) != 0 ) {
+	if( pipe(channels) == -1 ) {
 		std::cout << "Error while trying to create pipe for discordRichPresence sub program" << std::endl;
 		delete this;
 		exit(1);
@@ -87,7 +87,7 @@ DiscordRichPresence::~DiscordRichPresence() {
 
 void DiscordRichPresence::setStatus(DiscordRichPresenceStatus state) {
 	ssize_t returnCode = write(dataChannel, &state, sizeof(DiscordRichPresenceStatus));
-	if( returnCode != 0 ) {
+	if( returnCode == -1 ) {
 		std::cout << "Error while trying to send data to rich presence sub program" << std::endl;
 		delete this;
 		exit(1);
@@ -112,11 +112,7 @@ void DiscordRichPresence::run() {
 			case 4:
 				std::cout << "Discord not started" << std::endl;
 				std::this_thread::sleep_for(config::DISCORD_RETRY_DELAY);
-				if( ! is_pipe_closed(this->dataChannel) ) {
-					return this->run();
-				} else {
-					return;
-				}
+				return this->run();
 
 			default:
 				std::cout << "Failed to setup discord SDK! (err :" << fail_code << ")" << std::endl;
@@ -148,7 +144,7 @@ void DiscordRichPresence::run() {
     	do {
     		core->RunCallbacks();
 
-			update(activity,core,end);
+		update(activity,core,end);
 
     		std::this_thread::sleep_for(config::DISCORD_PING_INTERVAL);
     	} while (!end);
@@ -185,10 +181,9 @@ void DiscordRichPresence::update(discord::Activity & activity,discord::Core* cor
 		}
 
 
-
 		     core->ActivityManager().UpdateActivity(activity, [](discord::Result result) {
 		 	    std::cout << ((result == discord::Result::Ok) ? "Succeeded" : "Failed")
-		 				 << " updating activity!\n";
+		 				 << " updating activity!" << std::endl;
 		     });
 	}
 }
