@@ -50,7 +50,7 @@ Télécharger l'archive `Aster.ia.ds.deb` de la dernière release, puis :
 unzip Aster.ia.ds.deb.zip
 sudo apt install "<chemin/vers/le/fichier/.deb/extrait>"
 ```
-_Tous les systèmes qui hérite de debian supporte cette installation, liste complète [ici](https://upload.wikimedia.org/wikipedia/commons/1/1b/Linux_Distribution_Timeline.svg)._
+_Tous les systèmes qui héritent de debian supportent cette installation, liste complète [ici](https://upload.wikimedia.org/wikipedia/commons/1/1b/Linux_Distribution_Timeline.svg)._
 
 Pour lancer le jeu : `Aster.ia.ds` 
 
@@ -64,14 +64,14 @@ Pour lancer le jeu : `Aster.ia.ds`
 Demander à `contact@projetcohesion` ou créer une issue sur ce repository pour obtenir une version compatible.
 
 ### Windows
-Une version windows 10 et 11 est prévu dans le futur, soyez patient.
+Une version windows 10 et 11 est prévue dans le futur, soyez patient.
 
-Aucune version n'est prévue pour les OS déprécié comme Windows 7 et antérrieur.
+Aucune version n'est prévue pour les OS dépréciés comme Windows 7 et versions antérieures.
 
-Pour Windows 8, une version du jeu sera proposé si d'ici là l'OS n'est pas déprécié.
+Pour Windows 8, une version du jeu sera proposée si d'ici là l'OS n'est pas déprécié.
 
 ### MacOS
-Pour l'instant aucune version mac n'est prévu.
+Pour l'instant aucune version mac n'est prévue.
 
 ## Spécifications
 
