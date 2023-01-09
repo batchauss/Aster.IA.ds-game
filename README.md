@@ -15,9 +15,9 @@ Basé sur le jeu des années 80
 [Asteroids](https://fr.wikipedia.org/wiki/Asteroids) ,
 Aster.ia.ds est un remake de ce dernier fait par des étudiants pour des étudiants, avec de multiples ajouts :
 
- - Un système d'IA, pour créer et testé son IA.
+ - Un système d'IA, pour créer et tester son IA.
  - Un jeu en 3D, avec un moteur graphique custom, utilisant OpenGL
- - Un multijoueur pour joué 
+ - Un multijoueur pour jouer 
 Votre objectif sera de réaliser un jeu multicontre et avec d'autres joueurs.
 
 ## Table des matières
@@ -77,7 +77,7 @@ Pour l'instant aucune version mac n'est prévue.
 
 ### Technologies
 
- - c++
+ - C++
  - Qt
  - OpenGL / GLU / GLUT
  - git
@@ -95,7 +95,7 @@ Pour l'instant aucune version mac n'est prévue.
  - [ ] Première pré-release réservée aux membres de PC[i] et aux étudiants ayant contribués (aux environs de Juillet 2022)
  - [ ] Déploiement de la première release (Première date de sortie espérée aux environs de début Aout 2022)
 
-Pour suivre l'avancer du projet dans les détails : [Roadmap en ligne d'Aster.ia.ds](https://pci.leria-etud.univ-angers.fr/aster.ia.ds/dev/).
+Pour suivre l'avancée du projet dans les détails : [Roadmap en ligne d'Aster.ia.ds](https://pci.leria-etud.univ-angers.fr/aster.ia.ds/dev/).
 
 ## Contribuer
 
@@ -103,7 +103,7 @@ N'hésitez surtout pas à venir participer à ce projet, toutes les informations
 
 ## Une question ❓
 
-N'hésite pas à envoyer un mail à contact@projetcohesion.info
+N'hésitez pas à envoyer un mail à contact@projetcohesion.info
 
 Ou [à venir nous voir](https://projetcohesion.info/a-propos/#bureau) dans le rez-de-chaussé du batiment H de l'UA. ( [GMap](https://www.google.com/maps/place/Facult%C3%A9+des+Sciences,+2+Bd+de+Lavoisier,+49000+Angers/@47.4805015,-0.6000928,17z/data=!3m1!4b1!4m5!3m4!1s0x48087f1bc2f35b47:0xe3ea8379948a1e65!8m2!3d47.4805015!4d-0.6000928) , [Plan du site](https://math.univ-angers.fr/wp-content/uploads/2018/08/plancampus.gif))
 
